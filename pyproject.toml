@@ -13,6 +13,7 @@ uvicorn = "^0.21.0"
 pydantic = "^1.10.6"
 peewee = "^3.16.0"
 psycopg2 = "^2.9.5"
+PyJWT = "^1.7.1"
 
 [build-system]
 requires = ["poetry-core"]

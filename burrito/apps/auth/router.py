@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .views import password_login, token_login
+from burrito.apps.auth.views import password_login, token_login
 
 auth_router = APIRouter()
 

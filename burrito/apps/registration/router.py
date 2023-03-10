@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .views import registration_main
+from burrito.apps.registration.views import registration_main
 
 registration_router = APIRouter()
 
