@@ -1,6 +1,14 @@
 
 from peewee import PostgresqlDatabase
-from peewee import Model, PrimaryKeyField, IntegerField, TextField, DateTimeField, SmallIntegerField, CharField
+from peewee import (
+    Model, PrimaryKeyField,
+    IntegerField, TextField,
+    DateTimeField, SmallIntegerField,
+    CharField, ForeignKeyField
+)
+
+from .tags_model import Tags
+from .statuses_model import Statuses
 
 
 
@@ -16,13 +24,14 @@ class Issues(Model):
     issuer_id = IntegerField()
     assignee_id = IntegerField()
 
-    subject = TextField()
+    subject = CharField(255)
     body = TextField()
     priority = SmallIntegerField()
 
-    status = CharField(10) # TODO: 
-
     creation_date = DateTimeField()
+
+    tag_id = ForeignKeyField(Tags, to_field="tag_id", on_delete="NO ACTION")
+    status_id = ForeignKeyField(Statuses, to_field="status_id", on_delete="NO ACTION")
 
 
     class Meta:
