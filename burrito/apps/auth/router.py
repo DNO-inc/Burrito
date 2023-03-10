@@ -1,9 +1,6 @@
-
 from fastapi import APIRouter
 
 from .views import password_login, token_login
-
-
 
 auth_router = APIRouter()
 

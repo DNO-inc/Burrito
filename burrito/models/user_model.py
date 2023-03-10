@@ -1,11 +1,8 @@
-
 from peewee import PostgresqlDatabase
 from peewee import Model, CharField, TextField, PrimaryKeyField, DateTimeField
 
-
-
 pg_users_db = PostgresqlDatabase(
-    "ramee",
+    "postgres",
     user="postgres", password="root",
     host="localhost", port=5432
 )
@@ -24,7 +21,5 @@ class Users(Model):
 
     registration_date = DateTimeField()
 
-
     class Meta:
         database = pg_users_db
-

@@ -1,8 +1,5 @@
-
 from peewee import PostgresqlDatabase
 from peewee import Model, PrimaryKeyField, IntegerField, TextField, DateTimeField, SmallIntegerField, CharField
-
-
 
 pg_issues_db = PostgresqlDatabase(
     "ramee",
@@ -20,11 +17,9 @@ class Issues(Model):
     body = TextField()
     priority = SmallIntegerField()
 
-    status = CharField(10) # TODO: 
+    status = CharField(10)
 
     creation_date = DateTimeField()
 
-
     class Meta:
         database = pg_issues_db
-
