@@ -1,13 +1,8 @@
-
 from peewee import PostgresqlDatabase
-from peewee import Model, CharField, TextField, PrimaryKeyField, DateTimeField, ForeignKeyField
-
-from .roles_model import Roles
-
-
+from peewee import Model, CharField, TextField, PrimaryKeyField, DateTimeField
 
 pg_users_db = PostgresqlDatabase(
-    "ramee",
+    "postgres",
     user="postgres", password="root",
     host="localhost", port=5432
 )
@@ -26,8 +21,5 @@ class Users(Model):
 
     registration_date = DateTimeField()
 
-    role_id = ForeignKeyField(Roles, to_field="role_id", on_delete="NO ACTION")
-
     class Meta:
         database = pg_users_db
-
