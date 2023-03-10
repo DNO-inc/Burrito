@@ -16,7 +16,7 @@ poetry shell
 ```
 5. Run app:
 ```bash
-python -m buritto
+python -m burrito
 ```
 
 P.S. Or you can configure everything in PyCharm.
