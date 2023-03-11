@@ -1,5 +1,8 @@
 from peewee import PostgresqlDatabase
-from peewee import Model, CharField, TextField, PrimaryKeyField, DateTimeField, ForeignKeyField
+from peewee import (
+    Model, CharField, TextField, PrimaryKeyField,
+    DateTimeField, ForeignKeyField, SmallIntegerField
+)
 
 from burrito.models.roles_model import Roles
 
