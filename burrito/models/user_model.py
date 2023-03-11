@@ -7,7 +7,7 @@ from peewee import (
 from burrito.models.roles_model import Roles
 
 pg_users_db = PostgresqlDatabase(
-    "postgres",
+    "ramee",
     user="postgres", password="root",
     host="localhost", port=5432
 )
@@ -27,6 +27,7 @@ class Users(Model):
     registration_date = DateTimeField()
 
     role_id = ForeignKeyField(Roles, to_field="role_id", on_delete="NO ACTION")
+
 
     class Meta:
         database = pg_users_db
