@@ -1,9 +1,12 @@
 
 import uvicorn
+import logging
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth.exceptions import AuthJWTException
+
+from burrito.utils.formatter_util import BurritoFormatter
 
 from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router
@@ -22,6 +25,23 @@ connect_app(app, "/registration", registration_router)
 connect_app(app, "/account", account_router)
 connect_app(app, "/auth", auth_router)
 
+# Creating Custom logger
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+
+# Creating console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+ch.setFormatter(BurritoFormatter())
+
+# Defining handler
+logger.addHandler(ch)
+
+logger.debug("debug message")
+logger.info("info message")
+logger.warning("warning message")
+logger.error("error message")
+logger.critical("critical message")
 
 @app.exception_handler(AuthJWTException)
 def authjwt_exception_handler(request: Request, exc: AuthJWTException):
