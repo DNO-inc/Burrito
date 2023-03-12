@@ -10,7 +10,7 @@ class BurritoFormatter(logging.Formatter):
     red = "\x1b[31;20m"
     magenta = "\u001b[35m"
     reset = "\x1b[0m"
-    format = "[ %(asctime)s ] | %(name)s logger | %(levelname)s:  %(message)s (%(filename)s:%(lineno)d)"
+    format = "[ %(asctime)s ] | %(name)s | %(levelname)s:  %(message)s (%(filename)s:%(lineno)d)"
 
     # Defining formats
     FORMATS = {
@@ -25,3 +25,16 @@ class BurritoFormatter(logging.Formatter):
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(log_fmt)
         return formatter.format(record)
+
+
+# Creating Custom logger
+logger = logging.getLogger("burrito")
+logger.setLevel(logging.DEBUG)
+
+# Creating console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.DEBUG)
+ch.setFormatter(BurritoFormatter())
+
+# Defining handler
+logger.addHandler(ch)
