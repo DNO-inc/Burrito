@@ -36,12 +36,6 @@ ch.setFormatter(BurritoFormatter())
 # Defining handler
 logger.addHandler(ch)
 
-logger.debug("debug message")
-logger.info("info message")
-logger.warning("warning message")
-logger.error("error message")
-logger.critical("critical message")
-
 
 @app.exception_handler(AuthJWTException)
 def authjwt_exception_handler(request: Request, exc: AuthJWTException):
