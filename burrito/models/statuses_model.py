@@ -1,11 +1,6 @@
-from peewee import PostgresqlDatabase
 from peewee import Model, PrimaryKeyField, CharField
 
-pg_statuses_db = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+from burrito.utils.db_cursor_object import postgresql_cursor
 
 
 class Statuses(Model):
@@ -13,4 +8,4 @@ class Statuses(Model):
     name = CharField(10)
 
     class Meta:
-        database = pg_statuses_db
+        database = postgresql_cursor

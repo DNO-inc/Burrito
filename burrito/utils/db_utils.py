@@ -1,32 +1,44 @@
-from peewee import DoesNotExist
+from burrito.models.issues_model import Issues
+from burrito.models.roles_model import Roles
+from burrito.models.statuses_model import Statuses
+from burrito.models.tags_model import Tags
+from burrito.models.user_model import Users
 
-from burrito.models.issues_model import pg_issues_db, Issues
-from burrito.models.roles_model import pg_roles_db, Roles
-from burrito.models.statuses_model import pg_statuses_db, Statuses
-from burrito.models.tags_model import pg_tags_db, Tags
-from burrito.models.user_model import pg_users_db, Users
+from burrito.models.actions_model import Actions
+from burrito.models.action_types_model import ActionTypes
+from burrito.models.notifications_model import Notifications
+from burrito.models.subscriptions_model import Subscriptions
+
+from burrito.utils.db_cursor_object import postgresql_cursor
 
 
 def create_tables():
-    pg_roles_db.create_tables((Roles,))
-    pg_tags_db.create_tables((Tags,))
-    pg_statuses_db.create_tables((Statuses,))
+    """Create all tables using models in burrito/models"""
 
-    pg_issues_db.create_tables((Issues,))
-    pg_users_db.create_tables((Users,))
+    postgresql_cursor.create_tables(
+        (
+            Roles, Tags, Statuses,
+            Issues, Users, ActionTypes,
+            Subscriptions, Actions, Notifications
+        )
+    )
 
 
 def create_user(login: str, hashed_password: str) -> bool:
+    """Create user with default fields: (login, hashed_password)"""
+
     try:
         Users.create(login=login, hashed_password=hashed_password)
     except Exception as e:
-        return False # TODO: write error to log-file
+        return False
 
     return True
 
 
 def get_user_by_login(login: str) -> Users | bool:
+    """Get user if exist or return False"""
+
     try:
         return Users.get(Users.login == login)
-    except:
+    except Exception as e:
         return False

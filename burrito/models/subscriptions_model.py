@@ -1,20 +1,19 @@
-from peewee import PostgresqlDatabase
-from peewee import Model, PrimaryKeyField, SmallIntegerField
+from peewee import Model, PrimaryKeyField, ForeignKeyField
 
-from .user_model import Users
-from .issues_model import Issues
+from burrito.models.user_model import Users
+from burrito.models.issues_model import Issues
 
-pg_subscriptions_db = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+from burrito.utils.db_cursor_object import postgresql_cursor
 
 
 class Subscriptions(Model):
     subscription_id = PrimaryKeyField()
-    issue_id = SmallIntegerField()
-    user_id = SmallIntegerField()
+    issue_id = ForeignKeyField(
+        Issues,
+        to_field="issue_id",
+        on_delete="NO ACTION"
+    )
+    user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
 
     class Meta:
-        database = pg_subscriptions_db
+        database = postgresql_cursor
