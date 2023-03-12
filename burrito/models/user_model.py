@@ -1,18 +1,13 @@
 import datetime
 
-from peewee import PostgresqlDatabase
 from peewee import (
     Model, CharField, TextField, PrimaryKeyField,
-    DateTimeField, ForeignKeyField, SmallIntegerField
+    DateTimeField, ForeignKeyField
 )
 
 from burrito.models.roles_model import Roles
 
-pg_users_db = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+from burrito.utils.db_cursor_object import postgresql_cursor
 
 
 class Users(Model):
@@ -28,8 +23,12 @@ class Users(Model):
 
     registration_date = DateTimeField(default=datetime.datetime.now)
 
-    role_id = ForeignKeyField(Roles, to_field="role_id", on_delete="NO ACTION", null=True)
-
+    role_id = ForeignKeyField(
+        Roles,
+        to_field="role_id",
+        on_delete="NO ACTION",
+        null=True
+    )
 
     class Meta:
-        database = pg_users_db
+        database = postgresql_cursor

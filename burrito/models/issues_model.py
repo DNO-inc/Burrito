@@ -1,4 +1,3 @@
-from peewee import PostgresqlDatabase
 from peewee import (
     Model, PrimaryKeyField,
     IntegerField, TextField,
@@ -9,11 +8,7 @@ from peewee import (
 from burrito.models.tags_model import Tags
 from burrito.models.statuses_model import Statuses
 
-pg_issues_db = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+from burrito.utils.db_cursor_object import postgresql_cursor
 
 
 class Issues(Model):
@@ -28,7 +23,11 @@ class Issues(Model):
     creation_date = DateTimeField()
 
     tag_id = ForeignKeyField(Tags, to_field="tag_id", on_delete="NO ACTION")
-    status_id = ForeignKeyField(Statuses, to_field="status_id", on_delete="NO ACTION")
+    status_id = ForeignKeyField(
+        Statuses,
+        to_field="status_id",
+        on_delete="NO ACTION"
+    )
 
     class Meta:
-        database = pg_issues_db
+        database = postgresql_cursor
