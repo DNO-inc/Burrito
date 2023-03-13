@@ -8,7 +8,7 @@ from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router
 
 from burrito.apps.auth.router import auth_router
-from burrito.apps.account.router import account_router
+from burrito.apps.profile.router import profile_router
 
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app
@@ -18,7 +18,7 @@ create_tables()
 app = FastAPI()
 connect_app(app, "/about", about_router)
 connect_app(app, "/registration", registration_router)
-connect_app(app, "/account", account_router)
+connect_app(app, "/profile", profile_router)
 connect_app(app, "/auth", auth_router)
 
 
