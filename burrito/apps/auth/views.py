@@ -23,7 +23,7 @@ def password_login(user_login_data: UserPasswordLoginSchema, Authorize: AuthJWT 
     if user:
         # if user login exist we can compare password and hashed password
 
-        if compare_password(user_login_data.password, user.hashed_password):
+        if compare_password(user_login_data.password, user.password):
             access_token = Authorize.create_access_token(
                 subject=user_login_data.login
             )

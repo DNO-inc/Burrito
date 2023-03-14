@@ -17,6 +17,11 @@ poetry shell
 5. Run app:
 ```bash
 python -m burrito
+
+```
+6. Run tests:
+```bash
+python tests/run_tests.py
 ```
 
 P.S. Or you can configure everything in PyCharm.
