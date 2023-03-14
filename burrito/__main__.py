@@ -10,6 +10,8 @@ from burrito.apps.about.router import about_router
 from burrito.apps.auth.router import auth_router
 from burrito.apps.profile.router import profile_router
 
+from burrito.apps.reports.router import reports_router
+
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app
 
@@ -20,6 +22,7 @@ connect_app(app, "/about", about_router)
 connect_app(app, "/registration", registration_router)
 connect_app(app, "/profile", profile_router)
 connect_app(app, "/auth", auth_router)
+connect_app(app, "/reports", reports_router)
 
 
 @app.exception_handler(AuthJWTException)
