@@ -26,7 +26,7 @@ class Actions(Model):
         on_delete="NO ACTION"
     )
 
-    action_data = DateTimeField(default=datetime.datetime.now)
+    action_date = DateTimeField(default=datetime.datetime.now)
     body = TextField()
 
     class Meta:
