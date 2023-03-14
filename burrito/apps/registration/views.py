@@ -5,9 +5,9 @@ from burrito.utils.db_utils import create_user, get_user_by_login
 
 
 async def registration_main(user_data: UserPasswordLoginSchema):
-    current_user: Users | bool = get_user_by_login(user_data.login)
+    """Handle user registration"""
 
-    if (current_user):
+    if (get_user_by_login(user_data.login)):
         return {"detail": "User user with the same login exist."}
 
     user_creation_status = create_user(

@@ -12,6 +12,7 @@ from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
 from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.logger import logger
 
 
 def create_tables():
@@ -25,6 +26,25 @@ def create_tables():
             Groups, Faculties
         )
     )
+    logger.info("All tables was created")
+
+
+def drop_tables(use: bool = False):
+    """Drop all tables in database"""
+
+    if not use:
+        return
+
+    postgresql_cursor.drop_tables(
+        (
+            Roles, Tags, Statuses,
+            Issues, Users, ActionTypes,
+            Subscriptions, Actions, Notifications,
+            Groups, Faculties
+        )
+    )
+    logger.warning("All tables was dropped")
+
 
 
 def create_user(login: str, hashed_password: str) -> bool:
@@ -33,6 +53,7 @@ def create_user(login: str, hashed_password: str) -> bool:
     try:
         Users.create(login=login, password=hashed_password)
     except Exception as e:
+        logger.error(str(e))
         return False
 
     return True

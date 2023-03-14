@@ -19,8 +19,18 @@ class Users(Model):
 
     login = CharField(25)
 
-    faculty_id = ForeignKeyField(Faculties, to_field="faculty_id", on_delete="NO ACTION")
-    group_id = ForeignKeyField(Groups, to_field="group_id", on_delete="NO ACTION")
+    faculty_id = ForeignKeyField(
+        Faculties,
+        to_field="faculty_id",
+        on_delete="NO ACTION",
+        null=True
+    )
+    group_id = ForeignKeyField(
+        Groups,
+        to_field="group_id",
+        on_delete="NO ACTION",
+        null=True
+    )
 
     password = TextField()
 
