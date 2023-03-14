@@ -3,6 +3,8 @@ from burrito.models.roles_model import Roles
 from burrito.models.statuses_model import Statuses
 from burrito.models.tags_model import Tags
 from burrito.models.user_model import Users
+from burrito.models.faculty_model import Faculties
+from burrito.models.group_model import Groups
 
 from burrito.models.actions_model import Actions
 from burrito.models.action_types_model import ActionTypes
@@ -19,7 +21,8 @@ def create_tables():
         (
             Roles, Tags, Statuses,
             Issues, Users, ActionTypes,
-            Subscriptions, Actions, Notifications
+            Subscriptions, Actions, Notifications,
+            Groups, Faculties
         )
     )
 
@@ -28,7 +31,7 @@ def create_user(login: str, hashed_password: str) -> bool:
     """Create user with default fields: (login, hashed_password)"""
 
     try:
-        Users.create(login=login, hashed_password=hashed_password)
+        Users.create(login=login, password=hashed_password)
     except Exception as e:
         return False
 

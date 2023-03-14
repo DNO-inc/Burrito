@@ -2,7 +2,7 @@ import datetime
 
 from peewee import (
     Model, CharField, TextField, PrimaryKeyField,
-    DateTimeField, ForeignKeyField, IntegerField
+    DateTimeField, ForeignKeyField
 )
 
 from burrito.models.roles_model import Roles
