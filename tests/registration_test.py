@@ -3,10 +3,7 @@ import random
 import unittest
 import requests
 
-from unittest_prettify.colorize import colorize, GREEN
 
-
-@colorize(color=GREEN)
 class RegistrationTestCase(unittest.TestCase):
     """
         This case, test what will be happened if user trying
