@@ -21,8 +21,11 @@ class PostgresqlCursor(PostgresqlDatabase):
         super().__init__(database, **kwargs)
 
 
-postgresql_cursor = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+def get_database_cursor() -> PostgresqlDatabase:
+    """Create data base cursor"""
+
+    return PostgresqlDatabase(
+        "ramee",
+        user="postgres", password="root",
+        host="localhost", port=5432
+    )

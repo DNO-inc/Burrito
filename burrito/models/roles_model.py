@@ -1,6 +1,6 @@
 from peewee import Model, PrimaryKeyField, CharField
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Roles(Model):
@@ -8,4 +8,4 @@ class Roles(Model):
     name = CharField(32)
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()

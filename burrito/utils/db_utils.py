@@ -11,14 +11,14 @@ from burrito.models.action_types_model import ActionTypes
 from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import logger
 
 
 def create_tables():
     """Create all tables using models in burrito/models"""
 
-    postgresql_cursor.create_tables(
+    get_database_cursor().create_tables(
         (
             Roles, Tags, Statuses,
             Issues, Users, ActionTypes,
@@ -35,7 +35,7 @@ def drop_tables(use: bool = False):
     if not use:
         return
 
-    postgresql_cursor.drop_tables(
+    get_database_cursor().drop_tables(
         (
             Roles, Tags, Statuses,
             Issues, Users, ActionTypes,

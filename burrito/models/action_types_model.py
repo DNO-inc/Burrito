@@ -2,7 +2,7 @@ from peewee import (
     Model, CharField, PrimaryKeyField
 )
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class ActionTypes(Model):
@@ -10,4 +10,4 @@ class ActionTypes(Model):
     name = CharField(255)
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()

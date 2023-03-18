@@ -1,9 +1,12 @@
 import unittest
 import requests
 
+from unittest_prettify.colorize import colorize, RED
+
 from auth_test import AuthTestCase
 
 
+@colorize(color=RED)
 class ProfileTestCase(unittest.TestCase):
     def test_view_profile_without_auth(self):
         """Recv profile data in JSON format"""

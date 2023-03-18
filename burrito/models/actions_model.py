@@ -9,7 +9,7 @@ from burrito.models.issues_model import Issues
 from burrito.models.user_model import Users
 from burrito.models.action_types_model import ActionTypes
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Actions(Model):
@@ -30,4 +30,4 @@ class Actions(Model):
     body = TextField()
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()
