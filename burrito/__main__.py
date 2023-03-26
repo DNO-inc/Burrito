@@ -1,3 +1,4 @@
+import asyncio
 import uvicorn
 
 from fastapi import FastAPI, Request
@@ -31,6 +32,10 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
         status_code=exc.status_code,
         content={"detail": exc.message}
     )
+
+
+loop = asyncio.new_event_loop()  # use for sending email
+asyncio.set_event_loop(loop)
 
 
 if __name__ == "__main__":
