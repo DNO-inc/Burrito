@@ -15,6 +15,10 @@ from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import logger
 
 
+def setup_database():
+    """Setup database. Insert base roles, etc"""
+
+
 def create_tables():
     """Create all tables using models in burrito/models"""
 
@@ -44,7 +48,6 @@ def drop_tables(use: bool = False):
         )
     )
     logger.warning("All tables was dropped")
-
 
 
 def create_user(login: str, hashed_password: str) -> bool:

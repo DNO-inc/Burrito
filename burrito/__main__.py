@@ -1,4 +1,3 @@
-import asyncio
 import uvicorn
 
 from fastapi import FastAPI, Request
@@ -15,6 +14,9 @@ from burrito.apps.reports.router import reports_router
 
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app
+from burrito.utils.db_backup_util import backup_cycle
+from burrito.utils.task_manager import get_async_manager
+from burrito.utils.logger import logger
 
 create_tables()
 
@@ -34,8 +36,15 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
     )
 
 
-loop = asyncio.new_event_loop()  # use for sending email
-asyncio.set_event_loop(loop)
+@app.on_event("startup")
+async def startup_event():
+    """Setup task when when server is started"""
+
+    task_manager = get_async_manager()
+    task_manager.add_task(backup_cycle())
+    task_manager.run()
+
+    logger.info("All tasks was started")
 
 
 if __name__ == "__main__":
