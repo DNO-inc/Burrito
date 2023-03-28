@@ -10,6 +10,7 @@ import asyncio
 import aioschedule as schedule
 
 from burrito.utils.logger import logger
+from burrito.utils.task_manager import get_async_manager
 
 
 async def do_database_backup():
@@ -32,7 +33,6 @@ async def backup_cycle(delta_time: int = 1):
     logger.info(f"Run backup cycle (timeout {delta_time})")
     setup_scheduler()
 
-    loop = asyncio.get_running_loop()
     while True:
-        await loop.create_task(schedule.run_pending())
+        await get_async_manager().loop.create_task(schedule.run_pending())
         await asyncio.sleep(delta_time)
