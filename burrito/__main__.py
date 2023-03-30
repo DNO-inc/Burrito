@@ -1,6 +1,7 @@
-"""@package docstring
+"""_summary_
 
-Documentation for this module. More details.
+Main Burrito file, that run REST API service and run all tasks,
+needed for Burrito functionality.
 
 """
 

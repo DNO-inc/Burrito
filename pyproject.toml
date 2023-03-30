@@ -21,6 +21,7 @@ starlette = "^0.26.1"
 typing-extensions = "^4.5.0"
 uvicorn = "^0.21.1"
 aioschedule = "^0.5.2"
+distro = "^1.8.0"
 
 [build-system]
 requires = ["poetry-core"]
