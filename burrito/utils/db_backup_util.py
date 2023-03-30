@@ -5,7 +5,7 @@
 
 
 import asyncio
-#import subprocess
+# import subprocess
 
 import aioschedule as schedule
 
@@ -13,22 +13,34 @@ from burrito.utils.logger import logger
 from burrito.utils.task_manager import get_async_manager
 
 
-async def do_database_backup():
-    """Run backup command"""
+async def do_database_backup() -> None:
+    """_summary_
+
+        Run backup command
+    """
 
 #    subprocess.call("ls")
     logger.info("Database backup was created")
 
 
 def setup_scheduler():
-    """Connect tasks to scheduler"""
+    """_summary_
+
+        Connect tasks to scheduler
+    """
 
     schedule.every(1).seconds.do(do_database_backup)
 #    schedule.every().day.at("00:00").do(do_database_backup)
 
 
 async def backup_cycle(delta_time: int = 1):
-    """Main scheduler cycle"""
+    """_summary_
+
+    Main scheduler cycle
+
+    Args:
+        delta_time (int, optional): cycle timeout. Defaults to 1.
+    """
 
     logger.info(f"Run backup cycle (timeout {delta_time})")
     setup_scheduler()

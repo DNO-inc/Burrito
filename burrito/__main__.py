@@ -1,8 +1,10 @@
-import uvicorn
+"""@package docstring
 
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
-from fastapi_jwt_auth.exceptions import AuthJWTException
+Documentation for this module. More details.
+
+"""
+
+import uvicorn
 
 from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router

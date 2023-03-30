@@ -1,6 +1,18 @@
 
-def singleton(class_):
-    """Singleton decorator"""
+from typing import Any
+
+
+def singleton(class_) -> Any:
+    """_summary_
+
+    Singleton decorator
+
+    Args:
+        class_ (_type_): class_
+
+    Returns:
+        _type_: return single class instance
+    """
 
     class_instance = {}
 

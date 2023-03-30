@@ -22,6 +22,17 @@ class BurritoFormatter(logging.Formatter):
     }
 
     def format(self, record):
+        """_summary_
+
+        Setup logger format
+
+        Args:
+            record (_type_): _description_
+
+        Returns:
+            str: logger format
+        """
+
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(log_fmt)
         return formatter.format(record)

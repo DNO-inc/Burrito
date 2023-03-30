@@ -16,11 +16,17 @@ from burrito.utils.logger import logger
 
 
 def setup_database():
-    """Setup database. Insert base roles, etc"""
+    """_summary_
+
+    Setup database. Insert base roles, etc
+    """
 
 
 def create_tables():
-    """Create all tables using models in burrito/models"""
+    """_summary_
+
+    Create all tables using models in burrito/models
+    """
 
     get_database_cursor().create_tables(
         (
@@ -34,7 +40,13 @@ def create_tables():
 
 
 def drop_tables(use: bool = False):
-    """Drop all tables in database"""
+    """_summary_
+
+    Drop all tables in database
+
+    Args:
+        use (bool, optional): To confirm the reset of the table . Defaults to False.
+    """
 
     if not use:
         return
@@ -51,7 +63,17 @@ def drop_tables(use: bool = False):
 
 
 def create_user(login: str, hashed_password: str) -> bool:
-    """Create user with default fields: (login, hashed_password)"""
+    """_summary_
+
+    Create user with default fields: (login, hashed_password)
+
+    Args:
+        login (str): user login
+        hashed_password (str): user hashed password
+
+    Returns:
+        bool: status creating new user
+    """
 
     try:
         Users.create(login=login, password=hashed_password)
@@ -63,7 +85,16 @@ def create_user(login: str, hashed_password: str) -> bool:
 
 
 def get_user_by_login(login: str) -> Users | bool:
-    """Get user if exist or return False"""
+    """_summary_
+
+    Get user if exist or return False
+
+    Args:
+        login (str): user login
+
+    Returns:
+        Users | bool: return False if user is not exist
+    """
 
     try:
         return Users.get(Users.login == login)

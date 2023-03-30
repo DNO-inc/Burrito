@@ -10,7 +10,13 @@ class PostgresqlCursor(PostgresqlDatabase):
 
 
 def get_database_cursor() -> PostgresqlDatabase:
-    """Create data base cursor"""
+    """_summary_
+
+    Create data base cursor
+
+    Returns:
+        PostgresqlDatabase: current database cursor
+    """
 
     return PostgresqlDatabase(
         "ramee",

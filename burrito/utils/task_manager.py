@@ -1,5 +1,5 @@
 """
-    Async manager for task management
+    Async manager for task management, create or get running event cycle.
 
 """
 
@@ -13,12 +13,24 @@ from burrito.utils.logger import logger
 @singleton
 class __TaskManager:
     def __init__(self) -> None:
+        """_summary_
+
+            Initialization event loop fot current thread
+
+        """
+
         self.__loop = self.__get_running_loop()
 
         asyncio.set_event_loop(self.__loop)
 
     def __get_running_loop(self) -> asyncio.AbstractEventLoop:
-        """Create or return running event loop"""
+        """_summary_
+
+        Create or return running event loop
+
+        Returns:
+            asyncio.AbstractEventLoop: event loop object
+        """
 
         try:
             return asyncio.get_running_loop()
@@ -33,17 +45,36 @@ class __TaskManager:
 
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
-        """Return instance of asynchronous event loop"""
+        """_summary_
+
+        Return instance of asynchronous event loop
+
+        Returns:
+            asyncio.AbstractEventLoop: event loop object
+        """
 
         return self.__loop
 
     def add_task(self, coro) -> None:
-        """Add task to execute in event loop"""
+        """_summary_
+
+        Add task to execute in event loop
+
+        Args:
+            coro (_type_): coroutine object
+        """
 
         self.__loop.create_task(coro)
 
     def run(self, *, forever: bool = True) -> None:
-        """Run current event loop forever"""
+        """_summary_
+
+        Run current event loop forever
+
+        Args:
+            forever (bool, optional):
+                If this option is True cycle run forever else until complite. Defaults to True.
+        """
 
         if self.__loop.is_running:  # exit function if loop is running
             return
@@ -58,12 +89,21 @@ class __TaskManager:
             )
 
     def stop(self):
-        """Stop running event loop"""
+        """_summary_
+
+        Stop running event loop
+        """
 
         self.__loop.stop()
 
 
 def get_async_manager() -> __TaskManager:
-    """Interface to get access to AsyncManager"""
+    """_summary_
+
+    Interface to get access to AsyncManager
+
+    Returns:
+        __TaskManager: task manager object
+    """
 
     return __TaskManager()
