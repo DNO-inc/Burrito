@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notifications_5fmodel_186',['notifications_model',['../namespacenotifications__model.html',1,'']]]
+  ['notifications_5fmodel_187',['notifications_model',['../namespacenotifications__model.html',1,'']]]
 ];
