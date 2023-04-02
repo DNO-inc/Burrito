@@ -7,7 +7,7 @@ import asyncio
 import sys
 
 from burrito.utils.singleton_pattern import singleton
-from burrito.utils.logger import logger
+from burrito.utils.logger import get_logger
 
 
 @singleton
@@ -39,8 +39,8 @@ class __TaskManager:
             return asyncio.new_event_loop()
 
         except Exception as e:
-            logger.critical(f"Unexpected error {e}")
-            logger.info("Exit program")
+            get_logger().critical(f"Unexpected error {e}")
+            get_logger().info("Exit program")
             sys.exit(1)
 
     @property

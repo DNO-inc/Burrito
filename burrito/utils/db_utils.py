@@ -12,7 +12,7 @@ from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
 from burrito.utils.db_cursor_object import get_database_cursor
-from burrito.utils.logger import logger
+from burrito.utils.logger import get_logger
 
 
 def setup_database():
@@ -36,7 +36,7 @@ def create_tables():
             Groups, Faculties
         )
     )
-    logger.info("All tables was created")
+    get_logger().info("All tables was created")
 
 
 def drop_tables(use: bool = False):
@@ -59,7 +59,7 @@ def drop_tables(use: bool = False):
             Groups, Faculties
         )
     )
-    logger.warning("All tables was dropped")
+    get_logger().warning("All tables was dropped")
 
 
 def create_user(login: str, hashed_password: str) -> bool:
@@ -78,7 +78,7 @@ def create_user(login: str, hashed_password: str) -> bool:
     try:
         Users.create(login=login, password=hashed_password)
     except Exception as e:
-        logger.error(str(e))
+        get_logger().error(str(e))
         return False
 
     return True

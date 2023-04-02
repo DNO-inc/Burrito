@@ -5,7 +5,7 @@ from fastapi_jwt_auth.exceptions import AuthJWTException
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.db_backup_util import backup_cycle
 from burrito.utils.task_manager import get_async_manager
-from burrito.utils.logger import logger
+from burrito.utils.logger import get_logger
 
 
 @singleton
@@ -46,7 +46,7 @@ async def startup_event():
     task_manager.add_task(backup_cycle())
     task_manager.run()
 
-    logger.info("All tasks was started")
+    get_logger().info("All tasks was started")
 
 
 async def authjwt_exception_handler(request: Request, exc: AuthJWTException) -> JSONResponse:
