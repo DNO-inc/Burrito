@@ -1,5 +1,7 @@
 import logging
 
+from burrito.utils.singleton_pattern import singleton
+
 
 # Creating custom Formatter
 class BurritoFormatter(logging.Formatter):
@@ -22,19 +24,50 @@ class BurritoFormatter(logging.Formatter):
     }
 
     def format(self, record):
+        """_summary_
+
+        Setup logger format
+
+        Args:
+            record (_type_): _description_
+
+        Returns:
+            str: logger format
+        """
+
         log_fmt = self.FORMATS.get(record.levelno)
         formatter = logging.Formatter(log_fmt)
         return formatter.format(record)
 
 
-# Creating Custom logger
-logger = logging.getLogger("burrito")
-logger.setLevel(logging.DEBUG)
+@singleton
+class BurritoLogger(logging.Logger):
+    def __init__(self, name: str, level: int) -> None:
+        """_summary_
 
-# Creating console handler with a higher log level
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-ch.setFormatter(BurritoFormatter())
+        Args:
+            name (str): logger name
+            level (int): logging level
+        """
 
-# Defining handler
-logger.addHandler(ch)
+        super().__init__(name, level)
+
+        # Creating console handler with a higher log level
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+        ch.setFormatter(BurritoFormatter())
+
+        self.addHandler(ch)
+
+
+def get_logger(level: int = logging.DEBUG) -> BurritoLogger:
+    """_summary_
+
+    Args:
+        level (int, optional): logging level. Defaults to logging.DEBUG.
+
+    Returns:
+        BurritoLogger: logger object
+    """
+
+    return BurritoLogger("burrito", level)

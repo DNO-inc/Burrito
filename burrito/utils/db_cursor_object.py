@@ -1,18 +1,6 @@
 from peewee import PostgresqlDatabase
 
-
-def singleton(class_):
-    """Singleton decorator"""
-
-    class_instance = {}
-
-    def get_class_instance(*args, **kwargs):
-        if class_ not in class_instance:
-            class_instance[class_] = class_(*args, **kwargs)
-
-        return class_instance[class_]
-
-    return get_class_instance
+from burrito.utils.singleton_pattern import singleton
 
 
 @singleton
@@ -21,8 +9,17 @@ class PostgresqlCursor(PostgresqlDatabase):
         super().__init__(database, **kwargs)
 
 
-postgresql_cursor = PostgresqlDatabase(
-    "ramee",
-    user="postgres", password="root",
-    host="localhost", port=5432
-)
+def get_database_cursor() -> PostgresqlDatabase:
+    """_summary_
+
+    Create data base cursor
+
+    Returns:
+        PostgresqlDatabase: current database cursor
+    """
+
+    return PostgresqlDatabase(
+        "ramee",
+        user="postgres", password="root",
+        host="localhost", port=5432
+    )

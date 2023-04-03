@@ -9,7 +9,7 @@ from burrito.models.roles_model import Roles
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Users(Model):
@@ -47,4 +47,4 @@ class Users(Model):
     )
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()

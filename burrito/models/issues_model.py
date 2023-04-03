@@ -9,7 +9,7 @@ from peewee import (
 from burrito.models.tags_model import Tags
 from burrito.models.statuses_model import Statuses
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Issues(Model):
@@ -34,4 +34,4 @@ class Issues(Model):
     )
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()

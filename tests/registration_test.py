@@ -30,7 +30,7 @@ class RegistrationTestCase(unittest.TestCase):
         self.assertEqual(response.json().get("code"), "successfully")
 
     def test_do_registration_with_the_same_login(self):
-        """Test case when users try to login with the existent login"""
+        """Test case when users try to register with the existent login"""
 
         response = requests.post(
            "http://127.0.0.1:8080/registration",

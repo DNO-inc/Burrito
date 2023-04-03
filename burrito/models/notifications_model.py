@@ -6,7 +6,7 @@ from peewee import (
 from burrito.models.actions_model import Actions
 from burrito.models.user_model import Users
 
-from burrito.utils.db_cursor_object import postgresql_cursor
+from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Notifications(Model):
@@ -20,4 +20,4 @@ class Notifications(Model):
     read = BooleanField(default=False)
 
     class Meta:
-        database = postgresql_cursor
+        database = get_database_cursor()
