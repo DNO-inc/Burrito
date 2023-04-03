@@ -73,7 +73,7 @@ class __TaskManager:
 
         Args:
             forever (bool, optional):
-                If this option is True cycle run forever else until complite. Defaults to True.
+                If this option is True cycle run forever else until complete. Defaults to True.
         """
 
         if self.__loop.is_running:  # exit function if loop is running
