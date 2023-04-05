@@ -15,7 +15,7 @@ class RegistrationTestCase(unittest.TestCase):
         """Generate random login and password"""
 
         cls.random_login = "".join(random.sample(string.ascii_letters, 5))
-        cls.random_password = "".join(random.sample(string.ascii_letters, 5))
+        cls.random_password = "".join(random.sample(string.ascii_letters, 8))
 
     def test_do_registration(self):
         """Make registration"""
@@ -39,4 +39,4 @@ class RegistrationTestCase(unittest.TestCase):
                 "password": RegistrationTestCase.random_password
             }
         )
-        self.assertEqual(response.json().get("detail"), "User user with the same login exist.")
+        self.assertEqual(response.json().get("detail"), "User with the same login exist.")
