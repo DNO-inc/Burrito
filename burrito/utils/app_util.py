@@ -59,6 +59,16 @@ async def startup_event():
     task_manager.add_task(backup_cycle())
     task_manager.add_task(get_pubsub_manager().run())
 
+
+    def test1():
+        print("test1")
+
+    async def test2():
+        print("test2")
+
+    get_pubsub_manager().add_callback("test1", test1)
+    get_pubsub_manager().add_callback("test2", test2)
+
     task_manager.run()
 
     get_logger().info("All tasks was started")
