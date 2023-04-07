@@ -38,7 +38,7 @@ class BurritoRedis(aioredis.Redis):
     async def put_user_login_data(self, user: UserPasswordLoginSchema) -> str:
         """_summary_
 
-        Put user data into redis storage if users is not registered in system
+        Put user data into redis storage
 
         Args:
             user (UserPasswordLoginSchema): users data

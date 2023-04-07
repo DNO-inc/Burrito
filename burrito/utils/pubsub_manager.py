@@ -7,6 +7,9 @@ from burrito.utils.singleton_pattern import singleton
 from burrito.utils.redis_utils import get_redis_cursor
 
 
+PUBSUB_CYCLE_TIMEOUT = 0.1
+
+
 @singleton
 class PubSubManager:
     def __init__(self) -> None:
@@ -57,9 +60,7 @@ class PubSubManager:
                     else:
                         callback()
 
-                    print(channel, data)
-
-            await asyncio.sleep(0.1)
+            await asyncio.sleep(PUBSUB_CYCLE_TIMEOUT)
 
 
 def get_pubsub_manager() -> PubSubManager:

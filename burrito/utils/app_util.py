@@ -1,7 +1,7 @@
 from fastapi import FastAPI, APIRouter, Request
 from fastapi.responses import JSONResponse
-from fastapi_jwt_auth.exceptions import AuthJWTException
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.db_backup_util import backup_cycle
@@ -58,7 +58,6 @@ async def startup_event():
     task_manager = get_async_manager()
     task_manager.add_task(backup_cycle())
     task_manager.add_task(get_pubsub_manager().run())
-
 
     def test1():
         print("test1")
