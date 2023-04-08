@@ -30,11 +30,10 @@ def password_login(user_login_data: UserPasswordLoginSchema, Authorize: AuthJWT 
 
             return {"access_token": access_token}
 
-        else:
-            raise HTTPException(
-                status_code=401,
-                detail="Password is incorrect"
-            )
+        raise HTTPException(
+            status_code=401,
+            detail="Password is incorrect"
+        )
 
     raise HTTPException(status_code=401, detail="Login is not exist")
 

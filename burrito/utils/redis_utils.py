@@ -1,5 +1,6 @@
-import aioredis
 import json
+
+import aioredis
 
 from burrito.utils.singleton_pattern import singleton
 

@@ -31,4 +31,3 @@ async def followed(Authorize: AuthJWT = Depends()):
 async def create_new_report(Authorize: AuthJWT = Depends()):
     """Create report"""
     Authorize.jwt_required()
-
