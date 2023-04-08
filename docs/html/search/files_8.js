@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notifications_5fmodel_2epy_213',['notifications_model.py',['../notifications__model_8py.html',1,'']]]
+  ['logger_2epy_269',['logger.py',['../logger_8py.html',1,'']]]
 ];

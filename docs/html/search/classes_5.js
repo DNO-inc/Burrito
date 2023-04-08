@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['issues_163',['Issues',['../classissues__model_1_1Issues.html',1,'issues_model']]]
+  ['groups_205',['Groups',['../classgroup__model_1_1Groups.html',1,'group_model']]]
 ];

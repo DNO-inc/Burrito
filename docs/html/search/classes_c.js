@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['updateprofileschema_171',['UpdateProfileSchema',['../classprofile__schema_1_1UpdateProfileSchema.html',1,'profile_schema']]],
-  ['userpasswordloginschema_172',['UserPasswordLoginSchema',['../classuser__schema_1_1UserPasswordLoginSchema.html',1,'user_schema']]],
-  ['users_173',['Users',['../classuser__model_1_1Users.html',1,'user_model']]]
+  ['tags_216',['Tags',['../classtags__model_1_1Tags.html',1,'tags_model']]],
+  ['tickets_217',['Tickets',['../classtickets__model_1_1Tickets.html',1,'tickets_model']]]
 ];

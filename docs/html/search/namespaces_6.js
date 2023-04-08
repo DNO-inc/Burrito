@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['issues_5fmodel_185',['issues_model',['../namespaceissues__model.html',1,'']]]
+  ['group_5fmodel_233',['group_model',['../namespacegroup__model.html',1,'']]]
 ];

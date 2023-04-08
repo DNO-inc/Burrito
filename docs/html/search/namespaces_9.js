@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['profile_5fschema_188',['profile_schema',['../namespaceprofile__schema.html',1,'']]]
+  ['notifications_5fmodel_236',['notifications_model',['../namespacenotifications__model.html',1,'']]]
 ];

@@ -115,7 +115,7 @@ $(document).ready(function(){initNavTree('namespacelogger.html',''); initResizab
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">logger Namespace Reference</div>  </div>
 </div><!--header-->
@@ -125,41 +125,38 @@ $(document).ready(function(){initNavTree('namespacelogger.html',''); initResizab
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlogger_1_1BurritoFormatter.html">BurritoFormatter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlogger_1_1BurritoLogger.html">BurritoLogger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a0b14e488ae28d98d262453f3e9cd6e4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelogger.html#a0b14e488ae28d98d262453f3e9cd6e4d">logger</a> = logging.getLogger(&quot;burrito&quot;)</td></tr>
-<tr class="separator:a0b14e488ae28d98d262453f3e9cd6e4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a406be6ce6b0a2c4a450108496228bd6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelogger.html#a406be6ce6b0a2c4a450108496228bd6d">ch</a> = logging.StreamHandler()</td></tr>
-<tr class="separator:a406be6ce6b0a2c4a450108496228bd6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae327c5eaa5a908b89fa2afe549ac0a5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classlogger_1_1BurritoLogger.html">BurritoLogger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelogger.html#ae327c5eaa5a908b89fa2afe549ac0a5c">get_logger</a> (int level=logging.DEBUG)</td></tr>
+<tr class="separator:ae327c5eaa5a908b89fa2afe549ac0a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a406be6ce6b0a2c4a450108496228bd6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a406be6ce6b0a2c4a450108496228bd6d">&#9670;&nbsp;</a></span>ch</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae327c5eaa5a908b89fa2afe549ac0a5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae327c5eaa5a908b89fa2afe549ac0a5c">&#9670;&nbsp;</a></span>get_logger()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">ch = logging.StreamHandler()</td>
+          <td class="memname"> <a class="el" href="classlogger_1_1BurritoLogger.html">BurritoLogger</a> logger.get_logger </td>
+          <td>(</td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>level</em> = <code>logging.DEBUG</code></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">_summary_
 
-</div>
-</div>
-<a id="a0b14e488ae28d98d262453f3e9cd6e4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b14e488ae28d98d262453f3e9cd6e4d">&#9670;&nbsp;</a></span>logger</h2>
+Args:
+    level (int, optional): logging level. Defaults to logging.DEBUG.
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">logger = logging.getLogger(&quot;burrito&quot;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
+Returns:
+    BurritoLogger: logger object
+</pre> 
 </div>
 </div>
 </div><!-- contents -->
