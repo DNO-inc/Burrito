@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['statuses_168',['Statuses',['../classstatuses__model_1_1Statuses.html',1,'statuses_model']]],
-  ['subscriptions_169',['Subscriptions',['../classsubscriptions__model_1_1Subscriptions.html',1,'subscriptions_model']]]
+  ['roles_213',['Roles',['../classroles__model_1_1Roles.html',1,'roles_model']]]
 ];

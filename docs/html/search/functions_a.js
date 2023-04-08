@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['registration_5fmain_251',['registration_main',['../namespaceviews.html#a27b3065f72c150cf1ebc9f4384dcf47f',1,'views']]],
-  ['run_252',['run',['../classtask__manager_1_1____TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'task_manager::__TaskManager']]]
+  ['password_5flogin_326',['password_login',['../namespaceviews.html#a1752cae1a001515031bbd9ab3de72f4f',1,'views']]],
+  ['put_5fuser_5flogin_5fdata_327',['put_user_login_data',['../classredis__utils_1_1BurritoRedis.html#a0108b42ea224272aa2519a3411add124',1,'redis_utils::BurritoRedis']]]
 ];

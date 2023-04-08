@@ -1,16 +1,16 @@
 from peewee import Model, PrimaryKeyField, ForeignKeyField
 
 from burrito.models.user_model import Users
-from burrito.models.issues_model import Issues
+from burrito.models.tickets_model import Tickets
 
 from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Subscriptions(Model):
     subscription_id = PrimaryKeyField()
-    issue_id = ForeignKeyField(
-        Issues,
-        to_field="issue_id",
+    ticket_id = ForeignKeyField(
+        Tickets,
+        to_field="ticket_id",
         on_delete="NO ACTION"
     )
     user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")

@@ -1,6 +1,6 @@
 var logger_8py =
 [
     [ "BurritoFormatter", "classlogger_1_1BurritoFormatter.html", "classlogger_1_1BurritoFormatter" ],
-    [ "ch", "logger_8py.html#a406be6ce6b0a2c4a450108496228bd6d", null ],
-    [ "logger", "logger_8py.html#a0b14e488ae28d98d262453f3e9cd6e4d", null ]
+    [ "BurritoLogger", "classlogger_1_1BurritoLogger.html", "classlogger_1_1BurritoLogger" ],
+    [ "get_logger", "logger_8py.html#ae327c5eaa5a908b89fa2afe549ac0a5c", null ]
 ];

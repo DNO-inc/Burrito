@@ -149,16 +149,18 @@ Classes</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a15b03b1d71b001298165979475b1aa62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a15b03b1d71b001298165979475b1aa62">action_id</a> = PrimaryKeyField()</td></tr>
 <tr class="separator:a15b03b1d71b001298165979475b1aa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78d77d11c948bd815eb7bddc7cc1f725"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a78d77d11c948bd815eb7bddc7cc1f725">issue_id</a></td></tr>
-<tr class="separator:a78d77d11c948bd815eb7bddc7cc1f725"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a8f1a45e6311d4f0eea27744b8dba3121">ticket_id</a></td></tr>
+<tr class="separator:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8e4fe22776aeac6701c6c43fdee5ac8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#ab8e4fe22776aeac6701c6c43fdee5ac8">user_id</a> = ForeignKeyField(Users, to_field=&quot;user_id&quot;, on_delete=&quot;NO ACTION&quot;)</td></tr>
 <tr class="separator:ab8e4fe22776aeac6701c6c43fdee5ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28a4d4229de9662d4a29eb683559cd91"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a28a4d4229de9662d4a29eb683559cd91">action_type_id</a></td></tr>
-<tr class="separator:a28a4d4229de9662d4a29eb683559cd91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b6701e0a8782349bedbac92be8d1e78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a3b6701e0a8782349bedbac92be8d1e78">action_date</a> = DateTimeField(default=datetime.datetime.now)</td></tr>
 <tr class="separator:a3b6701e0a8782349bedbac92be8d1e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14d48c2e9f05d0b03044eb45f308fcb0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a14d48c2e9f05d0b03044eb45f308fcb0">body</a> = TextField()</td></tr>
-<tr class="separator:a14d48c2e9f05d0b03044eb45f308fcb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0af9e2018442caac3301e7c94428a387"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a0af9e2018442caac3301e7c94428a387">field_name</a> = CharField(max_length=255)</td></tr>
+<tr class="separator:a0af9e2018442caac3301e7c94428a387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08227e8459f4b03979c440ae3e7f8093"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a08227e8459f4b03979c440ae3e7f8093">old_value</a> = CharField(max_length=255)</td></tr>
+<tr class="separator:a08227e8459f4b03979c440ae3e7f8093"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0d7730a835cdbf610f41af52bddd79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classactions__model_1_1Actions.html#a3a0d7730a835cdbf610f41af52bddd79">new_value</a> = CharField(max_length=255)</td></tr>
+<tr class="separator:a3a0d7730a835cdbf610f41af52bddd79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a3b6701e0a8782349bedbac92be8d1e78"></a>
@@ -205,8 +207,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a28a4d4229de9662d4a29eb683559cd91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28a4d4229de9662d4a29eb683559cd91">&#9670;&nbsp;</a></span>action_type_id</h2>
+<a id="a0af9e2018442caac3301e7c94428a387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0af9e2018442caac3301e7c94428a387">&#9670;&nbsp;</a></span>field_name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +217,73 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">action_type_id</td>
+          <td class="memname">field_name = CharField(max_length=255)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3a0d7730a835cdbf610f41af52bddd79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a0d7730a835cdbf610f41af52bddd79">&#9670;&nbsp;</a></span>new_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">new_value = CharField(max_length=255)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08227e8459f4b03979c440ae3e7f8093"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08227e8459f4b03979c440ae3e7f8093">&#9670;&nbsp;</a></span>old_value</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">old_value = CharField(max_length=255)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f1a45e6311d4f0eea27744b8dba3121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f1a45e6311d4f0eea27744b8dba3121">&#9670;&nbsp;</a></span>ticket_id</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ticket_id</td>
         </tr>
       </table>
   </td>
@@ -225,57 +293,8 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
-<div class="line">        ActionTypes,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;action_type_id&quot;</span>,</div>
-<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
-<div class="line">    )</div>
-</div><!-- fragment -->
-</div>
-</div>
-<a id="a14d48c2e9f05d0b03044eb45f308fcb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14d48c2e9f05d0b03044eb45f308fcb0">&#9670;&nbsp;</a></span>body</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">body = TextField()</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a78d77d11c948bd815eb7bddc7cc1f725"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78d77d11c948bd815eb7bddc7cc1f725">&#9670;&nbsp;</a></span>issue_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">issue_id</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
-<div class="line">        Issues,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;issue_id&quot;</span>,</div>
+<div class="line">        Tickets,</div>
+<div class="line">        to_field=<span class="stringliteral">&quot;ticket_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->

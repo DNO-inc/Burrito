@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['profile_5fschema_2epy_214',['profile_schema.py',['../profile__schema_8py.html',1,'']]]
+  ['notifications_5fmodel_2epy_270',['notifications_model.py',['../notifications__model_8py.html',1,'']]]
 ];

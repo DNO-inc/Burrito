@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['views_2epy_225',['views.py',['../about_2views_8py.html',1,'(Global Namespace)'],['../auth_2views_8py.html',1,'(Global Namespace)'],['../profile_2views_8py.html',1,'(Global Namespace)'],['../registration_2views_8py.html',1,'(Global Namespace)'],['../reports_2views_8py.html',1,'(Global Namespace)'],['../status_2views_8py.html',1,'(Global Namespace)']]]
+  ['tags_5fmodel_2epy_283',['tags_model.py',['../tags__model_8py.html',1,'']]],
+  ['task_5fmanager_2epy_284',['task_manager.py',['../task__manager_8py.html',1,'']]],
+  ['tickets_5fmodel_2epy_285',['tickets_model.py',['../tickets__model_8py.html',1,'']]]
 ];

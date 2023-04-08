@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hash_5futil_184',['hash_util',['../namespacehash__util.html',1,'']]]
+  ['faculty_5fmodel_232',['faculty_model',['../namespacefaculty__model.html',1,'']]]
 ];

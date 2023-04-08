@@ -7,6 +7,7 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
       [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
     ] ],
     [ "user_schema.py", "user__schema_8py.html", [
-      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ]
+      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
+      [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
     ] ]
 ];

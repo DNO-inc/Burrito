@@ -5,10 +5,10 @@ var namespaces_dup =
       [ "port", "namespace____main____.html#af8fb0f45ee0195c7422a49e6a8d72369", null ],
       [ "reload", "namespace____main____.html#ac5c05266f4f3b5937cefb6a818fc6675", null ]
     ] ],
-    [ "action_types_model", "namespaceaction__types__model.html", "namespaceaction__types__model" ],
     [ "actions_model", "namespaceactions__model.html", "namespaceactions__model" ],
     [ "app_util", "namespaceapp__util.html", "namespaceapp__util" ],
     [ "auth_schema", "namespaceauth__schema.html", "namespaceauth__schema" ],
+    [ "comments_model", "namespacecomments__model.html", "namespacecomments__model" ],
     [ "db_backup_util", "namespacedb__backup__util.html", [
       [ "backup_cycle", "namespacedb__backup__util.html#a452ad414d5672b16a215290db18bb86a", null ],
       [ "do_database_backup", "namespacedb__backup__util.html#aa4547c46b263e671819b643808e72fee", null ],
@@ -22,22 +22,31 @@ var namespaces_dup =
       [ "get_user_by_login", "namespacedb__utils.html#a7efeb76fcbdacdc8d0abc4d11d386eaf", null ],
       [ "setup_database", "namespacedb__utils.html#a6ba13843b5928c9cd587aca7461fceb7", null ]
     ] ],
+    [ "email_utils", "namespaceemail__utils.html", [
+      [ "send_test_email_via_redis", "namespaceemail__utils.html#a11ad7da54ae6962d330775481b4c3a04", null ]
+    ] ],
     [ "faculty_model", "namespacefaculty__model.html", "namespacefaculty__model" ],
     [ "group_model", "namespacegroup__model.html", "namespacegroup__model" ],
     [ "hash_util", "namespacehash__util.html", [
       [ "compare_password", "namespacehash__util.html#a67c963a8f1f05954f1f124cc4432e89c", null ],
       [ "get_hash", "namespacehash__util.html#a4cc0438d1c2deeacfb37c0e29575edc9", null ],
-      [ "get_salt", "namespacehash__util.html#a7d74fd31174a40f9d093fe190e052505", null ]
+      [ "get_salt", "namespacehash__util.html#a7d74fd31174a40f9d093fe190e052505", null ],
+      [ "get_verification_code", "namespacehash__util.html#a3b0d21f8fc19a46f24861c3a5fd64f03", null ]
     ] ],
-    [ "issues_model", "namespaceissues__model.html", "namespaceissues__model" ],
     [ "logger", "namespacelogger.html", "namespacelogger" ],
     [ "notifications_model", "namespacenotifications__model.html", "namespacenotifications__model" ],
+    [ "participants_model", "namespaceparticipants__model.html", "namespaceparticipants__model" ],
     [ "profile_schema", "namespaceprofile__schema.html", "namespaceprofile__schema" ],
+    [ "pubsub_manager", "namespacepubsub__manager.html", "namespacepubsub__manager" ],
+    [ "queue_watchers_model", "namespacequeue__watchers__model.html", "namespacequeue__watchers__model" ],
+    [ "queues_model", "namespacequeues__model.html", "namespacequeues__model" ],
+    [ "redis_utils", "namespaceredis__utils.html", "namespaceredis__utils" ],
     [ "roles_model", "namespaceroles__model.html", "namespaceroles__model" ],
     [ "router", "namespacerouter.html", [
       [ "about_index", "namespacerouter.html#a4e29b73964fb2a2cc4c9628ec9bc9efa", null ],
       [ "about_router", "namespacerouter.html#abb8d923991e651598f392bb0b7d70dc4", null ],
       [ "auth_router", "namespacerouter.html#a13029250cfc9d08f3a828958cd6e7d3e", null ],
+      [ "check_verification_code", "namespacerouter.html#a29fad3f775e7d37350572d2554799880", null ],
       [ "create_new_report", "namespacerouter.html#a140bb6ecdc7dff5bd4c38345044e7ccc", null ],
       [ "followed", "namespacerouter.html#a97483f1fcb6d7a148b3b034962eb0b88", null ],
       [ "methods", "namespacerouter.html#a33d390b3d71a902ec9fbcd5d2d237619", null ],
@@ -59,10 +68,18 @@ var namespaces_dup =
     [ "subscriptions_model", "namespacesubscriptions__model.html", "namespacesubscriptions__model" ],
     [ "tags_model", "namespacetags__model.html", "namespacetags__model" ],
     [ "task_manager", "namespacetask__manager.html", "namespacetask__manager" ],
+    [ "tickets_model", "namespacetickets__model.html", "namespacetickets__model" ],
+    [ "user_agent", "namespaceuser__agent.html", "namespaceuser__agent" ],
     [ "user_model", "namespaceuser__model.html", "namespaceuser__model" ],
     [ "user_schema", "namespaceuser__schema.html", "namespaceuser__schema" ],
+    [ "validators", "namespacevalidators.html", [
+      [ "is_valid_email", "namespacevalidators.html#a35d10e06203b4181a2dbc7d8632e9492", null ],
+      [ "is_valid_login", "namespacevalidators.html#ad5aaaa5b499533dfb3562d5a14427597", null ],
+      [ "is_valid_password", "namespacevalidators.html#a7cd677a845b1350b3c4071c520035512", null ]
+    ] ],
     [ "views", "namespaceviews.html", [
       [ "about_index", "namespaceviews.html#a0a9b96810f56107d6291828b07df5905", null ],
+      [ "check_verification_code", "namespaceviews.html#a8cc6ed514051db1aa95f104e28f7117d", null ],
       [ "create_new_report", "namespaceviews.html#a9b3f562087a89051627f72eab2174035", null ],
       [ "followed", "namespaceviews.html#a6b9d4a0dbdadf439b6e3d195daf922f8", null ],
       [ "get_config", "namespaceviews.html#ae42378dc11be91a067fae3546a4b139f", null ],

@@ -4,7 +4,7 @@ from fastapi_jwt_auth import AuthJWT
 
 from burrito.utils.db_utils import get_user_by_login
 
-from burrito.models.issues_model import Issues
+from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
 
@@ -15,7 +15,7 @@ async def my_reports(Authorize: AuthJWT = Depends()):
 
     user: Users | bool = get_user_by_login(Authorize.get_jwt_subject())
     if (user):
-        print(Issues.select(Issues.issuer == user))
+        print(Tickets.select(Tickets.issuer == user))
 
 
 async def to_me(Authorize: AuthJWT = Depends()):
@@ -31,4 +31,3 @@ async def followed(Authorize: AuthJWT = Depends()):
 async def create_new_report(Authorize: AuthJWT = Depends()):
     """Create report"""
     Authorize.jwt_required()
-

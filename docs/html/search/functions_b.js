@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['setup_5fdatabase_253',['setup_database',['../namespacedb__utils.html#a6ba13843b5928c9cd587aca7461fceb7',1,'db_utils']]],
-  ['setup_5fscheduler_254',['setup_scheduler',['../namespacedb__backup__util.html#ae9e26800138a45107010bfdcbec44811',1,'db_backup_util']]],
-  ['singleton_255',['singleton',['../namespacesingleton__pattern.html#ae2baffa38cffb7ae8ae4f38ab4360c2e',1,'singleton_pattern']]],
-  ['startup_5fevent_256',['startup_event',['../namespaceapp__util.html#a33b066165645df61a84662b4e50026d2',1,'app_util']]],
-  ['stop_257',['stop',['../classtask__manager_1_1____TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'task_manager::__TaskManager']]]
+  ['registration_5fmain_328',['registration_main',['../namespaceviews.html#a27b3065f72c150cf1ebc9f4384dcf47f',1,'views']]],
+  ['run_329',['run',['../classpubsub__manager_1_1PubSubManager.html#a670fe67276cb94775a042958fe2c79d4',1,'pubsub_manager.PubSubManager.run()'],['../classtask__manager_1_1____TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'task_manager.__TaskManager.run()']]]
 ];
