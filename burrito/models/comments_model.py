@@ -1,18 +1,18 @@
 import datetime
 
 from peewee import (
-    Model, CharField, PrimaryKeyField,
-    DateTimeField, ForeignKeyField
+    Model, PrimaryKeyField, ForeignKeyField,
+    DateTimeField, TextField
 )
 
-from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
+from burrito.models.tickets_model import Tickets
 
 from burrito.utils.db_cursor_object import get_database_cursor
 
 
-class Actions(Model):
-    action_id = PrimaryKeyField()
+class Comments(Model):
+    comment_id = PrimaryKeyField()
     ticket_id = ForeignKeyField(
         Tickets,
         to_field="ticket_id",
@@ -20,11 +20,8 @@ class Actions(Model):
     )
     user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
 
-    action_date = DateTimeField(default=datetime.datetime.now)
-
-    field_name = CharField(max_length=255)
-    old_value = CharField(max_length=255)
-    new_value = CharField(max_length=255)
+    comment_date = DateTimeField(default=datetime.datetime.now)
+    body = TextField()
 
     class Meta:
         database = get_database_cursor()
