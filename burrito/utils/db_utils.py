@@ -56,10 +56,10 @@ def drop_tables(use: bool = False):
 
     get_database_cursor().drop_tables(
         (
-            Roles, Tags, Statuses,
-            Tickets, Users, ActionTypes,
+            Roles, Tags, Statuses, QueueWatchers,
+            Tickets, Users, Participants,
             Subscriptions, Actions, Notifications,
-            Groups, Faculties
+            Groups, Faculties, Comments, Queues
         )
     )
     get_logger().warning("All tables was dropped")

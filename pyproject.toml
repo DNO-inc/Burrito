@@ -22,6 +22,7 @@ sniffio = "^1.3.0"
 starlette = "^0.26.1"
 typing-extensions = "^4.5.0"
 uvicorn = "^0.21.1"
+aioredis = "^2.0.1"
 
 
 [build-system]
