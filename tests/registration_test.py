@@ -21,11 +21,12 @@ class RegistrationTestCase(unittest.TestCase):
         """Make registration"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/registration",
+            "http://127.0.0.1:8080/registration/",
             json={
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password
-            }
+            },
+            timeout=0.1
         )
         self.assertEqual(response.json().get("code"), "successfully")
 
@@ -33,10 +34,11 @@ class RegistrationTestCase(unittest.TestCase):
         """Test case when users try to register with the existent login"""
 
         response = requests.post(
-           "http://127.0.0.1:8080/registration",
+           "http://127.0.0.1:8080/registration/",
             json={
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password
-            }
+            },
+            timeout=0.1
         )
         self.assertEqual(response.json().get("detail"), "User with the same login exist.")

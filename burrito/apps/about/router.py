@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .views import about_index
+from burrito.apps.about.views import about_index
 
 about_router = APIRouter()
 

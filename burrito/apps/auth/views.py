@@ -27,8 +27,14 @@ def password_login(user_login_data: UserPasswordLoginSchema, Authorize: AuthJWT 
             access_token = Authorize.create_access_token(
                 subject=user_login_data.login
             )
+            refresh_token = Authorize.create_refresh_token(
+                subject=user_login_data.login
+            )
 
-            return {"access_token": access_token}
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }
 
         raise HTTPException(
             status_code=401,

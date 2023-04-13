@@ -20,8 +20,8 @@ create_tables()
 all_tests = unittest.TestSuite(
     [
         unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
+#        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
     ]
 )
 

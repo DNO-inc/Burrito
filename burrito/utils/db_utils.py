@@ -81,7 +81,7 @@ def create_user(login: str, hashed_password: str) -> bool:
     try:
         Users.create(login=login, password=hashed_password)
     except Exception as e:
-        get_logger().error(str(e))
+        get_logger().error(e)
         return False
 
     return True
@@ -101,5 +101,5 @@ def get_user_by_login(login: str) -> Users | bool:
 
     try:
         return Users.get(Users.login == login)
-    except Exception as e:
+    except Exception:
         return False
