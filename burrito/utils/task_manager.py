@@ -3,14 +3,29 @@
 
 """
 
+from threading import get_native_id
+from typing import Any
 import asyncio
 import sys
 
-from burrito.utils.singleton_pattern import singleton
 from burrito.utils.logger import get_logger
 
 
-@singleton
+def thread_singleton(class_) -> Any:
+    class_instance: dict[int, __TaskManager] = {}
+
+    def get_class_instance(*args, **kwargs):
+        instance_key = (class_, get_native_id())
+
+        if not class_instance.get(instance_key):
+            class_instance[instance_key] = class_(*args, **kwargs)
+
+        return class_instance[instance_key]
+
+    return get_class_instance
+
+
+@thread_singleton
 class __TaskManager:
     def __init__(self) -> None:
         """_summary_
