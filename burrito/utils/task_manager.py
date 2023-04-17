@@ -91,7 +91,7 @@ class __TaskManager:
                 If this option is True cycle run forever else until complete. Defaults to True.
         """
 
-        if self.__loop.is_running:  # exit function if loop is running
+        if self.__loop.is_running():  # exit function if loop is running
             return
 
         if forever:
