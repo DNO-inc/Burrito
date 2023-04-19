@@ -15,6 +15,10 @@ var annotated_dup =
     [ "db_cursor_object", "namespacedb__cursor__object.html", [
       [ "PostgresqlCursor", "classdb__cursor__object_1_1PostgresqlCursor.html", "classdb__cursor__object_1_1PostgresqlCursor" ]
     ] ],
+    [ "event_cycle", "namespaceevent__cycle.html", [
+      [ "__BurritoEventCycle", "classevent__cycle_1_1____BurritoEventCycle.html", "classevent__cycle_1_1____BurritoEventCycle" ],
+      [ "EventCycleManager", "classevent__cycle_1_1EventCycleManager.html", "classevent__cycle_1_1EventCycleManager" ]
+    ] ],
     [ "faculty_model", "namespacefaculty__model.html", [
       [ "Faculties", "classfaculty__model_1_1Faculties.html", "classfaculty__model_1_1Faculties" ]
     ] ],
@@ -32,6 +36,8 @@ var annotated_dup =
       [ "Participants", "classparticipants__model_1_1Participants.html", "classparticipants__model_1_1Participants" ]
     ] ],
     [ "profile_schema", "namespaceprofile__schema.html", [
+      [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
+      [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
       [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
     ] ],
     [ "pubsub_manager", "namespacepubsub__manager.html", [
@@ -46,6 +52,9 @@ var annotated_dup =
     [ "redis_utils", "namespaceredis__utils.html", [
       [ "BurritoRedis", "classredis__utils_1_1BurritoRedis.html", "classredis__utils_1_1BurritoRedis" ]
     ] ],
+    [ "response", "namespaceresponse.html", [
+      [ "ResponseCode", "classresponse_1_1ResponseCode.html", null ]
+    ] ],
     [ "roles_model", "namespaceroles__model.html", [
       [ "Roles", "classroles__model_1_1Roles.html", "classroles__model_1_1Roles" ]
     ] ],
@@ -59,10 +68,17 @@ var annotated_dup =
       [ "Tags", "classtags__model_1_1Tags.html", "classtags__model_1_1Tags" ]
     ] ],
     [ "task_manager", "namespacetask__manager.html", [
-      [ "__TaskManager", "classtask__manager_1_1____TaskManager.html", "classtask__manager_1_1____TaskManager" ]
+      [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", "classtask__manager_1_1__TaskManager" ]
     ] ],
     [ "tickets_model", "namespacetickets__model.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]
+    ] ],
+    [ "tickets_schema", "namespacetickets__schema.html", [
+      [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
+      [ "DeleteTicket", "classtickets__schema_1_1DeleteTicket.html", null ],
+      [ "SaveTicket", "classtickets__schema_1_1SaveTicket.html", null ],
+      [ "FollowTicket", "classtickets__schema_1_1FollowTicket.html", null ],
+      [ "CloseTicket", "classtickets__schema_1_1CloseTicket.html", null ]
     ] ],
     [ "user_agent", "namespaceuser__agent.html", [
       [ "UserAgentMiddleware", "classuser__agent_1_1UserAgentMiddleware.html", "classuser__agent_1_1UserAgentMiddleware" ]

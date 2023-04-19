@@ -56,4 +56,4 @@ def get_verification_code() -> str:
         str: verification code
     """
 
-    return "".join([str(SystemRandom().randint(0, 9)) for i in range(6)])
+    return "".join((str(SystemRandom().randint(0, 9)) for i in range(6)))

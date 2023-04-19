@@ -30,4 +30,9 @@ connect_app(app, "/reports", tickets_router)
 
 
 if __name__ == "__main__":
-    uvicorn.run("burrito.__main__:app", port=8080, reload=True)
+    uvicorn.run(
+        "burrito.__main__:app",
+        port=8080,
+        reload=True,
+        reload_dirs="burrito"
+    )

@@ -22,6 +22,10 @@ class AuthTestCase(unittest.TestCase):
             json={
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password
-            }
+            },
+            timeout=0.1
         )
-        self.assertIsNotNone(response.json().get("access_token"))
+        access_token = response.json().get("access_token")
+
+        AuthTestCase.access_token = access_token
+        self.assertIsNotNone(access_token)

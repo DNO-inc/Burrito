@@ -26,7 +26,7 @@ def thread_singleton(class_) -> Any:
 
 
 @thread_singleton
-class __TaskManager:
+class _TaskManager:
     def __init__(self) -> None:
         """_summary_
 
@@ -81,6 +81,18 @@ class __TaskManager:
 
         self.__loop.create_task(coro)
 
+    def add_multiply_task(self, coro_list: tuple[Any]) -> None:
+        """_summary_
+
+        Create few tasks using
+
+        Args:
+            coro_list (tuple[Any]): coroutines tuple
+        """
+
+        for coro in coro_list:
+            self.add_task(coro)
+
     def run(self, *, forever: bool = True) -> None:
         """_summary_
 
@@ -112,7 +124,7 @@ class __TaskManager:
         self.__loop.stop()
 
 
-def get_async_manager() -> __TaskManager:
+def get_async_manager() -> _TaskManager:
     """_summary_
 
     Interface to get access to AsyncManager
@@ -121,4 +133,4 @@ def get_async_manager() -> __TaskManager:
         __TaskManager: task manager object
     """
 
-    return __TaskManager()
+    return _TaskManager()

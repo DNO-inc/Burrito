@@ -25,6 +25,7 @@ var namespaces_dup =
     [ "email_utils", "namespaceemail__utils.html", [
       [ "send_test_email_via_redis", "namespaceemail__utils.html#a11ad7da54ae6962d330775481b4c3a04", null ]
     ] ],
+    [ "event_cycle", "namespaceevent__cycle.html", "namespaceevent__cycle" ],
     [ "faculty_model", "namespacefaculty__model.html", "namespacefaculty__model" ],
     [ "group_model", "namespacegroup__model.html", "namespacegroup__model" ],
     [ "hash_util", "namespacehash__util.html", [
@@ -41,6 +42,7 @@ var namespaces_dup =
     [ "queue_watchers_model", "namespacequeue__watchers__model.html", "namespacequeue__watchers__model" ],
     [ "queues_model", "namespacequeues__model.html", "namespacequeues__model" ],
     [ "redis_utils", "namespaceredis__utils.html", "namespaceredis__utils" ],
+    [ "response", "namespaceresponse.html", "namespaceresponse" ],
     [ "roles_model", "namespaceroles__model.html", "namespaceroles__model" ],
     [ "router", "namespacerouter.html", [
       [ "about_index", "namespacerouter.html#a4e29b73964fb2a2cc4c9628ec9bc9efa", null ],
@@ -56,7 +58,7 @@ var namespaces_dup =
       [ "profile_router", "namespacerouter.html#a8de8d89f2f939fa127db4d4cc20ce3f5", null ],
       [ "registration_main", "namespacerouter.html#ab20708b42e2cf4368f92e561edb843ec", null ],
       [ "registration_router", "namespacerouter.html#a2a455c7456993246f976f193f7fc37f3", null ],
-      [ "reports_router", "namespacerouter.html#aaa8d8723b1a89893c9ddec18393f6589", null ],
+      [ "tickets_router", "namespacerouter.html#af436fded19bd868694844b63b6865114", null ],
       [ "to_me", "namespacerouter.html#a5e801d2a9e6d58303a6b06736fe02cee", null ],
       [ "token_login", "namespacerouter.html#a360116e3871d417012f7a4908098fcf8", null ]
     ] ],
@@ -69,6 +71,7 @@ var namespaces_dup =
     [ "tags_model", "namespacetags__model.html", "namespacetags__model" ],
     [ "task_manager", "namespacetask__manager.html", "namespacetask__manager" ],
     [ "tickets_model", "namespacetickets__model.html", "namespacetickets__model" ],
+    [ "tickets_schema", "namespacetickets__schema.html", "namespacetickets__schema" ],
     [ "user_agent", "namespaceuser__agent.html", "namespaceuser__agent" ],
     [ "user_model", "namespaceuser__model.html", "namespaceuser__model" ],
     [ "user_schema", "namespaceuser__schema.html", "namespaceuser__schema" ],

@@ -20,9 +20,9 @@ create_tables()
 all_tests = unittest.TestSuite(
     [
         unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
-#        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
-#        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
+        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
     ]
 )
 
-unittest.TextTestRunner(verbosity=2).run(all_tests)
+unittest.TextTestRunner().run(all_tests)

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['password_5flogin_326',['password_login',['../namespaceviews.html#a1752cae1a001515031bbd9ab3de72f4f',1,'views']]],
-  ['put_5fuser_5flogin_5fdata_327',['put_user_login_data',['../classredis__utils_1_1BurritoRedis.html#a0108b42ea224272aa2519a3411add124',1,'redis_utils::BurritoRedis']]]
+  ['my_5fprofile_363',['my_profile',['../namespaceviews.html#ac84005c2c979b9898a9a6ce5c394db4d',1,'views']]],
+  ['my_5freports_364',['my_reports',['../namespaceviews.html#a0c5559ebc718b7bee05b68ab05ef1129',1,'views']]]
 ];

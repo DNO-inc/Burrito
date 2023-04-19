@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['updateprofileschema_218',['UpdateProfileSchema',['../classprofile__schema_1_1UpdateProfileSchema.html',1,'profile_schema']]],
-  ['useragentmiddleware_219',['UserAgentMiddleware',['../classuser__agent_1_1UserAgentMiddleware.html',1,'user_agent']]],
-  ['userpasswordloginschema_220',['UserPasswordLoginSchema',['../classuser__schema_1_1UserPasswordLoginSchema.html',1,'user_schema']]],
-  ['users_221',['Users',['../classuser__model_1_1Users.html',1,'user_model']]],
-  ['userverificationcode_222',['UserVerificationCode',['../classuser__schema_1_1UserVerificationCode.html',1,'user_schema']]]
+  ['saveticket_244',['SaveTicket',['../classtickets__schema_1_1SaveTicket.html',1,'tickets_schema']]],
+  ['statuses_245',['Statuses',['../classstatuses__model_1_1Statuses.html',1,'statuses_model']]],
+  ['subscriptions_246',['Subscriptions',['../classsubscriptions__model_1_1Subscriptions.html',1,'subscriptions_model']]]
 ];

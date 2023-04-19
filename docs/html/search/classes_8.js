@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['participants_208',['Participants',['../classparticipants__model_1_1Participants.html',1,'participants_model']]],
-  ['postgresqlcursor_209',['PostgresqlCursor',['../classdb__cursor__object_1_1PostgresqlCursor.html',1,'db_cursor_object']]],
-  ['pubsubmanager_210',['PubSubManager',['../classpubsub__manager_1_1PubSubManager.html',1,'pubsub_manager']]]
+  ['meta_234',['Meta',['../classactions__model_1_1Actions_1_1Meta.html',1,'Actions.Meta'],['../classcomments__model_1_1Comments_1_1Meta.html',1,'Comments.Meta'],['../classfaculty__model_1_1Faculties_1_1Meta.html',1,'Faculties.Meta'],['../classgroup__model_1_1Groups_1_1Meta.html',1,'Groups.Meta'],['../classnotifications__model_1_1Notifications_1_1Meta.html',1,'Notifications.Meta'],['../classparticipants__model_1_1Participants_1_1Meta.html',1,'Participants.Meta'],['../classqueue__watchers__model_1_1QueueWatchers_1_1Meta.html',1,'QueueWatchers.Meta'],['../classqueues__model_1_1Queues_1_1Meta.html',1,'Queues.Meta'],['../classroles__model_1_1Roles_1_1Meta.html',1,'Roles.Meta'],['../classstatuses__model_1_1Statuses_1_1Meta.html',1,'Statuses.Meta'],['../classsubscriptions__model_1_1Subscriptions_1_1Meta.html',1,'Subscriptions.Meta'],['../classtags__model_1_1Tags_1_1Meta.html',1,'Tags.Meta'],['../classtickets__model_1_1Tickets_1_1Meta.html',1,'Tickets.Meta'],['../classuser__model_1_1Users_1_1Meta.html',1,'Users.Meta']]]
 ];
