@@ -4,6 +4,9 @@ import requests
 from registration_test import RegistrationTestCase
 
 
+RegistrationTestCase.random_login = "login"
+RegistrationTestCase.random_password = "Qwerty123"
+
 class AuthTestCase(unittest.TestCase):
     """Test authentication system"""
 
