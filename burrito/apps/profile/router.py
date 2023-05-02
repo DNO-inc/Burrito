@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from burrito.schemas.profile_schema import ProfileSchema
 
-from burrito.apps.profile.views import my_profile, update_my_profile
+from .views import my_profile, update_my_profile
 
 profile_router = APIRouter()
 

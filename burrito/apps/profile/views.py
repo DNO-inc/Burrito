@@ -5,7 +5,7 @@ from fastapi_jwt_auth import AuthJWT
 from burrito.models.user_model import Users
 from burrito.schemas.profile_schema import ProfileSchema, UpdateProfileSchema
 
-from burrito.apps.profile.utils import (
+from .utils import (
     get_auth_core, get_user_by_login, update_user
 )
 

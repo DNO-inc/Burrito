@@ -5,7 +5,7 @@ from burrito.schemas.user_schema import UserPasswordLoginSchema
 
 from burrito.models.user_model import Users
 
-from burrito.apps.auth.utils import (
+from .utils import (
     get_auth_core,
     get_user_by_login,
     compare_password

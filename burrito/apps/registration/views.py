@@ -5,7 +5,7 @@ from burrito.schemas.user_schema import (
     UserVerificationCode
 )
 
-from burrito.apps.registration.utils import (
+from .utils import (
     get_hash,
     create_user, get_user_by_login,
     is_valid_login, is_valid_password
