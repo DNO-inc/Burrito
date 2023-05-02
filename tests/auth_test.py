@@ -26,7 +26,7 @@ class AuthTestCase(unittest.TestCase):
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password
             },
-            timeout=0.1
+#            timeout=0.1
         )
         access_token = response.json().get("access_token")
 

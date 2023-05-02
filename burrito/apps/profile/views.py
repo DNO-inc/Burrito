@@ -5,8 +5,9 @@ from fastapi_jwt_auth import AuthJWT
 from burrito.models.user_model import Users
 from burrito.schemas.profile_schema import ProfileSchema, UpdateProfileSchema
 
-from burrito.utils.auth import get_auth_core
-from burrito.utils.db_utils import get_user_by_login, update_user
+from burrito.apps.profile.utils import (
+    get_auth_core, get_user_by_login, update_user
+)
 
 
 async def my_profile(Authorize: AuthJWT = Depends(get_auth_core())):

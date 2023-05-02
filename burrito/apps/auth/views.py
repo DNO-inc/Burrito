@@ -5,9 +5,11 @@ from burrito.schemas.user_schema import UserPasswordLoginSchema
 
 from burrito.models.user_model import Users
 
-from burrito.utils.auth import get_auth_core
-from burrito.utils.db_utils import get_user_by_login
-from burrito.utils.hash_util import compare_password
+from burrito.apps.auth.utils import (
+    get_auth_core,
+    get_user_by_login,
+    compare_password
+)
 
 
 def password_login(
