@@ -16,6 +16,7 @@ class RegistrationTestCase(unittest.TestCase):
 
         cls.random_login = "".join(random.sample(string.ascii_letters, 5))
         cls.random_password = "".join(random.sample(string.ascii_letters, 8))
+        cls.user_id: int = -1
 
     def test_do_registration(self):
         """Make registration"""
@@ -28,7 +29,21 @@ class RegistrationTestCase(unittest.TestCase):
             },
             timeout=0.1
         )
-        self.assertEqual(response.json().get("code"), "successfully")
+        self.assertEqual(response.status_code, 200)
+        RegistrationTestCase.user_id = response.json().get("user_id")
+
+    def test_do_registration_with_invalid_data(self):
+        """make registration with invalid datas"""
+
+        response = requests.post(
+            "http://127.0.0.1:8080/registration/",
+            json={
+                "login": '.',
+                "password": "".join(random.sample(string.ascii_letters, 3))
+            },
+            timeout=0.1
+        )
+        self.assertEqual(response.status_code, 422)
 
     def test_do_registration_with_the_same_login(self):
         """Test case when users try to register with the existent login"""
@@ -41,4 +56,4 @@ class RegistrationTestCase(unittest.TestCase):
             },
             timeout=0.1
         )
-        self.assertEqual(response.json().get("detail"), "User with the same login exist.")
+        self.assertEqual(response.status_code, 422)

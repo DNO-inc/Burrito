@@ -6,7 +6,7 @@ from burrito.models.user_model import Users
 from burrito.schemas.profile_schema import ProfileSchema, UpdateProfileSchema
 
 from .utils import (
-    get_auth_core, get_user_by_login, update_user,
+    get_auth_core, get_user_by_id, update_user,
     BaseView
 )
 
@@ -20,7 +20,7 @@ class MyProfileView(BaseView):
 
         Authorize.jwt_required()
 
-        current_user: Users | bool = get_user_by_login(
+        current_user: Users | bool = get_user_by_id(
             Authorize.get_jwt_subject()
         )
 
@@ -48,7 +48,7 @@ class UpdateMyProfile(BaseView):
 
         Authorize.jwt_required()
 
-        current_user: Users | bool = get_user_by_login(Authorize.get_jwt_subject())
+        current_user: Users | bool = get_user_by_id(Authorize.get_jwt_subject())
         update_user(current_user, profile_updated_data)
 
         return profile_updated_data.json()

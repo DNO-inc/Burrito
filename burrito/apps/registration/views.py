@@ -8,7 +8,8 @@ from burrito.schemas.user_schema import (
 from .utils import (
     get_hash,
     create_user, get_user_by_login,
-    is_valid_login, is_valid_password
+    is_valid_login, is_valid_password,
+    status
 )
 
 
@@ -17,29 +18,37 @@ async def registration_main(user_data: UserPasswordLoginSchema):
 
     if not is_valid_login(user_data.login):
         return JSONResponse(
-            status_code=401,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": "Invalid login"}
         )
 
     if not is_valid_password(user_data.password):
         return JSONResponse(
-            status_code=401,
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": "Invalid password"}
         )
 
     if get_user_by_login(user_data.login):
-        return {"detail": "User with the same login exist."}
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"detail": "User with the same login exist"}
+        )
 
-
-    user_creation_status = create_user(
+    user_id_value: int | None = create_user(
         user_data.login,
         get_hash(user_data.password)
     )
 
-    if user_creation_status:
-        return {"code": "successfully"}
+    if user_id_value:
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"user_id": user_id_value}
+        )
 
-    return {"code": "unsuccessfully"}
+    return JSONResponse(
+        status_code=status.HTTP_409_CONFLICT,
+        content={"detail": "'\\_(-_-)_/'"}
+    )
 
 
 async def check_verification_code(code_object: UserVerificationCode):

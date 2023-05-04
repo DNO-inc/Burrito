@@ -67,7 +67,7 @@ def drop_tables(use: bool = False):
     get_logger().warning("All tables was dropped")
 
 
-def create_user(login: str, hashed_password: str) -> bool:
+def create_user(login: str, hashed_password: str) -> int | None:
     """_summary_
 
     Create user with default fields: (login, hashed_password)
@@ -81,12 +81,13 @@ def create_user(login: str, hashed_password: str) -> bool:
     """
 
     try:
-        Users.create(login=login, password=hashed_password)
+        user: Users = Users.create(
+            login=login, password=hashed_password
+        )
+        return user.user_id
+
     except Exception as e:
         get_logger().error(e)
-        return False
-
-    return True
 
 
 def update_user(user: Users, data: UpdateProfileSchema) -> None:
@@ -112,19 +113,37 @@ def update_user(user: Users, data: UpdateProfileSchema) -> None:
     user.save()  # save updates
 
 
-def get_user_by_login(login: str) -> Users | bool:
+def get_user_by_login(login: str) -> Users | None:
     """_summary_
 
-    Get user if exist or return False
+    Get user if exist or return None
 
     Args:
         login (str): user login
 
     Returns:
-        Users | bool: return False if user is not exist
+        Users | None: return None if user is not exist
     """
 
     try:
         return Users.get(Users.login == login)
     except Exception:
-        return False
+        return
+
+
+def get_user_by_id(user_id: int) -> Users | None:
+    """_summary_
+
+    Get user if exist or return None
+
+    Args:
+        user_id (int): user id
+
+    Returns:
+        Users | None: return None if user is not exist
+    """
+
+    try:
+        return Users.get(Users.user_id == user_id)
+    except Exception:
+        return
