@@ -37,10 +37,14 @@ class ProfileSchema(BaseProfile):
     This data must be transferred by user to update profile
 
     Args:
-        registration_date (str): date when user registred account
+        registration_date (str): date when user registered account
     """
 
     registration_date: str
+
+
+class CheckProfileSchema(BaseModel):
+    user_id: int | None
 
 
 class UpdateProfileSchema(BaseProfile):

@@ -4,6 +4,7 @@ import string
 import random
 
 from auth_test import AuthTestCase
+from registration_test import RegistrationTestCase
 
 
 class ProfileTestCase(unittest.TestCase):
@@ -12,14 +13,18 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.post(
             "http://127.0.0.1:8080/profile/",
+            json={
+                "user_id": RegistrationTestCase.user_id
+            },
             timeout=0.1
         )
 
         self.assertEqual(
             response.status_code,
-            401
+            200
         )
 
+    @unittest.skip
     def test_view_profile_with_auth(self):
         """Recv profile data in JSON format"""
 

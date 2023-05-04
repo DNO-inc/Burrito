@@ -86,7 +86,7 @@ def create_user(login: str, hashed_password: str) -> int | None:
         )
         return user.user_id
 
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         get_logger().error(e)
 
 
@@ -127,7 +127,7 @@ def get_user_by_login(login: str) -> Users | None:
 
     try:
         return Users.get(Users.login == login)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         return
 
 
@@ -145,5 +145,5 @@ def get_user_by_id(user_id: int) -> Users | None:
 
     try:
         return Users.get(Users.user_id == user_id)
-    except Exception:
+    except Exception:  # pylint: disable=broad-except
         return
