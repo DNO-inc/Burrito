@@ -159,8 +159,6 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a16c808471f44e7e5c836690cdd281171"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90a74dc451177752a154fdcbd0e543f2"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlogger_1_1BurritoFormatter.html#a90a74dc451177752a154fdcbd0e543f2">reset</a> = &quot;\x1b[0m&quot;</td></tr>
 <tr class="separator:a90a74dc451177752a154fdcbd0e543f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a578255b360c9bb86a17fab48cb065b6f"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlogger_1_1BurritoFormatter.html#a578255b360c9bb86a17fab48cb065b6f">format</a> = &quot;[ %(asctime)s ] | %(name)s | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)&quot;</td></tr>
-<tr class="separator:a578255b360c9bb86a17fab48cb065b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03e1dc99f9b0bcc5591bc38024dbb4cf"><td class="memItemLeft" align="right" valign="top">dictionary&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classlogger_1_1BurritoFormatter.html#a03e1dc99f9b0bcc5591bc38024dbb4cf">FORMATS</a></td></tr>
 <tr class="separator:a03e1dc99f9b0bcc5591bc38024dbb4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -203,28 +201,6 @@ Returns:
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a578255b360c9bb86a17fab48cb065b6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a578255b360c9bb86a17fab48cb065b6f">&#9670;&nbsp;</a></span>format</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">string format = &quot;[ %(asctime)s ] | %(name)s | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a03e1dc99f9b0bcc5591bc38024dbb4cf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03e1dc99f9b0bcc5591bc38024dbb4cf">&#9670;&nbsp;</a></span>FORMATS</h2>
 
@@ -245,11 +221,11 @@ Returns:
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  {</div>
-<div class="line">        logging.DEBUG: grey + format + reset,</div>
-<div class="line">        logging.INFO: green + format + reset,</div>
-<div class="line">        logging.WARNING: yellow + format + reset,</div>
-<div class="line">        logging.ERROR: red + format + reset,</div>
-<div class="line">        logging.CRITICAL: magenta + format + reset</div>
+<div class="line">        logging.DEBUG: grey + _format + reset,</div>
+<div class="line">        logging.INFO: green + _format + reset,</div>
+<div class="line">        logging.WARNING: yellow + _format + reset,</div>
+<div class="line">        logging.ERROR: red + _format + reset,</div>
+<div class="line">        logging.CRITICAL: magenta + _format + reset</div>
 <div class="line">    }</div>
 </div><!-- fragment -->
 </div>

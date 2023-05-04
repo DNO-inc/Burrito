@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['notifications_207',['Notifications',['../classnotifications__model_1_1Notifications.html',1,'notifications_model']]]
+  ['groups_233',['Groups',['../classgroup__model_1_1Groups.html',1,'group_model']]]
 ];

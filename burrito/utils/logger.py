@@ -12,15 +12,15 @@ class BurritoFormatter(logging.Formatter):
     red = "\x1b[31;20m"
     magenta = "\u001b[35m"
     reset = "\x1b[0m"
-    format = "[ %(asctime)s ] | %(name)s | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
+    _format = "[ %(asctime)s ] | %(name)s | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
 
     # Defining formats
     FORMATS = {
-        logging.DEBUG: grey + format + reset,
-        logging.INFO: green + format + reset,
-        logging.WARNING: yellow + format + reset,
-        logging.ERROR: red + format + reset,
-        logging.CRITICAL: magenta + format + reset
+        logging.DEBUG: grey + _format + reset,
+        logging.INFO: green + _format + reset,
+        logging.WARNING: yellow + _format + reset,
+        logging.ERROR: red + _format + reset,
+        logging.CRITICAL: magenta + _format + reset
     }
 
     def format(self, record):

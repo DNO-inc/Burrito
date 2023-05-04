@@ -2,20 +2,20 @@ from fastapi import HTTPException, Depends
 from fastapi_jwt_auth import AuthJWT
 
 from burrito.schemas.user_schema import UserPasswordLoginSchema
-from burrito.schemas.auth_schema import AuthSettingsModel
 
 from burrito.models.user_model import Users
 
-from burrito.utils.db_utils import get_user_by_login
-from burrito.utils.hash_util import compare_password
+from .utils import (
+    get_auth_core,
+    get_user_by_login,
+    compare_password
+)
 
 
-@AuthJWT.load_config
-def get_config():
-    return AuthSettingsModel()
-
-
-def password_login(user_login_data: UserPasswordLoginSchema, Authorize: AuthJWT = Depends()):
+def password_login(
+        user_login_data: UserPasswordLoginSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+        ):
     """Authentication by login and password"""
 
     user: Users | bool = get_user_by_login(user_login_data.login)
@@ -27,8 +27,14 @@ def password_login(user_login_data: UserPasswordLoginSchema, Authorize: AuthJWT 
             access_token = Authorize.create_access_token(
                 subject=user_login_data.login
             )
+            refresh_token = Authorize.create_refresh_token(
+                subject=user_login_data.login
+            )
 
-            return {"access_token": access_token}
+            return {
+                "access_token": access_token,
+                "refresh_token": refresh_token
+            }
 
         raise HTTPException(
             status_code=401,

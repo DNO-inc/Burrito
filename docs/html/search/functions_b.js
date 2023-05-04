@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['registration_5fmain_328',['registration_main',['../namespaceviews.html#a27b3065f72c150cf1ebc9f4384dcf47f',1,'views']]],
-  ['run_329',['run',['../classpubsub__manager_1_1PubSubManager.html#a670fe67276cb94775a042958fe2c79d4',1,'pubsub_manager.PubSubManager.run()'],['../classtask__manager_1_1____TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'task_manager.__TaskManager.run()']]]
+  ['name_365',['name',['../classevent__cycle_1_1____BurritoEventCycle.html#a5907ca3bbf8e7cd8f40c3007338f6d02',1,'event_cycle::__BurritoEventCycle']]],
+  ['new_5fevent_5fcycle_366',['new_event_cycle',['../classevent__cycle_1_1EventCycleManager.html#a6ec6ad93ccba2b95c811b3affb30387f',1,'event_cycle::EventCycleManager']]]
 ];

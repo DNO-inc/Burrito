@@ -14,6 +14,8 @@ from burrito.models.queue_watchers_model import QueueWatchers
 from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
+from burrito.schemas.profile_schema import UpdateProfileSchema
+
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
 
@@ -81,10 +83,33 @@ def create_user(login: str, hashed_password: str) -> bool:
     try:
         Users.create(login=login, password=hashed_password)
     except Exception as e:
-        get_logger().error(str(e))
+        get_logger().error(e)
         return False
 
     return True
+
+
+def update_user(user: Users, data: UpdateProfileSchema) -> None:
+    """_summary_
+
+    Args:
+        user (Users): user object
+        data (UpdateProfileSchema): new updates for user profile
+    """
+
+    if data.firstname:
+        user.firstname = data.firstname
+
+    if data.lastname:
+        user.lastname = data.lastname
+
+    if data.phone:
+        user.phone = data.phone
+
+    if data.email:
+        user.email = data.email
+
+    user.save()  # save updates
 
 
 def get_user_by_login(login: str) -> Users | bool:
@@ -101,5 +126,5 @@ def get_user_by_login(login: str) -> Users | bool:
 
     try:
         return Users.get(Users.login == login)
-    except Exception as e:
+    except Exception:
         return False

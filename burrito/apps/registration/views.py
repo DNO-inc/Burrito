@@ -4,13 +4,12 @@ from burrito.schemas.user_schema import (
     UserPasswordLoginSchema,
     UserVerificationCode
 )
-from burrito.utils.hash_util import get_hash
-from burrito.utils.db_utils import create_user, get_user_by_login
 
-from burrito.utils.validators import is_valid_login, is_valid_password
-from burrito.utils.redis_utils import get_redis_cursor
-
-from burrito.utils.email_utils import send_test_email_via_redis
+from .utils import (
+    get_hash,
+    create_user, get_user_by_login,
+    is_valid_login, is_valid_password
+)
 
 
 async def registration_main(user_data: UserPasswordLoginSchema):
@@ -28,23 +27,10 @@ async def registration_main(user_data: UserPasswordLoginSchema):
             content={"detail": "Invalid password"}
         )
 
-    if await get_redis_cursor().is_user_exist(user_data.login):
-        return {"detail": "User with the same login exist."}
-
     if get_user_by_login(user_data.login):
         return {"detail": "User with the same login exist."}
 
-    pubsub = get_redis_cursor().pubsub()
-    pubsub.subscribe("test_email_messages")
 
-    await send_test_email_via_redis(
-        "test_email_messages",
-        await get_redis_cursor().put_user_login_data(user_data)
-    )
-
-    await pubsub.get_message()
-
-    # TODO: delete from this handler
     user_creation_status = create_user(
         user_data.login,
         get_hash(user_data.password)

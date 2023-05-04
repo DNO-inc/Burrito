@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from burrito.apps.registration.views import (
+from .views import (
     registration_main,
     check_verification_code
 )
