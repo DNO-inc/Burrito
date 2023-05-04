@@ -6,38 +6,49 @@ from burrito.models.user_model import Users
 from burrito.schemas.profile_schema import ProfileSchema, UpdateProfileSchema
 
 from .utils import (
-    get_auth_core, get_user_by_login, update_user
+    get_auth_core, get_user_by_login, update_user,
+    BaseView
 )
 
 
-async def my_profile(Authorize: AuthJWT = Depends(get_auth_core())):
-    """Return some data to check profile setting"""
+class MyProfileView(BaseView):
+    _permissions: list[str] = ["READ"]
 
-    Authorize.jwt_required()
+    @staticmethod
+    async def post(Authorize: AuthJWT = Depends(get_auth_core())) -> ProfileSchema:
+        """Return some data to check user profile"""
 
-    current_user: Users | bool = get_user_by_login(Authorize.get_jwt_subject())
+        Authorize.jwt_required()
 
-    return ProfileSchema(
-        firstname=current_user.firstname,
-        lastname=current_user.lastname,
-        login=current_user.login,
-        faculty=str(current_user.faculty_id),
-        group=str(current_user.group_id),
-        phone=current_user.phone,
-        email=current_user.email,
-        registration_date=str(current_user.registration_date)
-    )
+        current_user: Users | bool = get_user_by_login(
+            Authorize.get_jwt_subject()
+        )
+
+        return ProfileSchema(
+            firstname=current_user.firstname,
+            lastname=current_user.lastname,
+            login=current_user.login,
+            faculty=str(current_user.faculty_id),
+            group=str(current_user.group_id),
+            phone=current_user.phone,
+            email=current_user.email,
+            registration_date=str(current_user.registration_date)
+        )
 
 
-async def update_my_profile(
-    profile_updated_data: UpdateProfileSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
-):
-    """Update profile data"""
+class UpdateMyProfile(BaseView):
+    _permissions: list[str] = ["UPDATE"]
 
-    Authorize.jwt_required()
+    @staticmethod
+    async def post(
+        profile_updated_data: UpdateProfileSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ) -> object:
+        """Update profile data"""
 
-    current_user: Users | bool = get_user_by_login(Authorize.get_jwt_subject())
-    update_user(current_user, profile_updated_data)
+        Authorize.jwt_required()
 
-    return profile_updated_data.json()
+        current_user: Users | bool = get_user_by_login(Authorize.get_jwt_subject())
+        update_user(current_user, profile_updated_data)
+
+        return profile_updated_data.json()
