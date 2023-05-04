@@ -28,7 +28,7 @@ def setup_scheduler():
         Connect tasks to scheduler
     """
 
-    schedule.every(5).seconds.do(do_database_backup)
+    schedule.every(30).seconds.do(do_database_backup)
 #    schedule.every().day.at("00:00").do(do_database_backup)
 
 
