@@ -19,7 +19,7 @@ from burrito.utils.db_utils import create_tables, drop_tables
 
 all_tests = unittest.TestSuite(
     [
-#        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
         unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
     ]
