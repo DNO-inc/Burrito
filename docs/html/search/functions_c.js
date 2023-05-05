@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['password_5flogin_367',['password_login',['../namespaceviews.html#a1752cae1a001515031bbd9ab3de72f4f',1,'views']]],
-  ['put_5fuser_5flogin_5fdata_368',['put_user_login_data',['../classredis__utils_1_1BurritoRedis.html#a0108b42ea224272aa2519a3411add124',1,'redis_utils::BurritoRedis']]]
+  ['setup_5fdatabase_398',['setup_database',['../namespacedb__utils.html#a6ba13843b5928c9cd587aca7461fceb7',1,'db_utils']]],
+  ['setup_5fscheduler_399',['setup_scheduler',['../namespacedb__backup__util.html#ae9e26800138a45107010bfdcbec44811',1,'db_backup_util']]],
+  ['singleton_400',['singleton',['../namespacesingleton__pattern.html#ae2baffa38cffb7ae8ae4f38ab4360c2e',1,'singleton_pattern']]],
+  ['startup_5fevent_401',['startup_event',['../namespaceapp__util.html#a33b066165645df61a84662b4e50026d2',1,'app_util']]],
+  ['stop_402',['stop',['../classtask__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'task_manager::_TaskManager']]]
 ];

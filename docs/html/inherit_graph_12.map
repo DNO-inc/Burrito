@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classgroup__model_1_1Groups_1_1Meta.html" title=" " alt="" coords="5,5,111,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,92,83"/>
+<area shape="rect" id="node2" href="$classprofile_1_1views_1_1MyProfileView.html" title=" " alt="" coords="165,5,280,32"/>
+<area shape="rect" id="node3" href="$classprofile_1_1views_1_1UpdateMyProfile.html" title=" " alt="" coords="157,56,288,83"/>
+<area shape="rect" id="node4" href="$classregistration_1_1views_1_1RegistrationMainView.html" title=" " alt="" coords="140,107,305,133"/>
 </map>

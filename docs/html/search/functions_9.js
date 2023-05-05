@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loop_362',['loop',['../classtask__manager_1_1__TaskManager.html#ab44a412def45fef65905cf2f18607b29',1,'task_manager::_TaskManager']]]
+  ['my_5freports_393',['my_reports',['../namespaceviews.html#afd18d5d106e723ac9698f44d4a0a509a',1,'views']]]
 ];

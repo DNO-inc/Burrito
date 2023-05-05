@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['registration_5fmain_369',['registration_main',['../namespaceviews.html#a27b3065f72c150cf1ebc9f4384dcf47f',1,'views']]],
-  ['run_370',['run',['../classpubsub__manager_1_1PubSubManager.html#a670fe67276cb94775a042958fe2c79d4',1,'pubsub_manager.PubSubManager.run()'],['../classtask__manager_1_1__TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'task_manager._TaskManager.run()']]]
+  ['thread_5fsingleton_403',['thread_singleton',['../namespacetask__manager.html#ad7c3dd1f53b38754f77552c146500420',1,'task_manager']]],
+  ['to_5fme_404',['to_me',['../namespaceviews.html#a24bc33a7ef0efccfbd0366819504f7fa',1,'views']]],
+  ['token_5flogin_405',['token_login',['../namespaceauth_1_1views.html#ab4e081c4c17e62462e0b26ae6d7229fb',1,'auth::views']]]
 ];

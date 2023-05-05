@@ -1,8 +1,7 @@
 var hierarchy =
 [
-    [ "__BurritoEventCycle", "classevent__cycle_1_1____BurritoEventCycle.html", null ],
     [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", null ],
-    [ "EventCycleManager", "classevent__cycle_1_1EventCycleManager.html", null ],
+    [ "BaseView", "classbase__view_1_1BaseView.html", null ],
     [ "Formatter", null, [
       [ "BurritoFormatter", "classlogger_1_1BurritoFormatter.html", null ]
     ] ],
@@ -36,7 +35,7 @@ var hierarchy =
         [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
         [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
       ] ],
-      [ "ResponseCode", "classresponse_1_1ResponseCode.html", null ],
+      [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "CloseTicket", "classtickets__schema_1_1CloseTicket.html", null ],
       [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
       [ "DeleteTicket", "classtickets__schema_1_1DeleteTicket.html", null ],
@@ -44,6 +43,11 @@ var hierarchy =
       [ "SaveTicket", "classtickets__schema_1_1SaveTicket.html", null ],
       [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
       [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
+    ] ],
+    [ "BaseView", null, [
+      [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
+      [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ],
+      [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ]
     ] ],
     [ "FastAPI", null, [
       [ "BurritoApi", "classapp__util_1_1BurritoApi.html", null ]

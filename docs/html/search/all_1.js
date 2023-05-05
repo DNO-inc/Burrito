@@ -15,9 +15,14 @@ var searchData=
   ['app_5futil_17',['app_util',['../namespaceapp__util.html',1,'']]],
   ['app_5futil_2epy_18',['app_util.py',['../app__util_8py.html',1,'']]],
   ['assignee_19',['assignee',['../classtickets__model_1_1Tickets.html#aea10acc22143b514e76eae7c2eacc446',1,'tickets_model::Tickets']]],
-  ['auth_5frouter_20',['auth_router',['../namespacerouter.html#a13029250cfc9d08f3a828958cd6e7d3e',1,'router']]],
-  ['auth_5fschema_21',['auth_schema',['../namespaceauth__schema.html',1,'']]],
-  ['auth_5fschema_2epy_22',['auth_schema.py',['../auth__schema_8py.html',1,'']]],
-  ['authjwt_5fexception_5fhandler_23',['authjwt_exception_handler',['../namespaceapp__util.html#ac4cddbef6b0cde7bfb1bbb959f9fa9e6',1,'app_util']]],
-  ['authsettingsmodel_24',['AuthSettingsModel',['../classauth__schema_1_1AuthSettingsModel.html',1,'auth_schema']]]
+  ['auth_20',['auth',['../namespaceauth.html',1,'']]],
+  ['auth_2epy_21',['auth.py',['../auth_8py.html',1,'']]],
+  ['auth_5frouter_22',['auth_router',['../namespaceauth_1_1router.html#a13029250cfc9d08f3a828958cd6e7d3e',1,'auth::router']]],
+  ['auth_5fschema_23',['auth_schema',['../namespaceauth__schema.html',1,'']]],
+  ['auth_5fschema_2epy_24',['auth_schema.py',['../auth__schema_8py.html',1,'']]],
+  ['authjwt_5fexception_5fhandler_25',['authjwt_exception_handler',['../namespaceapp__util.html#ac4cddbef6b0cde7bfb1bbb959f9fa9e6',1,'app_util']]],
+  ['authsettingsmodel_26',['AuthSettingsModel',['../classauth__schema_1_1AuthSettingsModel.html',1,'auth_schema']]],
+  ['router_27',['router',['../namespaceauth_1_1router.html',1,'auth']]],
+  ['utils_28',['utils',['../namespaceauth_1_1utils.html',1,'auth']]],
+  ['views_29',['views',['../namespaceauth_1_1views.html',1,'auth']]]
 ];
