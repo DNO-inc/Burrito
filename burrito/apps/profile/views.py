@@ -13,7 +13,8 @@ from burrito.schemas.profile_schema import (
 from .utils import (
     get_auth_core, get_user_by_id, update_user,
     BaseView,
-    status
+    status,
+    check_permission
 )
 
 
@@ -21,6 +22,7 @@ class MyProfileView(BaseView):
     _permissions: list[str] = ["READ"]
 
     @staticmethod
+    @check_permission
     async def post(profile: CheckProfileSchema) -> ProfileSchema:
         """Return some data to check user profile"""
 

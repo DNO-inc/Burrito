@@ -24,7 +24,6 @@ class ProfileTestCase(unittest.TestCase):
             200
         )
 
-    @unittest.skip
     def test_view_profile_with_auth(self):
         """Recv profile data in JSON format"""
 
@@ -32,6 +31,9 @@ class ProfileTestCase(unittest.TestCase):
             "http://127.0.0.1:8080/profile/",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "user_id": RegistrationTestCase.user_id
             },
             timeout=0.1
         )
