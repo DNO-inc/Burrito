@@ -6,6 +6,7 @@ from registration_test import RegistrationTestCase
 
 RegistrationTestCase.random_login = "login"
 RegistrationTestCase.random_password = "password"
+RegistrationTestCase.user_id = 1
 
 
 class AuthTestCase(unittest.TestCase):
