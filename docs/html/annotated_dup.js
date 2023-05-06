@@ -78,15 +78,25 @@ var annotated_dup =
     [ "task_manager", "namespacetask__manager.html", [
       [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", "classtask__manager_1_1__TaskManager" ]
     ] ],
+    [ "tickets", "namespacetickets.html", [
+      [ "views", "namespacetickets_1_1views.html", [
+        [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
+        [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
+        [ "FollowTicketView", "classtickets_1_1views_1_1FollowTicketView.html", null ],
+        [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
+        [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
+        [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ],
+        [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ]
+      ] ]
+    ] ],
     [ "tickets_model", "namespacetickets__model.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]
     ] ],
     [ "tickets_schema", "namespacetickets__schema.html", [
       [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-      [ "DeleteTicket", "classtickets__schema_1_1DeleteTicket.html", null ],
-      [ "SaveTicket", "classtickets__schema_1_1SaveTicket.html", null ],
-      [ "FollowTicket", "classtickets__schema_1_1FollowTicket.html", null ],
-      [ "CloseTicket", "classtickets__schema_1_1CloseTicket.html", null ]
+      [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
+      [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
+      [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ]
     ] ],
     [ "user_agent", "namespaceuser__agent.html", [
       [ "UserAgentMiddleware", "classuser__agent_1_1UserAgentMiddleware.html", "classuser__agent_1_1UserAgentMiddleware" ]

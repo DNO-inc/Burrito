@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['name_116',['name',['../classfaculty__model_1_1Faculties.html#ab74e6bf80237ddc4109968cedc58c151',1,'faculty_model.Faculties.name()'],['../classgroup__model_1_1Groups.html#ab74e6bf80237ddc4109968cedc58c151',1,'group_model.Groups.name()'],['../classqueues__model_1_1Queues.html#ab74e6bf80237ddc4109968cedc58c151',1,'queues_model.Queues.name()'],['../classroles__model_1_1Roles.html#ab74e6bf80237ddc4109968cedc58c151',1,'roles_model.Roles.name()'],['../classstatuses__model_1_1Statuses.html#ab74e6bf80237ddc4109968cedc58c151',1,'statuses_model.Statuses.name()'],['../classtags__model_1_1Tags.html#ab74e6bf80237ddc4109968cedc58c151',1,'tags_model.Tags.name()']]],
-  ['new_5fvalue_117',['new_value',['../classactions__model_1_1Actions.html#a3a0d7730a835cdbf610f41af52bddd79',1,'actions_model::Actions']]],
-  ['notification_5fid_118',['notification_id',['../classnotifications__model_1_1Notifications.html#a5d4f175e92b8e546b6eb7a1f7c53bb80',1,'notifications_model::Notifications']]],
-  ['notifications_119',['Notifications',['../classnotifications__model_1_1Notifications.html',1,'notifications_model']]],
-  ['notifications_5fmodel_120',['notifications_model',['../namespacenotifications__model.html',1,'']]],
-  ['notifications_5fmodel_2epy_121',['notifications_model.py',['../notifications__model_8py.html',1,'']]]
+  ['name_115',['name',['../classfaculty__model_1_1Faculties.html#ab74e6bf80237ddc4109968cedc58c151',1,'faculty_model.Faculties.name()'],['../classgroup__model_1_1Groups.html#ab74e6bf80237ddc4109968cedc58c151',1,'group_model.Groups.name()'],['../classqueues__model_1_1Queues.html#ab74e6bf80237ddc4109968cedc58c151',1,'queues_model.Queues.name()'],['../classroles__model_1_1Roles.html#ab74e6bf80237ddc4109968cedc58c151',1,'roles_model.Roles.name()'],['../classstatuses__model_1_1Statuses.html#ab74e6bf80237ddc4109968cedc58c151',1,'statuses_model.Statuses.name()'],['../classtags__model_1_1Tags.html#ab74e6bf80237ddc4109968cedc58c151',1,'tags_model.Tags.name()']]],
+  ['new_5fvalue_116',['new_value',['../classactions__model_1_1Actions.html#a3a0d7730a835cdbf610f41af52bddd79',1,'actions_model::Actions']]],
+  ['notification_5fid_117',['notification_id',['../classnotifications__model_1_1Notifications.html#a5d4f175e92b8e546b6eb7a1f7c53bb80',1,'notifications_model::Notifications']]],
+  ['notifications_118',['Notifications',['../classnotifications__model_1_1Notifications.html',1,'notifications_model']]],
+  ['notifications_5fmodel_119',['notifications_model',['../namespacenotifications__model.html',1,'']]],
+  ['notifications_5fmodel_2epy_120',['notifications_model.py',['../notifications__model_8py.html',1,'']]]
 ];

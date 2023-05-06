@@ -7,8 +7,9 @@ var searchData=
   ['db_5fcursor_5fobject_2epy_61',['db_cursor_object.py',['../db__cursor__object_8py.html',1,'']]],
   ['db_5futils_62',['db_utils',['../namespacedb__utils.html',1,'']]],
   ['db_5futils_2epy_63',['db_utils.py',['../db__utils_8py.html',1,'']]],
-  ['deleteticket_64',['DeleteTicket',['../classtickets__schema_1_1DeleteTicket.html',1,'tickets_schema']]],
-  ['dispatch_65',['dispatch',['../classuser__agent_1_1UserAgentMiddleware.html#ad075ad559a5765d5148a7d8932a15dc9',1,'user_agent::UserAgentMiddleware']]],
-  ['do_5fdatabase_5fbackup_66',['do_database_backup',['../namespacedb__backup__util.html#aa4547c46b263e671819b643808e72fee',1,'db_backup_util']]],
-  ['drop_5ftables_67',['drop_tables',['../namespacedb__utils.html#ae633996fe71c51636921101047a2cf4a',1,'db_utils']]]
+  ['delete_64',['delete',['../classtickets_1_1views_1_1DeleteTicketView.html#a241b97cabaaba88334f2c9bc0de6c7db',1,'tickets::views::DeleteTicketView']]],
+  ['deleteticketview_65',['DeleteTicketView',['../classtickets_1_1views_1_1DeleteTicketView.html',1,'tickets::views']]],
+  ['dispatch_66',['dispatch',['../classuser__agent_1_1UserAgentMiddleware.html#ad075ad559a5765d5148a7d8932a15dc9',1,'user_agent::UserAgentMiddleware']]],
+  ['do_5fdatabase_5fbackup_67',['do_database_backup',['../namespacedb__backup__util.html#aa4547c46b263e671819b643808e72fee',1,'db_backup_util']]],
+  ['drop_5ftables_68',['drop_tables',['../namespacedb__utils.html#ae633996fe71c51636921101047a2cf4a',1,'db_utils']]]
 ];

@@ -52,12 +52,7 @@ var namespaces_dup =
     [ "router", "namespacerouter.html", [
       [ "about_index", "namespacerouter.html#a4e29b73964fb2a2cc4c9628ec9bc9efa", null ],
       [ "about_router", "namespacerouter.html#abb8d923991e651598f392bb0b7d70dc4", null ],
-      [ "create_new_report", "namespacerouter.html#a140bb6ecdc7dff5bd4c38345044e7ccc", null ],
-      [ "followed", "namespacerouter.html#a97483f1fcb6d7a148b3b034962eb0b88", null ],
-      [ "methods", "namespacerouter.html#a33d390b3d71a902ec9fbcd5d2d237619", null ],
-      [ "my_reports", "namespacerouter.html#ac6891a87118bc1f5bceaa8b2c0e95ec7", null ],
-      [ "tickets_router", "namespacerouter.html#af436fded19bd868694844b63b6865114", null ],
-      [ "to_me", "namespacerouter.html#a5e801d2a9e6d58303a6b06736fe02cee", null ]
+      [ "methods", "namespacerouter.html#a33d390b3d71a902ec9fbcd5d2d237619", null ]
     ] ],
     [ "singleton_pattern", "namespacesingleton__pattern.html", [
       [ "singleton", "namespacesingleton__pattern.html#ae2baffa38cffb7ae8ae4f38ab4360c2e", null ]
@@ -67,6 +62,7 @@ var namespaces_dup =
     [ "subscriptions_model", "namespacesubscriptions__model.html", "namespacesubscriptions__model" ],
     [ "tags_model", "namespacetags__model.html", "namespacetags__model" ],
     [ "task_manager", "namespacetask__manager.html", "namespacetask__manager" ],
+    [ "tickets", "namespacetickets.html", "namespacetickets" ],
     [ "tickets_model", "namespacetickets__model.html", "namespacetickets__model" ],
     [ "tickets_schema", "namespacetickets__schema.html", "namespacetickets__schema" ],
     [ "user_agent", "namespaceuser__agent.html", "namespaceuser__agent" ],
@@ -78,10 +74,6 @@ var namespaces_dup =
       [ "is_valid_password", "namespacevalidators.html#a7cd677a845b1350b3c4071c520035512", null ]
     ] ],
     [ "views", "namespaceviews.html", [
-      [ "about_index", "namespaceviews.html#a0a9b96810f56107d6291828b07df5905", null ],
-      [ "create_new_report", "namespaceviews.html#a5955eecb43a93e57b86b6732c138a07f", null ],
-      [ "followed", "namespaceviews.html#a26cb7c5204b70d54f223acce9707a327", null ],
-      [ "my_reports", "namespaceviews.html#afd18d5d106e723ac9698f44d4a0a509a", null ],
-      [ "to_me", "namespaceviews.html#a24bc33a7ef0efccfbd0366819504f7fa", null ]
+      [ "about_index", "namespaceviews.html#a0a9b96810f56107d6291828b07df5905", null ]
     ] ]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['deleteticket_244',['DeleteTicket',['../classtickets__schema_1_1DeleteTicket.html',1,'tickets_schema']]]
+  ['deleteticketview_252',['DeleteTicketView',['../classtickets_1_1views_1_1DeleteTicketView.html',1,'tickets::views']]]
 ];

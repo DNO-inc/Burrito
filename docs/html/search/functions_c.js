@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['setup_5fdatabase_398',['setup_database',['../namespacedb__utils.html#a6ba13843b5928c9cd587aca7461fceb7',1,'db_utils']]],
-  ['setup_5fscheduler_399',['setup_scheduler',['../namespacedb__backup__util.html#ae9e26800138a45107010bfdcbec44811',1,'db_backup_util']]],
-  ['singleton_400',['singleton',['../namespacesingleton__pattern.html#ae2baffa38cffb7ae8ae4f38ab4360c2e',1,'singleton_pattern']]],
-  ['startup_5fevent_401',['startup_event',['../namespaceapp__util.html#a33b066165645df61a84662b4e50026d2',1,'app_util']]],
-  ['stop_402',['stop',['../classtask__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'task_manager::_TaskManager']]]
+  ['thread_5fsingleton_418',['thread_singleton',['../namespacetask__manager.html#ad7c3dd1f53b38754f77552c146500420',1,'task_manager']]],
+  ['token_5flogin_419',['token_login',['../namespaceauth_1_1views.html#ab4e081c4c17e62462e0b26ae6d7229fb',1,'auth::views']]]
 ];
