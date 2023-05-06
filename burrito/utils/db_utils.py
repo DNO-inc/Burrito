@@ -10,9 +10,10 @@ from burrito.models.comments_model import Comments
 from burrito.models.actions_model import Actions
 from burrito.models.participants_model import Participants
 from burrito.models.queues_model import Queues
-from burrito.models.queue_watchers_model import QueueWatchers
 from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
+
+from burrito.models.bookmarks_model import Bookmarks
 
 from burrito.schemas.profile_schema import UpdateProfileSchema
 
@@ -35,10 +36,11 @@ def create_tables():
 
     get_database_cursor().create_tables(
         (
-            Roles, Tags, Statuses, QueueWatchers,
-            Tickets, Users, Participants,
+            Users, Roles, Faculties, Groups,
+            Roles, Tags, Statuses,
+            Tickets, Participants,
             Subscriptions, Actions, Notifications,
-            Groups, Faculties, Comments, Queues
+            Comments, Queues
         )
     )
     get_logger().info("All tables was created")
@@ -58,7 +60,7 @@ def drop_tables(use: bool = False):
 
     get_database_cursor().drop_tables(
         (
-            Roles, Tags, Statuses, QueueWatchers,
+            Roles, Tags, Statuses,
             Tickets, Users, Participants,
             Subscriptions, Actions, Notifications,
             Groups, Faculties, Comments, Queues

@@ -26,7 +26,7 @@ connect_app(app, "/about", about_router)
 connect_app(app, "/registration", registration_router)
 connect_app(app, "/profile", profile_router)
 connect_app(app, "/auth", auth_router)
-connect_app(app, "/reports", tickets_router)
+connect_app(app, "/tickets", tickets_router)
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ import os
 from registration_test import RegistrationTestCase
 from auth_test import AuthTestCase
 from profile_test import ProfileTestCase
+from tickets_test import TicketsTestCase
 
 # modify sys.path to get access to burrito
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -21,7 +22,8 @@ all_tests = unittest.TestSuite(
     [
 #        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase)
+        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase)
     ]
 )
 

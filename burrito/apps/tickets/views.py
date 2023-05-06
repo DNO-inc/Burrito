@@ -2,10 +2,10 @@ from fastapi import Depends
 
 from fastapi_jwt_auth import AuthJWT
 
+from burrito.schemas.tickets_schema import CreateTicket
 from burrito.models.tickets_model import Tickets
-from burrito.models.user_model import Users
 
-from .utils import get_auth_core, get_user_by_login, BaseView, check_permission
+from .utils import get_auth_core, get_user_by_id, BaseView, check_permission
 
 
 class CreateTicketView(BaseView):
@@ -13,9 +13,18 @@ class CreateTicketView(BaseView):
 
     @staticmethod
     @check_permission
-    async def post(Authorize: AuthJWT = Depends(get_auth_core())):
+    async def post(
+        ticket_creation_data: CreateTicket,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
         """Create ticket"""
         Authorize.jwt_required()
+
+#        Tickets.create(
+#            issuer=Authorize.get_jwt_subject(),#
+#        )
+
+        print(ticket_creation_data)
 
 
 class DeleteTicketView(BaseView):
