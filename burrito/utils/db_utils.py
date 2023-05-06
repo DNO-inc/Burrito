@@ -40,7 +40,7 @@ def create_tables():
             Roles, Tags, Statuses,
             Tickets, Participants,
             Subscriptions, Actions, Notifications,
-            Comments, Queues
+            Comments, Queues, Bookmarks
         )
     )
     get_logger().info("All tables was created")
@@ -63,7 +63,7 @@ def drop_tables(use: bool = False):
             Roles, Tags, Statuses,
             Tickets, Users, Participants,
             Subscriptions, Actions, Notifications,
-            Groups, Faculties, Comments, Queues
+            Groups, Faculties, Comments, Queues, Bookmarks
         )
     )
     get_logger().warning("All tables was dropped")

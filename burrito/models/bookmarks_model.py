@@ -10,12 +10,12 @@ class Bookmarks(Model):
     user_id = ForeignKeyField(
         Users,
         to_field="user_id",
-        on_delete="NO ACTIONS"
+        on_delete="NO ACTION"
     )
     ticket_id = ForeignKeyField(
         Tickets,
         to_field="ticket_id",
-        on_delete="NO ACTIONS"
+        on_delete="NO ACTION"
     )
 
     class Meta:
