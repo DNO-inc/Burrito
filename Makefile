@@ -10,6 +10,9 @@ docs_:
 create_user: tests/create_user.py
 	$(PYTHON) tests/create_user.py
 
+create_db_env: tests/create_db_env.py
+	$(PYTHON) tests/create_db_env.py
+
 clear_db:
 	$(PYTHON) tests/clear_db.py
 

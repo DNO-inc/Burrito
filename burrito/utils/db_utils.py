@@ -1,7 +1,6 @@
 from burrito.models.tickets_model import Tickets
 from burrito.models.roles_model import Roles
 from burrito.models.statuses_model import Statuses
-from burrito.models.tags_model import Tags
 from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
@@ -37,7 +36,7 @@ def create_tables():
     get_database_cursor().create_tables(
         (
             Users, Roles, Faculties, Groups,
-            Roles, Tags, Statuses,
+            Roles, Statuses,
             Tickets, Participants,
             Subscriptions, Actions, Notifications,
             Comments, Queues, Bookmarks
@@ -60,7 +59,7 @@ def drop_tables(use: bool = False):
 
     get_database_cursor().drop_tables(
         (
-            Roles, Tags, Statuses,
+            Roles, Statuses,
             Tickets, Users, Participants,
             Subscriptions, Actions, Notifications,
             Groups, Faculties, Comments, Queues, Bookmarks

@@ -1,11 +1,17 @@
 from fastapi import Depends
+from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
 
 from burrito.schemas.tickets_schema import CreateTicket
 from burrito.models.tickets_model import Tickets
 
-from .utils import get_auth_core, get_user_by_id, BaseView, check_permission
+from .utils import (
+    get_auth_core,
+    get_user_by_id,
+    BaseView, status,
+    check_permission
+)
 
 
 class CreateTicketView(BaseView):
@@ -20,11 +26,14 @@ class CreateTicketView(BaseView):
         """Create ticket"""
         Authorize.jwt_required()
 
-#        Tickets.create(
-#            issuer=Authorize.get_jwt_subject(),#
-#        )
+        user_id = Authorize.get_jwt_subject()
+        if user_id != ticket_creation_data.creator_id:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={"detail": "User ID is not the same"}
+            )
 
-        print(ticket_creation_data)
+        Tickets.create(**ticket_creation_data.dict())
 
 
 class DeleteTicketView(BaseView):

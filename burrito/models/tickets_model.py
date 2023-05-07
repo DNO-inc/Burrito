@@ -7,7 +7,7 @@ from peewee import (
     CharField, ForeignKeyField
 )
 
-from burrito.models.tags_model import Tags
+from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.faculty_model import Faculties
 from burrito.models.user_model import Users
@@ -45,17 +45,19 @@ class Tickets(Model):
         to_field="faculty_id",
         on_delete="NO ACTION"
     )
-    tag_id = ForeignKeyField(
-        Tags,
-        to_field="tag_id",
-        on_delete="NO ACTION"
+    queue_id = ForeignKeyField(
+        Queues,
+        to_field="queue_id",
+        on_delete="NO ACTION",
+        null=True
     )
     status_id = ForeignKeyField(
         Statuses,
         to_field="status_id",
-        on_delete="NO ACTION"
+        on_delete="NO ACTION",
+        default=1
     )
 
     class Meta:
         database = get_database_cursor()
-        depends_on = [Users, Faculties, Tags, Statuses]
+        depends_on = [Users, Faculties, Statuses]

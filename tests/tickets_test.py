@@ -17,12 +17,13 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "issuer": RegistrationTestCase.user_id,
+                "creator_id": RegistrationTestCase.user_id,
                 "subject": "".join(random.sample(string.ascii_letters, 5)),
                 "body": "".join(random.sample(string.ascii_letters, 15)),
                 "hidden": False,
                 "anonymous": True,
                 "faculty_id": 1,
+                "queue_id": 1,
                 "user_id": RegistrationTestCase.user_id
             },
             timeout=0.1

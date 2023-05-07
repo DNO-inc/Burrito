@@ -17,14 +17,14 @@ from burrito.apps.tickets.router import tickets_router
 
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app, get_current_app
-from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
+#from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
 
 
 create_tables()
 
-db_preprocessor = LocalDataBasePreprocessor(
-    {"filename": "/mnt/d/pyrus/Ramee/preprocessor_config.json"}
-)
+#db_preprocessor = LocalDataBasePreprocessor(
+#    {"filename": "/mnt/d/pyrus/Ramee/preprocessor_config.json"}
+#)
 #db_preprocessor.apply_data()
 
 

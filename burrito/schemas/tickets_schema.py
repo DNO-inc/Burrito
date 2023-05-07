@@ -2,11 +2,12 @@ from pydantic import BaseModel
 
 
 class CreateTicket(BaseModel):
-    issuer: int
+    creator_id: int
     subject: str
     body: str
     hidden: bool
     anonymous: bool
+    queue_id: int | bool
     faculty_id: int
 
 
