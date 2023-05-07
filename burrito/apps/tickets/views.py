@@ -60,9 +60,18 @@ class DeleteTicketView(BaseView):
         Authorize.jwt_required()
 
         try:
-            Tickets.get(
+            ticket: Tickets = Tickets.get(
                 Tickets.ticket_id == deletion_ticket_data.ticket_id
-            ).delete_instance()
+            )
+            if not (ticket.creator == Authorize.get_jwt_subject()):
+                return JSONResponse(
+                    status_code=status.HTTP_403_FORBIDDEN,
+                    content={
+                        "detail": "You have not permissions to delete this ticket"
+                    }
+                )
+
+            ticket.delete_instance()
 
         except:
             return JSONResponse(
