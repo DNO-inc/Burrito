@@ -12,10 +12,11 @@ class CreateTicket(BaseModel):
 
 
 class UpdateTicket(BaseModel):
-    subject: str
-    body: str
-    hidden: bool
-    anonymous: bool
+    ticket_id: int
+    subject: str | None
+    body: str | None
+    hidden: bool | None
+    anonymous: bool | None
 
 
 class TicketList(BaseModel):
