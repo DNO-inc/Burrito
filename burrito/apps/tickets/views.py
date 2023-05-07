@@ -3,7 +3,10 @@ from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
 
-from burrito.schemas.tickets_schema import CreateTicket
+from burrito.schemas.tickets_schema import (
+    CreateTicket,
+    TicketIDValue
+)
 from burrito.models.tickets_model import Tickets
 
 from .utils import (
@@ -33,7 +36,15 @@ class CreateTicketView(BaseView):
                 content={"detail": "User ID is not the same"}
             )
 
-        Tickets.create(**ticket_creation_data.dict())
+        ticket: Tickets = Tickets.create(**ticket_creation_data.dict())
+
+        return JSONResponse(
+            status_code=200,
+            content={
+                "detail": "Ticket was created successfully",
+                "ticket_id": ticket.ticket_id
+            }
+        )
 
 
 class DeleteTicketView(BaseView):
@@ -41,9 +52,30 @@ class DeleteTicketView(BaseView):
 
     @staticmethod
     @check_permission
-    async def delete(Authorize: AuthJWT = Depends(get_auth_core())):
+    async def delete(
+        deletion_ticket_data: TicketIDValue,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
         """Delete ticket"""
         Authorize.jwt_required()
+
+        try:
+            Tickets.get(
+                Tickets.ticket_id == deletion_ticket_data.ticket_id
+            ).delete_instance()
+
+        except:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={
+                    "detail": f"ticket_id {deletion_ticket_data.ticket_id} is not exist"
+                }
+            )
+
+        return JSONResponse(
+            status_code=200,
+            content={"detail": "Ticket was deleted successfully"}
+        )
 
 
 class FollowTicketView(BaseView):

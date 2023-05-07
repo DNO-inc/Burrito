@@ -21,7 +21,7 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/delete",
     DeleteTicketView.delete,
-    methods=["POST"]
+    methods=["DELETE"]
 )
 tickets_router.add_api_route(
     "/follow",
