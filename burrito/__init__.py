@@ -1,1 +1,1 @@
-__version__ = "indev 0.1.0"
+__version__ = "0.1.0 indev"
