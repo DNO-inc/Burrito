@@ -7,7 +7,6 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Subscriptions(Model):
-    subscription_id = PrimaryKeyField()
     ticket_id = ForeignKeyField(
         Tickets,
         to_field="ticket_id",
@@ -17,3 +16,4 @@ class Subscriptions(Model):
 
     class Meta:
         database = get_database_cursor()
+        depends_on = [Tickets, Users]

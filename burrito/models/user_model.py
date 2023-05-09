@@ -14,6 +14,7 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 class Users(Model):
     user_id = PrimaryKeyField()
+
     firstname = CharField(60, null=True)
     lastname = CharField(60, null=True)
 
@@ -48,3 +49,4 @@ class Users(Model):
 
     class Meta:
         database = get_database_cursor()
+        depends_on = [Roles, Groups, Faculties]

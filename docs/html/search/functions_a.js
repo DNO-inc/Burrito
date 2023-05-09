@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['my_5fprofile_363',['my_profile',['../namespaceviews.html#ac84005c2c979b9898a9a6ce5c394db4d',1,'views']]],
-  ['my_5freports_364',['my_reports',['../namespaceviews.html#a0c5559ebc718b7bee05b68ab05ef1129',1,'views']]]
+  ['run_412',['run',['../classpubsub__manager_1_1PubSubManager.html#a670fe67276cb94775a042958fe2c79d4',1,'pubsub_manager.PubSubManager.run()'],['../classtask__manager_1_1__TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'task_manager._TaskManager.run()']]]
 ];

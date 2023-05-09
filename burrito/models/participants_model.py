@@ -7,12 +7,14 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Participants(Model):
+    user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
+
     ticket_id = ForeignKeyField(
         Tickets,
         to_field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
 
     class Meta:
         database = get_database_cursor()
+        depends_on = [Users, Tickets]

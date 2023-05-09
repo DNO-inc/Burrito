@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['comments_5fmodel_258',['comments_model',['../namespacecomments__model.html',1,'']]]
+  ['base_5fview_291',['base_view',['../namespacebase__view.html',1,'']]]
 ];

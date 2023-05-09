@@ -34,12 +34,15 @@ class MyProfileView(BaseView):
                 content={"detail": f"User with {profile.user_id} is not exist"}
             )
 
+        faculty_name = current_user.faculty_id
+        group_name = current_user.group_id
+
         return ProfileSchema(
             firstname=current_user.firstname,
             lastname=current_user.lastname,
             login=current_user.login,
-            faculty=str(current_user.faculty_id),  # TODO: get faculty name from DB
-            group=str(current_user.group_id),      # TODO: get group name from DB
+            faculty=faculty_name.name if faculty_name else None,
+            group=group_name.name if group_name else None,
             phone=current_user.phone,
             email=current_user.email,
             registration_date=str(current_user.registration_date)

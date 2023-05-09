@@ -9,15 +9,14 @@ var annotated_dup =
     [ "auth_schema", "namespaceauth__schema.html", [
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
     ] ],
+    [ "base_view", "namespacebase__view.html", [
+      [ "BaseView", "classbase__view_1_1BaseView.html", null ]
+    ] ],
     [ "comments_model", "namespacecomments__model.html", [
       [ "Comments", "classcomments__model_1_1Comments.html", "classcomments__model_1_1Comments" ]
     ] ],
     [ "db_cursor_object", "namespacedb__cursor__object.html", [
       [ "PostgresqlCursor", "classdb__cursor__object_1_1PostgresqlCursor.html", "classdb__cursor__object_1_1PostgresqlCursor" ]
-    ] ],
-    [ "event_cycle", "namespaceevent__cycle.html", [
-      [ "__BurritoEventCycle", "classevent__cycle_1_1____BurritoEventCycle.html", "classevent__cycle_1_1____BurritoEventCycle" ],
-      [ "EventCycleManager", "classevent__cycle_1_1EventCycleManager.html", "classevent__cycle_1_1EventCycleManager" ]
     ] ],
     [ "faculty_model", "namespacefaculty__model.html", [
       [ "Faculties", "classfaculty__model_1_1Faculties.html", "classfaculty__model_1_1Faculties" ]
@@ -35,9 +34,16 @@ var annotated_dup =
     [ "participants_model", "namespaceparticipants__model.html", [
       [ "Participants", "classparticipants__model_1_1Participants.html", "classparticipants__model_1_1Participants" ]
     ] ],
+    [ "profile", "namespaceprofile.html", [
+      [ "views", "namespaceprofile_1_1views.html", [
+        [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
+        [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ]
+      ] ]
+    ] ],
     [ "profile_schema", "namespaceprofile__schema.html", [
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
       [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
+      [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
     ] ],
     [ "pubsub_manager", "namespacepubsub__manager.html", [
@@ -52,8 +58,10 @@ var annotated_dup =
     [ "redis_utils", "namespaceredis__utils.html", [
       [ "BurritoRedis", "classredis__utils_1_1BurritoRedis.html", "classredis__utils_1_1BurritoRedis" ]
     ] ],
-    [ "response", "namespaceresponse.html", [
-      [ "ResponseCode", "classresponse_1_1ResponseCode.html", null ]
+    [ "registration", "namespaceregistration.html", [
+      [ "views", "namespaceregistration_1_1views.html", [
+        [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ]
+      ] ]
     ] ],
     [ "roles_model", "namespaceroles__model.html", [
       [ "Roles", "classroles__model_1_1Roles.html", "classroles__model_1_1Roles" ]
@@ -70,15 +78,25 @@ var annotated_dup =
     [ "task_manager", "namespacetask__manager.html", [
       [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", "classtask__manager_1_1__TaskManager" ]
     ] ],
+    [ "tickets", "namespacetickets.html", [
+      [ "views", "namespacetickets_1_1views.html", [
+        [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
+        [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
+        [ "FollowTicketView", "classtickets_1_1views_1_1FollowTicketView.html", null ],
+        [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
+        [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
+        [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ],
+        [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ]
+      ] ]
+    ] ],
     [ "tickets_model", "namespacetickets__model.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]
     ] ],
     [ "tickets_schema", "namespacetickets__schema.html", [
       [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-      [ "DeleteTicket", "classtickets__schema_1_1DeleteTicket.html", null ],
-      [ "SaveTicket", "classtickets__schema_1_1SaveTicket.html", null ],
-      [ "FollowTicket", "classtickets__schema_1_1FollowTicket.html", null ],
-      [ "CloseTicket", "classtickets__schema_1_1CloseTicket.html", null ]
+      [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
+      [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
+      [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ]
     ] ],
     [ "user_agent", "namespaceuser__agent.html", [
       [ "UserAgentMiddleware", "classuser__agent_1_1UserAgentMiddleware.html", "classuser__agent_1_1UserAgentMiddleware" ]

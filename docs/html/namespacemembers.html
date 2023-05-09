@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 : <a class="el" href="namespace____main____.html#afe63fea7be31b0200b496d08bc6b517d">__main__</a>
 </li>
 <li>auth_router
-: <a class="el" href="namespacerouter.html#a13029250cfc9d08f3a828958cd6e7d3e">router</a>
+: <a class="el" href="namespaceauth_1_1router.html#a13029250cfc9d08f3a828958cd6e7d3e">auth.router</a>
 </li>
 <li>authjwt_exception_handler()
 : <a class="el" href="namespaceapp__util.html#ac4cddbef6b0cde7bfb1bbb959f9fa9e6">app_util</a>
@@ -143,9 +143,11 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
-<li>check_verification_code
-: <a class="el" href="namespacerouter.html#a29fad3f775e7d37350572d2554799880">router</a>
-, <a class="el" href="namespaceviews.html#a8cc6ed514051db1aa95f104e28f7117d">views</a>
+<li>check_permission()
+: <a class="el" href="namespacepermissions__checker.html#a6bf33c7195aacc42509a20a5ad1e2eb1">permissions_checker</a>
+</li>
+<li>check_verification_code()
+: <a class="el" href="namespaceregistration_1_1views.html#a6c648880bda8b184a1ae0e1eac69418e">registration.views</a>
 </li>
 <li>compare_password()
 : <a class="el" href="namespacehash__util.html#a67c963a8f1f05954f1f124cc4432e89c">hash_util</a>
@@ -153,15 +155,11 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 <li>connect_app()
 : <a class="el" href="namespaceapp__util.html#a9e8171597c4945523e981a5785a6644c">app_util</a>
 </li>
-<li>create_new_report
-: <a class="el" href="namespacerouter.html#a140bb6ecdc7dff5bd4c38345044e7ccc">router</a>
-, <a class="el" href="namespaceviews.html#a9b3f562087a89051627f72eab2174035">views</a>
-</li>
 <li>create_tables()
 : <a class="el" href="namespacedb__utils.html#a97d27db4108f9fcbce742ac245c6d1dd">db_utils</a>
 </li>
 <li>create_user()
-: <a class="el" href="namespacedb__utils.html#ab840ce6553a2fc81da09e02abc1722e9">db_utils</a>
+: <a class="el" href="namespacedb__utils.html#a6c54716e85b3728d50fffc2962477130">db_utils</a>
 </li>
 </ul>
 
@@ -176,20 +174,15 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 </ul>
 
 
-<h3><a id="index_f"></a>- f -</h3><ul>
-<li>followed
-: <a class="el" href="namespacerouter.html#a97483f1fcb6d7a148b3b034962eb0b88">router</a>
-, <a class="el" href="namespaceviews.html#a6b9d4a0dbdadf439b6e3d195daf922f8">views</a>
-</li>
-</ul>
-
-
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>get_async_manager()
 : <a class="el" href="namespacetask__manager.html#a7f69cdf4365496213b473f8fd55c7276">task_manager</a>
 </li>
+<li>get_auth_core()
+: <a class="el" href="namespaceauth.html#a27f187ee5907af2c540718b765edff83">auth</a>
+</li>
 <li>get_config()
-: <a class="el" href="namespaceviews.html#ae42378dc11be91a067fae3546a4b139f">views</a>
+: <a class="el" href="namespaceauth.html#a9d452d3e08b7b2a0e3c871df7d137074">auth</a>
 </li>
 <li>get_current_app()
 : <a class="el" href="namespaceapp__util.html#a76ebb9e480e66f9e782c8075c97a7713">app_util</a>
@@ -212,8 +205,11 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 <li>get_salt()
 : <a class="el" href="namespacehash__util.html#a7d74fd31174a40f9d093fe190e052505">hash_util</a>
 </li>
+<li>get_user_by_id()
+: <a class="el" href="namespacedb__utils.html#a3799dfadd310611ee720e58efea2bd21">db_utils</a>
+</li>
 <li>get_user_by_login()
-: <a class="el" href="namespacedb__utils.html#a7efeb76fcbdacdc8d0abc4d11d386eaf">db_utils</a>
+: <a class="el" href="namespacedb__utils.html#a4d232d7ae2c421d2019dec8788d293cb">db_utils</a>
 </li>
 <li>get_verification_code()
 : <a class="el" href="namespacehash__util.html#a3b0d21f8fc19a46f24861c3a5fd64f03">hash_util</a>
@@ -236,29 +232,25 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>methods
-: <a class="el" href="namespacerouter.html#a33d390b3d71a902ec9fbcd5d2d237619">router</a>
-</li>
-<li>my_profile
-: <a class="el" href="namespacerouter.html#a92e5ee9fb081a6b25937c6f7050ca5a2">router</a>
-, <a class="el" href="namespaceviews.html#ac84005c2c979b9898a9a6ce5c394db4d">views</a>
-</li>
-<li>my_reports
-: <a class="el" href="namespacerouter.html#ac6891a87118bc1f5bceaa8b2c0e95ec7">router</a>
-, <a class="el" href="namespaceviews.html#a0c5559ebc718b7bee05b68ab05ef1129">views</a>
+: <a class="el" href="namespaceauth_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619">auth.router</a>
+, <a class="el" href="namespaceprofile_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619">profile.router</a>
+, <a class="el" href="namespaceregistration_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619">registration.router</a>
+, <a class="el" href="namespacerouter.html#a33d390b3d71a902ec9fbcd5d2d237619">router</a>
+, <a class="el" href="namespacetickets_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619">tickets.router</a>
 </li>
 </ul>
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>password_login
-: <a class="el" href="namespacerouter.html#a754142b940dbb24ef6771cd51eb01305">router</a>
-, <a class="el" href="namespaceviews.html#a1752cae1a001515031bbd9ab3de72f4f">views</a>
+: <a class="el" href="namespaceauth_1_1router.html#a754142b940dbb24ef6771cd51eb01305">auth.router</a>
+, <a class="el" href="namespaceauth_1_1views.html#a1e1c2ab308fe5900c1487f1950cf5a25">auth.views</a>
 </li>
 <li>port
 : <a class="el" href="namespace____main____.html#af8fb0f45ee0195c7422a49e6a8d72369">__main__</a>
 </li>
 <li>profile_router
-: <a class="el" href="namespacerouter.html#a8de8d89f2f939fa127db4d4cc20ce3f5">router</a>
+: <a class="el" href="namespaceprofile_1_1router.html#a8de8d89f2f939fa127db4d4cc20ce3f5">profile.router</a>
 </li>
 <li>PUBSUB_CYCLE_TIMEOUT
 : <a class="el" href="namespacepubsub__manager.html#a9ecc941e90689f0353453bb87f506968">pubsub_manager</a>
@@ -267,23 +259,22 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
-<li>registration_main
-: <a class="el" href="namespacerouter.html#ab20708b42e2cf4368f92e561edb843ec">router</a>
-, <a class="el" href="namespaceviews.html#a27b3065f72c150cf1ebc9f4384dcf47f">views</a>
-</li>
 <li>registration_router
-: <a class="el" href="namespacerouter.html#a2a455c7456993246f976f193f7fc37f3">router</a>
+: <a class="el" href="namespaceregistration_1_1router.html#a2a455c7456993246f976f193f7fc37f3">registration.router</a>
 </li>
 <li>reload
 : <a class="el" href="namespace____main____.html#ac5c05266f4f3b5937cefb6a818fc6675">__main__</a>
+</li>
+<li>reload_dirs
+: <a class="el" href="namespace____main____.html#ae52daaf6e507546f2beee3b3fecfbf08">__main__</a>
+</li>
+<li>response_model
+: <a class="el" href="namespaceprofile_1_1router.html#a731b733fef9a4a8f1036d56f79844307">profile.router</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>send_test_email_via_redis()
-: <a class="el" href="namespaceemail__utils.html#a11ad7da54ae6962d330775481b4c3a04">email_utils</a>
-</li>
 <li>setup_database()
 : <a class="el" href="namespacedb__utils.html#a6ba13843b5928c9cd587aca7461fceb7">db_utils</a>
 </li>
@@ -304,22 +295,18 @@ $(document).ready(function(){initNavTree('namespacemembers.html',''); initResiza
 : <a class="el" href="namespacetask__manager.html#ad7c3dd1f53b38754f77552c146500420">task_manager</a>
 </li>
 <li>tickets_router
-: <a class="el" href="namespacerouter.html#af436fded19bd868694844b63b6865114">router</a>
-</li>
-<li>to_me
-: <a class="el" href="namespacerouter.html#a5e801d2a9e6d58303a6b06736fe02cee">router</a>
-, <a class="el" href="namespaceviews.html#a72d599be6e975997cb3fea2a86ed23c2">views</a>
+: <a class="el" href="namespacetickets_1_1router.html#af436fded19bd868694844b63b6865114">tickets.router</a>
 </li>
 <li>token_login
-: <a class="el" href="namespacerouter.html#a360116e3871d417012f7a4908098fcf8">router</a>
-, <a class="el" href="namespaceviews.html#a17e8c6749e16f76ed0b448bbd38f24c1">views</a>
+: <a class="el" href="namespaceauth_1_1router.html#a360116e3871d417012f7a4908098fcf8">auth.router</a>
+, <a class="el" href="namespaceauth_1_1views.html#ab4e081c4c17e62462e0b26ae6d7229fb">auth.views</a>
 </li>
 </ul>
 
 
 <h3><a id="index_u"></a>- u -</h3><ul>
-<li>update_my_profile()
-: <a class="el" href="namespaceviews.html#ad35689c02cd7c74d87bf7832a22249b3">views</a>
+<li>update_user()
+: <a class="el" href="namespacedb__utils.html#a16be5b56da918177d98b6bff92cb9758">db_utils</a>
 </li>
 </ul>
 </div><!-- contents -->

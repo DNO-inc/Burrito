@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['comments_5fmodel_2epy_295',['comments_model.py',['../comments__model_8py.html',1,'']]]
+  ['base_5fview_2epy_340',['base_view.py',['../base__view_8py.html',1,'']]]
 ];

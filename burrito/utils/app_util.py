@@ -3,14 +3,13 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi_jwt_auth.exceptions import AuthJWTException
 
-from burrito.utils.singleton_pattern import singleton
-from burrito.utils.db_backup_util import backup_cycle
-from burrito.utils.task_manager import get_async_manager
-from burrito.utils.logger import get_logger
-
 from burrito.middlewares.user_agent import UserAgentMiddleware
 
-from burrito.utils.pubsub_manager import get_pubsub_manager
+from .singleton_pattern import singleton
+from .db_backup_util import backup_cycle
+from .task_manager import get_async_manager
+from .logger import get_logger
+from .pubsub_manager import get_pubsub_manager
 
 
 @singleton

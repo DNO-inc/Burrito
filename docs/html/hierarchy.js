@@ -1,8 +1,7 @@
 var hierarchy =
 [
-    [ "__BurritoEventCycle", "classevent__cycle_1_1____BurritoEventCycle.html", null ],
     [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", null ],
-    [ "EventCycleManager", "classevent__cycle_1_1EventCycleManager.html", null ],
+    [ "BaseView", "classbase__view_1_1BaseView.html", null ],
     [ "Formatter", null, [
       [ "BurritoFormatter", "classlogger_1_1BurritoFormatter.html", null ]
     ] ],
@@ -36,14 +35,25 @@ var hierarchy =
         [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
         [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
       ] ],
-      [ "ResponseCode", "classresponse_1_1ResponseCode.html", null ],
-      [ "CloseTicket", "classtickets__schema_1_1CloseTicket.html", null ],
+      [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-      [ "DeleteTicket", "classtickets__schema_1_1DeleteTicket.html", null ],
-      [ "FollowTicket", "classtickets__schema_1_1FollowTicket.html", null ],
-      [ "SaveTicket", "classtickets__schema_1_1SaveTicket.html", null ],
+      [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ],
+      [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
+      [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
       [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
       [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
+    ] ],
+    [ "BaseView", null, [
+      [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
+      [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ],
+      [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ],
+      [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ],
+      [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
+      [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
+      [ "FollowTicketView", "classtickets_1_1views_1_1FollowTicketView.html", null ],
+      [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
+      [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
+      [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ]
     ] ],
     [ "FastAPI", null, [
       [ "BurritoApi", "classapp__util_1_1BurritoApi.html", null ]

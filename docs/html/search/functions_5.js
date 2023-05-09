@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['event_5fcycles_344',['event_cycles',['../classevent__cycle_1_1EventCycleManager.html#acad792835fa6b213acb7bd1e7cb3db70',1,'event_cycle::EventCycleManager']]]
+  ['format_390',['format',['../classlogger_1_1BurritoFormatter.html#ad456c943ea50176abf1a0fd57b77b80b',1,'logger::BurritoFormatter']]]
 ];

@@ -128,10 +128,14 @@ Functions</h2></td></tr>
 <tr class="separator:a97d27db4108f9fcbce742ac245c6d1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae633996fe71c51636921101047a2cf4a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#ae633996fe71c51636921101047a2cf4a">drop_tables</a> (bool use=False)</td></tr>
 <tr class="separator:ae633996fe71c51636921101047a2cf4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab840ce6553a2fc81da09e02abc1722e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#ab840ce6553a2fc81da09e02abc1722e9">create_user</a> (str login, str hashed_password)</td></tr>
-<tr class="separator:ab840ce6553a2fc81da09e02abc1722e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7efeb76fcbdacdc8d0abc4d11d386eaf"><td class="memItemLeft" align="right" valign="top">Users|bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#a7efeb76fcbdacdc8d0abc4d11d386eaf">get_user_by_login</a> (str login)</td></tr>
-<tr class="separator:a7efeb76fcbdacdc8d0abc4d11d386eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c54716e85b3728d50fffc2962477130"><td class="memItemLeft" align="right" valign="top">int|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#a6c54716e85b3728d50fffc2962477130">create_user</a> (str login, str hashed_password)</td></tr>
+<tr class="separator:a6c54716e85b3728d50fffc2962477130"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16be5b56da918177d98b6bff92cb9758"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#a16be5b56da918177d98b6bff92cb9758">update_user</a> (Users user, UpdateProfileSchema data)</td></tr>
+<tr class="separator:a16be5b56da918177d98b6bff92cb9758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d232d7ae2c421d2019dec8788d293cb"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#a4d232d7ae2c421d2019dec8788d293cb">get_user_by_login</a> (str login)</td></tr>
+<tr class="separator:a4d232d7ae2c421d2019dec8788d293cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3799dfadd310611ee720e58efea2bd21"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedb__utils.html#a3799dfadd310611ee720e58efea2bd21">get_user_by_id</a> (int user_id)</td></tr>
+<tr class="separator:a3799dfadd310611ee720e58efea2bd21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a97d27db4108f9fcbce742ac245c6d1dd"></a>
@@ -154,14 +158,14 @@ Create all tables using models in burrito/models
 </pre> 
 </div>
 </div>
-<a id="ab840ce6553a2fc81da09e02abc1722e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab840ce6553a2fc81da09e02abc1722e9">&#9670;&nbsp;</a></span>create_user()</h2>
+<a id="a6c54716e85b3728d50fffc2962477130"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c54716e85b3728d50fffc2962477130">&#9670;&nbsp;</a></span>create_user()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> bool db_utils.create_user </td>
+          <td class="memname"> int | None db_utils.create_user </td>
           <td>(</td>
           <td class="paramtype">str&#160;</td>
           <td class="paramname"><em>login</em>, </td>
@@ -216,14 +220,41 @@ Args:
 </pre> 
 </div>
 </div>
-<a id="a7efeb76fcbdacdc8d0abc4d11d386eaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7efeb76fcbdacdc8d0abc4d11d386eaf">&#9670;&nbsp;</a></span>get_user_by_login()</h2>
+<a id="a3799dfadd310611ee720e58efea2bd21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3799dfadd310611ee720e58efea2bd21">&#9670;&nbsp;</a></span>get_user_by_id()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> Users | bool db_utils.get_user_by_login </td>
+          <td class="memname"> Users | None db_utils.get_user_by_id </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>user_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">_summary_
+
+Get user if exist or return None
+
+Args:
+    user_id (int): user id
+
+Returns:
+    Users | None: return None if user is not exist
+</pre> 
+</div>
+</div>
+<a id="a4d232d7ae2c421d2019dec8788d293cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d232d7ae2c421d2019dec8788d293cb">&#9670;&nbsp;</a></span>get_user_by_login()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Users | None db_utils.get_user_by_login </td>
           <td>(</td>
           <td class="paramtype">str&#160;</td>
           <td class="paramname"><em>login</em></td><td>)</td>
@@ -233,13 +264,13 @@ Args:
 </div><div class="memdoc">
 <pre class="fragment">_summary_
 
-Get user if exist or return False
+Get user if exist or return None
 
 Args:
     login (str): user login
 
 Returns:
-    Users | bool: return False if user is not exist
+    Users | None: return None if user is not exist
 </pre> 
 </div>
 </div>
@@ -260,6 +291,39 @@ Returns:
 <pre class="fragment">_summary_
 
 Setup database. Insert base roles, etc
+</pre> 
+</div>
+</div>
+<a id="a16be5b56da918177d98b6bff92cb9758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16be5b56da918177d98b6bff92cb9758">&#9670;&nbsp;</a></span>update_user()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None db_utils.update_user </td>
+          <td>(</td>
+          <td class="paramtype">Users&#160;</td>
+          <td class="paramname"><em>user</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">UpdateProfileSchema&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">_summary_
+
+Args:
+    user (Users): user object
+    data (UpdateProfileSchema): new updates for user profile
 </pre> 
 </div>
 </div>

@@ -7,6 +7,7 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 class Queues(Model):
     queue_id = PrimaryKeyField()
+
     name = CharField(max_length=255)
     faculty_id = ForeignKeyField(
         Faculties,
@@ -16,3 +17,4 @@ class Queues(Model):
 
     class Meta:
         database = get_database_cursor()
+        depends_on = [Faculties]
