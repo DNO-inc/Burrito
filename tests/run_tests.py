@@ -27,4 +27,5 @@ all_tests = unittest.TestSuite(
     ]
 )
 
+unittest.TestLoader.sortTestMethodsUsing = None
 unittest.TextTestRunner().run(all_tests)

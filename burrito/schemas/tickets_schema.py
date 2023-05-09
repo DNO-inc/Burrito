@@ -20,13 +20,38 @@ class UpdateTicket(BaseModel):
 
 
 class TicketList(BaseModel):
-    issuer: str | None
+    creator: str | None
     hidden: bool | None
     anonymous: bool | None
-    faculty: str | None
-    tag: str | None
-    status: str | None
+    faculty_id: str | None
+    queue_id: str | None
+    status_id: str | None
 
 
 class TicketIDValue(BaseModel):
     ticket_id: int
+
+
+class TicketAuthorInfo(BaseModel):
+    firstname: str | None
+    lastname: str | None
+    login: str
+    faculty: str | None
+    group: str | None
+    role: str | None
+
+
+class TicketDetailInfo(BaseModel):
+    creator: TicketAuthorInfo
+    assignee: TicketAuthorInfo | None
+
+    ticket_id: int
+    subject: str
+    body: str
+    faculty: str
+    status: str
+#    actions: list[object]
+
+
+class TicketListResponse(BaseModel):
+    ticket_list: list[TicketDetailInfo]

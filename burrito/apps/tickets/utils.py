@@ -18,7 +18,7 @@ __all__ = (
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
-    return Tickets.get(
+    return Tickets.get_or_none(
         Tickets.ticket_id == ticket_id
     )
 

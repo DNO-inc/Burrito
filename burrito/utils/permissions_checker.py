@@ -10,7 +10,7 @@ def check_permission(func):
 
     @wraps(func)
     async def wrap(*args, **kwargs):
-        print(args, kwargs)
+#        print(args, kwargs)
         return await func(*args, **kwargs)
 
     return wrap

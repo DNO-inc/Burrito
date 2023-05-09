@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from burrito.apps.tickets.views import (
     CreateTicketView,
     DeleteTicketView,
-    FollowTicketView,
+    BookmarkTicketView,
     TicketListView,
     TicketDetailInfoView,
     UpdateTicketView,
@@ -24,8 +24,8 @@ tickets_router.add_api_route(
     methods=["DELETE"]
 )
 tickets_router.add_api_route(
-    "/follow",
-    FollowTicketView.post,
+    "/bookmark",
+    BookmarkTicketView.post,
     methods=["POST"]
 )
 tickets_router.add_api_route(
