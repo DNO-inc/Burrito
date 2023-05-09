@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hash_5futil_298',['hash_util',['../namespacehash__util.html',1,'']]]
+  ['notifications_5fmodel_329',['notifications_model',['../namespacenotifications__model.html',1,'']]]
 ];

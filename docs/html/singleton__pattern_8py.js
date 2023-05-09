@@ -1,4 +1,4 @@
 var singleton__pattern_8py =
 [
-    [ "singleton", "singleton__pattern_8py.html#ae2baffa38cffb7ae8ae4f38ab4360c2e", null ]
+    [ "singleton", "singleton__pattern_8py.html#a6bc11769ec521afbf487d320ba6d2682", null ]
 ];

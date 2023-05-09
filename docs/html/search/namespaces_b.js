@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['queue_5fwatchers_5fmodel_309',['queue_watchers_model',['../namespacequeue__watchers__model.html',1,'']]],
-  ['queues_5fmodel_310',['queues_model',['../namespacequeues__model.html',1,'']]]
+  ['statuses_5fmodel_344',['statuses_model',['../namespacestatuses__model.html',1,'']]],
+  ['strong_345',['strong',['../namespacestrong.html',1,'']]],
+  ['subscriptions_5fmodel_346',['subscriptions_model',['../namespacesubscriptions__model.html',1,'']]]
 ];
