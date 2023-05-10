@@ -4,9 +4,17 @@ var dir_2f2dbb0f3a53bb845f6917dd80520007 =
       [ "Actions", "classactions__model_1_1Actions.html", "classactions__model_1_1Actions" ],
       [ "Meta", "classactions__model_1_1Actions_1_1Meta.html", null ]
     ] ],
+    [ "bookmarks_model.py", "bookmarks__model_8py.html", [
+      [ "Bookmarks", "classbookmarks__model_1_1Bookmarks.html", "classbookmarks__model_1_1Bookmarks" ],
+      [ "Meta", "classbookmarks__model_1_1Bookmarks_1_1Meta.html", null ]
+    ] ],
     [ "comments_model.py", "comments__model_8py.html", [
       [ "Comments", "classcomments__model_1_1Comments.html", "classcomments__model_1_1Comments" ],
       [ "Meta", "classcomments__model_1_1Comments_1_1Meta.html", null ]
+    ] ],
+    [ "deleted_model.py", "deleted__model_8py.html", [
+      [ "Deleted", "classdeleted__model_1_1Deleted.html", "classdeleted__model_1_1Deleted" ],
+      [ "Meta", "classdeleted__model_1_1Deleted_1_1Meta.html", null ]
     ] ],
     [ "faculty_model.py", "faculty__model_8py.html", [
       [ "Faculties", "classfaculty__model_1_1Faculties.html", "classfaculty__model_1_1Faculties" ],
@@ -24,13 +32,17 @@ var dir_2f2dbb0f3a53bb845f6917dd80520007 =
       [ "Participants", "classparticipants__model_1_1Participants.html", "classparticipants__model_1_1Participants" ],
       [ "Meta", "classparticipants__model_1_1Participants_1_1Meta.html", null ]
     ] ],
-    [ "queue_watchers_model.py", "queue__watchers__model_8py.html", [
-      [ "QueueWatchers", "classqueue__watchers__model_1_1QueueWatchers.html", "classqueue__watchers__model_1_1QueueWatchers" ],
-      [ "Meta", "classqueue__watchers__model_1_1QueueWatchers_1_1Meta.html", null ]
+    [ "permissions_model.py", "permissions__model_8py.html", [
+      [ "Permissions", "classpermissions__model_1_1Permissions.html", "classpermissions__model_1_1Permissions" ],
+      [ "Meta", "classpermissions__model_1_1Permissions_1_1Meta.html", null ]
     ] ],
     [ "queues_model.py", "queues__model_8py.html", [
       [ "Queues", "classqueues__model_1_1Queues.html", "classqueues__model_1_1Queues" ],
       [ "Meta", "classqueues__model_1_1Queues_1_1Meta.html", null ]
+    ] ],
+    [ "role_permissions_model.py", "role__permissions__model_8py.html", [
+      [ "RolePermissions", "classrole__permissions__model_1_1RolePermissions.html", "classrole__permissions__model_1_1RolePermissions" ],
+      [ "Meta", "classrole__permissions__model_1_1RolePermissions_1_1Meta.html", null ]
     ] ],
     [ "roles_model.py", "roles__model_8py.html", [
       [ "Roles", "classroles__model_1_1Roles.html", "classroles__model_1_1Roles" ],
@@ -43,10 +55,6 @@ var dir_2f2dbb0f3a53bb845f6917dd80520007 =
     [ "subscriptions_model.py", "subscriptions__model_8py.html", [
       [ "Subscriptions", "classsubscriptions__model_1_1Subscriptions.html", "classsubscriptions__model_1_1Subscriptions" ],
       [ "Meta", "classsubscriptions__model_1_1Subscriptions_1_1Meta.html", null ]
-    ] ],
-    [ "tags_model.py", "tags__model_8py.html", [
-      [ "Tags", "classtags__model_1_1Tags.html", "classtags__model_1_1Tags" ],
-      [ "Meta", "classtags__model_1_1Tags_1_1Meta.html", null ]
     ] ],
     [ "tickets_model.py", "tickets__model_8py.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ],

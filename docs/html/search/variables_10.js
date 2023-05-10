@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['status_5fid_468',['status_id',['../classstatuses__model_1_1Statuses.html#a87dacbd67ea013e45eef1cb97a599dd6',1,'statuses_model.Statuses.status_id()'],['../classtickets__model_1_1Tickets.html#a87dacbd67ea013e45eef1cb97a599dd6',1,'tickets_model.Tickets.status_id()']]],
-  ['str_469',['str',['../classauth__schema_1_1AuthSettingsModel.html#a4b99ff73a8a869319570237b5c57ab03',1,'auth_schema::AuthSettingsModel']]],
-  ['subject_470',['subject',['../classtickets__model_1_1Tickets.html#a2c1430033f657c907d71f995985d6ef6',1,'tickets_model::Tickets']]],
-  ['subscription_5fid_471',['subscription_id',['../classsubscriptions__model_1_1Subscriptions.html#a60082ee5a9757d488b2cc93298cad921',1,'subscriptions_model::Subscriptions']]]
+  ['ticket_5fid_520',['ticket_id',['../classactions__model_1_1Actions.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'actions_model.Actions.ticket_id()'],['../classbookmarks__model_1_1Bookmarks.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'bookmarks_model.Bookmarks.ticket_id()'],['../classcomments__model_1_1Comments.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'comments_model.Comments.ticket_id()'],['../classdeleted__model_1_1Deleted.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'deleted_model.Deleted.ticket_id()'],['../classnotifications__model_1_1Notifications.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'notifications_model.Notifications.ticket_id()'],['../classparticipants__model_1_1Participants.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'participants_model.Participants.ticket_id()'],['../classsubscriptions__model_1_1Subscriptions.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'subscriptions_model.Subscriptions.ticket_id()'],['../classtickets__model_1_1Tickets.html#a8f1a45e6311d4f0eea27744b8dba3121',1,'tickets_model.Tickets.ticket_id()']]],
+  ['tickets_5frouter_521',['tickets_router',['../namespacetickets_1_1router.html#af436fded19bd868694844b63b6865114',1,'tickets::router']]],
+  ['token_5flogin_522',['token_login',['../namespaceauth_1_1router.html#a360116e3871d417012f7a4908098fcf8',1,'auth::router']]]
 ];

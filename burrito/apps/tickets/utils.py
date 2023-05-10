@@ -1,11 +1,23 @@
+from functools import cache
+
 from burrito.utils.auth import get_auth_core
 from burrito.utils.db_utils import get_user_by_id
 
 from burrito.utils.base_view import BaseView, status
 from burrito.utils.permissions_checker import check_permission
 
+from burrito.utils.logger import get_logger
+
+from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
-from burrito.schemas.tickets_schema import UpdateTicket
+from burrito.schemas.tickets_schema import (
+    UpdateTicketSchema
+)
+
+from burrito.utils.tickets_util import (
+    is_ticket_exist,
+    am_i_own_this_ticket
+)
 
 
 __all__ = (
@@ -13,17 +25,16 @@ __all__ = (
     "get_user_by_id",
     "BaseView",
     "status",
-    "check_permission"
+    "check_permission",
+    "is_ticket_exist",
+    "am_i_own_this_ticket"
 )
 
 
-def is_ticket_exist(ticket_id: int) -> Tickets | None:
-    return Tickets.get_or_none(
-        Tickets.ticket_id == ticket_id
-    )
-
-
-def update_ticket_info(ticket_object: Tickets, data: UpdateTicket) -> None:
+def update_ticket_info(
+    ticket_object: Tickets,
+    data: UpdateTicketSchema
+) -> None:
     if data.subject:
         ticket_object.subject = data.subject
 
@@ -37,3 +48,14 @@ def update_ticket_info(ticket_object: Tickets, data: UpdateTicket) -> None:
         ticket_object.anonymous = data.anonymous
 
     ticket_object.save()
+
+
+@cache
+def get_status_close_id() -> Statuses:
+    status_name = "CLOSE"
+    status_object = Statuses.get_or_none(Statuses.name == status_name)
+
+    if not status_object:
+        get_logger().critical(f"Status {status_name} is not exist in database")
+
+    return status_object

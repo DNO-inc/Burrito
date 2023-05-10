@@ -14,6 +14,7 @@ from burrito.apps.auth.router import auth_router
 from burrito.apps.profile.router import profile_router
 
 from burrito.apps.tickets.router import tickets_router
+from burrito.apps.admin.router import admin_router
 
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app, get_current_app
@@ -34,6 +35,7 @@ connect_app(app, "/registration", registration_router)
 connect_app(app, "/profile", profile_router)
 connect_app(app, "/auth", auth_router)
 connect_app(app, "/tickets", tickets_router)
+connect_app(app, "/admin", admin_router)
 
 
 if __name__ == "__main__":

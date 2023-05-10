@@ -149,9 +149,9 @@ Classes</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a8f1a45e6311d4f0eea27744b8dba3121">ticket_id</a> = PrimaryKeyField()</td></tr>
 <tr class="separator:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c00cca8fa4d2ee8c5e6e8cc937894e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a9c00cca8fa4d2ee8c5e6e8cc937894e9">issuer</a> = IntegerField()</td></tr>
-<tr class="separator:a9c00cca8fa4d2ee8c5e6e8cc937894e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea10acc22143b514e76eae7c2eacc446"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#aea10acc22143b514e76eae7c2eacc446">assignee</a> = IntegerField()</td></tr>
+<tr class="memitem:af0c98a75d276e54d5eea68fefcc99237"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#af0c98a75d276e54d5eea68fefcc99237">creator</a></td></tr>
+<tr class="separator:af0c98a75d276e54d5eea68fefcc99237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea10acc22143b514e76eae7c2eacc446"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#aea10acc22143b514e76eae7c2eacc446">assignee</a></td></tr>
 <tr class="separator:aea10acc22143b514e76eae7c2eacc446"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c1430033f657c907d71f995985d6ef6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a2c1430033f657c907d71f995985d6ef6">subject</a> = CharField(255)</td></tr>
 <tr class="separator:a2c1430033f657c907d71f995985d6ef6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,12 +161,14 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a90cd8885aa787fbd5b97697ce259f3b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77a0537b61c59f2d70cf6cb3f117ea69"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a77a0537b61c59f2d70cf6cb3f117ea69">anonymous</a> = BooleanField(default=False)</td></tr>
 <tr class="separator:a77a0537b61c59f2d70cf6cb3f117ea69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ce30898b6a527599d535b5baf750d43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a1ce30898b6a527599d535b5baf750d43">upvotes</a> = IntegerField(default=0)</td></tr>
+<tr class="separator:a1ce30898b6a527599d535b5baf750d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a485c9f10f928c880e4c699e8b3f693bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a485c9f10f928c880e4c699e8b3f693bb">created</a> = DateTimeField(default=datetime.datetime.now)</td></tr>
 <tr class="separator:a485c9f10f928c880e4c699e8b3f693bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa799a0d404c9d4f039328f1f5f0d895d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#aa799a0d404c9d4f039328f1f5f0d895d">faculty_id</a></td></tr>
 <tr class="separator:aa799a0d404c9d4f039328f1f5f0d895d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ad8a6a5db44dd2acf18277feb239fbd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a1ad8a6a5db44dd2acf18277feb239fbd">tag_id</a> = ForeignKeyField(Tags, to_field=&quot;tag_id&quot;, on_delete=&quot;NO ACTION&quot;)</td></tr>
-<tr class="separator:a1ad8a6a5db44dd2acf18277feb239fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14ab259c02d09c45ba2fe2d7b87d767f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a14ab259c02d09c45ba2fe2d7b87d767f">queue_id</a></td></tr>
+<tr class="separator:a14ab259c02d09c45ba2fe2d7b87d767f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87dacbd67ea013e45eef1cb97a599dd6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a87dacbd67ea013e45eef1cb97a599dd6">status_id</a></td></tr>
 <tr class="separator:a87dacbd67ea013e45eef1cb97a599dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -203,7 +205,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">assignee = IntegerField()</td>
+          <td class="memname">assignee</td>
         </tr>
       </table>
   </td>
@@ -212,7 +214,13 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
+<div class="line">        Users,</div>
+<div class="line">        to_field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
+<div class="line">        null=<span class="keyword">True</span></div>
+<div class="line">    )</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a14d48c2e9f05d0b03044eb45f308fcb0"></a>
@@ -257,6 +265,33 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="af0c98a75d276e54d5eea68fefcc99237"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0c98a75d276e54d5eea68fefcc99237">&#9670;&nbsp;</a></span>creator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">creator</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
+<div class="line">        Users,</div>
+<div class="line">        to_field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
+<div class="line">    )</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="aa799a0d404c9d4f039328f1f5f0d895d"></a>
@@ -308,8 +343,8 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a9c00cca8fa4d2ee8c5e6e8cc937894e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c00cca8fa4d2ee8c5e6e8cc937894e9">&#9670;&nbsp;</a></span>issuer</h2>
+<a id="a14ab259c02d09c45ba2fe2d7b87d767f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14ab259c02d09c45ba2fe2d7b87d767f">&#9670;&nbsp;</a></span>queue_id</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -318,7 +353,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">issuer = IntegerField()</td>
+          <td class="memname">queue_id</td>
         </tr>
       </table>
   </td>
@@ -327,7 +362,13 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
+<div class="line">        Queues,</div>
+<div class="line">        to_field=<span class="stringliteral">&quot;queue_id&quot;</span>,</div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
+<div class="line">        null=<span class="keyword">True</span></div>
+<div class="line">    )</div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a87dacbd67ea013e45eef1cb97a599dd6"></a>
@@ -352,7 +393,8 @@ Static Public Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Statuses,</div>
 <div class="line">        to_field=<span class="stringliteral">&quot;status_id&quot;</span>,</div>
-<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
+<div class="line">        default=1</div>
 <div class="line">    )</div>
 </div><!-- fragment -->
 </div>
@@ -379,28 +421,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a1ad8a6a5db44dd2acf18277feb239fbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ad8a6a5db44dd2acf18277feb239fbd">&#9670;&nbsp;</a></span>tag_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">tag_id = ForeignKeyField(Tags, to_field=&quot;tag_id&quot;, on_delete=&quot;NO ACTION&quot;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a8f1a45e6311d4f0eea27744b8dba3121"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8f1a45e6311d4f0eea27744b8dba3121">&#9670;&nbsp;</a></span>ticket_id</h2>
 
@@ -412,6 +432,28 @@ Static Public Attributes</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">ticket_id = PrimaryKeyField()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ce30898b6a527599d535b5baf750d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ce30898b6a527599d535b5baf750d43">&#9670;&nbsp;</a></span>upvotes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">upvotes = IntegerField(default=0)</td>
         </tr>
       </table>
   </td>

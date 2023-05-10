@@ -1,6 +1,10 @@
 from pydantic import BaseModel
 
 
+class CheckProfileSchema(BaseModel):
+    user_id: int | None
+
+
 class BaseProfile(BaseModel):
     """_summary_
 
@@ -24,14 +28,14 @@ class BaseProfile(BaseModel):
 
     login: str
 
-    faculty: str | None
-    group: str | None
+    faculty: int | None
+    group: int | None
 
     phone: str | None
     email: str | None
 
 
-class ProfileSchema(BaseProfile):
+class ResponseProfileSchema(BaseProfile):
     """_summary_
 
     This data must be transferred by user to update profile
@@ -40,12 +44,11 @@ class ProfileSchema(BaseProfile):
         registration_date (str): date when user registered account
     """
 
+    faculty: str | None
+    group: str | None
+
     registration_date: str
 
 
-class CheckProfileSchema(BaseModel):
-    user_id: int | None
-
-
-class UpdateProfileSchema(BaseProfile):
+class RequestUpdateProfileSchema(BaseProfile):
     login: str | None

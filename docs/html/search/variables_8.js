@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['issuer_443',['issuer',['../classtickets__model_1_1Tickets.html#a9c00cca8fa4d2ee8c5e6e8cc937894e9',1,'tickets_model::Tickets']]]
+  ['lastname_492',['lastname',['../classuser__model_1_1Users.html#a3c8f58d761707273489a76751c4905fb',1,'user_model::Users']]],
+  ['login_493',['login',['../classuser__model_1_1Users.html#a73f744fe95eaca16b7ca24558ee61983',1,'user_model::Users']]]
 ];

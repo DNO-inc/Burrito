@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['participants_5fmodel_301',['participants_model',['../namespaceparticipants__model.html',1,'']]],
-  ['permissions_5fchecker_302',['permissions_checker',['../namespacepermissions__checker.html',1,'']]],
-  ['profile_303',['profile',['../namespaceprofile.html',1,'']]],
-  ['profile_5fschema_304',['profile_schema',['../namespaceprofile__schema.html',1,'']]],
-  ['pubsub_5fmanager_305',['pubsub_manager',['../namespacepubsub__manager.html',1,'']]],
-  ['router_306',['router',['../namespaceprofile_1_1router.html',1,'profile']]],
-  ['utils_307',['utils',['../namespaceprofile_1_1utils.html',1,'profile']]],
-  ['views_308',['views',['../namespaceprofile_1_1views.html',1,'profile']]]
+  ['registration_338',['registration',['../namespaceregistration.html',1,'']]],
+  ['role_5fpermissions_5fmodel_339',['role_permissions_model',['../namespacerole__permissions__model.html',1,'']]],
+  ['roles_5fmodel_340',['roles_model',['../namespaceroles__model.html',1,'']]],
+  ['router_341',['router',['../namespaceregistration_1_1router.html',1,'registration.router'],['../namespacerouter.html',1,'router']]],
+  ['utils_342',['utils',['../namespaceregistration_1_1utils.html',1,'registration']]],
+  ['views_343',['views',['../namespaceregistration_1_1views.html',1,'registration']]]
 ];

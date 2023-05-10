@@ -141,12 +141,12 @@ Collaboration diagram for DeleteTicketView:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a241b97cabaaba88334f2c9bc0de6c7db"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1DeleteTicketView.html#a241b97cabaaba88334f2c9bc0de6c7db">delete</a> (AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a241b97cabaaba88334f2c9bc0de6c7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77a52a28dd4ed22487a457e7858534b2"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1DeleteTicketView.html#a77a52a28dd4ed22487a457e7858534b2">delete</a> (TicketIDValue deletion_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a77a52a28dd4ed22487a457e7858534b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a241b97cabaaba88334f2c9bc0de6c7db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a241b97cabaaba88334f2c9bc0de6c7db">&#9670;&nbsp;</a></span>delete()</h2>
+<a id="a77a52a28dd4ed22487a457e7858534b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77a52a28dd4ed22487a457e7858534b2">&#9670;&nbsp;</a></span>delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -157,9 +157,19 @@ Static Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">def delete </td>
           <td>(</td>
-          <td class="paramtype">AuthJWT &#160;</td>
-          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code></td><td>)</td>
+          <td class="paramtype">TicketIDValue&#160;</td>
+          <td class="paramname"><em>deletion_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

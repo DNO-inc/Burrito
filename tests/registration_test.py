@@ -16,7 +16,7 @@ class RegistrationTestCase(unittest.TestCase):
 
         cls.random_login = "".join(random.sample(string.ascii_letters, 5))
         cls.random_password = "".join(random.sample(string.ascii_letters, 8))
-        cls.user_id: int = -1
+        cls.user_id: int = 1
 
     def test_do_registration(self):
         """Make registration"""

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['is_5fuser_5fexist_404',['is_user_exist',['../classredis__utils_1_1BurritoRedis.html#a89e3aa6cd23b15fc308a7be246b24732',1,'redis_utils::BurritoRedis']]],
-  ['is_5fvalid_5femail_405',['is_valid_email',['../namespacevalidators.html#a35d10e06203b4181a2dbc7d8632e9492',1,'validators']]],
-  ['is_5fvalid_5flogin_406',['is_valid_login',['../namespacevalidators.html#ad5aaaa5b499533dfb3562d5a14427597',1,'validators']]],
-  ['is_5fvalid_5fpassword_407',['is_valid_password',['../namespacevalidators.html#a7cd677a845b1350b3c4071c520035512',1,'validators']]]
+  ['is_5fticket_5fexist_448',['is_ticket_exist',['../namespacetickets_1_1utils.html#aff1410c994db0098443d1d57968beaef',1,'tickets::utils']]],
+  ['is_5fuser_5fexist_449',['is_user_exist',['../classutils_1_1redis__utils_1_1BurritoRedis.html#a89e3aa6cd23b15fc308a7be246b24732',1,'utils::redis_utils::BurritoRedis']]],
+  ['is_5fvalid_5femail_450',['is_valid_email',['../namespaceutils_1_1validators.html#a8908be1028b5c93c3e78ee043a2b158c',1,'utils::validators']]],
+  ['is_5fvalid_5flogin_451',['is_valid_login',['../namespaceutils_1_1validators.html#a56f73e5db7d1752c5dab6bafcd027611',1,'utils::validators']]],
+  ['is_5fvalid_5fpassword_452',['is_valid_password',['../namespaceutils_1_1validators.html#a1bf2320a22d592aa519801d24572bc7d',1,'utils::validators']]]
 ];

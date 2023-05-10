@@ -12,7 +12,5 @@ var namespaceauth =
     [ "views", "namespaceauth_1_1views.html", [
       [ "password_login", "namespaceauth_1_1views.html#a1e1c2ab308fe5900c1487f1950cf5a25", null ],
       [ "token_login", "namespaceauth_1_1views.html#ab4e081c4c17e62462e0b26ae6d7229fb", null ]
-    ] ],
-    [ "get_auth_core", "namespaceauth.html#a27f187ee5907af2c540718b765edff83", null ],
-    [ "get_config", "namespaceauth.html#a9d452d3e08b7b2a0e3c871df7d137074", null ]
+    ] ]
 ];

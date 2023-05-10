@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['base_5fview_291',['base_view',['../namespacebase__view.html',1,'']]]
+  ['bookmarks_5fmodel_324',['bookmarks_model',['../namespacebookmarks__model.html',1,'']]]
 ];
