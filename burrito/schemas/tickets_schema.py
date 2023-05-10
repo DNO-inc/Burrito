@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class CreateTicket(BaseModel):
+class CreateTicketSchema(BaseModel):
     creator_id: int
     subject: str
     body: str
@@ -11,7 +11,7 @@ class CreateTicket(BaseModel):
     faculty_id: int
 
 
-class UpdateTicket(BaseModel):
+class UpdateTicketSchema(BaseModel):
     ticket_id: int
     subject: str | None
     body: str | None
@@ -19,7 +19,7 @@ class UpdateTicket(BaseModel):
     anonymous: bool | None
 
 
-class TicketList(BaseModel):
+class TicketListRequestSchema(BaseModel):
     creator: str | None
     hidden: bool | None
     anonymous: bool | None
@@ -28,22 +28,22 @@ class TicketList(BaseModel):
     status_id: str | None
 
 
-class TicketIDValue(BaseModel):
+class TicketIDValueSchema(BaseModel):
     ticket_id: int
 
 
-class TicketAuthorInfo(BaseModel):
+class TicketUsersInfoSchema(BaseModel):
     firstname: str | None
     lastname: str | None
     login: str
     faculty: str | None
-    group: str | None
-    role: str | None
+#    group: str | None
+#    role: str | None
 
 
-class TicketDetailInfo(BaseModel):
-    creator: TicketAuthorInfo
-    assignee: TicketAuthorInfo | None
+class TicketDetailInfoSchema(BaseModel):
+    creator: TicketUsersInfoSchema
+    assignee: TicketUsersInfoSchema | None
 
     ticket_id: int
     subject: str
@@ -53,5 +53,5 @@ class TicketDetailInfo(BaseModel):
 #    actions: list[object]
 
 
-class TicketListResponse(BaseModel):
-    ticket_list: list[TicketDetailInfo]
+class TicketListResponseSchema(BaseModel):
+    ticket_list: list[TicketDetailInfoSchema]

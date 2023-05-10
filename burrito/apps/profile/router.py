@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from burrito.schemas.profile_schema import ProfileSchema
+from burrito.schemas.profile_schema import ResponseProfileSchema
 
 from .views import (
     MyProfileView,
@@ -13,7 +13,7 @@ profile_router.add_api_route(
     "/",
     MyProfileView.post,
     methods=["POST"],
-    response_model=ProfileSchema
+    response_model=ResponseProfileSchema
 )
 profile_router.add_api_route(
     "/update",

@@ -9,7 +9,8 @@ about_router = APIRouter()
 about_router.add_api_route(
     "/version",
     VersionView.get,
-    methods=["GET"])
+    methods=["GET"]
+)
 about_router.add_api_route(
     "/updates",
     UpdatesView.get,

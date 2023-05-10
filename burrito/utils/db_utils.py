@@ -4,6 +4,7 @@ from burrito.models.statuses_model import Statuses
 from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
+from burrito.models.deleted_model import Deleted
 
 from burrito.models.comments_model import Comments
 from burrito.models.actions_model import Actions
@@ -13,8 +14,6 @@ from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
 from burrito.models.bookmarks_model import Bookmarks
-
-from burrito.schemas.profile_schema import UpdateProfileSchema
 
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
@@ -36,7 +35,7 @@ def create_tables():
     get_database_cursor().create_tables(
         (
             Users, Roles, Faculties, Groups,
-            Roles, Statuses,
+            Roles, Statuses, Deleted,
             Tickets, Participants,
             Subscriptions, Actions, Notifications,
             Comments, Queues, Bookmarks
@@ -59,7 +58,7 @@ def drop_tables(use: bool = False):
 
     get_database_cursor().drop_tables(
         (
-            Roles, Statuses,
+            Roles, Statuses, Deleted,
             Tickets, Users, Participants,
             Subscriptions, Actions, Notifications,
             Groups, Faculties, Comments, Queues, Bookmarks
@@ -87,31 +86,8 @@ def create_user(login: str, hashed_password: str) -> int | None:
         )
         return user.user_id
 
-    except Exception as e:  # pylint: disable=broad-except
+    except Exception as e:  # pylint: disable=broad-except, invalid-name
         get_logger().error(e)
-
-
-def update_user(user: Users, data: UpdateProfileSchema) -> None:
-    """_summary_
-
-    Args:
-        user (Users): user object
-        data (UpdateProfileSchema): new updates for user profile
-    """
-
-    if data.firstname:
-        user.firstname = data.firstname
-
-    if data.lastname:
-        user.lastname = data.lastname
-
-    if data.phone:
-        user.phone = data.phone
-
-    if data.email:
-        user.email = data.email
-
-    user.save()  # save updates
 
 
 def get_user_by_login(login: str) -> Users | None:
@@ -126,10 +102,7 @@ def get_user_by_login(login: str) -> Users | None:
         Users | None: return None if user is not exist
     """
 
-    try:
-        return Users.get(Users.login == login)
-    except Exception:  # pylint: disable=broad-except
-        return
+    return Users.get_or_none(Users.login == login)
 
 
 def get_user_by_id(user_id: int) -> Users | None:
@@ -144,7 +117,4 @@ def get_user_by_id(user_id: int) -> Users | None:
         Users | None: return None if user is not exist
     """
 
-    try:
-        return Users.get(Users.user_id == user_id)
-    except Exception:  # pylint: disable=broad-except
-        return
+    return Users.get_or_none(Users.user_id == user_id)

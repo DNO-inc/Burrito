@@ -6,16 +6,17 @@ from fastapi_jwt_auth import AuthJWT
 from playhouse.shortcuts import model_to_dict
 
 from burrito.schemas.tickets_schema import (
-    CreateTicket,
-    TicketIDValue,
-    UpdateTicket,
-    TicketDetailInfo,
-    TicketList,
-    TicketListResponse
+    CreateTicketSchema,
+    TicketIDValueSchema,
+    UpdateTicketSchema,
+    TicketDetailInfoSchema,
+    TicketListRequestSchema,
+    TicketListResponseSchema
 )
 from burrito.models.tickets_model import Tickets
 from burrito.models.statuses_model import Statuses
 from burrito.models.bookmarks_model import Bookmarks
+from burrito.models.deleted_model import Deleted
 
 from burrito.utils.logger import get_logger
 
@@ -24,7 +25,8 @@ from .utils import (
     is_ticket_exist,
     update_ticket_info,
     BaseView, status,
-    check_permission
+    check_permission,
+    am_i_own_this_ticket
 )
 
 
@@ -34,7 +36,7 @@ class CreateTicketView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        ticket_creation_data: CreateTicket,
+        ticket_creation_data: CreateTicketSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Create ticket"""
@@ -64,7 +66,7 @@ class DeleteTicketView(BaseView):
     @staticmethod
     @check_permission
     async def delete(
-        deletion_ticket_data: TicketIDValue,
+        deletion_ticket_data: TicketIDValueSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Delete ticket"""
@@ -82,7 +84,10 @@ class DeleteTicketView(BaseView):
                 }
             )
 
-        if not (ticket.creator.user_id == Authorize.get_jwt_subject()):
+        if not am_i_own_this_ticket(
+            ticket.creator.user_id,
+            Authorize.get_jwt_subject()
+        ):
             return JSONResponse(
                 status_code=status.HTTP_403_FORBIDDEN,
                 content={
@@ -90,7 +95,13 @@ class DeleteTicketView(BaseView):
                 }
             )
 
-        ticket.delete_instance()
+        try:
+            Deleted.create(
+                user_id=ticket.creator.user_id,
+                ticket_id=ticket.ticket_id
+            )
+        except Exception as e:  # pylint: disable=broad-except, invalid-name
+            get_logger().critical(f"Creation error: {e}")
 
         return JSONResponse(
             status_code=200,
@@ -104,7 +115,7 @@ class BookmarkTicketView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        bookmark_ticket_data: TicketIDValue,
+        bookmark_ticket_data: TicketIDValueSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Follow ticket"""
@@ -122,13 +133,24 @@ class BookmarkTicketView(BaseView):
                 }
             )
 
+        if not am_i_own_this_ticket(
+            ticket.creator.user_id,
+            Authorize.get_jwt_subject()
+        ):
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={
+                    "detail": "You have not permissions to bookmark this ticket"
+                }
+            )
+
         try:
             Bookmarks.create(
                 user_id=Authorize.get_jwt_subject(),
                 ticket_id=ticket.ticket_id
             )
-        except:
-            ...
+        except Exception as e:  # pylint: disable=broad-except, invalid-name
+            get_logger().critical(f"Creation error: {e}")
 
         return JSONResponse(
             status_code=200,
@@ -142,7 +164,7 @@ class TicketListView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        filters: TicketList,
+        filters: TicketListRequestSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Show tickets"""
@@ -163,14 +185,29 @@ class TicketListView(BaseView):
             if filter_item[1] is not None:
                 final_filters.append(available_filters[filter_item[0]])
 
-        response_list: TicketDetailInfo = []
+        response_list: TicketDetailInfoSchema = []
+
+        tickets_black_list = set()
+        for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
+            tickets_black_list.add(item.ticket_id.ticket_id)
 
         for ticket in Tickets.select().where(*final_filters):
+            if ticket.ticket_id in tickets_black_list:
+                continue
+
+            creator = model_to_dict(ticket.creator)
+            creator["faculty"] = ticket.creator.faculty_id.name
+
             assignee = ticket.assignee
+            assignee_modified = dict()
+            if assignee:
+                assignee_modified = model_to_dict(assignee)
+                assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+
             response_list.append(
-                TicketDetailInfo(
-                    creator=model_to_dict(ticket.creator),
-                    assignee=model_to_dict(assignee) if assignee else None,
+                TicketDetailInfoSchema(
+                    creator=creator,
+                    assignee=assignee_modified if assignee else None,
                     ticket_id=ticket.ticket_id,
                     subject=ticket.subject,
                     body=ticket.body,
@@ -179,7 +216,7 @@ class TicketListView(BaseView):
                 )
             )
 
-        return TicketListResponse(
+        return TicketListResponseSchema(
             ticket_list=response_list
         )
 
@@ -190,7 +227,7 @@ class TicketDetailInfoView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        ticket_id_info: TicketIDValue,
+        ticket_id_info: TicketIDValueSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Show detail ticket info"""
@@ -208,10 +245,18 @@ class TicketDetailInfoView(BaseView):
                 }
             )
 
+        creator = model_to_dict(ticket.creator)
+        creator["faculty"] = ticket.creator.faculty_id.name
+
         assignee = ticket.assignee
-        return TicketDetailInfo(
-            creator=model_to_dict(ticket.creator),
-            assignee=model_to_dict(assignee) if assignee else None,
+        assignee_modified = dict()
+        if assignee:
+            assignee_modified = model_to_dict(assignee)
+            assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+
+        return TicketDetailInfoSchema(
+            creator=creator,
+            assignee=assignee,
             ticket_id=ticket.ticket_id,
             subject=ticket.subject,
             body=ticket.body,
@@ -226,7 +271,7 @@ class UpdateTicketView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        updates: UpdateTicket,
+        updates: UpdateTicketSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Update ticket info"""
@@ -244,7 +289,10 @@ class UpdateTicketView(BaseView):
                 }
             )
 
-        if not (ticket.creator.user_id == Authorize.get_jwt_subject()):
+        if not am_i_own_this_ticket(
+            ticket.creator.user_id,
+            Authorize.get_jwt_subject()
+        ):
             return JSONResponse(
                 status_code=status.HTTP_403_FORBIDDEN,
                 content={
@@ -252,7 +300,7 @@ class UpdateTicketView(BaseView):
                 }
             )
 
-        update_ticket_info(ticket, updates)
+        update_ticket_info(ticket, updates)  # autocommit
 
         return JSONResponse(
             status_code=200,
@@ -266,7 +314,7 @@ class CloseTicketView(BaseView):
     @staticmethod
     @check_permission
     async def post(
-        data_to_close_ticket: TicketIDValue,
+        data_to_close_ticket: TicketIDValueSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Close ticket"""
@@ -284,7 +332,10 @@ class CloseTicketView(BaseView):
                 }
             )
 
-        if not (ticket.creator.user_id == Authorize.get_jwt_subject()):
+        if not am_i_own_this_ticket(
+            ticket.creator.user_id,
+            Authorize.get_jwt_subject()
+        ):
             return JSONResponse(
                 status_code=status.HTTP_403_FORBIDDEN,
                 content={
