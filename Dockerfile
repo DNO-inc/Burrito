@@ -20,7 +20,7 @@ FROM python:3.10-alpine
 
 ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 
-COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/docker
+COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/
 COPY ./burrito /burrito
 
 WORKDIR ./
