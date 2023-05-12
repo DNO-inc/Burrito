@@ -67,6 +67,35 @@ def drop_tables(use: bool = False):
     get_logger().warning("All tables was dropped")
 
 
+def create_user_tmp_foo(
+        login: str, hashed_password: str,
+        group: int, faculty: int
+) -> int | None:
+    """_summary_
+
+    Create user with default fields: (login, hashed_password)
+
+    Args:
+        login (str): user login
+        hashed_password (str): user hashed password
+
+    Returns:
+        bool: status creating new user
+    """
+
+    try:
+        user: Users = Users.create(
+            login=login, password=hashed_password,
+            group_id=group,
+            faculty_id=faculty
+        )
+        return user.user_id
+
+    except Exception as e:  # pylint: disable=broad-except, invalid-name
+        get_logger().error(e)
+
+
+# TODO: delete this function
 def create_user(login: str, hashed_password: str) -> int | None:
     """_summary_
 

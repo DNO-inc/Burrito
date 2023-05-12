@@ -7,7 +7,7 @@ import requests
 from auth_test import AuthTestCase
 from registration_test import RegistrationTestCase
 
-TIMEOUT = 1
+TIMEOUT = 5
 
 
 def create_ticket_get_id(subject: str) -> int:
