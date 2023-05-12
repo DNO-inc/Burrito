@@ -1,5 +1,6 @@
 import unittest
 import requests
+import pytest
 
 from registration_test import RegistrationTestCase
 

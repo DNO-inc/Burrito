@@ -1,7 +1,7 @@
 import datetime
 
 from peewee import (
-    Model, CharField, PrimaryKeyField,
+    Model, CharField, AutoField,
     DateTimeField, ForeignKeyField
 )
 
@@ -12,13 +12,13 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Actions(Model):
-    action_id = PrimaryKeyField()
+    action_id = AutoField()
     ticket_id = ForeignKeyField(
         Tickets,
-        to_field="ticket_id",
+        field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
+    user_id = ForeignKeyField(Users, field="user_id", on_delete="NO ACTION")
 
     action_date = DateTimeField(default=datetime.datetime.now)
 

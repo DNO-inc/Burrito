@@ -1,9 +1,23 @@
 var searchData=
 [
-  ['actions_5fmodel_318',['actions_model',['../namespaceactions__model.html',1,'']]],
-  ['auth_319',['auth',['../namespaceauth.html',1,'']]],
-  ['auth_5fschema_320',['auth_schema',['../namespaceauth__schema.html',1,'']]],
-  ['router_321',['router',['../namespaceauth_1_1router.html',1,'auth']]],
-  ['utils_322',['utils',['../namespaceauth_1_1utils.html',1,'auth']]],
-  ['views_323',['views',['../namespaceauth_1_1views.html',1,'auth']]]
+  ['_5f_5fmain_5f_5f_368',['__main__',['../namespaceburrito_1_1____main____.html',1,'burrito']]],
+  ['app_5futil_369',['app_util',['../namespaceburrito_1_1utils_1_1app__util.html',1,'burrito::utils']]],
+  ['auth_370',['auth',['../namespaceburrito_1_1utils_1_1auth.html',1,'burrito::utils']]],
+  ['base_5fview_371',['base_view',['../namespaceburrito_1_1utils_1_1base__view.html',1,'burrito::utils']]],
+  ['bookmarks_5fmodel_372',['bookmarks_model',['../namespacebookmarks__model.html',1,'']]],
+  ['burrito_373',['burrito',['../namespaceburrito.html',1,'']]],
+  ['db_5fbackup_5futil_374',['db_backup_util',['../namespaceburrito_1_1utils_1_1db__backup__util.html',1,'burrito::utils']]],
+  ['db_5fcursor_5fobject_375',['db_cursor_object',['../namespaceburrito_1_1utils_1_1db__cursor__object.html',1,'burrito::utils']]],
+  ['db_5fpreprocessor_376',['db_preprocessor',['../namespaceburrito_1_1utils_1_1db__preprocessor.html',1,'burrito::utils']]],
+  ['db_5futils_377',['db_utils',['../namespaceburrito_1_1utils_1_1db__utils.html',1,'burrito::utils']]],
+  ['hash_5futil_378',['hash_util',['../namespaceburrito_1_1utils_1_1hash__util.html',1,'burrito::utils']]],
+  ['logger_379',['logger',['../namespaceburrito_1_1utils_1_1logger.html',1,'burrito::utils']]],
+  ['permissions_5fchecker_380',['permissions_checker',['../namespaceburrito_1_1utils_1_1permissions__checker.html',1,'burrito::utils']]],
+  ['pubsub_5fmanager_381',['pubsub_manager',['../namespaceburrito_1_1utils_1_1pubsub__manager.html',1,'burrito::utils']]],
+  ['redis_5futils_382',['redis_utils',['../namespaceburrito_1_1utils_1_1redis__utils.html',1,'burrito::utils']]],
+  ['singleton_5fpattern_383',['singleton_pattern',['../namespaceburrito_1_1utils_1_1singleton__pattern.html',1,'burrito::utils']]],
+  ['task_5fmanager_384',['task_manager',['../namespaceburrito_1_1utils_1_1task__manager.html',1,'burrito::utils']]],
+  ['tickets_5futil_385',['tickets_util',['../namespaceburrito_1_1utils_1_1tickets__util.html',1,'burrito::utils']]],
+  ['utils_386',['utils',['../namespaceburrito_1_1utils.html',1,'burrito']]],
+  ['validators_387',['validators',['../namespaceburrito_1_1utils_1_1validators.html',1,'burrito::utils']]]
 ];

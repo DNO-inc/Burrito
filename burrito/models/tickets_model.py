@@ -1,7 +1,7 @@
 import datetime
 
 from peewee import (
-    Model, PrimaryKeyField,
+    Model, AutoField,
     IntegerField, TextField,
     DateTimeField, BooleanField,
     CharField, ForeignKeyField
@@ -16,16 +16,16 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Tickets(Model):
-    ticket_id = PrimaryKeyField()
+    ticket_id = AutoField()
 
     creator = ForeignKeyField(
         Users,
-        to_field="user_id",
+        field="user_id",
         on_delete="NO ACTION"
     )
     assignee = ForeignKeyField(
         Users,
-        to_field="user_id",
+        field="user_id",
         on_delete="NO ACTION",
         null=True
     )
@@ -42,18 +42,18 @@ class Tickets(Model):
 
     faculty_id = ForeignKeyField(
         Faculties,
-        to_field="faculty_id",
+        field="faculty_id",
         on_delete="NO ACTION"
     )
     queue_id = ForeignKeyField(
         Queues,
-        to_field="queue_id",
+        field="queue_id",
         on_delete="NO ACTION",
         null=True
     )
     status_id = ForeignKeyField(
         Statuses,
-        to_field="status_id",
+        field="status_id",
         on_delete="NO ACTION",
         default=1
     )

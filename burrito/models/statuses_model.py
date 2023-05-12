@@ -1,10 +1,10 @@
-from peewee import Model, PrimaryKeyField, CharField
+from peewee import Model, AutoField, CharField
 
 from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Statuses(Model):
-    status_id = PrimaryKeyField()
+    status_id = AutoField()
     name = CharField(32)
 
     class Meta:

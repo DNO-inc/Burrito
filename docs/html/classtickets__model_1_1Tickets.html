@@ -147,7 +147,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a8f1a45e6311d4f0eea27744b8dba3121">ticket_id</a> = PrimaryKeyField()</td></tr>
+<tr class="memitem:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#a8f1a45e6311d4f0eea27744b8dba3121">ticket_id</a> = AutoField()</td></tr>
 <tr class="separator:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0c98a75d276e54d5eea68fefcc99237"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets__model_1_1Tickets.html#af0c98a75d276e54d5eea68fefcc99237">creator</a></td></tr>
 <tr class="separator:af0c98a75d276e54d5eea68fefcc99237"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -216,7 +216,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Users,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
 <div class="line">        null=<span class="keyword">True</span></div>
 <div class="line">    )</div>
@@ -288,7 +288,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Users,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;user_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
@@ -315,7 +315,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Faculties,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;faculty_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;faculty_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
@@ -364,7 +364,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Queues,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;queue_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;queue_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
 <div class="line">        null=<span class="keyword">True</span></div>
 <div class="line">    )</div>
@@ -392,7 +392,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Statuses,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;status_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;status_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
 <div class="line">        default=1</div>
 <div class="line">    )</div>
@@ -431,7 +431,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">ticket_id = PrimaryKeyField()</td>
+          <td class="memname">ticket_id = AutoField()</td>
         </tr>
       </table>
   </td>

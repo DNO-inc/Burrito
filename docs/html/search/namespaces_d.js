@@ -1,22 +1,4 @@
 var searchData=
 [
-  ['app_5futil_353',['app_util',['../namespaceutils_1_1app__util.html',1,'utils']]],
-  ['auth_354',['auth',['../namespaceutils_1_1auth.html',1,'utils']]],
-  ['base_5fview_355',['base_view',['../namespaceutils_1_1base__view.html',1,'utils']]],
-  ['db_5fbackup_5futil_356',['db_backup_util',['../namespaceutils_1_1db__backup__util.html',1,'utils']]],
-  ['db_5fcursor_5fobject_357',['db_cursor_object',['../namespaceutils_1_1db__cursor__object.html',1,'utils']]],
-  ['db_5fpreprocessor_358',['db_preprocessor',['../namespaceutils_1_1db__preprocessor.html',1,'utils']]],
-  ['db_5futils_359',['db_utils',['../namespaceutils_1_1db__utils.html',1,'utils']]],
-  ['hash_5futil_360',['hash_util',['../namespaceutils_1_1hash__util.html',1,'utils']]],
-  ['logger_361',['logger',['../namespaceutils_1_1logger.html',1,'utils']]],
-  ['permissions_5fchecker_362',['permissions_checker',['../namespaceutils_1_1permissions__checker.html',1,'utils']]],
-  ['pubsub_5fmanager_363',['pubsub_manager',['../namespaceutils_1_1pubsub__manager.html',1,'utils']]],
-  ['redis_5futils_364',['redis_utils',['../namespaceutils_1_1redis__utils.html',1,'utils']]],
-  ['singleton_5fpattern_365',['singleton_pattern',['../namespaceutils_1_1singleton__pattern.html',1,'utils']]],
-  ['task_5fmanager_366',['task_manager',['../namespaceutils_1_1task__manager.html',1,'utils']]],
-  ['user_5fagent_367',['user_agent',['../namespaceuser__agent.html',1,'']]],
-  ['user_5fmodel_368',['user_model',['../namespaceuser__model.html',1,'']]],
-  ['user_5fschema_369',['user_schema',['../namespaceuser__schema.html',1,'']]],
-  ['utils_370',['utils',['../namespaceutils.html',1,'']]],
-  ['validators_371',['validators',['../namespaceutils_1_1validators.html',1,'utils']]]
+  ['views_418',['views',['../namespaceviews.html',1,'']]]
 ];

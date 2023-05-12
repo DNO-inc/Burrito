@@ -1,13 +1,71 @@
 var annotated_dup =
 [
+    [ "about", "namespaceabout.html", [
+      [ "views", "namespaceabout_1_1views.html", [
+        [ "VersionView", "classabout_1_1views_1_1VersionView.html", null ],
+        [ "UpdatesView", "classabout_1_1views_1_1UpdatesView.html", null ],
+        [ "TeamView", "classabout_1_1views_1_1TeamView.html", null ]
+      ] ]
+    ] ],
     [ "actions_model", "namespaceactions__model.html", [
       [ "Actions", "classactions__model_1_1Actions.html", "classactions__model_1_1Actions" ]
+    ] ],
+    [ "admin", "namespaceadmin.html", [
+      [ "views", "namespaceadmin_1_1views.html", [
+        [ "AdminUpdateTicketsView", "classadmin_1_1views_1_1AdminUpdateTicketsView.html", null ],
+        [ "AdminGetTicketListView", "classadmin_1_1views_1_1AdminGetTicketListView.html", null ],
+        [ "AdminTicketDetailInfoView", "classadmin_1_1views_1_1AdminTicketDetailInfoView.html", null ],
+        [ "AdminDeleteTicketView", "classadmin_1_1views_1_1AdminDeleteTicketView.html", null ],
+        [ "AdminChangePermissionsView", "classadmin_1_1views_1_1AdminChangePermissionsView.html", null ]
+      ] ]
+    ] ],
+    [ "admin_schema", "namespaceadmin__schema.html", [
+      [ "AdminUpdateTicketSchema", "classadmin__schema_1_1AdminUpdateTicketSchema.html", null ],
+      [ "AdminTicketAuthorInfo", "classadmin__schema_1_1AdminTicketAuthorInfo.html", null ],
+      [ "AdminGetTicketListSchema", "classadmin__schema_1_1AdminGetTicketListSchema.html", null ],
+      [ "AdminTicketDetailInfo", "classadmin__schema_1_1AdminTicketDetailInfo.html", null ],
+      [ "AdminTicketListResponse", "classadmin__schema_1_1AdminTicketListResponse.html", null ],
+      [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
+      [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ]
     ] ],
     [ "auth_schema", "namespaceauth__schema.html", [
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
     ] ],
     [ "bookmarks_model", "namespacebookmarks__model.html", [
       [ "Bookmarks", "classbookmarks__model_1_1Bookmarks.html", "classbookmarks__model_1_1Bookmarks" ]
+    ] ],
+    [ "burrito", "namespaceburrito.html", [
+      [ "utils", "namespaceburrito_1_1utils.html", [
+        [ "app_util", "namespaceburrito_1_1utils_1_1app__util.html", [
+          [ "BurritoApi", "classburrito_1_1utils_1_1app__util_1_1BurritoApi.html", "classburrito_1_1utils_1_1app__util_1_1BurritoApi" ]
+        ] ],
+        [ "base_view", "namespaceburrito_1_1utils_1_1base__view.html", [
+          [ "BaseView", "classburrito_1_1utils_1_1base__view_1_1BaseView.html", null ]
+        ] ],
+        [ "db_cursor_object", "namespaceburrito_1_1utils_1_1db__cursor__object.html", [
+          [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor" ]
+        ] ],
+        [ "db_preprocessor", "namespaceburrito_1_1utils_1_1db__preprocessor.html", [
+          [ "SourceIsNotDefinedError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError" ],
+          [ "SourceIsNotAvailableError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError" ],
+          [ "DefaultDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor" ],
+          [ "CloudDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
+          [ "LocalDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", "classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor" ]
+        ] ],
+        [ "logger", "namespaceburrito_1_1utils_1_1logger.html", [
+          [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter" ],
+          [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", "classburrito_1_1utils_1_1logger_1_1BurritoLogger" ]
+        ] ],
+        [ "pubsub_manager", "namespaceburrito_1_1utils_1_1pubsub__manager.html", [
+          [ "PubSubManager", "classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager.html", "classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager" ]
+        ] ],
+        [ "redis_utils", "namespaceburrito_1_1utils_1_1redis__utils.html", [
+          [ "BurritoRedis", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis.html", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis" ]
+        ] ],
+        [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", [
+          [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager" ]
+        ] ]
+      ] ]
     ] ],
     [ "comments_model", "namespacecomments__model.html", [
       [ "Comments", "classcomments__model_1_1Comments.html", "classcomments__model_1_1Comments" ]
@@ -37,10 +95,10 @@ var annotated_dup =
       ] ]
     ] ],
     [ "profile_schema", "namespaceprofile__schema.html", [
-      [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
-      [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
-      [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
+      [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
+      [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ],
+      [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ]
     ] ],
     [ "queues_model", "namespacequeues__model.html", [
       [ "Queues", "classqueues__model_1_1Queues.html", "classqueues__model_1_1Queues" ]
@@ -77,13 +135,13 @@ var annotated_dup =
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]
     ] ],
     [ "tickets_schema", "namespacetickets__schema.html", [
-      [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-      [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
-      [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
-      [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ],
-      [ "TicketAuthorInfo", "classtickets__schema_1_1TicketAuthorInfo.html", null ],
-      [ "TicketDetailInfo", "classtickets__schema_1_1TicketDetailInfo.html", null ],
-      [ "TicketListResponse", "classtickets__schema_1_1TicketListResponse.html", null ]
+      [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],
+      [ "UpdateTicketSchema", "classtickets__schema_1_1UpdateTicketSchema.html", null ],
+      [ "TicketListRequestSchema", "classtickets__schema_1_1TicketListRequestSchema.html", null ],
+      [ "TicketIDValueSchema", "classtickets__schema_1_1TicketIDValueSchema.html", null ],
+      [ "TicketUsersInfoSchema", "classtickets__schema_1_1TicketUsersInfoSchema.html", null ],
+      [ "TicketDetailInfoSchema", "classtickets__schema_1_1TicketDetailInfoSchema.html", null ],
+      [ "TicketListResponseSchema", "classtickets__schema_1_1TicketListResponseSchema.html", null ]
     ] ],
     [ "user_agent", "namespaceuser__agent.html", [
       [ "UserAgentMiddleware", "classuser__agent_1_1UserAgentMiddleware.html", "classuser__agent_1_1UserAgentMiddleware" ]
@@ -94,36 +152,5 @@ var annotated_dup =
     [ "user_schema", "namespaceuser__schema.html", [
       [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
       [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
-    ] ],
-    [ "utils", "namespaceutils.html", [
-      [ "app_util", "namespaceutils_1_1app__util.html", [
-        [ "BurritoApi", "classutils_1_1app__util_1_1BurritoApi.html", "classutils_1_1app__util_1_1BurritoApi" ]
-      ] ],
-      [ "base_view", "namespaceutils_1_1base__view.html", [
-        [ "BaseView", "classutils_1_1base__view_1_1BaseView.html", null ]
-      ] ],
-      [ "db_cursor_object", "namespaceutils_1_1db__cursor__object.html", [
-        [ "PostgresqlCursor", "classutils_1_1db__cursor__object_1_1PostgresqlCursor.html", "classutils_1_1db__cursor__object_1_1PostgresqlCursor" ]
-      ] ],
-      [ "db_preprocessor", "namespaceutils_1_1db__preprocessor.html", [
-        [ "SourceIsNotDefinedError", "classutils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", "classutils_1_1db__preprocessor_1_1SourceIsNotDefinedError" ],
-        [ "SourceIsNotAvailableError", "classutils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", "classutils_1_1db__preprocessor_1_1SourceIsNotAvailableError" ],
-        [ "DefaultDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", "classutils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor" ],
-        [ "CloudDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
-        [ "LocalDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", "classutils_1_1db__preprocessor_1_1LocalDataBasePreprocessor" ]
-      ] ],
-      [ "logger", "namespaceutils_1_1logger.html", [
-        [ "BurritoFormatter", "classutils_1_1logger_1_1BurritoFormatter.html", "classutils_1_1logger_1_1BurritoFormatter" ],
-        [ "BurritoLogger", "classutils_1_1logger_1_1BurritoLogger.html", "classutils_1_1logger_1_1BurritoLogger" ]
-      ] ],
-      [ "pubsub_manager", "namespaceutils_1_1pubsub__manager.html", [
-        [ "PubSubManager", "classutils_1_1pubsub__manager_1_1PubSubManager.html", "classutils_1_1pubsub__manager_1_1PubSubManager" ]
-      ] ],
-      [ "redis_utils", "namespaceutils_1_1redis__utils.html", [
-        [ "BurritoRedis", "classutils_1_1redis__utils_1_1BurritoRedis.html", "classutils_1_1redis__utils_1_1BurritoRedis" ]
-      ] ],
-      [ "task_manager", "namespaceutils_1_1task__manager.html", [
-        [ "_TaskManager", "classutils_1_1task__manager_1_1__TaskManager.html", "classutils_1_1task__manager_1_1__TaskManager" ]
-      ] ]
     ] ]
 ];

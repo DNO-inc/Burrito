@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yellow_525',['yellow',['../classutils_1_1logger_1_1BurritoFormatter.html#a5d6ba79bcabe518536bff9acd4888310',1,'utils::logger::BurritoFormatter']]]
+  ['yellow_578',['yellow',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html#a5d6ba79bcabe518536bff9acd4888310',1,'burrito::utils::logger::BurritoFormatter']]]
 ];

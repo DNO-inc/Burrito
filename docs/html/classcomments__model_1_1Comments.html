@@ -147,11 +147,11 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:afae8edc387555ea3676e5600b154f46a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#afae8edc387555ea3676e5600b154f46a">comment_id</a> = PrimaryKeyField()</td></tr>
+<tr class="memitem:afae8edc387555ea3676e5600b154f46a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#afae8edc387555ea3676e5600b154f46a">comment_id</a> = AutoField()</td></tr>
 <tr class="separator:afae8edc387555ea3676e5600b154f46a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#a8f1a45e6311d4f0eea27744b8dba3121">ticket_id</a></td></tr>
 <tr class="separator:a8f1a45e6311d4f0eea27744b8dba3121"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8e4fe22776aeac6701c6c43fdee5ac8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#ab8e4fe22776aeac6701c6c43fdee5ac8">user_id</a> = ForeignKeyField(Users, to_field=&quot;user_id&quot;, on_delete=&quot;NO ACTION&quot;)</td></tr>
+<tr class="memitem:ab8e4fe22776aeac6701c6c43fdee5ac8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#ab8e4fe22776aeac6701c6c43fdee5ac8">user_id</a> = ForeignKeyField(Users, field=&quot;user_id&quot;, on_delete=&quot;NO ACTION&quot;)</td></tr>
 <tr class="separator:ab8e4fe22776aeac6701c6c43fdee5ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bc37f6ee3c38609ca8f0d1e53dbcd41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomments__model_1_1Comments.html#a0bc37f6ee3c38609ca8f0d1e53dbcd41">comment_date</a> = DateTimeField(default=datetime.datetime.now)</td></tr>
 <tr class="separator:a0bc37f6ee3c38609ca8f0d1e53dbcd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,7 +215,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">comment_id = PrimaryKeyField()</td>
+          <td class="memname">comment_id = AutoField()</td>
         </tr>
       </table>
   </td>
@@ -248,7 +248,7 @@ Static Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Tickets,</div>
-<div class="line">        to_field=<span class="stringliteral">&quot;ticket_id&quot;</span>,</div>
+<div class="line">        field=<span class="stringliteral">&quot;ticket_id&quot;</span>,</div>
 <div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
@@ -286,7 +286,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">user_id = ForeignKeyField(Users, to_field=&quot;user_id&quot;, on_delete=&quot;NO ACTION&quot;)</td>
+          <td class="memname">user_id = ForeignKeyField(Users, field=&quot;user_id&quot;, on_delete=&quot;NO ACTION&quot;)</td>
         </tr>
       </table>
   </td>

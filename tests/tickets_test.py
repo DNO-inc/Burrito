@@ -24,7 +24,6 @@ def create_ticket_get_id(subject: str) -> int:
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "faculty_id": 1,
             "queue_id": 1,
-            "user_id": RegistrationTestCase.user_id
         },
         timeout=TIMEOUT
     ).json()["ticket_id"]
@@ -51,7 +50,6 @@ class TicketsTestCase(unittest.TestCase):
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "faculty_id": 1,
                 "queue_id": 1,
-                "user_id": RegistrationTestCase.user_id
             },
             timeout=TIMEOUT
         )

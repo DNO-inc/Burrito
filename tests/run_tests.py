@@ -1,9 +1,9 @@
-import unittest
-#import socket
 import sys
 import os
 
-from registration_test import RegistrationTestCase
+import unittest
+
+#from registration_test import RegistrationTestCase
 from auth_test import AuthTestCase
 from profile_test import ProfileTestCase
 from tickets_test import TicketsTestCase
@@ -31,5 +31,5 @@ all_tests = unittest.TestSuite(
     ]
 )
 
-unittest.TestLoader.sortTestMethodsUsing = None
+#unittest.TestLoader.sortTestMethodsUsing = None
 unittest.TextTestRunner().run(all_tests)

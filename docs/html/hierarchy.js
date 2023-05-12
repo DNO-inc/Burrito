@@ -1,20 +1,39 @@
 var hierarchy =
 [
-    [ "_TaskManager", "classutils_1_1task__manager_1_1__TaskManager.html", null ],
-    [ "BaseView", "classutils_1_1base__view_1_1BaseView.html", null ],
-    [ "DefaultDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", [
-      [ "CloudDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
-      [ "LocalDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", null ]
+    [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", null ],
+    [ "BaseView", "classburrito_1_1utils_1_1base__view_1_1BaseView.html", [
+      [ "TeamView", "classabout_1_1views_1_1TeamView.html", null ],
+      [ "UpdatesView", "classabout_1_1views_1_1UpdatesView.html", null ],
+      [ "VersionView", "classabout_1_1views_1_1VersionView.html", null ],
+      [ "AdminChangePermissionsView", "classadmin_1_1views_1_1AdminChangePermissionsView.html", null ],
+      [ "AdminDeleteTicketView", "classadmin_1_1views_1_1AdminDeleteTicketView.html", null ],
+      [ "AdminGetTicketListView", "classadmin_1_1views_1_1AdminGetTicketListView.html", null ],
+      [ "AdminTicketDetailInfoView", "classadmin_1_1views_1_1AdminTicketDetailInfoView.html", null ],
+      [ "AdminUpdateTicketsView", "classadmin_1_1views_1_1AdminUpdateTicketsView.html", null ],
+      [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
+      [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ],
+      [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ],
+      [ "BookmarkTicketView", "classtickets_1_1views_1_1BookmarkTicketView.html", null ],
+      [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ],
+      [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
+      [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
+      [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
+      [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
+      [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ]
+    ] ],
+    [ "DefaultDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", [
+      [ "CloudDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
+      [ "LocalDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", null ]
     ] ],
     [ "Exception", null, [
-      [ "SourceIsNotAvailableError", "classutils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", null ],
-      [ "SourceIsNotDefinedError", "classutils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", null ]
+      [ "SourceIsNotAvailableError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", null ],
+      [ "SourceIsNotDefinedError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", null ]
     ] ],
     [ "Formatter", null, [
-      [ "BurritoFormatter", "classutils_1_1logger_1_1BurritoFormatter.html", null ]
+      [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", null ]
     ] ],
     [ "Logger", null, [
-      [ "BurritoLogger", "classutils_1_1logger_1_1BurritoLogger.html", null ]
+      [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", null ]
     ] ],
     [ "Actions.Meta", "classactions__model_1_1Actions_1_1Meta.html", null ],
     [ "Bookmarks.Meta", "classbookmarks__model_1_1Bookmarks_1_1Meta.html", null ],
@@ -32,44 +51,39 @@ var hierarchy =
     [ "Subscriptions.Meta", "classsubscriptions__model_1_1Subscriptions_1_1Meta.html", null ],
     [ "Tickets.Meta", "classtickets__model_1_1Tickets_1_1Meta.html", null ],
     [ "Users.Meta", "classuser__model_1_1Users_1_1Meta.html", null ],
-    [ "PubSubManager", "classutils_1_1pubsub__manager_1_1PubSubManager.html", null ],
+    [ "PubSubManager", "classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager.html", null ],
     [ "Redis", null, [
-      [ "BurritoRedis", "classutils_1_1redis__utils_1_1BurritoRedis.html", null ]
+      [ "BurritoRedis", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis.html", null ]
     ] ],
     [ "BaseHTTPMiddleware", null, [
       [ "UserAgentMiddleware", "classuser__agent_1_1UserAgentMiddleware.html", null ]
     ] ],
     [ "BaseModel", null, [
+      [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ],
+      [ "AdminGetTicketListSchema", "classadmin__schema_1_1AdminGetTicketListSchema.html", null ],
+      [ "AdminTicketAuthorInfo", "classadmin__schema_1_1AdminTicketAuthorInfo.html", null ],
+      [ "AdminTicketDetailInfo", "classadmin__schema_1_1AdminTicketDetailInfo.html", null ],
+      [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
+      [ "AdminTicketListResponse", "classadmin__schema_1_1AdminTicketListResponse.html", null ],
+      [ "AdminUpdateTicketSchema", "classadmin__schema_1_1AdminUpdateTicketSchema.html", null ],
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", [
-        [ "ProfileSchema", "classprofile__schema_1_1ProfileSchema.html", null ],
-        [ "UpdateProfileSchema", "classprofile__schema_1_1UpdateProfileSchema.html", null ]
+        [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
+        [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
       ] ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
-      [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-      [ "TicketAuthorInfo", "classtickets__schema_1_1TicketAuthorInfo.html", null ],
-      [ "TicketDetailInfo", "classtickets__schema_1_1TicketDetailInfo.html", null ],
-      [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ],
-      [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
-      [ "TicketListResponse", "classtickets__schema_1_1TicketListResponse.html", null ],
-      [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
+      [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],
+      [ "TicketDetailInfoSchema", "classtickets__schema_1_1TicketDetailInfoSchema.html", null ],
+      [ "TicketIDValueSchema", "classtickets__schema_1_1TicketIDValueSchema.html", null ],
+      [ "TicketListRequestSchema", "classtickets__schema_1_1TicketListRequestSchema.html", null ],
+      [ "TicketListResponseSchema", "classtickets__schema_1_1TicketListResponseSchema.html", null ],
+      [ "TicketUsersInfoSchema", "classtickets__schema_1_1TicketUsersInfoSchema.html", null ],
+      [ "UpdateTicketSchema", "classtickets__schema_1_1UpdateTicketSchema.html", null ],
       [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
       [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
     ] ],
-    [ "BaseView", null, [
-      [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
-      [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ],
-      [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ],
-      [ "BookmarkTicketView", "classtickets_1_1views_1_1BookmarkTicketView.html", null ],
-      [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ],
-      [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
-      [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
-      [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
-      [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
-      [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ]
-    ] ],
     [ "FastAPI", null, [
-      [ "BurritoApi", "classutils_1_1app__util_1_1BurritoApi.html", null ]
+      [ "BurritoApi", "classburrito_1_1utils_1_1app__util_1_1BurritoApi.html", null ]
     ] ],
     [ "Model", null, [
       [ "Actions", "classactions__model_1_1Actions.html", null ],
@@ -89,7 +103,7 @@ var hierarchy =
       [ "Tickets", "classtickets__model_1_1Tickets.html", null ],
       [ "Users", "classuser__model_1_1Users.html", null ]
     ] ],
-    [ "PostgresqlDatabase", null, [
-      [ "PostgresqlCursor", "classutils_1_1db__cursor__object_1_1PostgresqlCursor.html", null ]
+    [ "MySQLDatabase", null, [
+      [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", null ]
     ] ]
 ];

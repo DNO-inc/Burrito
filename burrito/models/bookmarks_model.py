@@ -9,12 +9,12 @@ from burrito.utils.db_cursor_object import get_database_cursor
 class Bookmarks(Model):
     user_id = ForeignKeyField(
         Users,
-        to_field="user_id",
+        field="user_id",
         on_delete="NO ACTION"
     )
     ticket_id = ForeignKeyField(
         Tickets,
-        to_field="ticket_id",
+        field="ticket_id",
         on_delete="NO ACTION"
     )
 

@@ -1,5 +1,5 @@
 var auth_8py =
 [
-    [ "get_auth_core", "auth_8py.html#a7e74ec2b89c6d1d8882d69770e11a7fd", null ],
-    [ "get_config", "auth_8py.html#a3db9da18f7cd531b88cea2a23d2103d7", null ]
+    [ "get_auth_core", "auth_8py.html#a1112ea5c7ab2e1be5e276f47308ab236", null ],
+    [ "get_config", "auth_8py.html#a9a56107f5850ac8390b824b27d656f9f", null ]
 ];
