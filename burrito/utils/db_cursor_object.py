@@ -1,25 +1,25 @@
-from peewee import PostgresqlDatabase
+from peewee import MySQLDatabase
 
 from burrito.utils.singleton_pattern import singleton
 
 
 @singleton
-class PostgresqlCursor(PostgresqlDatabase):
+class BurritoDatabaseCursor(MySQLDatabase):
     def __init__(self, database, **kwargs) -> None:
         super().__init__(database, **kwargs)
 
 
-def get_database_cursor() -> PostgresqlDatabase:
+def get_database_cursor() -> BurritoDatabaseCursor:
     """_summary_
 
     Create data base cursor
 
     Returns:
-        PostgresqlDatabase: current database cursor
+        BurritoDatabaseCursor: current database cursor
     """
 
-    return PostgresqlDatabase(
-        "ramee",
-        user="postgres", password="root",
-        host="localhost", port=5432
+    return BurritoDatabaseCursor(
+        "burrito",
+        user="burrito_user", password="Qwerty123",
+        host="192.168.0.173", port=3306
     )
