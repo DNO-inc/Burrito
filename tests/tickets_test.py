@@ -5,7 +5,6 @@ import random
 import requests
 
 from auth_test import AuthTestCase
-from registration_test import RegistrationTestCase
 
 TIMEOUT = 5
 
@@ -145,21 +144,9 @@ class TicketsTestCase(unittest.TestCase):
             },
             json={
                 "anonymous": True,
-                "hidden": True
+                "hidden": False,
+                "status": "NEW"
             },
-            timeout=TIMEOUT
-        )
-#        from pprint import pprint
-#        pprint(response.json())
-        self.assertEqual(
-            response.status_code,
-            200
-        )
-
-    def test_tickets_filter_no_auth(self):
-        response = requests.post(
-            "http://127.0.0.1:8080/tickets/ticket_list",
-            json={},
             timeout=TIMEOUT
         )
 

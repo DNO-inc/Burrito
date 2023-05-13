@@ -19,7 +19,7 @@ class UpdateTicketSchema(BaseModel):
 
 
 class TicketListRequestSchema(BaseModel):
-    creator: str | None
+    creator: int | None
     hidden: bool | None
     anonymous: bool | None
     faculty: str | None

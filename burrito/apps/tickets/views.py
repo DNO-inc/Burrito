@@ -176,7 +176,7 @@ class TicketListView(BaseView):
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Show tickets"""
-        Authorize.jwt_optional()
+        Authorize.jwt_required()
 
         available_filters = {
             "creator": Tickets.creator == filters.creator,
@@ -188,7 +188,6 @@ class TicketListView(BaseView):
         }
 
         final_filters = []
-
         for filter_item in filters.dict().items():
             if filter_item[1] is not None:
                 final_filters.append(available_filters[filter_item[0]])
@@ -197,30 +196,27 @@ class TicketListView(BaseView):
 
         tickets_black_list = set()
 
-        is_anonymous_user = bool(Authorize.get_jwt_subject())
-        if not is_anonymous_user:
-            for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
-                tickets_black_list.add(item.ticket_id.ticket_id)
-
-        user_id = Authorize.get_jwt_subject()
-        if not user_id:
-            user_id = -1
+        for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
+            tickets_black_list.add(item.ticket_id.ticket_id)
 
         expression = None
         if final_filters:
             expression = Tickets.select().where(*final_filters)
         else:
+            # TODO: make pagination
             expression = Tickets.select()
 
         for ticket in expression:
-            i_am_creator = am_i_own_this_ticket(ticket.creator.user_id, user_id)
+            i_am_creator = am_i_own_this_ticket(
+                ticket.creator.user_id,
+                Authorize.get_jwt_subject()
+            )
 
             if not i_am_creator and ticket.hidden:
                 continue
 
-            if not is_anonymous_user:
-                if ticket.ticket_id in tickets_black_list:
-                    continue
+            if ticket.ticket_id in tickets_black_list:
+                continue
 
             creator = None
             if not ticket.anonymous or i_am_creator:
@@ -233,21 +229,21 @@ class TicketListView(BaseView):
                     assignee_modified = model_to_dict(assignee)
                     assignee_modified["faculty"] = ticket.assignee.faculty_id.name
 
-                response_list.append(
-                    TicketDetailInfoSchema(
-                        creator=creator,
-                        assignee=assignee_modified if assignee else None,
-                        ticket_id=ticket.ticket_id,
-                        subject=ticket.subject,
-                        body=hide_ticket_body(ticket.body),
-                        faculty=ticket.faculty_id.name,
-                        status=ticket.status_id.name
-                    )
+            response_list.append(
+                TicketDetailInfoSchema(
+                    creator=creator,
+                    assignee=assignee_modified if assignee else None,
+                    ticket_id=ticket.ticket_id,
+                    subject=ticket.subject,
+                    body=hide_ticket_body(ticket.body),
+                    faculty=ticket.faculty_id.name,
+                    status=ticket.status_id.name
                 )
+            )
 
-                return TicketListResponseSchema(
-                    ticket_list=response_list
-                )
+        return TicketListResponseSchema(
+            ticket_list=response_list
+        )
 
 
 class TicketDetailInfoView(BaseView):
