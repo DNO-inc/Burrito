@@ -17,13 +17,12 @@ def create_ticket_get_id(subject: str) -> int:
             "Authorization": f"Bearer {AuthTestCase.access_token}"
         },
         json={
-            "creator_id": RegistrationTestCase.user_id,
             "subject": subject,
-            "body": "".join(random.sample(string.ascii_letters, 15)),
+            "body": "".join([random.choice(string.ascii_letters) for i in range(300)]),
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-            "faculty_id": 1,
-            "queue_id": 1,
+            "queue": "questions",
+            "faculty": "EliT",
         },
         timeout=TIMEOUT
     ).json()["ticket_id"]
@@ -43,13 +42,12 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "creator_id": RegistrationTestCase.user_id,
                 "subject": "".join(random.sample(string.ascii_letters, 5)),
                 "body": "".join(random.sample(string.ascii_letters, 15)),
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "faculty_id": 1,
-                "queue_id": 1,
+                "queue": "questions",
+                "faculty": "EliT",
             },
             timeout=TIMEOUT
         )
@@ -151,6 +149,19 @@ class TicketsTestCase(unittest.TestCase):
             },
             timeout=TIMEOUT
         )
+#        from pprint import pprint
+#        pprint(response.json())
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+    def test_tickets_filter_no_auth(self):
+        response = requests.post(
+            "http://127.0.0.1:8080/tickets/ticket_list",
+            json={},
+            timeout=TIMEOUT
+        )
 
         self.assertEqual(
             response.status_code,
@@ -158,7 +169,21 @@ class TicketsTestCase(unittest.TestCase):
         )
 
     def test_ticket_detail_view(self):
-        ticket_id = create_ticket_get_id("show info about ticket")
+        ticket_id = requests.post(
+            "http://127.0.0.1:8080/tickets/create",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "subject": "show info about ticket",
+                "body": "".join([random.choice(string.ascii_letters) for i in range(300)]),
+                "hidden": False,
+                "anonymous": False,
+                "queue": "questions",
+                "faculty": "EliT",
+            },
+            timeout=TIMEOUT
+        ).json()["ticket_id"]
 
         response = requests.post(
             "http://127.0.0.1:8080/tickets/show",

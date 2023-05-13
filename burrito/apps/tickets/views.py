@@ -14,11 +14,18 @@ from burrito.schemas.tickets_schema import (
     TicketListResponseSchema
 )
 from burrito.models.tickets_model import Tickets
-from burrito.models.statuses_model import Statuses
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
 
+from burrito.utils.tickets_util import hide_ticket_body
+
 from burrito.utils.logger import get_logger
+
+from burrito.utils.converter import (
+    QueueStrToInt,
+    FacultyStrToInt,
+    StatusStrToInt
+)
 
 from .utils import (
     get_auth_core,
@@ -42,14 +49,15 @@ class CreateTicketView(BaseView):
         """Create ticket"""
         Authorize.jwt_required()
 
-        user_id = Authorize.get_jwt_subject()
-        if user_id != ticket_creation_data.creator_id:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={"detail": "User ID is not the same"}
-            )
-
-        ticket: Tickets = Tickets.create(**ticket_creation_data.dict())
+        ticket: Tickets = Tickets.create(
+            creator=Authorize.get_jwt_subject(),
+            subject=ticket_creation_data.subject,
+            body=ticket_creation_data.body,
+            hidden=ticket_creation_data.hidden,
+            anonymous=ticket_creation_data.anonymous,
+            queue_id=QueueStrToInt.convert(ticket_creation_data.queue),
+            faculty_id=FacultyStrToInt.convert(ticket_creation_data.faculty)
+        )
 
         return JSONResponse(
             status_code=200,
@@ -168,15 +176,15 @@ class TicketListView(BaseView):
         Authorize: AuthJWT = Depends(get_auth_core())
     ):
         """Show tickets"""
-        Authorize.jwt_required()
+        Authorize.jwt_optional()
 
         available_filters = {
             "creator": Tickets.creator == filters.creator,
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
-            "faculty_id": Tickets.faculty_id == filters.faculty_id,
-            "queue_id": Tickets.queue_id == filters.queue_id,
-            "status_id": Tickets.status_id == filters.status_id
+            "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
+            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
+            "status": Tickets.status_id == StatusStrToInt.convert(filters.status)
         }
 
         final_filters = []
@@ -188,37 +196,58 @@ class TicketListView(BaseView):
         response_list: TicketDetailInfoSchema = []
 
         tickets_black_list = set()
-        for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
-            tickets_black_list.add(item.ticket_id.ticket_id)
 
-        for ticket in Tickets.select().where(*final_filters):
-            if ticket.ticket_id in tickets_black_list:
+        is_anonymous_user = bool(Authorize.get_jwt_subject())
+        if not is_anonymous_user:
+            for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
+                tickets_black_list.add(item.ticket_id.ticket_id)
+
+        user_id = Authorize.get_jwt_subject()
+        if not user_id:
+            user_id = -1
+
+        expression = None
+        if final_filters:
+            expression = Tickets.select().where(*final_filters)
+        else:
+            expression = Tickets.select()
+
+        for ticket in expression:
+            i_am_creator = am_i_own_this_ticket(ticket.creator.user_id, user_id)
+
+            if not i_am_creator and ticket.hidden:
                 continue
 
-            creator = model_to_dict(ticket.creator)
-            creator["faculty"] = ticket.creator.faculty_id.name
+            if not is_anonymous_user:
+                if ticket.ticket_id in tickets_black_list:
+                    continue
 
-            assignee = ticket.assignee
-            assignee_modified = dict()
-            if assignee:
-                assignee_modified = model_to_dict(assignee)
-                assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+            creator = None
+            if not ticket.anonymous or i_am_creator:
+                creator = model_to_dict(ticket.creator)
+                creator["faculty"] = ticket.creator.faculty_id.name
 
-            response_list.append(
-                TicketDetailInfoSchema(
-                    creator=creator,
-                    assignee=assignee_modified if assignee else None,
-                    ticket_id=ticket.ticket_id,
-                    subject=ticket.subject,
-                    body=ticket.body,
-                    faculty=ticket.faculty_id.name,
-                    status=ticket.status_id.name
+                assignee = ticket.assignee
+                assignee_modified = dict()
+                if assignee:
+                    assignee_modified = model_to_dict(assignee)
+                    assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+
+                response_list.append(
+                    TicketDetailInfoSchema(
+                        creator=creator,
+                        assignee=assignee_modified if assignee else None,
+                        ticket_id=ticket.ticket_id,
+                        subject=ticket.subject,
+                        body=hide_ticket_body(ticket.body),
+                        faculty=ticket.faculty_id.name,
+                        status=ticket.status_id.name
+                    )
                 )
-            )
 
-        return TicketListResponseSchema(
-            ticket_list=response_list
-        )
+                return TicketListResponseSchema(
+                    ticket_list=response_list
+                )
 
 
 class TicketDetailInfoView(BaseView):
@@ -245,14 +274,36 @@ class TicketDetailInfoView(BaseView):
                 }
             )
 
-        creator = model_to_dict(ticket.creator)
-        creator["faculty"] = ticket.creator.faculty_id.name
+        if ticket.hidden:
+            return JSONResponse(
+                status_code=403,
+                content={"detail": "Not allowed"}
+            )
+
+        creator = None
+        if not ticket.anonymous:
+            creator = model_to_dict(ticket.creator)
+
+            try:
+                creator["faculty"] = ticket.creator.faculty_id.name
+            except:
+                get_logger().critical(
+                    f"User {ticket.creator.user_id} without faculty value"
+                )
+                creator["faculty"] = None
 
         assignee = ticket.assignee
         assignee_modified = dict()
         if assignee:
             assignee_modified = model_to_dict(assignee)
-            assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+
+            try:
+                assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+            except:
+                get_logger().critical(
+                    f"User {ticket.assignee} without faculty value"
+                )
+                assignee_modified["faculty"] = None
 
         return TicketDetailInfoSchema(
             creator=creator,
@@ -344,7 +395,7 @@ class CloseTicketView(BaseView):
             )
 
         status_name = "CLOSE"
-        status_object = Statuses.get_or_none(Statuses.name == status_name)
+        status_object = StatusStrToInt.convert(status_name)
 
         if not status_object:
             get_logger().critical(f"Status {status_name} is not exist in database")
