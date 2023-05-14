@@ -1,6 +1,6 @@
 var task__manager_8py =
 [
-    [ "_TaskManager", "classutils_1_1task__manager_1_1__TaskManager.html", "classutils_1_1task__manager_1_1__TaskManager" ],
-    [ "get_async_manager", "task__manager_8py.html#a00edfae931b8bd45d451f57b806dd901", null ],
-    [ "thread_singleton", "task__manager_8py.html#a32de58101f7539cbf6fb79d048a67e83", null ]
+    [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager" ],
+    [ "get_async_manager", "task__manager_8py.html#adb8bf9d5462d0d2d3bd0f546516d66d8", null ],
+    [ "thread_singleton", "task__manager_8py.html#a8279bf2061b308ec29d3544ce3ecf77d", null ]
 ];

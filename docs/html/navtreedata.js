@@ -54,8 +54,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"____main_____8py.html",
-"namespacetickets__model.html"
+"____init_____8py.html",
+"namespaceburrito_1_1____main____.html#ae52daaf6e507546f2beee3b3fecfbf08"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

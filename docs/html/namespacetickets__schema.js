@@ -1,10 +1,10 @@
 var namespacetickets__schema =
 [
-    [ "CreateTicket", "classtickets__schema_1_1CreateTicket.html", null ],
-    [ "UpdateTicket", "classtickets__schema_1_1UpdateTicket.html", null ],
-    [ "TicketList", "classtickets__schema_1_1TicketList.html", null ],
-    [ "TicketIDValue", "classtickets__schema_1_1TicketIDValue.html", null ],
-    [ "TicketAuthorInfo", "classtickets__schema_1_1TicketAuthorInfo.html", null ],
-    [ "TicketDetailInfo", "classtickets__schema_1_1TicketDetailInfo.html", null ],
-    [ "TicketListResponse", "classtickets__schema_1_1TicketListResponse.html", null ]
+    [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],
+    [ "UpdateTicketSchema", "classtickets__schema_1_1UpdateTicketSchema.html", null ],
+    [ "TicketListRequestSchema", "classtickets__schema_1_1TicketListRequestSchema.html", null ],
+    [ "TicketIDValueSchema", "classtickets__schema_1_1TicketIDValueSchema.html", null ],
+    [ "TicketUsersInfoSchema", "classtickets__schema_1_1TicketUsersInfoSchema.html", null ],
+    [ "TicketDetailInfoSchema", "classtickets__schema_1_1TicketDetailInfoSchema.html", null ],
+    [ "TicketListResponseSchema", "classtickets__schema_1_1TicketListResponseSchema.html", null ]
 ];

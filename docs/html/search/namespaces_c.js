@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['router_347',['router',['../namespacetickets_1_1router.html',1,'tickets']]],
-  ['tickets_348',['tickets',['../namespacetickets.html',1,'']]],
-  ['tickets_5fmodel_349',['tickets_model',['../namespacetickets__model.html',1,'']]],
-  ['tickets_5fschema_350',['tickets_schema',['../namespacetickets__schema.html',1,'']]],
-  ['utils_351',['utils',['../namespacetickets_1_1utils.html',1,'tickets']]],
-  ['views_352',['views',['../namespacetickets_1_1views.html',1,'tickets']]]
+  ['user_5fagent_415',['user_agent',['../namespaceuser__agent.html',1,'']]],
+  ['user_5fmodel_416',['user_model',['../namespaceuser__model.html',1,'']]],
+  ['user_5fschema_417',['user_schema',['../namespaceuser__schema.html',1,'']]]
 ];

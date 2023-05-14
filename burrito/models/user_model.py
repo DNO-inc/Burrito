@@ -1,7 +1,7 @@
 import datetime
 
 from peewee import (
-    Model, CharField, TextField, PrimaryKeyField,
+    Model, CharField, TextField, AutoField,
     DateTimeField, ForeignKeyField
 )
 
@@ -13,7 +13,7 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Users(Model):
-    user_id = PrimaryKeyField()
+    user_id = AutoField()
 
     firstname = CharField(60, null=True)
     lastname = CharField(60, null=True)
@@ -22,13 +22,13 @@ class Users(Model):
 
     faculty_id = ForeignKeyField(
         Faculties,
-        to_field="faculty_id",
+        field="faculty_id",
         on_delete="NO ACTION",
         null=True
     )
     group_id = ForeignKeyField(
         Groups,
-        to_field="group_id",
+        field="group_id",
         on_delete="NO ACTION",
         null=True
     )
@@ -42,7 +42,7 @@ class Users(Model):
 
     role_id = ForeignKeyField(
         Roles,
-        to_field="role_id",
+        field="role_id",
         on_delete="NO ACTION",
         null=True
     )

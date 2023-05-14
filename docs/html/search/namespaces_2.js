@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bookmarks_5fmodel_324',['bookmarks_model',['../namespacebookmarks__model.html',1,'']]]
+  ['comments_5fmodel_388',['comments_model',['../namespacecomments__model.html',1,'']]]
 ];

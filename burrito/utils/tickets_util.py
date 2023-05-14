@@ -18,3 +18,7 @@ def is_ticket_exist(ticket_id: int) -> Tickets | None:
 
 def am_i_own_this_ticket(ticket_creator_id: int, user_id: int) -> bool:
     return ticket_creator_id == user_id
+
+
+def hide_ticket_body(body: str, result_length: int = 50) -> str:
+    return body[:result_length] + "..."

@@ -9,12 +9,12 @@ from burrito.utils.db_cursor_object import get_database_cursor
 class RolePermissions(Model):
     role_id = ForeignKeyField(
         Roles,
-        to_field="role_id",
+        field="role_id",
         on_delete="NO ACTIONS"
     )
     permission_id = ForeignKeyField(
         Permissions,
-        to_field="permission_id",
+        field="permission_id",
         on_delete="NO ACTIONS"
     )
 

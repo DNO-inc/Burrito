@@ -1,5 +1,5 @@
 from peewee import (
-    Model, BooleanField, PrimaryKeyField,
+    Model, BooleanField, AutoField,
     ForeignKeyField, TextField
 )
 
@@ -10,14 +10,14 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class Notifications(Model):
-    notification_id = PrimaryKeyField()
+    notification_id = AutoField()
 
     ticket_id = ForeignKeyField(
         Tickets,
-        to_field="ticket_id",
+        field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, to_field="user_id", on_delete="NO ACTION")
+    user_id = ForeignKeyField(Users, field="user_id", on_delete="NO ACTION")
     body = TextField()
     read = BooleanField(default=False)
 

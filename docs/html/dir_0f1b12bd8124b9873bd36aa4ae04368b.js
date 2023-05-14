@@ -7,11 +7,11 @@ var dir_0f1b12bd8124b9873bd36aa4ae04368b =
     [ "db_backup_util.py", "db__backup__util_8py.html", "db__backup__util_8py" ],
     [ "db_cursor_object.py", "db__cursor__object_8py.html", "db__cursor__object_8py" ],
     [ "db_preprocessor.py", "db__preprocessor_8py.html", [
-      [ "SourceIsNotDefinedError", "classutils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", "classutils_1_1db__preprocessor_1_1SourceIsNotDefinedError" ],
-      [ "SourceIsNotAvailableError", "classutils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", "classutils_1_1db__preprocessor_1_1SourceIsNotAvailableError" ],
-      [ "DefaultDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", "classutils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor" ],
-      [ "CloudDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
-      [ "LocalDataBasePreprocessor", "classutils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", "classutils_1_1db__preprocessor_1_1LocalDataBasePreprocessor" ]
+      [ "SourceIsNotDefinedError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError" ],
+      [ "SourceIsNotAvailableError", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html", "classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError" ],
+      [ "DefaultDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor" ],
+      [ "CloudDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
+      [ "LocalDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html", "classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor" ]
     ] ],
     [ "db_utils.py", "db__utils_8py.html", "db__utils_8py" ],
     [ "hash_util.py", "hash__util_8py.html", "hash__util_8py" ],
@@ -21,5 +21,6 @@ var dir_0f1b12bd8124b9873bd36aa4ae04368b =
     [ "redis_utils.py", "redis__utils_8py.html", "redis__utils_8py" ],
     [ "singleton_pattern.py", "singleton__pattern_8py.html", "singleton__pattern_8py" ],
     [ "task_manager.py", "task__manager_8py.html", "task__manager_8py" ],
+    [ "tickets_util.py", "tickets__util_8py.html", "tickets__util_8py" ],
     [ "validators.py", "validators_8py.html", "validators_8py" ]
 ];

@@ -2,13 +2,12 @@ from pydantic import BaseModel
 
 
 class CreateTicketSchema(BaseModel):
-    creator_id: int
     subject: str
     body: str
     hidden: bool
     anonymous: bool
-    queue_id: int | bool
-    faculty_id: int
+    queue: str
+    faculty: str
 
 
 class UpdateTicketSchema(BaseModel):
@@ -20,12 +19,12 @@ class UpdateTicketSchema(BaseModel):
 
 
 class TicketListRequestSchema(BaseModel):
-    creator: str | None
+    creator: int | None
     hidden: bool | None
     anonymous: bool | None
-    faculty_id: str | None
-    queue_id: str | None
-    status_id: str | None
+    faculty: str | None
+    queue: str | None
+    status: str | None
 
 
 class TicketIDValueSchema(BaseModel):
@@ -42,7 +41,7 @@ class TicketUsersInfoSchema(BaseModel):
 
 
 class TicketDetailInfoSchema(BaseModel):
-    creator: TicketUsersInfoSchema
+    creator: TicketUsersInfoSchema | None
     assignee: TicketUsersInfoSchema | None
 
     ticket_id: int

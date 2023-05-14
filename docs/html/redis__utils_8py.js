@@ -1,7 +1,7 @@
 var redis__utils_8py =
 [
-    [ "BurritoRedis", "classutils_1_1redis__utils_1_1BurritoRedis.html", "classutils_1_1redis__utils_1_1BurritoRedis" ],
-    [ "_dict_to_json", "redis__utils_8py.html#a6fe9857d97ef3d979af05834ee9a795b", null ],
-    [ "_json_to_dict", "redis__utils_8py.html#ac17b83e5fdead4aff418a4d4410b2c58", null ],
-    [ "get_redis_cursor", "redis__utils_8py.html#a983d4a70a32132e16ac56e3e42cae6be", null ]
+    [ "BurritoRedis", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis.html", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis" ],
+    [ "_dict_to_json", "redis__utils_8py.html#a0301c88db2c93b2f130c9854fc24ac4a", null ],
+    [ "_json_to_dict", "redis__utils_8py.html#a401ad83386d5f71dfed2b02ebd20dd22", null ],
+    [ "get_redis_cursor", "redis__utils_8py.html#a1c2291821cb7f9ccb1485085208f645b", null ]
 ];
