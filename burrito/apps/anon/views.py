@@ -37,8 +37,19 @@ class AnonTicketListView(BaseView):
 
         response_list: AnonTicketDetailInfoSchema = []
 
-        for ticket in Tickets.select().where(Tickets.hidden == 0):
+        expression = None
+        if final_filters:
+            expression = Tickets.select().where(
+                Tickets.hidden == 0,
+                *final_filters
+            )
+        else:
+            # TODO: make pagination
+            expression = Tickets.select().where(Tickets.hidden == 0)
+
+        for ticket in expression:
             creator = None
+            assignee = None
             if not ticket.anonymous:
                 creator = model_to_dict(ticket.creator)
                 creator["faculty"] = ticket.creator.faculty_id.name

@@ -9,7 +9,7 @@ class AnonTestCase(unittest.TestCase):
         response = requests.post(
             "http://127.0.0.1:8080/anon/ticket_list",
             json={
-                "anonymous": True
+                "anonymous": False
             },
             timeout=TIMEOUT
         )

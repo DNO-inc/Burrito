@@ -219,6 +219,7 @@ class TicketListView(BaseView):
                 continue
 
             creator = None
+            assignee = None
             if not ticket.anonymous or i_am_creator:
                 creator = model_to_dict(ticket.creator)
                 creator["faculty"] = ticket.creator.faculty_id.name
