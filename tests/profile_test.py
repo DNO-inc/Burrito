@@ -91,7 +91,7 @@ class ProfileTestCase(unittest.TestCase):
 
     def test_update_profile_with_auth(self):
         """Update profile data"""
-        print(RegistrationTestCase.user_id)
+
         response = requests.post(
             "http://127.0.0.1:8080/profile/update",
             headers={

@@ -50,7 +50,7 @@ class MyProfileView(BaseView):
             )
 
         faculty_object: Faculties | None = current_user.faculty
-        group_object: Groups | None = current_user.group_id
+        group_object: Groups | None = current_user.group
 
         return ResponseProfileSchema(
             firstname=current_user.firstname,
@@ -106,7 +106,7 @@ class UpdateMyProfile(BaseView):
         # check group
         group_id = GroupStrToInt.convert(profile_updated_data.group)
         if group_id and profile_updated_data.group:
-            current_user.group_id = group_id
+            current_user.group = group_id
 
         current_user.save()
 

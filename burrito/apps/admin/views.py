@@ -165,13 +165,13 @@ class AdminTicketDetailInfoView(BaseView):
         if not ticket.anonymous:
             creator = model_to_dict(ticket.creator)
             creator["faculty"] = ticket.creator.faculty.name
-            creator["group"] = ticket.creator.group_id.name
+            creator["group"] = ticket.creator.group.name
 
         assignee = ticket.assignee
         if assignee:
             assignee = model_to_dict(assignee)
             assignee["faculty"] = ticket.assignee.faculty.name
-            assignee["group"] = ticket.assignee.group_id.name
+            assignee["group"] = ticket.assignee.group.name
 
         return AdminTicketDetailInfo(
             creator=creator,
