@@ -10,6 +10,7 @@ var hierarchy =
       [ "AdminGetTicketListView", "classadmin_1_1views_1_1AdminGetTicketListView.html", null ],
       [ "AdminTicketDetailInfoView", "classadmin_1_1views_1_1AdminTicketDetailInfoView.html", null ],
       [ "AdminUpdateTicketsView", "classadmin_1_1views_1_1AdminUpdateTicketsView.html", null ],
+      [ "AnonTicketListView", "classanon_1_1views_1_1AnonTicketListView.html", null ],
       [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
       [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ],
       [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ],
@@ -20,6 +21,12 @@ var hierarchy =
       [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
       [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
       [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ]
+    ] ],
+    [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", [
+      [ "FacultyStrToInt", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
+      [ "GroupStrToInt", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
+      [ "QueueStrToInt", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
+      [ "StatusStrToInt", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
     ] ],
     [ "DefaultDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", [
       [ "CloudDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],
@@ -66,12 +73,17 @@ var hierarchy =
       [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
       [ "AdminTicketListResponse", "classadmin__schema_1_1AdminTicketListResponse.html", null ],
       [ "AdminUpdateTicketSchema", "classadmin__schema_1_1AdminUpdateTicketSchema.html", null ],
+      [ "AnonTicketDetailInfoSchema", "classanon__schema_1_1AnonTicketDetailInfoSchema.html", null ],
+      [ "AnonTicketListRequestSchema", "classanon__schema_1_1AnonTicketListRequestSchema.html", null ],
+      [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ],
+      [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ],
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", [
         [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
         [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
       ] ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
+      [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ],
       [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],
       [ "TicketDetailInfoSchema", "classtickets__schema_1_1TicketDetailInfoSchema.html", null ],
       [ "TicketIDValueSchema", "classtickets__schema_1_1TicketIDValueSchema.html", null ],
@@ -105,5 +117,8 @@ var hierarchy =
     ] ],
     [ "MySQLDatabase", null, [
       [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", null ]
+    ] ],
+    [ "TTLCache", null, [
+      [ "BurritoCache", "classburrito_1_1utils_1_1cache__util_1_1BurritoCache.html", null ]
     ] ]
 ];

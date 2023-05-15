@@ -55,7 +55,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"namespaceburrito_1_1____main____.html#ae52daaf6e507546f2beee3b3fecfbf08"
+"namespaceadmin_1_1router.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -6,6 +6,8 @@ var namespaceburrito_1_1utils =
       [ "get_config", "namespaceburrito_1_1utils_1_1auth.html#a9a56107f5850ac8390b824b27d656f9f", null ]
     ] ],
     [ "base_view", "namespaceburrito_1_1utils_1_1base__view.html", "namespaceburrito_1_1utils_1_1base__view" ],
+    [ "cache_util", "namespaceburrito_1_1utils_1_1cache__util.html", "namespaceburrito_1_1utils_1_1cache__util" ],
+    [ "converter", "namespaceburrito_1_1utils_1_1converter.html", "namespaceburrito_1_1utils_1_1converter" ],
     [ "db_backup_util", "namespaceburrito_1_1utils_1_1db__backup__util.html", [
       [ "backup_cycle", "namespaceburrito_1_1utils_1_1db__backup__util.html#a4fcb68ebcf15a1ef7eeaec52fb832ec7", null ],
       [ "do_database_backup", "namespaceburrito_1_1utils_1_1db__backup__util.html#a55accfb8695fdb494d1c510f88fd2a74", null ],
@@ -16,7 +18,7 @@ var namespaceburrito_1_1utils =
     [ "db_utils", "namespaceburrito_1_1utils_1_1db__utils.html", [
       [ "create_tables", "namespaceburrito_1_1utils_1_1db__utils.html#a7c433ad3822a70d38e2cbd7f85fa7492", null ],
       [ "create_user", "namespaceburrito_1_1utils_1_1db__utils.html#ad13777d5d2021f40def663f8ad179a39", null ],
-      [ "create_user_tmp_foo", "namespaceburrito_1_1utils_1_1db__utils.html#afc26608701ac66b458d97960d1902757", null ],
+      [ "create_user_tmp_foo", "namespaceburrito_1_1utils_1_1db__utils.html#a046a3f94b7b027404d02847887213d2c", null ],
       [ "drop_tables", "namespaceburrito_1_1utils_1_1db__utils.html#a9edfad6d3e5b70a741e8ccc2becf9cd9", null ],
       [ "get_user_by_id", "namespaceburrito_1_1utils_1_1db__utils.html#a73b9b0cb0cba8b1dac79450b29e2fbbb", null ],
       [ "get_user_by_login", "namespaceburrito_1_1utils_1_1db__utils.html#ab79564004d5ca6df35dead720a01936b", null ],
@@ -40,6 +42,7 @@ var namespaceburrito_1_1utils =
     [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", "namespaceburrito_1_1utils_1_1task__manager" ],
     [ "tickets_util", "namespaceburrito_1_1utils_1_1tickets__util.html", [
       [ "am_i_own_this_ticket", "namespaceburrito_1_1utils_1_1tickets__util.html#a8c039abd6cef85a6d529465dd688a4d8", null ],
+      [ "hide_ticket_body", "namespaceburrito_1_1utils_1_1tickets__util.html#a8341a99fb4cdd87685a15abd132a9c5a", null ],
       [ "is_ticket_exist", "namespaceburrito_1_1utils_1_1tickets__util.html#ae662823ad220e8ee104980ac8e18da28", null ]
     ] ],
     [ "validators", "namespaceburrito_1_1utils_1_1validators.html", [

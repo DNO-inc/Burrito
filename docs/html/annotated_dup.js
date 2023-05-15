@@ -28,6 +28,17 @@ var annotated_dup =
       [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
       [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ]
     ] ],
+    [ "anon", "namespaceanon.html", [
+      [ "views", "namespaceanon_1_1views.html", [
+        [ "AnonTicketListView", "classanon_1_1views_1_1AnonTicketListView.html", null ]
+      ] ]
+    ] ],
+    [ "anon_schema", "namespaceanon__schema.html", [
+      [ "AnonTicketListRequestSchema", "classanon__schema_1_1AnonTicketListRequestSchema.html", null ],
+      [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ],
+      [ "AnonTicketDetailInfoSchema", "classanon__schema_1_1AnonTicketDetailInfoSchema.html", null ],
+      [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ]
+    ] ],
     [ "auth_schema", "namespaceauth__schema.html", [
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
     ] ],
@@ -41,6 +52,16 @@ var annotated_dup =
         ] ],
         [ "base_view", "namespaceburrito_1_1utils_1_1base__view.html", [
           [ "BaseView", "classburrito_1_1utils_1_1base__view_1_1BaseView.html", null ]
+        ] ],
+        [ "cache_util", "namespaceburrito_1_1utils_1_1cache__util.html", [
+          [ "BurritoCache", "classburrito_1_1utils_1_1cache__util_1_1BurritoCache.html", "classburrito_1_1utils_1_1cache__util_1_1BurritoCache" ]
+        ] ],
+        [ "converter", "namespaceburrito_1_1utils_1_1converter.html", [
+          [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", null ],
+          [ "GroupStrToInt", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
+          [ "FacultyStrToInt", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
+          [ "QueueStrToInt", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
+          [ "StatusStrToInt", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
         ] ],
         [ "db_cursor_object", "namespaceburrito_1_1utils_1_1db__cursor__object.html", [
           [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor" ]
@@ -107,6 +128,9 @@ var annotated_dup =
       [ "views", "namespaceregistration_1_1views.html", [
         [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ]
       ] ]
+    ] ],
+    [ "registration_schema", "namespaceregistration__schema.html", [
+      [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ]
     ] ],
     [ "role_permissions_model", "namespacerole__permissions__model.html", [
       [ "RolePermissions", "classrole__permissions__model_1_1RolePermissions.html", "classrole__permissions__model_1_1RolePermissions" ]
