@@ -4,6 +4,8 @@ from fastapi_jwt_auth import AuthJWT
 
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.tickets_model import Tickets
+
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
     AdminUpdateTicketSchema,
@@ -11,11 +13,19 @@ from burrito.schemas.admin_schema import (
     AdminTicketDetailInfo,
     AdminTicketListResponse
 )
+
+from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
+from burrito.utils.converter import (
+    StatusStrToInt,
+    FacultyStrToInt,
+    QueueStrToInt
+)
 
 from .utils import (
-    BaseView, status, check_permission, is_ticket_exist,
-    Tickets
+    BaseView, status,
+    check_permission,
+    is_ticket_exist
 )
 
 
@@ -42,22 +52,19 @@ class AdminUpdateTicketsView(BaseView):
                 }
             )
 
-        if admin_updates.faculty_id:  # faculty_id must be > 1
-            ticket.faculty_id = admin_updates.faculty_id
+        faculty_id = FacultyStrToInt.convert(admin_updates.faculty)
+        if faculty_id:  # faculty_id must be > 1
+            ticket.faculty_id = faculty_id
 
-        if admin_updates.queue_id:    # queue_id must be > 1
-            ticket.queue_id = admin_updates.queue_id
+        queue_id = QueueStrToInt.convert(admin_updates.queue)
+        if queue_id:    # queue_id must be > 1
+            ticket.queue_id = queue_id
 
-        if admin_updates.status_id:    # status_id must be > 1
-            ticket.status_id = admin_updates.status_id
+        status_id = StatusStrToInt.convert(admin_updates.status)
+        if status_id:    # status_id must be > 1
+            ticket.status_id = status_id
 
-        if any(
-            [
-                admin_updates.faculty_id,
-                admin_updates.queue_id,
-                admin_updates.status_id
-            ]
-        ):
+        if any((faculty_id, queue_id, status_id)):
             ticket.save()
 
         return JSONResponse(
@@ -78,12 +85,11 @@ class AdminGetTicketListView(BaseView):
         Authorize.jwt_required()
 
         available_filters = {
-            "creator": Tickets.creator == filters.creator,
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
-            "faculty_id": Tickets.faculty_id == filters.faculty_id,
-            "queue_id": Tickets.queue_id == filters.queue_id,
-            "status_id": Tickets.status_id == filters.status_id
+            "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
+            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
+            "status": Tickets.status_id == StatusStrToInt.convert(filters.status)
         }
 
         final_filters = []
@@ -94,15 +100,33 @@ class AdminGetTicketListView(BaseView):
 
         response_list: AdminTicketDetailInfo = []
 
-        for ticket in Tickets.select().where(*final_filters):
-            assignee = ticket.assignee
+        expression = None
+        if final_filters:
+            expression = Tickets.select().where(*final_filters)
+        else:
+            # TODO: make pagination
+            expression = Tickets.select()
+
+        for ticket in expression:
+            creator = None
+            assignee = None
+            if not ticket.anonymous:
+                creator = model_to_dict(ticket.creator)
+                creator["faculty"] = ticket.creator.faculty_id.name
+
+                assignee = ticket.assignee
+                assignee_modified = dict()
+                if assignee:
+                    assignee_modified = model_to_dict(assignee)
+                    assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+
             response_list.append(
                 AdminTicketDetailInfo(
-                    creator=model_to_dict(ticket.creator),
-                    assignee=model_to_dict(assignee) if assignee else None,
+                    creator=creator,
+                    assignee=assignee_modified if assignee else None,
                     ticket_id=ticket.ticket_id,
                     subject=ticket.subject,
-                    body=ticket.body,
+                    body=hide_ticket_body(ticket.body),
                     faculty=ticket.faculty_id.name,
                     status=ticket.status_id.name
                 )
@@ -118,8 +142,47 @@ class AdminTicketDetailInfoView(BaseView):
 
     @staticmethod
     @check_permission
-    async def post():
-        ...
+    async def post(
+        ticket_id_info: AdminTicketIdSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
+        """Show detail ticket info"""
+        Authorize.jwt_required()
+
+        ticket: Tickets | None = is_ticket_exist(
+            ticket_id_info.ticket_id
+        )
+
+        if not ticket:
+            return JSONResponse(
+                status_code=status.HTTP_403_FORBIDDEN,
+                content={
+                    "detail": f"ticket_id {ticket_id_info.ticket_id} is not exist"
+                }
+            )
+
+        creator = None
+        if not ticket.anonymous:
+            creator = model_to_dict(ticket.creator)
+            creator["faculty"] = ticket.creator.faculty_id.name
+            creator["group"] = ticket.creator.group_id.name
+
+        assignee = ticket.assignee
+        if assignee:
+            assignee = model_to_dict(assignee)
+            assignee["faculty"] = ticket.assignee.faculty_id.name
+            assignee["group"] = ticket.assignee.group_id.name
+
+        return AdminTicketDetailInfo(
+            creator=creator,
+            assignee=assignee,
+            ticket_id=ticket.ticket_id,
+            subject=ticket.subject,
+            body=ticket.body,
+            queue=ticket.queue_id.name if ticket.queue_id else None,
+            faculty=ticket.faculty_id.name,
+            status=ticket.status_id.name
+        )
 
 
 class AdminDeleteTicketView(BaseView):

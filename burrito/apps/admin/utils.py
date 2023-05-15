@@ -1,16 +1,11 @@
 from burrito.utils.base_view import BaseView, status
+from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 
-from burrito.models.tickets_model import Tickets
 
 __all__ = [
     "BaseView",
     "status",
+    "is_ticket_exist",
     "check_permission"
 ]
-
-
-def is_ticket_exist(ticket_id: int) -> Tickets | None:
-    return Tickets.get_or_none(
-        Tickets.ticket_id == ticket_id
-    )
