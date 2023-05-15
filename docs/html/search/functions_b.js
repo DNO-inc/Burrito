@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['setup_5fdatabase_513',['setup_database',['../namespaceburrito_1_1utils_1_1db__utils.html#a253e1b433afc2059ba22bb74574cfef5',1,'burrito::utils::db_utils']]],
-  ['setup_5fscheduler_514',['setup_scheduler',['../namespaceburrito_1_1utils_1_1db__backup__util.html#a9a31fbcfb183398dcbf0b9041b4985a7',1,'burrito::utils::db_backup_util']]],
-  ['singleton_515',['singleton',['../namespaceburrito_1_1utils_1_1singleton__pattern.html#adf953ec349625ebe1ab44958d6d59c5b',1,'burrito::utils::singleton_pattern']]],
-  ['startup_5fevent_516',['startup_event',['../namespaceburrito_1_1utils_1_1app__util.html#a80f40130103df1d19e7c316e3fbe70d4',1,'burrito::utils::app_util']]],
-  ['stop_517',['stop',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'burrito::utils::task_manager::_TaskManager']]]
+  ['read_5ffile_560',['read_file',['../namespaceabout_1_1utils.html#a8b99559406e1753d4957c96a1711e392',1,'about::utils']]],
+  ['run_561',['run',['../classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager.html#a670fe67276cb94775a042958fe2c79d4',1,'burrito.utils.pubsub_manager.PubSubManager.run()'],['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'burrito.utils.task_manager._TaskManager.run()']]]
 ];

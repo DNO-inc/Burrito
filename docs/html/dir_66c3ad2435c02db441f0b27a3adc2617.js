@@ -9,6 +9,12 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
       [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
       [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ]
     ] ],
+    [ "anon_schema.py", "anon__schema_8py.html", [
+      [ "AnonTicketListRequestSchema", "classanon__schema_1_1AnonTicketListRequestSchema.html", null ],
+      [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ],
+      [ "AnonTicketDetailInfoSchema", "classanon__schema_1_1AnonTicketDetailInfoSchema.html", null ],
+      [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ]
+    ] ],
     [ "auth_schema.py", "auth__schema_8py.html", [
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
     ] ],
@@ -17,6 +23,9 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
       [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ],
       [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ]
+    ] ],
+    [ "registration_schema.py", "registration__schema_8py.html", [
+      [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ]
     ] ],
     [ "tickets_schema.py", "tickets__schema_8py.html", [
       [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],

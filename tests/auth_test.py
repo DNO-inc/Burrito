@@ -1,13 +1,7 @@
 import unittest
 import requests
-import pytest
 
 from registration_test import RegistrationTestCase
-
-
-RegistrationTestCase.random_login = "login"
-RegistrationTestCase.random_password = "password"
-RegistrationTestCase.user_id = 1
 
 
 class AuthTestCase(unittest.TestCase):
@@ -29,9 +23,11 @@ class AuthTestCase(unittest.TestCase):
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password
             },
-#            timeout=0.1
+            timeout=5
         )
-        access_token = response.json().get("access_token")
 
+        access_token = response.json().get("access_token")
         AuthTestCase.access_token = access_token
+
+        self.assertEqual(response.status_code, 200)
         self.assertIsNotNone(access_token)

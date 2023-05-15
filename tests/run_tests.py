@@ -3,7 +3,7 @@ import os
 
 import unittest
 
-#from registration_test import RegistrationTestCase
+from registration_test import RegistrationTestCase
 from auth_test import AuthTestCase
 from profile_test import ProfileTestCase
 from tickets_test import TicketsTestCase
@@ -23,7 +23,7 @@ from burrito.utils.db_utils import create_tables, drop_tables
 
 all_tests = unittest.TestSuite(
     [
-##        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
         unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase),
         unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),

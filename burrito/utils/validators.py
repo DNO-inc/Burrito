@@ -55,7 +55,8 @@ def is_valid_password(password: str) -> str | None:
     if len(password) < 8:
         return
 
-    pattern = ""
+    return password
+#    pattern = ""
 
-    if re.match(pattern, password):
-        return password
+#    if re.match(pattern, password):
+#        return password
