@@ -15,6 +15,7 @@ from burrito.models.subscriptions_model import Subscriptions
 
 from burrito.models.bookmarks_model import Bookmarks
 
+from burrito.utils.converter import GroupStrToInt, FacultyStrToInt
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
 
@@ -69,7 +70,7 @@ def drop_tables(use: bool = False):
 
 def create_user_tmp_foo(
         login: str, hashed_password: str,
-        group: int, faculty: int
+        group: str, faculty: str
 ) -> int | None:
     """_summary_
 
@@ -84,10 +85,16 @@ def create_user_tmp_foo(
     """
 
     try:
+        group_id = GroupStrToInt.convert(group)
+        faculty_id = FacultyStrToInt.convert(faculty)
+
+        if not (group_id and faculty_id):
+            return
+
         user: Users = Users.create(
             login=login, password=hashed_password,
-            group_id=group,
-            faculty_id=faculty
+            group_id=group_id,
+            faculty_id=faculty_id
         )
         return user.user_id
 

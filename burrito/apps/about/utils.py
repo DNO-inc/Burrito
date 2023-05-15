@@ -1,6 +1,7 @@
 from pathlib import Path
-from functools import cache
+from cachetools import cached
 
+from burrito.utils.cache_util import BurritoCache
 from burrito.utils.logger import get_logger
 
 
@@ -34,7 +35,7 @@ def read_file(path_to_file: str) -> str:
     return data
 
 
-@cache
+@cached(BurritoCache())
 def get_changelog() -> str:
     """_summary_
 
@@ -45,7 +46,7 @@ def get_changelog() -> str:
     return read_file(Path(__file__).parents[3] / "CHANGELOG.md")
 
 
-@cache
+@cached(BurritoCache())
 def get_contributors() -> str:
     """_summary_
 

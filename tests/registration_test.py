@@ -4,6 +4,31 @@ import unittest
 import requests
 
 
+TIMEOUT = 5
+
+
+def make_user_registration(
+    login: str = "".join(random.sample(string.ascii_letters, 5)),
+    password: str = "".join(random.sample(string.ascii_letters, 8)),
+    group: str = random.choice(["IT-11", "LOL-11"]),
+    faculty: str = random.choice(["EliT", "Biem"])
+):
+    response = requests.post(
+        "http://127.0.0.1:8080/registration/",
+        json={
+            "login": login,
+            "password": password,
+            "group": group,
+            "faculty": faculty
+        },
+        timeout=TIMEOUT
+    )
+    if response.json().get("user_id"):
+        return response.json().get("user_id")
+
+    return response
+
+
 class RegistrationTestCase(unittest.TestCase):
     """
         This case, test what will be happened if user trying
@@ -21,39 +46,58 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration(self):
         """Make registration"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/registration/",
-            json={
-                "login": RegistrationTestCase.random_login,
-                "password": RegistrationTestCase.random_password
-            },
-            timeout=0.1
+        user_data = make_user_registration(
+            login=RegistrationTestCase.random_login,
+            password=RegistrationTestCase.random_password
         )
-        self.assertEqual(response.status_code, 200)
-        RegistrationTestCase.user_id = response.json().get("user_id")
 
-    def test_do_registration_with_invalid_data(self):
+        self.assertIsInstance(user_data, int)
+        RegistrationTestCase.user_id = user_data
+
+    def test_do_registration_with_invalid_login(self):
         """make registration with invalid datas"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/registration/",
-            json={
-                "login": '.',
-                "password": "".join(random.sample(string.ascii_letters, 3))
-            },
-            timeout=0.1
+        user_data = make_user_registration(
+            login=".",
+            password=RegistrationTestCase.random_password
         )
-        self.assertEqual(response.status_code, 422)
+
+        self.assertEqual(user_data.status_code, 422)
+
+    def test_do_registration_with_invalid_password(self):
+        """make registration with invalid datas"""
+
+        user_data = make_user_registration(
+            login="".join(random.sample(string.ascii_letters, 5)),
+            password="."
+        )
+
+        self.assertEqual(user_data.status_code, 422)
+
+    def test_do_registration_with_invalid_group(self):
+        """make registration with invalid datas"""
+
+        user_data = make_user_registration(
+            group="hello_man_11"
+        )
+
+        self.assertEqual(user_data.status_code, 422)
+
+    def test_do_registration_with_invalid_faculty(self):
+        """make registration with invalid datas"""
+
+        user_data = make_user_registration(
+            faculty="hello_man_11"
+        )
+
+        self.assertEqual(user_data.status_code, 422)
 
     def test_do_registration_with_the_same_login(self):
         """Test case when users try to register with the existent login"""
 
-        response = requests.post(
-           "http://127.0.0.1:8080/registration/",
-            json={
-                "login": RegistrationTestCase.random_login,
-                "password": RegistrationTestCase.random_password
-            },
-            timeout=0.1
+        user_data = make_user_registration(
+            login=RegistrationTestCase.random_login,
+            password=RegistrationTestCase.random_password
         )
-        self.assertEqual(response.status_code, 422)
+
+        self.assertEqual(user_data.status_code, 422)

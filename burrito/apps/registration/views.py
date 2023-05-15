@@ -1,13 +1,13 @@
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.user_schema import (
-    UserPasswordLoginSchema,
     UserVerificationCode
 )
+from burrito.schemas.registration_schema import RegistrationSchema
 
 from .utils import (
     get_hash,
-    create_user, get_user_by_login,
+    create_user_tmp_foo, get_user_by_login,
     is_valid_login, is_valid_password,
     BaseView,
     status,
@@ -20,7 +20,7 @@ class RegistrationMainView(BaseView):
 
     @staticmethod
     @check_permission
-    async def post(user_data: UserPasswordLoginSchema):
+    async def post(user_data: RegistrationSchema):
         """Handle user registration"""
 
         if not is_valid_login(user_data.login):
@@ -41,9 +41,11 @@ class RegistrationMainView(BaseView):
                 content={"detail": "User with the same login exist"}
             )
 
-        user_id_value: int | None = create_user(
+        user_id_value: int | None = create_user_tmp_foo(
             user_data.login,
-            get_hash(user_data.password)
+            get_hash(user_data.password),
+            user_data.group,
+            user_data.faculty
         )
 
         if user_id_value:
@@ -53,8 +55,8 @@ class RegistrationMainView(BaseView):
             )
 
         return JSONResponse(
-            status_code=status.HTTP_409_CONFLICT,
-            content={"detail": "'\\_(-_-)_/'"}
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"detail": "Group or faculty is not valid"}
         )
 
 
