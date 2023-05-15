@@ -52,3 +52,6 @@ class ResponseProfileSchema(BaseProfile):
 
 class RequestUpdateProfileSchema(BaseProfile):
     login: str | None
+
+    faculty: str | None
+    group: str | None

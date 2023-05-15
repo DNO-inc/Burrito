@@ -9,7 +9,7 @@ class Queues(Model):
     queue_id = AutoField()
 
     name = CharField(max_length=255)
-    faculty_id = ForeignKeyField(
+    faculty = ForeignKeyField(
         Faculties,
         field="faculty_id",
         on_delete="NO ACTION"

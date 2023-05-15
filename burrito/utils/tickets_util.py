@@ -21,4 +21,4 @@ def am_i_own_this_ticket(ticket_creator_id: int, user_id: int) -> bool:
 
 
 def hide_ticket_body(body: str, result_length: int = 50) -> str:
-    return body[:result_length] + "..."
+    return body[:result_length] + ("..." if len(body) >= 50 else "")

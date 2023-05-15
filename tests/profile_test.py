@@ -102,6 +102,8 @@ class ProfileTestCase(unittest.TestCase):
                 "lastname": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "email": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "phone": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
+                "faculty": random.choice(["EliT", "Biem"]),
+                "group": random.choice(["IT-11", "LOL-11"]),
             },
             timeout=0.5
         )

@@ -20,13 +20,13 @@ class Users(Model):
 
     login = CharField(25)
 
-    faculty_id = ForeignKeyField(
+    faculty = ForeignKeyField(
         Faculties,
         field="faculty_id",
         on_delete="NO ACTION",
         null=True
     )
-    group_id = ForeignKeyField(
+    group = ForeignKeyField(
         Groups,
         field="group_id",
         on_delete="NO ACTION",

@@ -3,9 +3,10 @@ from pydantic import BaseModel
 
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
-    faculty_id: int | None
-    queue_id: int | None
-    status_id: int | None
+    faculty: str | None
+    queue: str | None
+    status: str | None
+
 
 class AdminTicketAuthorInfo(BaseModel):
     firstname: str | None
@@ -13,25 +14,24 @@ class AdminTicketAuthorInfo(BaseModel):
     login: str
     faculty: str | None
     group: str | None
-    role: str | None
 
 
 class AdminGetTicketListSchema(BaseModel):
-    creator: int | None
     hidden: bool | None
     anonymous: bool | None
-    faculty_id: int | None
-    queue_id: int | None
-    status_id: int | None
+    faculty: str | None
+    queue: str | None
+    status: str | None
 
 
 class AdminTicketDetailInfo(BaseModel):
-    creator: AdminTicketAuthorInfo
+    creator: AdminTicketAuthorInfo | None
     assignee: AdminTicketAuthorInfo | None
 
     ticket_id: int
     subject: str
     body: str
+    queue: str | None
     faculty: str
     status: str
 

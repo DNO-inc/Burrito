@@ -55,8 +55,8 @@ class CreateTicketView(BaseView):
             body=ticket_creation_data.body,
             hidden=ticket_creation_data.hidden,
             anonymous=ticket_creation_data.anonymous,
-            queue_id=QueueStrToInt.convert(ticket_creation_data.queue),
-            faculty_id=FacultyStrToInt.convert(ticket_creation_data.faculty)
+            queue=QueueStrToInt.convert(ticket_creation_data.queue),
+            faculty=FacultyStrToInt.convert(ticket_creation_data.faculty)
         )
 
         return JSONResponse(
@@ -182,9 +182,9 @@ class TicketListView(BaseView):
             "creator": Tickets.creator == filters.creator,
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
-            "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
-            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
-            "status": Tickets.status_id == StatusStrToInt.convert(filters.status)
+            "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
+            "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
+            "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
 
         final_filters = []
@@ -222,13 +222,13 @@ class TicketListView(BaseView):
             assignee = None
             if not ticket.anonymous or i_am_creator:
                 creator = model_to_dict(ticket.creator)
-                creator["faculty"] = ticket.creator.faculty_id.name
+                creator["faculty"] = ticket.creator.faculty.name
 
                 assignee = ticket.assignee
                 assignee_modified = dict()
                 if assignee:
                     assignee_modified = model_to_dict(assignee)
-                    assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+                    assignee_modified["faculty"] = ticket.assignee.faculty.name
 
             response_list.append(
                 TicketDetailInfoSchema(
@@ -237,8 +237,8 @@ class TicketListView(BaseView):
                     ticket_id=ticket.ticket_id,
                     subject=ticket.subject,
                     body=hide_ticket_body(ticket.body),
-                    faculty=ticket.faculty_id.name,
-                    status=ticket.status_id.name
+                    faculty=ticket.faculty.name,
+                    status=ticket.status.name
                 )
             )
 
@@ -282,7 +282,7 @@ class TicketDetailInfoView(BaseView):
             creator = model_to_dict(ticket.creator)
 
             try:
-                creator["faculty"] = ticket.creator.faculty_id.name
+                creator["faculty"] = ticket.creator.faculty.name
             except:
                 get_logger().critical(
                     f"User {ticket.creator.user_id} without faculty value"
@@ -295,7 +295,7 @@ class TicketDetailInfoView(BaseView):
             assignee_modified = model_to_dict(assignee)
 
             try:
-                assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+                assignee_modified["faculty"] = ticket.assignee.faculty.name
             except:
                 get_logger().critical(
                     f"User {ticket.assignee} without faculty value"
@@ -308,8 +308,8 @@ class TicketDetailInfoView(BaseView):
             ticket_id=ticket.ticket_id,
             subject=ticket.subject,
             body=ticket.body,
-            faculty=ticket.faculty_id.name,
-            status=ticket.status_id.name
+            faculty=ticket.faculty.name,
+            status=ticket.status.name
         )
 
 
@@ -402,7 +402,7 @@ class CloseTicketView(BaseView):
                 content={"detail": "Ticket is not closed. Try latter."}
             )
 
-        ticket.status_id = status_object
+        ticket.status = status_object
         ticket.save()
 
         return JSONResponse(

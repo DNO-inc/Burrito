@@ -40,18 +40,18 @@ class Tickets(Model):
 
     created = DateTimeField(default=datetime.datetime.now)
 
-    faculty_id = ForeignKeyField(
+    faculty = ForeignKeyField(
         Faculties,
         field="faculty_id",
         on_delete="NO ACTION"
     )
-    queue_id = ForeignKeyField(
+    queue = ForeignKeyField(
         Queues,
         field="queue_id",
         on_delete="NO ACTION",
         null=True
     )
-    status_id = ForeignKeyField(
+    status = ForeignKeyField(
         Statuses,
         field="status_id",
         on_delete="NO ACTION",

@@ -13,6 +13,11 @@ from burrito.schemas.profile_schema import (
     CheckProfileSchema
 )
 
+from burrito.utils.converter import (
+    FacultyStrToInt,
+    GroupStrToInt
+)
+
 from .utils import (
     get_auth_core, get_user_by_id,
     BaseView,
@@ -44,15 +49,15 @@ class MyProfileView(BaseView):
                 content={"detail": f"User with {profile.user_id} is not exist"}
             )
 
-        faculty_name = current_user.faculty_id
-        group_name = current_user.group_id
+        faculty_object: Faculties | None = current_user.faculty
+        group_object: Groups | None = current_user.group
 
         return ResponseProfileSchema(
             firstname=current_user.firstname,
             lastname=current_user.lastname,
             login=current_user.login,
-            faculty=faculty_name.name if faculty_name else None,
-            group=group_name.name if group_name else None,
+            faculty=faculty_object.name if faculty_object else None,
+            group=group_object.name if group_object else None,
             phone=current_user.phone,
             email=current_user.email,
             registration_date=str(current_user.registration_date)
@@ -94,20 +99,14 @@ class UpdateMyProfile(BaseView):
             current_user.email = profile_updated_data.email
 
         # check faculty
-        faculty_id = Faculties.get_or_none(
-            Faculties.faculty_id == profile_updated_data.faculty
-        )
-
+        faculty_id = FacultyStrToInt.convert(profile_updated_data.faculty)
         if faculty_id and profile_updated_data.faculty:
-            current_user.faculty_id = faculty_id
+            current_user.faculty = faculty_id
 
         # check group
-        group_id = Groups.get_or_none(
-            Groups.group_id == profile_updated_data.group
-        )
-
+        group_id = GroupStrToInt.convert(profile_updated_data.group)
         if group_id and profile_updated_data.group:
-            current_user.group_id = group_id
+            current_user.group = group_id
 
         current_user.save()
 
