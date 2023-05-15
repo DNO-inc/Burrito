@@ -20,7 +20,7 @@ class Users(Model):
 
     login = CharField(25)
 
-    faculty_id = ForeignKeyField(
+    faculty = ForeignKeyField(
         Faculties,
         field="faculty_id",
         on_delete="NO ACTION",

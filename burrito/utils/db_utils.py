@@ -94,7 +94,7 @@ def create_user_tmp_foo(
         user: Users = Users.create(
             login=login, password=hashed_password,
             group_id=group_id,
-            faculty_id=faculty_id
+            faculty=faculty_id
         )
         return user.user_id
 

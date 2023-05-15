@@ -25,7 +25,7 @@ class AnonTicketListView(BaseView):
     async def post(filters: AnonTicketListRequestSchema):
         available_filters = {
             "anonymous": Tickets.anonymous == filters.anonymous,
-            "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
+            "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
             "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
             "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
@@ -52,13 +52,13 @@ class AnonTicketListView(BaseView):
             assignee = None
             if not ticket.anonymous:
                 creator = model_to_dict(ticket.creator)
-                creator["faculty"] = ticket.creator.faculty_id.name
+                creator["faculty"] = ticket.creator.faculty.name
 
                 assignee = ticket.assignee
                 assignee_modified = dict()
                 if assignee:
                     assignee_modified = model_to_dict(assignee)
-                    assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+                    assignee_modified["faculty"] = ticket.assignee.faculty.name
 
             response_list.append(
                 AnonTicketDetailInfoSchema(
@@ -67,7 +67,7 @@ class AnonTicketListView(BaseView):
                     ticket_id=ticket.ticket_id,
                     subject=ticket.subject,
                     body=hide_ticket_body(ticket.body),
-                    faculty=ticket.faculty_id.name,
+                    faculty=ticket.faculty.name,
                     status=ticket.status.name
                 )
             )

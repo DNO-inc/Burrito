@@ -54,7 +54,7 @@ class AdminUpdateTicketsView(BaseView):
 
         faculty_id = FacultyStrToInt.convert(admin_updates.faculty)
         if faculty_id:  # faculty_id must be > 1
-            ticket.faculty_id = faculty_id
+            ticket.faculty = faculty_id
 
         queue_id = QueueStrToInt.convert(admin_updates.queue)
         if queue_id:    # queue_id must be > 1
@@ -87,7 +87,7 @@ class AdminGetTicketListView(BaseView):
         available_filters = {
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
-            "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
+            "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
             "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
             "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
@@ -112,13 +112,13 @@ class AdminGetTicketListView(BaseView):
             assignee = None
             if not ticket.anonymous:
                 creator = model_to_dict(ticket.creator)
-                creator["faculty"] = ticket.creator.faculty_id.name
+                creator["faculty"] = ticket.creator.faculty.name
 
                 assignee = ticket.assignee
                 assignee_modified = dict()
                 if assignee:
                     assignee_modified = model_to_dict(assignee)
-                    assignee_modified["faculty"] = ticket.assignee.faculty_id.name
+                    assignee_modified["faculty"] = ticket.assignee.faculty.name
 
             response_list.append(
                 AdminTicketDetailInfo(
@@ -127,7 +127,7 @@ class AdminGetTicketListView(BaseView):
                     ticket_id=ticket.ticket_id,
                     subject=ticket.subject,
                     body=hide_ticket_body(ticket.body),
-                    faculty=ticket.faculty_id.name,
+                    faculty=ticket.faculty.name,
                     status=ticket.status.name
                 )
             )
@@ -164,13 +164,13 @@ class AdminTicketDetailInfoView(BaseView):
         creator = None
         if not ticket.anonymous:
             creator = model_to_dict(ticket.creator)
-            creator["faculty"] = ticket.creator.faculty_id.name
+            creator["faculty"] = ticket.creator.faculty.name
             creator["group"] = ticket.creator.group_id.name
 
         assignee = ticket.assignee
         if assignee:
             assignee = model_to_dict(assignee)
-            assignee["faculty"] = ticket.assignee.faculty_id.name
+            assignee["faculty"] = ticket.assignee.faculty.name
             assignee["group"] = ticket.assignee.group_id.name
 
         return AdminTicketDetailInfo(
@@ -180,7 +180,7 @@ class AdminTicketDetailInfoView(BaseView):
             subject=ticket.subject,
             body=ticket.body,
             queue=ticket.queue.name if ticket.queue else None,
-            faculty=ticket.faculty_id.name,
+            faculty=ticket.faculty.name,
             status=ticket.status.name
         )
 

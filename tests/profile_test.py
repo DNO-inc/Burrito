@@ -91,7 +91,7 @@ class ProfileTestCase(unittest.TestCase):
 
     def test_update_profile_with_auth(self):
         """Update profile data"""
-
+        print(RegistrationTestCase.user_id)
         response = requests.post(
             "http://127.0.0.1:8080/profile/update",
             headers={
@@ -102,6 +102,8 @@ class ProfileTestCase(unittest.TestCase):
                 "lastname": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "email": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "phone": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
+                "faculty": random.choice(["EliT", "Biem"]),
+                "group": random.choice(["IT-11", "LOL-11"]),
             },
             timeout=0.5
         )
