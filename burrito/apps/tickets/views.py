@@ -184,7 +184,7 @@ class TicketListView(BaseView):
             "anonymous": Tickets.anonymous == filters.anonymous,
             "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
             "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
-            "status": Tickets.status_id == StatusStrToInt.convert(filters.status)
+            "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
 
         final_filters = []
@@ -238,7 +238,7 @@ class TicketListView(BaseView):
                     subject=ticket.subject,
                     body=hide_ticket_body(ticket.body),
                     faculty=ticket.faculty_id.name,
-                    status=ticket.status_id.name
+                    status=ticket.status.name
                 )
             )
 
@@ -309,7 +309,7 @@ class TicketDetailInfoView(BaseView):
             subject=ticket.subject,
             body=ticket.body,
             faculty=ticket.faculty_id.name,
-            status=ticket.status_id.name
+            status=ticket.status.name
         )
 
 
@@ -402,7 +402,7 @@ class CloseTicketView(BaseView):
                 content={"detail": "Ticket is not closed. Try latter."}
             )
 
-        ticket.status_id = status_object
+        ticket.status = status_object
         ticket.save()
 
         return JSONResponse(

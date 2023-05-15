@@ -51,7 +51,7 @@ class Tickets(Model):
         on_delete="NO ACTION",
         null=True
     )
-    status_id = ForeignKeyField(
+    status = ForeignKeyField(
         Statuses,
         field="status_id",
         on_delete="NO ACTION",
