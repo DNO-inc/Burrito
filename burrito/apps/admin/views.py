@@ -58,7 +58,7 @@ class AdminUpdateTicketsView(BaseView):
 
         queue_id = QueueStrToInt.convert(admin_updates.queue)
         if queue_id:    # queue_id must be > 1
-            ticket.queue_id = queue_id
+            ticket.queue = queue_id
 
         status_id = StatusStrToInt.convert(admin_updates.status)
         if status_id:    # status_id must be > 1
@@ -88,7 +88,7 @@ class AdminGetTicketListView(BaseView):
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
             "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
-            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
+            "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
             "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
 
@@ -179,7 +179,7 @@ class AdminTicketDetailInfoView(BaseView):
             ticket_id=ticket.ticket_id,
             subject=ticket.subject,
             body=ticket.body,
-            queue=ticket.queue_id.name if ticket.queue_id else None,
+            queue=ticket.queue.name if ticket.queue else None,
             faculty=ticket.faculty_id.name,
             status=ticket.status.name
         )

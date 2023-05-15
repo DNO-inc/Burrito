@@ -55,7 +55,7 @@ class CreateTicketView(BaseView):
             body=ticket_creation_data.body,
             hidden=ticket_creation_data.hidden,
             anonymous=ticket_creation_data.anonymous,
-            queue_id=QueueStrToInt.convert(ticket_creation_data.queue),
+            queue=QueueStrToInt.convert(ticket_creation_data.queue),
             faculty_id=FacultyStrToInt.convert(ticket_creation_data.faculty)
         )
 
@@ -183,7 +183,7 @@ class TicketListView(BaseView):
             "hidden": Tickets.hidden == filters.hidden,
             "anonymous": Tickets.anonymous == filters.anonymous,
             "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
-            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
+            "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
             "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
 

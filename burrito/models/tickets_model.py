@@ -45,7 +45,7 @@ class Tickets(Model):
         field="faculty_id",
         on_delete="NO ACTION"
     )
-    queue_id = ForeignKeyField(
+    queue = ForeignKeyField(
         Queues,
         field="queue_id",
         on_delete="NO ACTION",

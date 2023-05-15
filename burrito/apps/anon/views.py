@@ -26,7 +26,7 @@ class AnonTicketListView(BaseView):
         available_filters = {
             "anonymous": Tickets.anonymous == filters.anonymous,
             "faculty": Tickets.faculty_id == FacultyStrToInt.convert(filters.faculty),
-            "queue": Tickets.queue_id == QueueStrToInt.convert(filters.queue),
+            "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
             "status": Tickets.status == StatusStrToInt.convert(filters.status)
         }
 
