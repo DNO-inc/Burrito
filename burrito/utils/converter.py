@@ -1,7 +1,11 @@
+from cachetools import cached
+
 from burrito.models.group_model import Groups
 from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
+
+from burrito.utils.cache_util import BurritoCache
 
 
 class Converter:
@@ -16,6 +20,7 @@ class Converter:
 
 class GroupStrToInt(Converter):
     @staticmethod
+    @cached(BurritoCache())
     def convert(str_value: str | None) -> Groups | None:
         """_summary_
 
@@ -34,6 +39,7 @@ class GroupStrToInt(Converter):
 
 class FacultyStrToInt(Converter):
     @staticmethod
+    @cached(BurritoCache())
     def convert(str_value: str | None) -> Faculties | None:
         """_summary_
 
@@ -52,6 +58,7 @@ class FacultyStrToInt(Converter):
 
 class QueueStrToInt(Converter):
     @staticmethod
+    @cached(BurritoCache())
     def convert(str_value: str | None) -> Queues | None:
         """_summary_
 
@@ -70,6 +77,7 @@ class QueueStrToInt(Converter):
 
 class StatusStrToInt(Converter):
     @staticmethod
+    @cached(BurritoCache())
     def convert(str_value: str | None) -> Statuses | None:
         """_summary_
 
