@@ -6,7 +6,7 @@ class CreateTicketSchema(BaseModel):
     body: str
     hidden: bool
     anonymous: bool
-    queue: str
+    queue: str | None
     faculty: str
 
 

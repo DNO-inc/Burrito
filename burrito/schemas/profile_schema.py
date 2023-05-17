@@ -28,8 +28,8 @@ class BaseProfile(BaseModel):
 
     login: str
 
-    faculty: int | None
-    group: int | None
+    faculty: str | None
+    group: str | None
 
     phone: str | None
     email: str | None
@@ -44,14 +44,8 @@ class ResponseProfileSchema(BaseProfile):
         registration_date (str): date when user registered account
     """
 
-    faculty: str | None
-    group: str | None
-
     registration_date: str
 
 
 class RequestUpdateProfileSchema(BaseProfile):
     login: str | None
-
-    faculty: str | None
-    group: str | None
