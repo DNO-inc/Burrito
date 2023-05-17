@@ -13,7 +13,3 @@ class UserPasswordLoginSchema(BaseModel):
 
     login: str
     password: str
-
-
-class UserVerificationCode(BaseModel):
-    verification_code: str

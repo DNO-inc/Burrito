@@ -1,8 +1,5 @@
 from fastapi.responses import JSONResponse
 
-from burrito.schemas.user_schema import (
-    UserVerificationCode
-)
 from burrito.schemas.registration_schema import RegistrationSchema
 
 from .utils import (
@@ -58,7 +55,3 @@ class RegistrationMainView(BaseView):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": "Group or faculty is not valid"}
         )
-
-
-async def check_verification_code(code_object: UserVerificationCode):
-    ...

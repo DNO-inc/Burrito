@@ -10,6 +10,7 @@ from tickets_test import TicketsTestCase
 from about_test import AboutTestCase
 from admin_tests import AdminTestCase
 from anon_test import AnonTestCase
+from meta_test import MetaTestCase
 
 # modify sys.path to get access to burrito
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -29,7 +30,8 @@ all_tests = unittest.TestSuite(
         unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AboutTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AdminTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(AnonTestCase)
+        unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(MetaTestCase)
     ]
 )
 
