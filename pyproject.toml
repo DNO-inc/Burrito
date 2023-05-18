@@ -24,6 +24,7 @@ uvicorn = "^0.21.1"
 aioredis = "^2.0.1"
 requests = "^2.28.2"
 pymysql = "^1.0.3"
+cachetools = "^5.3.0"
 
 
 [build-system]
