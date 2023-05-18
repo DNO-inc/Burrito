@@ -7,13 +7,15 @@ import requests
 from auth_test import AuthTestCase
 from registration_test import RegistrationTestCase
 
+from burrito.utils.config_reader import get_config
+
 
 class ProfileTestCase(unittest.TestCase):
     def test_view_profile_without_auth_with_id(self):
         """Recv profile data in JSON format"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             json={
                 "user_id": RegistrationTestCase.user_id
             },
@@ -29,7 +31,7 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             json={},
             timeout=0.5
         )
@@ -43,7 +45,7 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -62,7 +64,7 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -79,7 +81,7 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/update",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
             json={},
             timeout=0.5
         )
@@ -93,7 +95,7 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/update",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },

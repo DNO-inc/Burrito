@@ -79,8 +79,9 @@ def get_redis_cursor() -> BurritoRedis:
         BurritoRedis: redis cursor object
     """
 
-    return BurritoRedis(
-        host="localhost",
-        port=6379,
-        password="root"
-    )
+    return
+#    return BurritoRedis(
+#        host="localhost",
+#        port=6379,
+#        password="root"
+#    )
