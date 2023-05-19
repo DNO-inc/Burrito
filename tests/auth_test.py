@@ -3,6 +3,8 @@ import requests
 
 from registration_test import RegistrationTestCase
 
+from burrito.utils.config_reader import get_config
+
 
 class AuthTestCase(unittest.TestCase):
     """Test authentication system"""
@@ -18,7 +20,7 @@ class AuthTestCase(unittest.TestCase):
         """
 
         response = requests.post(
-            "http://127.0.0.1:8080/auth/password/login",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/password/login",
             json={
                 "login": RegistrationTestCase.random_login,
                 "password": RegistrationTestCase.random_password

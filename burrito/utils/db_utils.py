@@ -1,3 +1,5 @@
+from fastapi import HTTPException, status
+
 from burrito.models.tickets_model import Tickets
 from burrito.models.roles_model import Roles
 from burrito.models.statuses_model import Statuses
@@ -153,4 +155,12 @@ def get_user_by_id(user_id: int) -> Users | None:
         Users | None: return None if user is not exist
     """
 
-    return Users.get_or_none(Users.user_id == user_id)
+    _current_user = Users.get_or_none(Users.user_id == user_id)
+
+    if not _current_user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with {user_id} is not exist"
+        )
+
+    return _current_user

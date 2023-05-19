@@ -3,6 +3,8 @@ import random
 import unittest
 import requests
 
+from burrito.utils.config_reader import get_config
+
 
 TIMEOUT = 5
 
@@ -14,7 +16,7 @@ def make_user_registration(
     faculty: str = random.choice(["EliT", "Biem"])
 ):
     response = requests.post(
-        "http://127.0.0.1:8080/registration/",
+        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/registration/",
         json={
             "login": login,
             "password": password,

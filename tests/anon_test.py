@@ -1,13 +1,16 @@
 import unittest
 import requests
 
+from burrito.utils.config_reader import get_config
+
+
 TIMEOUT = 5
 
 
 class AnonTestCase(unittest.TestCase):
     def test_anon_tickets_list_filter(self):
         response = requests.post(
-            "http://127.0.0.1:8080/anon/ticket_list",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/anon/ticket_list",
             json={
                 "anonymous": False
             },

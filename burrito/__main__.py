@@ -46,6 +46,7 @@ connect_app(app, "/meta", meta_router)
 if __name__ == "__main__":
     uvicorn.run(
         "burrito.__main__:app",
+        host="0.0.0.0",
         port=8080,
         reload=True,
         reload_dirs="burrito"

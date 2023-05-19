@@ -7,16 +7,31 @@ import requests
 from auth_test import AuthTestCase
 from registration_test import RegistrationTestCase
 
+from burrito.utils.config_reader import get_config
+
 
 class ProfileTestCase(unittest.TestCase):
+    def test_view_profile_noexist(self):
+        """Recv profile data in JSON format"""
+
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/1000000",
+            json={
+                "user_id": 1000000
+            },
+            timeout=0.5
+        )
+
+        self.assertEqual(
+            response.status_code,
+            404
+        )
+
     def test_view_profile_without_auth_with_id(self):
         """Recv profile data in JSON format"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/profile/",
-            json={
-                "user_id": RegistrationTestCase.user_id
-            },
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/{RegistrationTestCase.user_id}",
             timeout=0.5
         )
 
@@ -28,9 +43,8 @@ class ProfileTestCase(unittest.TestCase):
     def test_view_profile_without_auth_without_id(self):
         """Recv profile data in JSON format"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/profile/",
-            json={},
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             timeout=0.5
         )
 
@@ -42,13 +56,10 @@ class ProfileTestCase(unittest.TestCase):
     def test_view_profile_with_auth_with_id(self):
         """Recv profile data in JSON format"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/{RegistrationTestCase.user_id}",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
-            },
-            json={
-                "user_id": RegistrationTestCase.user_id
             },
             timeout=0.5
         )
@@ -61,12 +72,11 @@ class ProfileTestCase(unittest.TestCase):
     def test_view_profile_with_auth_without_id(self):
         """Recv profile data in JSON format"""
 
-        response = requests.post(
-            "http://127.0.0.1:8080/profile/",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
-            json={},
             timeout=0.5
         )
 
@@ -79,7 +89,7 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/update",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
             json={},
             timeout=0.5
         )
@@ -93,7 +103,7 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/profile/update",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },

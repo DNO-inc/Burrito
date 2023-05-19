@@ -6,12 +6,15 @@ import requests
 
 from auth_test import AuthTestCase
 
+from burrito.utils.config_reader import get_config
+
+
 TIMEOUT = 5
 
 
 def create_ticket_get_id(subject: str) -> int:
     return requests.post(
-        "http://127.0.0.1:8080/tickets/create",
+        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
         headers={
             "Authorization": f"Bearer {AuthTestCase.access_token}"
         },
@@ -36,7 +39,7 @@ class TicketsTestCase(unittest.TestCase):
         """Create ticket"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/create",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -64,7 +67,7 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("for black list")
 
         response = requests.delete(
-            "http://127.0.0.1:8080/tickets/delete",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -83,7 +86,7 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.delete(
-            "http://127.0.0.1:8080/tickets/delete",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -102,7 +105,7 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/bookmark",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -121,7 +124,7 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/bookmark",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -138,7 +141,7 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_tickets_filter(self):
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/ticket_list",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/ticket_list",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -157,7 +160,7 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_ticket_detail_view(self):
         ticket_id = requests.post(
-            "http://127.0.0.1:8080/tickets/create",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
             headers={
                 "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -173,7 +176,7 @@ class TicketsTestCase(unittest.TestCase):
         ).json()["ticket_id"]
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/show",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/show",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -194,7 +197,7 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("to update")
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/update",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/update",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -216,7 +219,7 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("close me")
 
         response = requests.post(
-            "http://127.0.0.1:8080/tickets/close",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/close",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },

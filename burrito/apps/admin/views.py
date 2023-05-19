@@ -23,7 +23,7 @@ from burrito.utils.converter import (
 )
 
 from .utils import (
-    BaseView, status,
+    BaseView,
     check_permission,
     is_ticket_exist
 )
@@ -43,14 +43,6 @@ class AdminUpdateTicketsView(BaseView):
         ticket: Tickets | None = is_ticket_exist(
             admin_updates.ticket_id
         )
-
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {admin_updates.ticket_id} is not exist"
-                }
-            )
 
         faculty_id = FacultyStrToInt.convert(admin_updates.faculty)
         if faculty_id:  # faculty_id must be > 1
@@ -153,14 +145,6 @@ class AdminTicketDetailInfoView(BaseView):
             ticket_id_info.ticket_id
         )
 
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {ticket_id_info.ticket_id} is not exist"
-                }
-            )
-
         creator = None
         if not ticket.anonymous:
             creator = model_to_dict(ticket.creator)
@@ -199,14 +183,6 @@ class AdminDeleteTicketView(BaseView):
         ticket: Tickets | None = is_ticket_exist(
             deletion_ticket_data.ticket_id
         )
-
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {deletion_ticket_data.ticket_id} is not exist"
-                }
-            )
 
         ticket.delete_instance()
 

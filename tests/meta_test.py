@@ -1,13 +1,16 @@
 import unittest
 import requests
 
+from burrito.utils.config_reader import get_config
+
+
 TIMEOUT = 5
 
 
 class MetaTestCase(unittest.TestCase):
     def test_get_statuses_list(self):
         response = requests.get(
-            "http://127.0.0.1:8080/meta/get_statuses",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_statuses",
             timeout=TIMEOUT
         )
 
@@ -18,7 +21,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_groups_list(self):
         response = requests.get(
-            "http://127.0.0.1:8080/meta/get_groups",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_groups",
             timeout=TIMEOUT
         )
 
@@ -29,7 +32,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_faculties_list(self):
         response = requests.get(
-            "http://127.0.0.1:8080/meta/get_faculties",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_faculties",
             timeout=TIMEOUT
         )
 
@@ -40,7 +43,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_queues_list(self):
         response = requests.post(
-            "http://127.0.0.1:8080/meta/get_queues",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
             json={
                 "faculty": "EliT"
             },
@@ -54,7 +57,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_queues_list_with_wrong_faculty(self):
         response = requests.post(
-            "http://127.0.0.1:8080/meta/get_queues",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
             json={
                 "faculty": "NotEliT"
             },

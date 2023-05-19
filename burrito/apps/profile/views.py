@@ -3,14 +3,11 @@ from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
 
-from burrito.models.group_model import Groups
-from burrito.models.faculty_model import Faculties
 from burrito.models.user_model import Users
 
 from burrito.schemas.profile_schema import (
     ResponseProfileSchema,
-    RequestUpdateProfileSchema,
-    CheckProfileSchema
+    RequestUpdateProfileSchema
 )
 
 from burrito.utils.converter import (
@@ -22,7 +19,8 @@ from .utils import (
     get_auth_core, get_user_by_id,
     BaseView,
     status,
-    check_permission
+    check_permission,
+    view_profile_by_user_id
 )
 
 
@@ -31,37 +29,27 @@ class MyProfileView(BaseView):
 
     @staticmethod
     @check_permission
-    async def post(
-        profile: CheckProfileSchema,
+    async def get(
         Authorize: AuthJWT = Depends(get_auth_core())
     ) -> ResponseProfileSchema:
         """Return some data to check user profile"""
 
-        current_user_id = profile.user_id
-        if profile.user_id is None:  # if user_id is not provided get user_id from token
-            Authorize.jwt_required()
-            current_user_id = Authorize.get_jwt_subject()
+        Authorize.jwt_required()
 
-        current_user: Users | None = get_user_by_id(current_user_id)
-        if not current_user:
-            return JSONResponse(
-                status_code=status.HTTP_409_CONFLICT,
-                content={"detail": f"User with {profile.user_id} is not exist"}
-            )
+        return await view_profile_by_user_id(Authorize.get_jwt_subject())
 
-        faculty_object: Faculties | None = current_user.faculty
-        group_object: Groups | None = current_user.group
 
-        return ResponseProfileSchema(
-            firstname=current_user.firstname,
-            lastname=current_user.lastname,
-            login=current_user.login,
-            faculty=faculty_object.name if faculty_object else None,
-            group=group_object.name if group_object else None,
-            phone=current_user.phone,
-            email=current_user.email,
-            registration_date=str(current_user.registration_date)
-        )
+class ProfileByPathView(BaseView):
+    _permissions: list[str] = ["READ"]
+
+    @staticmethod
+    @check_permission
+    async def get(
+        user_id: int,
+    ) -> ResponseProfileSchema:
+        """Return some data to check user profile"""
+
+        return await view_profile_by_user_id(user_id)
 
 
 class UpdateMyProfile(BaseView):
@@ -78,13 +66,6 @@ class UpdateMyProfile(BaseView):
 
         user_id = Authorize.get_jwt_subject()
         current_user: Users | None = get_user_by_id(user_id)
-        if not current_user:
-            return JSONResponse(
-                status_code=status.HTTP_409_CONFLICT,
-                content={
-                    "detail": f"User with {user_id} is not exist"
-                }
-            )
 
         if profile_updated_data.firstname:
             current_user.firstname = profile_updated_data.firstname
