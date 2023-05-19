@@ -33,7 +33,8 @@ from .utils import (
     update_ticket_info,
     BaseView, status,
     check_permission,
-    am_i_own_this_ticket
+    am_i_own_this_ticket,
+    am_i_own_this_ticket_with_error
 )
 
 
@@ -84,24 +85,10 @@ class DeleteTicketView(BaseView):
             deletion_ticket_data.ticket_id
         )
 
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {deletion_ticket_data.ticket_id} is not exist"
-                }
-            )
-
-        if not am_i_own_this_ticket(
+        am_i_own_this_ticket_with_error(
             ticket.creator.user_id,
             Authorize.get_jwt_subject()
-        ):
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": "You have not permissions to delete this ticket"
-                }
-            )
+        )
 
         try:
             Deleted.create(
@@ -132,25 +119,6 @@ class BookmarkTicketView(BaseView):
         ticket: Tickets | None = is_ticket_exist(
             bookmark_ticket_data.ticket_id
         )
-
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {bookmark_ticket_data.ticket_id} is not exist"
-                }
-            )
-
-        if not am_i_own_this_ticket(
-            ticket.creator.user_id,
-            Authorize.get_jwt_subject()
-        ):
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": "You have not permissions to bookmark this ticket"
-                }
-            )
 
         try:
             Bookmarks.create(
@@ -263,15 +231,12 @@ class TicketDetailInfoView(BaseView):
             ticket_id_info.ticket_id
         )
 
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {ticket_id_info.ticket_id} is not exist"
-                }
-            )
+        i_am_creator = am_i_own_this_ticket(
+            ticket.creator.user_id,
+            Authorize.get_jwt_subject()
+        )
 
-        if ticket.hidden:
+        if not i_am_creator and ticket.hidden:
             return JSONResponse(
                 status_code=403,
                 content={"detail": "Not allowed"}
@@ -329,24 +294,10 @@ class UpdateTicketView(BaseView):
             updates.ticket_id
         )
 
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {updates.ticket_id} is not exist"
-                }
-            )
-
-        if not am_i_own_this_ticket(
+        am_i_own_this_ticket_with_error(
             ticket.creator.user_id,
             Authorize.get_jwt_subject()
-        ):
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": "You have not permissions to update this ticket"
-                }
-            )
+        )
 
         update_ticket_info(ticket, updates)  # autocommit
 
@@ -372,24 +323,10 @@ class CloseTicketView(BaseView):
             data_to_close_ticket.ticket_id
         )
 
-        if not ticket:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": f"ticket_id {data_to_close_ticket.ticket_id} is not exist"
-                }
-            )
-
-        if not am_i_own_this_ticket(
+        am_i_own_this_ticket_with_error(
             ticket.creator.user_id,
             Authorize.get_jwt_subject()
-        ):
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={
-                    "detail": "You have not permissions to close this ticket"
-                }
-            )
+        )
 
         status_name = "CLOSE"
         status_object = StatusStrToInt.convert(status_name)

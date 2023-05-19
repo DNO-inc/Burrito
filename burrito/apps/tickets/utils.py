@@ -16,7 +16,8 @@ from burrito.schemas.tickets_schema import (
 
 from burrito.utils.tickets_util import (
     is_ticket_exist,
-    am_i_own_this_ticket
+    am_i_own_this_ticket,
+    am_i_own_this_ticket_with_error
 )
 
 
@@ -27,7 +28,8 @@ __all__ = (
     "status",
     "check_permission",
     "is_ticket_exist",
-    "am_i_own_this_ticket"
+    "am_i_own_this_ticket",
+    "am_i_own_this_ticket_with_error"
 )
 
 
