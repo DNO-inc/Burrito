@@ -18,8 +18,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 all_tests = unittest.TestSuite(
     [
-        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase), # update
-        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase), # update
+        unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
         unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase),
         unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AboutTestCase),

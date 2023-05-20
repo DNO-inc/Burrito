@@ -14,7 +14,7 @@ from .utils import (
 )
 
 
-def password_login(
+def auth__password_login(
         user_login_data: UserPasswordLoginSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
         ):
@@ -53,7 +53,7 @@ def password_login(
     )
 
 
-def token_login(Authorize: AuthJWT = Depends()):
+def auth__token_login(Authorize: AuthJWT = Depends()):
     """
         Authentication by access token. It will return new access token ^_^
     """
