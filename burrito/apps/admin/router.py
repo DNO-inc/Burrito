@@ -1,43 +1,43 @@
 from fastapi import APIRouter
 
 from .views import (
-    AdminUpdateTicketsView,
-    AdminGetTicketListView,
-    AdminTicketDetailInfoView,
-    AdminDeleteTicketView,
-    AdminChangePermissionsView,
-    AdminBecomeAssigneeView
+    admin__update_ticket_data,
+    admin__get_ticket_list_by_filter,
+    admin__show_detail_ticket_info,
+    admin__delete_ticket,
+    admin__change_user_permissions,
+    admin__become_an_assignee
 )
 
 admin_router = APIRouter()
 
 admin_router.add_api_route(
     "/tickets/update",
-    AdminUpdateTicketsView.post,
+    admin__update_ticket_data,
     methods=["POST"]
 )
 admin_router.add_api_route(
     "/tickets/ticket_list",
-    AdminGetTicketListView.post,
+    admin__get_ticket_list_by_filter,
     methods=["POST"]
 )
 admin_router.add_api_route(
     "/tickets/show",
-    AdminTicketDetailInfoView.post,
+    admin__show_detail_ticket_info,
     methods=["POST"]
 )
 admin_router.add_api_route(
     "/tickets/delete",
-    AdminDeleteTicketView.post,
+    admin__delete_ticket,
     methods=["DELETE"]
 )
 admin_router.add_api_route(
     "/users/change_permissions",
-    AdminChangePermissionsView.post,
+    admin__change_user_permissions,
     methods=["DELETE"]
 )
 admin_router.add_api_route(
     "/tickets/become_assignee",
-    AdminBecomeAssigneeView.post,
+    admin__become_an_assignee,
     methods=["POST"]
 )
