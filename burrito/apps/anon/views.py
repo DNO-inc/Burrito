@@ -15,8 +15,6 @@ from burrito.utils.converter import (
 )
 from burrito.utils.tickets_util import hide_ticket_body
 
-from .utils import BaseView
-
 
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {

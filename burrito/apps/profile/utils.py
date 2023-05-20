@@ -1,7 +1,6 @@
 from burrito.utils.auth import get_auth_core
 from burrito.utils.db_utils import get_user_by_id
 
-from burrito.utils.base_view import BaseView, status
 from burrito.utils.permissions_checker import check_permission
 
 from burrito.models.user_model import Users
@@ -13,8 +12,6 @@ from burrito.schemas.profile_schema import ResponseProfileSchema
 __all__ = (
     "get_auth_core",
     "get_user_by_id",
-    "BaseView",
-    "status",
     "check_permission",
     "view_profile_by_user_id"
 )

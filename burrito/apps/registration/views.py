@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
@@ -11,7 +11,6 @@ from .utils import (
     get_hash,
     create_user_tmp_foo, get_user_by_login,
     is_valid_login, is_valid_password,
-    status,
     check_permission
 )
 

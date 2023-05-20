@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
@@ -9,8 +9,7 @@ from burrito.models.user_model import Users
 from .utils import (
     get_auth_core,
     get_user_by_login,
-    compare_password,
-    status
+    compare_password
 )
 
 

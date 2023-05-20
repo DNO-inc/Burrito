@@ -1,3 +1,4 @@
+from fastapi import status
 from fastapi.responses import JSONResponse
 
 from burrito.models.statuses_model import Statuses
@@ -14,8 +15,6 @@ from burrito.schemas.meta_schema import (
 )
 
 from burrito.utils.converter import FacultyStrToInt
-
-from .utils import BaseView, status
 
 
 async def meta__get_statuses_list():

@@ -1,4 +1,3 @@
-from burrito.utils.base_view import BaseView
 from burrito import __version__
 
 from .utils import get_changelog, get_contributors
