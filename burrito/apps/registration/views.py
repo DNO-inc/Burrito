@@ -1,6 +1,11 @@
+from fastapi import Depends
 from fastapi.responses import JSONResponse
 
+from fastapi_jwt_auth import AuthJWT
+
 from burrito.schemas.registration_schema import RegistrationSchema
+
+from burrito.utils.auth import get_auth_core
 
 from .utils import (
     get_hash,
@@ -17,7 +22,10 @@ class RegistrationMainView(BaseView):
 
     @staticmethod
     @check_permission
-    async def post(user_data: RegistrationSchema):
+    async def post(
+        user_data: RegistrationSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
         """Handle user registration"""
 
         if not is_valid_login(user_data.login):
@@ -46,9 +54,20 @@ class RegistrationMainView(BaseView):
         )
 
         if user_id_value:
+            access_token = Authorize.create_access_token(
+                subject=user_id_value
+            )
+            refresh_token = Authorize.create_refresh_token(
+                subject=user_id_value
+            )
+
             return JSONResponse(
                 status_code=status.HTTP_200_OK,
-                content={"user_id": user_id_value}
+                content={
+                    "user_id": user_id_value,
+                    "access_token": access_token,
+                    "refresh_token": refresh_token
+                }
             )
 
         return JSONResponse(

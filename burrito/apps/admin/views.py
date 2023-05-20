@@ -4,6 +4,7 @@ from fastapi_jwt_auth import AuthJWT
 
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.admin_schema import (
@@ -14,6 +15,8 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
+from burrito.utils.logger import get_logger
+from burrito.utils.db_utils import get_user_by_id
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -52,9 +55,12 @@ class AdminUpdateTicketsView(BaseView):
         if queue_id:    # queue_id must be > 1
             ticket.queue = queue_id
 
-        status_id = StatusStrToInt.convert(admin_updates.status)
-        if status_id:    # status_id must be > 1
-            ticket.status = status_id
+        current_admin: Users | None = get_user_by_id(Authorize.get_jwt_subject())
+        status_id = 0
+        if ticket.assignee == current_admin:
+            status_id = StatusStrToInt.convert(admin_updates.status)
+            if status_id:    # status_id must be > 1
+                ticket.status = status_id
 
         if any((faculty_id, queue_id, status_id)):
             ticket.save()
@@ -199,3 +205,33 @@ class AdminChangePermissionsView(BaseView):
     @check_permission
     async def post():
         return {"1": 1}
+
+
+class AdminBecomeAssigneeView(BaseView):
+    _permissions: list[str] = ["ADMIN"]
+
+    @staticmethod
+    @check_permission
+    async def post(
+        ticket_data: AdminTicketIdSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
+        Authorize.jwt_required()
+
+        ticket: Tickets | None = is_ticket_exist(
+            ticket_data.ticket_id
+        )
+
+        if not ticket.assignee:
+            current_admin: Users | None = get_user_by_id(
+                Authorize.get_jwt_subject()
+            )
+            ticket.assignee = current_admin
+            ticket.status = StatusStrToInt.convert("OPEN")
+
+            ticket.save()
+
+        return JSONResponse(
+            status_code=200,
+            content={"detail": "You are assignee now"}
+        )
