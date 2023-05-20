@@ -31,7 +31,7 @@ from .utils import (
     get_auth_core,
     is_ticket_exist,
     update_ticket_info,
-    BaseView, status,
+    BaseView,
     check_permission,
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error
