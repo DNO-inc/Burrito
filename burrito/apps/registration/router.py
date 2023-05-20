@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from .views import user_registration
+from .views import registration__user_registration
 
 registration_router = APIRouter()
 
 registration_router.add_api_route(
     "/",
-    user_registration,
+    registration__user_registration,
     methods=["POST"]
 )

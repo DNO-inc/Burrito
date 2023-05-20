@@ -17,7 +17,7 @@ from .utils import (
 
 
 @check_permission
-async def user_registration(
+async def registration__user_registration(
     user_data: RegistrationSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
 ):
