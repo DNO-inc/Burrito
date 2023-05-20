@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 
 from .views import (
-    GetStatusesListView,
-    GetGroupsListView,
-    GetFacultiesListView,
-    GetQueuesListView
+    meta__get_statuses_list,
+    meta__get_groups_list,
+    meta__faculties_list,
+    meta__get_queues_list
 )
 
 
@@ -12,24 +12,24 @@ meta_router = APIRouter()
 
 meta_router.add_api_route(
     "/get_statuses",
-    GetStatusesListView.get,
+    meta__get_statuses_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
     "/get_groups",
-    GetGroupsListView.get,
+    meta__get_groups_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
     "/get_faculties",
-    GetFacultiesListView.get,
+    meta__faculties_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
     "/get_queues",
-    GetQueuesListView.post,
+    meta__get_queues_list,
     methods=["POST"]
 )

@@ -18,53 +18,37 @@ from burrito.utils.converter import FacultyStrToInt
 from .utils import BaseView, status
 
 
-class GetStatusesListView(BaseView):
-    _permissions: list[str] = ["READ"]
+async def meta__get_statuses_list():
+    return ResponseStatusesListSchema(
+        statuses_list=[s.name for s in Statuses.select()]
+    )
 
-    @staticmethod
-    async def get():
-        return ResponseStatusesListSchema(
-            statuses_list=[s.name for s in Statuses.select()]
+
+async def meta__get_groups_list():
+    return ResponseGroupsListSchema(
+        groups_list=[group.name for group in Groups.select()]
+    )
+
+
+async def meta__faculties_list():
+    return ResponseFacultiesListSchema(
+        faculties_list=[faculty.name for faculty in Faculties.select()]
+    )
+
+
+async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
+    faculty_id = FacultyStrToInt.convert(faculty_data.faculty)
+
+    if not faculty_id:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={"detail": "Faculty name is wrong"}
         )
 
-
-class GetGroupsListView(BaseView):
-    _permissions: list[str] = ["READ"]
-
-    @staticmethod
-    async def get():
-        return ResponseGroupsListSchema(
-            groups_list=[group.name for group in Groups.select()]
-        )
-
-
-class GetFacultiesListView(BaseView):
-    _permissions: list[str] = ["READ"]
-
-    @staticmethod
-    async def get():
-        return ResponseFacultiesListSchema(
-            faculties_list=[faculty.name for faculty in Faculties.select()]
-        )
-
-
-class GetQueuesListView(BaseView):
-    _permissions: list[str] = ["READ"]
-
-    @staticmethod
-    async def post(faculty_data: RequestQueueListSchema):
-        faculty_id = FacultyStrToInt.convert(faculty_data.faculty)
-
-        if not faculty_id:
-            return JSONResponse(
-                status_code=status.HTTP_403_FORBIDDEN,
-                content={"detail": "Faculty name is wrong"}
+    return ResponseQueueListSchema(
+        queues_list=[
+            queue.name for queue in Queues.select().where(
+                Queues.faculty==faculty_id
             )
-
-        return ResponseQueueListSchema(
-            queues_list=[
-                queue.name for queue in Queues.select().where(
-                    Queues.faculty==faculty_id
-                )
-            ]
-        )
+        ]
+    )
