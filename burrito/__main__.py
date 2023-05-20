@@ -21,6 +21,7 @@ from burrito.apps.meta.router import meta_router
 
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app, get_current_app
+from burrito.utils.config_reader import get_config
 #from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
 
 
@@ -48,7 +49,7 @@ if __name__ == "__main__":
         "burrito.__main__:app",
         host="0.0.0.0",
         port=8080,
-        server_header=False,
+        proxy_headers=True if get_config().BURRITO_PROXY_HEADERS else False,
         reload=True,
         reload_dirs="burrito"
     )

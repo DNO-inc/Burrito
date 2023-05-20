@@ -23,9 +23,9 @@ class EnvConfigReader:
         _value = self.__config.get(__name)
 
         if _value is None:
-            get_logger().critical(f"Environment variable {__name} is undefined")
-            get_logger().info(f"Loaded variables: {list(self.__config)}")
-            sys.exit(0)
+            get_logger().warning(f"Environment variable {__name} is undefined")
+
+        get_logger().info(f"Loaded variables: {list(self.__config)}")
 
         return _value
 
