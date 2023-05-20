@@ -37,10 +37,10 @@ def get_current_app() -> BurritoApi:
     app.add_event_handler("startup", startup_event)
     app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
 
-    app.add_middleware(
-        TrustedHostMiddleware,
-        allowed_hosts=["127.0.0.1"]
-    )
+#    app.add_middleware(
+#        TrustedHostMiddleware,
+#        allowed_hosts=["127.0.0.1"]
+#    )
     app.add_middleware(
         UserAgentMiddleware
     )
