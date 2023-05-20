@@ -4,6 +4,7 @@ from fastapi_jwt_auth import AuthJWT
 
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.admin_schema import (
@@ -13,6 +14,8 @@ from burrito.schemas.admin_schema import (
     AdminTicketDetailInfo,
     AdminTicketListResponse
 )
+
+from burrito.utils.db_utils import get_user_by_id
 
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
@@ -52,9 +55,12 @@ class AdminUpdateTicketsView(BaseView):
         if queue_id:    # queue_id must be > 1
             ticket.queue = queue_id
 
-        status_id = StatusStrToInt.convert(admin_updates.status)
-        if status_id:    # status_id must be > 1
-            ticket.status = status_id
+        current_admin: Users | None = get_user_by_id(Authorize.get_jwt_subject())
+        status_id = 0
+        if ticket.assignee == current_admin:
+            status_id = StatusStrToInt.convert(admin_updates.status)
+            if status_id:    # status_id must be > 1
+                ticket.status = status_id
 
         if any((faculty_id, queue_id, status_id)):
             ticket.save()

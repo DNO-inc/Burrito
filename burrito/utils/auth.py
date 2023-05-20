@@ -4,7 +4,7 @@ from burrito.schemas.auth_schema import AuthSettingsModel
 
 
 @AuthJWT.load_config
-def get_config():
+def get_auth_config():
     return AuthSettingsModel()
 
 
