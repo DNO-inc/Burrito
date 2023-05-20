@@ -5,7 +5,7 @@ ENV POETRY_NO_INTERACTION=1 \
     PATH="/opt/pysetup/.venv/bin:$PATH"
 
 RUN apt-get update
-RUN apt-get install --no-install-recommends -y build-essential libpq-dev
+RUN apt-get install --no-install-recommends -y build-essential
 
 WORKDIR /opt/pysetup
 
