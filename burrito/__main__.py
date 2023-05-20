@@ -48,6 +48,7 @@ if __name__ == "__main__":
         "burrito.__main__:app",
         host="0.0.0.0",
         port=8080,
+        server_header=False,
         reload=True,
         reload_dirs="burrito"
     )
