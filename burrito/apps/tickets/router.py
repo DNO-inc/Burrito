@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
 from burrito.apps.tickets.views import (
-    CreateTicketView,
-    DeleteTicketView,
-    BookmarkTicketView,
-    TicketListView,
-    TicketDetailInfoView,
-    UpdateTicketView,
-    CloseTicketView
+    tickets__create_new_ticket,
+    tickets__delete_ticket_for_me,
+    tickets__bookmark_ticket,
+    tickets__show_tickets_list_by_filter,
+    tickets__show_detail_ticket_info,
+    tickets__update_own_ticket_data,
+    tickets__close_own_ticket
 )
 
 
@@ -15,36 +15,36 @@ tickets_router = APIRouter()
 
 tickets_router.add_api_route(
     "/create",
-    CreateTicketView.post,
+    tickets__create_new_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
     "/delete",
-    DeleteTicketView.delete,
+    tickets__delete_ticket_for_me,
     methods=["DELETE"]
 )
 tickets_router.add_api_route(
     "/bookmark",
-    BookmarkTicketView.post,
+    tickets__bookmark_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
     "/ticket_list",
-    TicketListView.post,
+    tickets__show_tickets_list_by_filter,
     methods=["POST"]
 )
 tickets_router.add_api_route(
     "/show",
-    TicketDetailInfoView.post,
+    tickets__show_detail_ticket_info,
     methods=["POST"]
 )
 tickets_router.add_api_route(
     "/update",
-    UpdateTicketView.post,
+    tickets__update_own_ticket_data,
     methods=["POST"]
 )
 tickets_router.add_api_route(
     "/close",
-    CloseTicketView.post,
+    tickets__close_own_ticket,
     methods=["POST"]
 )
