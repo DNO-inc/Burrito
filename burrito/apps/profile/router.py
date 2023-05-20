@@ -3,9 +3,9 @@ from fastapi import APIRouter
 from burrito.schemas.profile_schema import ResponseProfileSchema
 
 from .views import (
-    MyProfileView,
-    ProfileByPathView,
-    UpdateMyProfile
+    profile__check_my_profile,
+    profile__check_by_id,
+    profile__update_my_profile
 )
 
 profile_router = APIRouter()
@@ -13,18 +13,18 @@ profile_router = APIRouter()
 
 profile_router.add_api_route(
     "/",
-    MyProfileView.get,
+    profile__check_my_profile,
     methods=["GET"],
     response_model=ResponseProfileSchema
 )
 profile_router.add_api_route(
     "/{user_id}",
-    ProfileByPathView.get,
+    profile__check_by_id,
     methods=["GET"],
     response_model=ResponseProfileSchema
 )
 profile_router.add_api_route(
     "/update",
-    UpdateMyProfile.post,
+    profile__update_my_profile,
     methods=["POST"]
 )

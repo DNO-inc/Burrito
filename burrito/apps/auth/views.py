@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
@@ -9,12 +9,11 @@ from burrito.models.user_model import Users
 from .utils import (
     get_auth_core,
     get_user_by_login,
-    compare_password,
-    status
+    compare_password
 )
 
 
-def password_login(
+def auth__password_login(
         user_login_data: UserPasswordLoginSchema,
         Authorize: AuthJWT = Depends(get_auth_core())
         ):
@@ -53,7 +52,7 @@ def password_login(
     )
 
 
-def token_login(Authorize: AuthJWT = Depends()):
+def auth__token_login(Authorize: AuthJWT = Depends()):
     """
         Authentication by access token. It will return new access token ^_^
     """
