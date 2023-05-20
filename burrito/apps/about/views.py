@@ -4,44 +4,32 @@ from burrito import __version__
 from .utils import get_changelog, get_contributors
 
 
-class VersionView(BaseView):
-    _permissions: list[str] = []
+async def about__get_current_version():
+    """_summary_
 
-    @staticmethod
-    async def get():
-        """_summary_
+    Returns Burrito version
+    """
 
-        Returns Burrito version
-        """
-
-        return {"version": __version__}
+    return {"version": __version__}
 
 
-class UpdatesView(BaseView):
-    _permissions: list[str] = []
+async def about__get_changelog_info():
+    """_summary_
 
-    @staticmethod
-    async def get():
-        """_summary_
+    Return project changelog
+    """
 
-        Return project changelog
-        """
-
-        return {
-            "changelog": get_changelog()
-        }
+    return {
+        "changelog": get_changelog()
+    }
 
 
-class TeamView(BaseView):
-    _permissions: list[str] = []
+async def about__get_info_about_team():
+    """_summary_
 
-    @staticmethod
-    async def get():
-        """_summary_
+    Return information about contributors
+    """
 
-        Return information about contributors
-        """
-
-        return {
-            "team": get_contributors()
-        }
+    return {
+        "team": get_contributors()
+    }
