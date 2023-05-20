@@ -1,7 +1,9 @@
+import sys
 import os
 import re
 
 from burrito.utils.singleton_pattern import singleton
+from burrito.utils.logger import get_logger
 
 
 @singleton
@@ -18,7 +20,14 @@ class EnvConfigReader:
                 self.__config[key] = value
 
     def __getattr__(self, __name: str) -> int | str | None:
-        return self.__config.get(__name)
+        _value = self.__config.get(__name)
+
+        if _value is None:
+            get_logger().critical(f"Environment variable {__name} is undefined")
+            get_logger().info(f"Loaded variables: {list(self.__config)}")
+            sys.exit(0)
+
+        return _value
 
     @property
     def config(self):
