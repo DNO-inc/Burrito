@@ -5,7 +5,8 @@ from .views import (
     AdminGetTicketListView,
     AdminTicketDetailInfoView,
     AdminDeleteTicketView,
-    AdminChangePermissionsView
+    AdminChangePermissionsView,
+    AdminBecomeAssigneeView
 )
 
 admin_router = APIRouter()
@@ -34,4 +35,9 @@ admin_router.add_api_route(
     "/users/change_permissions",
     AdminChangePermissionsView.post,
     methods=["DELETE"]
+)
+admin_router.add_api_route(
+    "/tickets/become_assignee",
+    AdminBecomeAssigneeView.post,
+    methods=["POST"]
 )

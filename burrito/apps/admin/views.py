@@ -15,8 +15,8 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
+from burrito.utils.logger import get_logger
 from burrito.utils.db_utils import get_user_by_id
-
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -205,3 +205,33 @@ class AdminChangePermissionsView(BaseView):
     @check_permission
     async def post():
         return {"1": 1}
+
+
+class AdminBecomeAssigneeView(BaseView):
+    _permissions: list[str] = ["ADMIN"]
+
+    @staticmethod
+    @check_permission
+    async def post(
+        ticket_data: AdminTicketIdSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+    ):
+        Authorize.jwt_required()
+
+        ticket: Tickets | None = is_ticket_exist(
+            ticket_data.ticket_id
+        )
+
+        if not ticket.assignee:
+            current_admin: Users | None = get_user_by_id(
+                Authorize.get_jwt_subject()
+            )
+            ticket.assignee = current_admin
+            ticket.status = StatusStrToInt.convert("OPEN")
+
+            ticket.save()
+
+        return JSONResponse(
+            status_code=200,
+            content={"detail": "You are assignee now"}
+        )
