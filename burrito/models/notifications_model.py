@@ -23,3 +23,4 @@ class Notifications(Model):
 
     class Meta:
         database = get_database_cursor()
+        depends_on = [Tickets, Users]
