@@ -15,7 +15,6 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
-from burrito.utils.logger import get_logger
 from burrito.utils.db_utils import get_user_by_id
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
@@ -31,7 +30,7 @@ from .utils import (
 )
 
 
-@check_permission
+@check_permission()
 async def admin__update_ticket_data(
     admin_updates: AdminUpdateTicketSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -66,7 +65,7 @@ async def admin__update_ticket_data(
     )
 
 
-@check_permission
+@check_permission()
 async def admin__get_ticket_list_by_filter(
     filters: AdminGetTicketListSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -126,7 +125,7 @@ async def admin__get_ticket_list_by_filter(
     )
 
 
-@check_permission
+@check_permission()
 async def admin__show_detail_ticket_info(
     ticket_id_info: AdminTicketIdSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -162,7 +161,7 @@ async def admin__show_detail_ticket_info(
     )
 
 
-@check_permission
+@check_permission()
 async def admin__delete_ticket(
     deletion_ticket_data: AdminTicketIdSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -181,12 +180,12 @@ async def admin__delete_ticket(
     )
 
 
-@check_permission
+@check_permission()
 async def admin__change_user_permissions():
     return {"1": 1}
 
 
-@check_permission
+@check_permission()
 async def admin__become_an_assignee(
     ticket_data: AdminTicketIdSchema,
     Authorize: AuthJWT = Depends(get_auth_core())

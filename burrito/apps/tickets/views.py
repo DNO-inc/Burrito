@@ -37,7 +37,7 @@ from .utils import (
 )
 
 
-@check_permission
+@check_permission(permission_list={"CREATE_TICKET"})
 async def tickets__create_new_ticket(
     ticket_creation_data: CreateTicketSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -64,7 +64,7 @@ async def tickets__create_new_ticket(
     )
 
 
-@check_permission
+@check_permission()
 async def tickets__delete_ticket_for_me(
     deletion_ticket_data: TicketIDValueSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -95,7 +95,7 @@ async def tickets__delete_ticket_for_me(
     )
 
 
-@check_permission
+@check_permission()
 async def tickets__bookmark_ticket(
     bookmark_ticket_data: TicketIDValueSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -121,7 +121,7 @@ async def tickets__bookmark_ticket(
     )
 
 
-@check_permission
+@check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_tickets_list_by_filter(
     filters: TicketListRequestSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -198,7 +198,7 @@ async def tickets__show_tickets_list_by_filter(
     )
 
 
-@check_permission
+@check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_detail_ticket_info(
     ticket_id_info: TicketIDValueSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -257,7 +257,7 @@ async def tickets__show_detail_ticket_info(
     )
 
 
-@check_permission
+@check_permission()
 async def tickets__update_own_ticket_data(
     updates: UpdateTicketSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
@@ -282,7 +282,7 @@ async def tickets__update_own_ticket_data(
     )
 
 
-@check_permission
+@check_permission()
 async def tickets__close_own_ticket(
     data_to_close_ticket: TicketIDValueSchema,
     Authorize: AuthJWT = Depends(get_auth_core())

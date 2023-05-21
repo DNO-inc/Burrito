@@ -1,16 +1,63 @@
 from functools import wraps
 
+from fastapi import HTTPException
+from fastapi_jwt_auth import AuthJWT
 
-def check_permission(func):
-    """_summary_
+from burrito.models.user_model import Users
+from burrito.models.roles_model import Roles
+from burrito.models.permissions_model import Permissions
+from burrito.models.role_permissions_model import RolePermissions
 
-    Args:
-        func (_type_): wrapper
-    """
+from burrito.utils.db_utils import get_user_by_id
 
-    @wraps(func)
-    async def wrap(*args, **kwargs):
-        print(args, kwargs)
-        return await func(*args, **kwargs)
 
-    return wrap
+class EndpointPermissionError(HTTPException):
+    ...
+
+
+def check_permission(permission_list: set[str] = set()):
+
+    def function_wrap(func):
+
+        @wraps(func)
+        async def wrap(*args, **kwargs):
+            auth_core: AuthJWT | None = None
+
+            if not auth_core:
+                for i, arg_value in kwargs.items():
+                    if isinstance(arg_value, AuthJWT):
+                        auth_core = arg_value
+                        break
+
+            if not auth_core:
+                for arg_value in args:
+                    if isinstance(arg_value, AuthJWT):
+                        auth_core = arg_value
+                        break
+
+            if auth_core:
+                auth_core.jwt_required()
+
+                current_user: Users | None = get_user_by_id(
+                    auth_core.get_jwt_subject()
+                )
+                current_user_role: Roles | None = current_user.role
+
+                current_user_permissions: set[str] = set()
+                for item in RolePermissions.select().where(
+                    RolePermissions.role == current_user_role
+                ):
+                    current_user_permissions.add(item.permission.name)
+
+                for permission_name in permission_list:
+                    if permission_name not in current_user_permissions:
+                        raise EndpointPermissionError(
+                            status_code=403,
+                            detail="You have not permissions to interact with this resource"
+                        )
+
+            return await func(*args, **kwargs)
+
+        return wrap
+
+    return function_wrap

@@ -22,7 +22,7 @@ from .utils import (
 )
 
 
-@check_permission
+@check_permission()
 async def profile__check_my_profile(
     Authorize: AuthJWT = Depends(get_auth_core())
 ) -> ResponseProfileSchema:
@@ -33,7 +33,6 @@ async def profile__check_my_profile(
     return await view_profile_by_user_id(Authorize.get_jwt_subject())
 
 
-@check_permission
 async def profile__check_by_id(
     user_id: int,
 ) -> ResponseProfileSchema:
@@ -42,7 +41,7 @@ async def profile__check_by_id(
     return await view_profile_by_user_id(user_id)
 
 
-@check_permission
+@check_permission(permission_list={"UPDATE_PROFILE"})
 async def profile__update_my_profile(
     profile_updated_data: RequestUpdateProfileSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
