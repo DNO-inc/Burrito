@@ -20,5 +20,50 @@
         {"queue_id": 2, "name": "problems", "faculty_id": 1},
         {"queue_id": 3, "name": "questions", "faculty_id": 2},
         {"queue_id": 4, "name": "problems", "faculty_id": 2}
+    ],
+    "permissions": [
+        {"permission_id": 1, "name": "UPDATE_PROFILE"},
+        {"permission_id": 2, "name": "CREATE_TICKET"},
+        {"permission_id": 3, "name": "READ_TICKET"},
+        {"permission_id": 4, "name": "SEND_MESSAGE"}
+    ],
+    "roles": [
+        {"role_id": 1, "name": "ALL"},
+        {"role_id": 2, "name": "NO_M"},
+        {"role_id": 3, "name": "NO_CT"},
+        {"role_id": 4, "name": "NO_P"},
+        {"role_id": 5, "name": "NO_PCT"},
+        {"role_id": 6, "name": "NO_CTM"},
+        {"role_id": 7, "name": "NO_PM"},
+        {"role_id": 8, "name": "NO_PCTM"}
+    ],
+    "role_permissions": [
+        {"role_id": 1, "permission_id": 1},
+        {"role_id": 1, "permission_id": 2},
+        {"role_id": 1, "permission_id": 3},
+        {"role_id": 1, "permission_id": 4},
+
+        {"role_id": 2, "permission_id": 1},
+        {"role_id": 2, "permission_id": 2},
+        {"role_id": 2, "permission_id": 3},
+
+        {"role_id": 3, "permission_id": 1},
+        {"role_id": 3, "permission_id": 3},
+        {"role_id": 3, "permission_id": 4},
+
+        {"role_id": 4, "permission_id": 2},
+        {"role_id": 4, "permission_id": 3},
+        {"role_id": 4, "permission_id": 4},
+
+        {"role_id": 5, "permission_id": 3},
+        {"role_id": 5, "permission_id": 4},
+
+        {"role_id": 6, "permission_id": 1},
+        {"role_id": 6, "permission_id": 3},
+
+        {"role_id": 7, "permission_id": 2},
+        {"role_id": 7, "permission_id": 3},
+
+        {"role_id": 8, "permission_id": 3}
     ]
 }

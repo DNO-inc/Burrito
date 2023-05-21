@@ -40,7 +40,7 @@ class Users(Model):
 
     registration_date = DateTimeField(default=datetime.datetime.now)
 
-    role_id = ForeignKeyField(
+    role = ForeignKeyField(
         Roles,
         field="role_id",
         on_delete="NO ACTION",

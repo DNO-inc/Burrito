@@ -7,15 +7,15 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 
 class RolePermissions(Model):
-    role_id = ForeignKeyField(
+    role = ForeignKeyField(
         Roles,
         field="role_id",
-        on_delete="NO ACTIONS"
+        on_delete="CASCADE"
     )
-    permission_id = ForeignKeyField(
+    permission = ForeignKeyField(
         Permissions,
         field="permission_id",
-        on_delete="NO ACTIONS"
+        on_delete="CASCADE"
     )
 
     class Meta:

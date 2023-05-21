@@ -1,12 +1,15 @@
 import json
 import os
 
-from playhouse.shortcuts import model_to_dict
+# from playhouse.shortcuts import model_to_dict
 
 from burrito.models.group_model import Groups
 from burrito.models.statuses_model import Statuses
 from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
+from burrito.models.permissions_model import Permissions
+from burrito.models.roles_model import Roles
+from burrito.models.role_permissions_model import RolePermissions
 
 from .logger import get_logger
 
@@ -64,7 +67,10 @@ class LocalDataBasePreprocessor(DefaultDataBasePreprocessor):
             "groups": Groups,
             "faculties": Faculties,
             "statuses": Statuses,
-            "queues": Queues
+            "queues": Queues,
+            "permissions": Permissions,
+            "roles": Roles,
+            "role_permissions": RolePermissions
         }
 
         for key in json_data:

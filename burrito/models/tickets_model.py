@@ -60,4 +60,4 @@ class Tickets(Model):
 
     class Meta:
         database = get_database_cursor()
-        depends_on = [Users, Faculties, Statuses]
+        depends_on = [Users, Queues, Faculties, Statuses]
