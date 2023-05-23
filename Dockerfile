@@ -22,6 +22,8 @@ ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 
 COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/
 COPY ./burrito /burrito
+COPY ./CONTRIBUTORS.md /CONTRIBUTORS.md
+COPY ./CHANGELOG.md /CHANGELOG.md
 
 WORKDIR ./
 
