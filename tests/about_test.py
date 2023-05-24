@@ -21,7 +21,7 @@ class AboutTestCase(unittest.TestCase):
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/about/updates",
             timeout=0.1
         )
-        print(response.json())
+
         self.assertEqual(
             response.status_code,
             200
@@ -32,7 +32,7 @@ class AboutTestCase(unittest.TestCase):
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/about/team",
             timeout=0.1
         )
-        print(response.json())
+
         self.assertEqual(
             response.status_code,
             200

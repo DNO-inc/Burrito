@@ -36,7 +36,6 @@ class AuthTestCase(unittest.TestCase):
         access_token = result[1].get("access_token")
         AuthTestCase.access_token = access_token
 
-        print(access_token)
         self.assertEqual(result[0], 200)
         self.assertIsNotNone(access_token)
 
