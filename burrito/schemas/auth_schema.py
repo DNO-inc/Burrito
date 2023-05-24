@@ -11,3 +11,4 @@ class AuthSettingsModel(BaseModel):
     """
 
     authjwt_secret_key: str = "secret"
+#    authjwt_denylist_enabled = True
