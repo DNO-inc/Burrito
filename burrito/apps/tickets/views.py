@@ -1,4 +1,4 @@
-from fastapi import Depends
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
@@ -45,6 +45,13 @@ async def tickets__create_new_ticket(
     """Create ticket"""
     Authorize.jwt_required()
 
+    faculty_id = FacultyStrToInt.convert(ticket_creation_data.faculty)
+    if not faculty_id:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={"detail": "Faculty name is wrong"}
+        )
+
     ticket: Tickets = Tickets.create(
         creator=Authorize.get_jwt_subject(),
         subject=ticket_creation_data.subject,
@@ -52,7 +59,7 @@ async def tickets__create_new_ticket(
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
         queue=QueueStrToInt.convert(ticket_creation_data.queue),
-        faculty=FacultyStrToInt.convert(ticket_creation_data.faculty)
+        faculty=faculty_id
     )
 
     return JSONResponse(
