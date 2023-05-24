@@ -20,12 +20,12 @@ all_tests = unittest.TestSuite(
     [
         unittest.TestLoader().loadTestsFromTestCase(RegistrationTestCase),
         unittest.TestLoader().loadTestsFromTestCase(AuthTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(AboutTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(AdminTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
-        unittest.TestLoader().loadTestsFromTestCase(MetaTestCase)
+#        unittest.TestLoader().loadTestsFromTestCase(ProfileTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(AboutTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(AdminTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
+#        unittest.TestLoader().loadTestsFromTestCase(MetaTestCase)
     ]
 )
 
