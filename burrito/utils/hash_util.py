@@ -1,17 +1,5 @@
-from hashlib import sha3_512
+from hashlib import sha256
 from random import SystemRandom
-
-
-def get_salt() -> str:
-    """_summary_
-
-    Return salt
-
-    Returns:
-        str: encrypted salt
-    """
-
-    return "od9fuM_JNsczxi6cEg4aTrSSprVcQSz3L9dwOsLhvi4-UtM4wtkwehh4QGIDMD2EYsvYyBiflMY5Bflhb7ReTOGgJgN_1fHp58xu1xFi5cEIXzEi1_VR9wz3XqWZx8o9Fsf0WBlX1lkJxt0OAB90BT5DsM1tShnTB7b8C6LPC3I"
 
 
 def get_hash(data: str) -> str:
@@ -26,9 +14,7 @@ def get_hash(data: str) -> str:
         str: hashed password
     """
 
-    return sha3_512(
-        (get_salt() + data).encode("utf-8")
-    ).hexdigest()
+    return sha256(data.encode("utf-8")).hexdigest()
 
 
 def compare_password(password: str, hashed_password: str) -> bool:
