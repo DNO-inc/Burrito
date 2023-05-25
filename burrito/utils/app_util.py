@@ -8,7 +8,6 @@ from burrito.middlewares.user_agent import UserAgentMiddleware
 from .singleton_pattern import singleton
 from .task_manager import get_async_manager
 from .logger import get_logger
-from .pubsub_manager import get_pubsub_manager
 
 
 @singleton

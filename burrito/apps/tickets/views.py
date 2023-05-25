@@ -173,20 +173,20 @@ async def tickets__show_tickets_list_by_filter(
         if not i_am_creator and ticket.hidden:
             continue
 
-        if ticket.ticket_id in tickets_black_list:
-            continue
+        if i_am_creator:
+            if ticket.ticket_id in tickets_black_list:
+                continue
 
         creator = None
-        assignee = None
         if not ticket.anonymous or i_am_creator:
             creator = model_to_dict(ticket.creator)
             creator["faculty"] = ticket.creator.faculty.name
 
-            assignee = ticket.assignee
-            assignee_modified = dict()
-            if assignee:
-                assignee_modified = model_to_dict(assignee)
-                assignee_modified["faculty"] = ticket.assignee.faculty.name
+        assignee = ticket.assignee
+        assignee_modified: dict = {}
+        if assignee:
+            assignee_modified = model_to_dict(assignee)
+            assignee_modified["faculty"] = ticket.assignee.faculty.name
 
         response_list.append(
             TicketDetailInfoSchema(
@@ -224,12 +224,12 @@ async def tickets__show_detail_ticket_info(
 
     if not i_am_creator and ticket.hidden:
         return JSONResponse(
-            status_code=403,
+            status_code=status.HTTP_403_FORBIDDEN,
             content={"detail": "Not allowed"}
         )
 
     creator = None
-    if not ticket.anonymous:
+    if not ticket.anonymous or i_am_creator:
         creator = model_to_dict(ticket.creator)
 
         try:
