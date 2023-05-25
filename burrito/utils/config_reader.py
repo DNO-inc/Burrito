@@ -1,6 +1,8 @@
-import sys
 import os
 import re
+from collections import OrderedDict
+
+from dotenv import dotenv_values, find_dotenv
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.logger import get_logger
@@ -10,11 +12,16 @@ from burrito.utils.logger import get_logger
 class EnvConfigReader:
     def __init__(self, base_word: str = "BURRITO_") -> None:
         self.__pattern = re.compile(fr"{base_word}\w+")
-        self.__config: dict[str, str] = {}
+        self.__config: dict[str, str] | OrderedDict[str, str] = {}
 
         self._read()
 
     def _read(self) -> None:
+        __env_path = find_dotenv()
+        if __env_path:
+            self.__config = dotenv_values(__env_path)
+            get_logger().info(f".env file is found ({__env_path})")
+
         for key, value in os.environ.items():
             if re.match(self.__pattern, key):
                 self.__config[key] = value
@@ -29,9 +36,9 @@ class EnvConfigReader:
         return _value
 
     @property
-    def config(self):
+    def config(self) -> dict[str, str] | OrderedDict[str, str]:
         return self.__config
 
 
-def get_config():
+def get_config() -> EnvConfigReader:
     return EnvConfigReader()
