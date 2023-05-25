@@ -39,9 +39,9 @@ def get_current_app() -> BurritoApi:
 #        TrustedHostMiddleware,
 #        allowed_hosts=["127.0.0.1"]
 #    )
-    app.add_middleware(
-        UserAgentMiddleware
-    )
+#    app.add_middleware(
+#        UserAgentMiddleware
+#    )
 
     return app
 

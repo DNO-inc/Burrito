@@ -28,7 +28,7 @@ from burrito.utils.config_reader import get_config
 create_tables()
 
 #db_preprocessor = LocalDataBasePreprocessor(
-#    {"filename": "/mnt/d/pyrus/Ramee/preprocessor_config.json"}
+#    {"filename": "./preprocessor_config.json"}
 #)
 #db_preprocessor.apply_data()
 
