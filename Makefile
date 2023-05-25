@@ -1,15 +1,6 @@
 VENV_PATH = .venv
 PYTHON = $(VENV_PATH)/bin/python3
 
-export BURRITO_DB_NAME=burrito
-export BURRITO_DB_USER=burrito_user
-export BURRITO_DB_PASSWORD=Qwerty123
-export BURRITO_DB_HOST=192.168.0.173
-export BURRITO_DB_PORT=3306
-
-export BURRITO_HOST=127.0.0.1
-export BURRITO_PORT=8080
-
 run:
 	$(PYTHON) -m burrito
 

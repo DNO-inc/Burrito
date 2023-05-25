@@ -1,7 +1,7 @@
 import json
 import os
 
-# from playhouse.shortcuts import model_to_dict
+from playhouse.shortcuts import model_to_dict
 
 from burrito.models.group_model import Groups
 from burrito.models.statuses_model import Statuses
@@ -74,10 +74,45 @@ class LocalDataBasePreprocessor(DefaultDataBasePreprocessor):
         }
 
         for key in json_data:
+            __model_object = model_keys.get(key)
+
+            if not __model_object:
+                continue
+
+            data_in_config = json_data.get(key)
+            data_in_db = [model_to_dict(i) for i in __model_object.select().execute()]
+
+            print(data_in_config)
+            print(data_in_db)
+            print("\n\n")
+
+            for note in data_in_config:
+                if note not in data_in_db:
+                    ...
+#                    model_keys[key].create(**note)
+
+#        for key in json_data:
+#            __model_object = model_keys.get(key)
+#
+#            if not __model_object:
+#                continue
+#
+#            data_in_config: set = {tuple(i.values()) for i in json_data.get(key)}
+#            already_exist_data: set = {tuple(model_to_dict(i).values()) for i in __model_object.select().execute()}
+#
+#            print(json_data.get(key))
+#            print(data_in_config)
+#            print(already_exist_data)
+#
+#            print(data_in_config.difference(already_exist_data))
+#
+#            break
+
+
 #            data = []
 #            for model_object in model_keys[key]:
 #                data.append(model_to_dict(model_object))
 
 #            print(json_data[key], data)
-            for item in json_data[key]:
-                model_keys[key].create(**item)
+#            for item in json_data[key]:
+#                model_keys[key].create(**item)

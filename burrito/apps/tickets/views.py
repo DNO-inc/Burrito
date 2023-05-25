@@ -114,17 +114,60 @@ async def tickets__bookmark_ticket(
         bookmark_ticket_data.ticket_id
     )
 
+    bookmark: Bookmarks | None = Bookmarks.get_or_none(
+        Bookmarks.user_id == Authorize.get_jwt_subject(),
+        Bookmarks.ticket_id == ticket.ticket_id
+    )
+
     try:
-        Bookmarks.create(
-            user_id=Authorize.get_jwt_subject(),
-            ticket_id=ticket.ticket_id
+        if not bookmark:
+            Bookmarks.create(
+                user_id=Authorize.get_jwt_subject(),
+                ticket_id=ticket.ticket_id
+            )
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Ticket was bookmarked successfully"}
         )
+
     except Exception as e:  # pylint: disable=broad-except, invalid-name
-        get_logger().critical(f"Creation error: {e}")
+        get_logger().critical(f"Bookmark creation error: {e}")
+
+    # if bookmark already exist
+    return JSONResponse(
+        status_code=status.HTTP_403_FORBIDDEN,
+        content={"detail": "Bookmark creation error, is this ticket already bookmarked?"}
+    )
+
+
+@check_permission()
+async def tickets__unbookmark_ticket(
+    unbookmark_ticket_data: TicketIDValueSchema,
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    """Follow ticket"""
+    Authorize.jwt_required()
+
+    ticket: Tickets | None = is_ticket_exist(
+        unbookmark_ticket_data.ticket_id
+    )
+
+    bookmark: Bookmarks | None = Bookmarks.get_or_none(
+        Bookmarks.user_id == Authorize.get_jwt_subject(),
+        Bookmarks.ticket_id == ticket.ticket_id
+    )
+
+    if bookmark:
+        bookmark.delete_instance()
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Bookmark for this ticket was successfully deleted"}
+        )
 
     return JSONResponse(
-        status_code=200,
-        content={"detail": "Ticket was bookmarked successfully"}
+        status_code=status.HTTP_403_FORBIDDEN,
+        content={"detail": "This ticket is not bookmarked"}
     )
 
 
