@@ -1,11 +1,12 @@
 from peewee import MySQLDatabase
+from playhouse.shortcuts import ReconnectMixin
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
 
 
 @singleton
-class BurritoDatabaseCursor(MySQLDatabase):
+class BurritoDatabaseCursor(ReconnectMixin, MySQLDatabase):
     def __init__(self, database, **kwargs) -> None:
         super().__init__(database, **kwargs)
 
