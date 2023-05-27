@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['faculties_354',['Faculties',['../classfaculty__model_1_1Faculties.html',1,'faculty_model']]],
-  ['facultystrtoint_355',['FacultyStrToInt',['../classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html',1,'burrito::utils::converter']]]
+  ['endpointpermissionerror_359',['EndpointPermissionError',['../classburrito_1_1utils_1_1permissions__checker_1_1EndpointPermissionError.html',1,'burrito::utils::permissions_checker']]],
+  ['envconfigreader_360',['EnvConfigReader',['../classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html',1,'burrito::utils::config_reader']]]
 ];

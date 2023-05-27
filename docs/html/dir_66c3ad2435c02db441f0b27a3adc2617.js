@@ -18,6 +18,13 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
     [ "auth_schema.py", "auth__schema_8py.html", [
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
     ] ],
+    [ "meta_schema.py", "meta__schema_8py.html", [
+      [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ],
+      [ "ResponseGroupsListSchema", "classmeta__schema_1_1ResponseGroupsListSchema.html", null ],
+      [ "ResponseFacultiesListSchema", "classmeta__schema_1_1ResponseFacultiesListSchema.html", null ],
+      [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
+      [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ]
+    ] ],
     [ "profile_schema.py", "profile__schema_8py.html", [
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
@@ -37,7 +44,6 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
       [ "TicketListResponseSchema", "classtickets__schema_1_1TicketListResponseSchema.html", null ]
     ] ],
     [ "user_schema.py", "user__schema_8py.html", [
-      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
-      [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
+      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ]
     ] ]
 ];

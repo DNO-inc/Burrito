@@ -24,6 +24,10 @@ var dir_2f2dbb0f3a53bb845f6917dd80520007 =
       [ "Groups", "classgroup__model_1_1Groups.html", "classgroup__model_1_1Groups" ],
       [ "Meta", "classgroup__model_1_1Groups_1_1Meta.html", null ]
     ] ],
+    [ "liked_model.py", "liked__model_8py.html", [
+      [ "Liked", "classliked__model_1_1Liked.html", "classliked__model_1_1Liked" ],
+      [ "Meta", "classliked__model_1_1Liked_1_1Meta.html", null ]
+    ] ],
     [ "notifications_model.py", "notifications__model_8py.html", [
       [ "Notifications", "classnotifications__model_1_1Notifications.html", "classnotifications__model_1_1Notifications" ],
       [ "Meta", "classnotifications__model_1_1Notifications_1_1Meta.html", null ]

@@ -114,40 +114,44 @@ $(document).ready(function(){initNavTree('namespaceregistration_1_1views.html','
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">registration.views Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classregistration_1_1views_1_1RegistrationMainView.html">RegistrationMainView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6c648880bda8b184a1ae0e1eac69418e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceregistration_1_1views.html#a6c648880bda8b184a1ae0e1eac69418e">check_verification_code</a> (UserVerificationCode code_object)</td></tr>
-<tr class="separator:a6c648880bda8b184a1ae0e1eac69418e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4f15ee883868ce17f103c659c4557c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceregistration_1_1views.html#aba4f15ee883868ce17f103c659c4557c">registration__user_registration</a> (RegistrationSchema user_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:aba4f15ee883868ce17f103c659c4557c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6c648880bda8b184a1ae0e1eac69418e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c648880bda8b184a1ae0e1eac69418e">&#9670;&nbsp;</a></span>check_verification_code()</h2>
+<a id="aba4f15ee883868ce17f103c659c4557c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4f15ee883868ce17f103c659c4557c">&#9670;&nbsp;</a></span>registration__user_registration()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def registration.views.check_verification_code </td>
+          <td class="memname">def registration.views.registration__user_registration </td>
           <td>(</td>
-          <td class="paramtype">UserVerificationCode&#160;</td>
-          <td class="paramname"><em>code_object</em></td><td>)</td>
+          <td class="paramtype">RegistrationSchema&#160;</td>
+          <td class="paramname"><em>user_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<pre class="fragment">Handle user registration</pre> 
 </div>
 </div>
 </div><!-- contents -->

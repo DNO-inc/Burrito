@@ -1,9 +1,21 @@
 var searchData=
 [
-  ['add_5fcallback_510',['add_callback',['../classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager.html#aacd2281c13205253fda30cdf5d40a0b2',1,'burrito::utils::pubsub_manager::PubSubManager']]],
-  ['add_5fmultiply_5ftask_511',['add_multiply_task',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a328a0f7ae0a213a45ef9835017f5d601',1,'burrito::utils::task_manager::_TaskManager']]],
-  ['add_5ftask_512',['add_task',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a935bbea64d1ada772526148e6df61d04',1,'burrito::utils::task_manager::_TaskManager']]],
-  ['am_5fi_5fown_5fthis_5fticket_513',['am_i_own_this_ticket',['../namespaceburrito_1_1utils_1_1tickets__util.html#a8c039abd6cef85a6d529465dd688a4d8',1,'burrito::utils::tickets_util']]],
-  ['apply_5fdata_514',['apply_data',['../classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html#ac5ba86ed60cc616e6667867b584e1799',1,'burrito.utils.db_preprocessor.DefaultDataBasePreprocessor.apply_data()'],['../classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html#ac5ba86ed60cc616e6667867b584e1799',1,'burrito.utils.db_preprocessor.LocalDataBasePreprocessor.apply_data()']]],
-  ['authjwt_5fexception_5fhandler_515',['authjwt_exception_handler',['../namespaceburrito_1_1utils_1_1app__util.html#ae48282b2c7cb2625f35da31c1e4f373c',1,'burrito::utils::app_util']]]
+  ['about_5f_5fget_5fchangelog_5finfo_514',['about__get_changelog_info',['../namespaceabout_1_1views.html#ad3b564c1c7a7c4316da0ad00d88515f0',1,'about::views']]],
+  ['about_5f_5fget_5fcurrent_5fversion_515',['about__get_current_version',['../namespaceabout_1_1views.html#aa31ed6da8bcce7e84c4dda6ab48122da',1,'about::views']]],
+  ['about_5f_5fget_5finfo_5fabout_5fteam_516',['about__get_info_about_team',['../namespaceabout_1_1views.html#adeafe78cc84431ada97d275b792d9062',1,'about::views']]],
+  ['add_5fmultiply_5ftask_517',['add_multiply_task',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a328a0f7ae0a213a45ef9835017f5d601',1,'burrito::utils::task_manager::_TaskManager']]],
+  ['add_5ftask_518',['add_task',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a935bbea64d1ada772526148e6df61d04',1,'burrito::utils::task_manager::_TaskManager']]],
+  ['admin_5f_5fbecome_5fan_5fassignee_519',['admin__become_an_assignee',['../namespaceadmin_1_1views.html#acf3843521a875c5a601c40131d4a3869',1,'admin::views']]],
+  ['admin_5f_5fchange_5fuser_5fpermissions_520',['admin__change_user_permissions',['../namespaceadmin_1_1views.html#abee5121bbdc7dd2025f2c5aaa479a133',1,'admin::views']]],
+  ['admin_5f_5fdelete_5fticket_521',['admin__delete_ticket',['../namespaceadmin_1_1views.html#a171d2089501faba4a3aba7bbd1c92a18',1,'admin::views']]],
+  ['admin_5f_5fget_5fticket_5flist_5fby_5ffilter_522',['admin__get_ticket_list_by_filter',['../namespaceadmin_1_1views.html#a65fad98a79f35217ffd210c4ca5d8d80',1,'admin::views']]],
+  ['admin_5f_5fshow_5fdetail_5fticket_5finfo_523',['admin__show_detail_ticket_info',['../namespaceadmin_1_1views.html#af01fc51d03a3e76fa753aa67d7f7934b',1,'admin::views']]],
+  ['admin_5f_5fupdate_5fticket_5fdata_524',['admin__update_ticket_data',['../namespaceadmin_1_1views.html#a4976b962dce3db912df879115ec6619b',1,'admin::views']]],
+  ['am_5fi_5fown_5fthis_5fticket_525',['am_i_own_this_ticket',['../namespaceburrito_1_1utils_1_1tickets__util.html#a8c039abd6cef85a6d529465dd688a4d8',1,'burrito::utils::tickets_util']]],
+  ['am_5fi_5fown_5fthis_5fticket_5fwith_5ferror_526',['am_i_own_this_ticket_with_error',['../namespaceburrito_1_1utils_1_1tickets__util.html#a4272ede37364c5dbb7023206cdd77b05',1,'burrito::utils::tickets_util']]],
+  ['anon_5f_5fget_5fticket_5flist_5fby_5ffilter_527',['anon__get_ticket_list_by_filter',['../namespaceanon_1_1views.html#a7f8e71208d55eb8972ab3067b953535e',1,'anon::views']]],
+  ['apply_5fdata_528',['apply_data',['../classburrito_1_1utils_1_1db__preprocessor_1_1LocalDataBasePreprocessor.html#ac5ba86ed60cc616e6667867b584e1799',1,'burrito.utils.db_preprocessor.LocalDataBasePreprocessor.apply_data()'],['../classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html#ac5ba86ed60cc616e6667867b584e1799',1,'burrito.utils.db_preprocessor.DefaultDataBasePreprocessor.apply_data()']]],
+  ['auth_5f_5fpassword_5flogin_529',['auth__password_login',['../namespaceauth_1_1views.html#a4a731f278f8cf6585672f3b46fd6d74d',1,'auth::views']]],
+  ['auth_5f_5ftoken_5flogin_530',['auth__token_login',['../namespaceauth_1_1views.html#a9b67b094c1ed317cbdb6e2c30d2e5969',1,'auth::views']]],
+  ['authjwt_5fexception_5fhandler_531',['authjwt_exception_handler',['../namespaceburrito_1_1utils_1_1app__util.html#ae48282b2c7cb2625f35da31c1e4f373c',1,'burrito::utils::app_util']]]
 ];

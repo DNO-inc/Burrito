@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['user_5fagent_2epy_503',['user_agent.py',['../user__agent_8py.html',1,'']]],
-  ['user_5fmodel_2epy_504',['user_model.py',['../user__model_8py.html',1,'']]],
-  ['user_5fschema_2epy_505',['user_schema.py',['../user__schema_8py.html',1,'']]],
-  ['utils_2epy_506',['utils.py',['../about_2utils_8py.html',1,'(Global Namespace)'],['../admin_2utils_8py.html',1,'(Global Namespace)'],['../anon_2utils_8py.html',1,'(Global Namespace)'],['../auth_2utils_8py.html',1,'(Global Namespace)'],['../profile_2utils_8py.html',1,'(Global Namespace)'],['../registration_2utils_8py.html',1,'(Global Namespace)'],['../tickets_2utils_8py.html',1,'(Global Namespace)']]]
+  ['task_5fmanager_2epy_502',['task_manager.py',['../task__manager_8py.html',1,'']]],
+  ['tickets_5fmodel_2epy_503',['tickets_model.py',['../tickets__model_8py.html',1,'']]],
+  ['tickets_5fschema_2epy_504',['tickets_schema.py',['../tickets__schema_8py.html',1,'']]],
+  ['tickets_5futil_2epy_505',['tickets_util.py',['../tickets__util_8py.html',1,'']]]
 ];

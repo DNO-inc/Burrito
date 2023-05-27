@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['user_5fagent_457',['user_agent',['../namespaceuser__agent.html',1,'']]],
-  ['user_5fmodel_458',['user_model',['../namespaceuser__model.html',1,'']]],
-  ['user_5fschema_459',['user_schema',['../namespaceuser__schema.html',1,'']]]
+  ['statuses_5fmodel_454',['statuses_model',['../namespacestatuses__model.html',1,'']]],
+  ['subscriptions_5fmodel_455',['subscriptions_model',['../namespacesubscriptions__model.html',1,'']]]
 ];

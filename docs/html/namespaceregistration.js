@@ -7,5 +7,7 @@ var namespaceregistration =
     [ "utils", "namespaceregistration_1_1utils.html", [
       [ "__all__", "namespaceregistration_1_1utils.html#aa1af190c799555c7ee1ec2c9524edd1a", null ]
     ] ],
-    [ "views", "namespaceregistration_1_1views.html", "namespaceregistration_1_1views" ]
+    [ "views", "namespaceregistration_1_1views.html", [
+      [ "registration__user_registration", "namespaceregistration_1_1views.html#aba4f15ee883868ce17f103c659c4557c", null ]
+    ] ]
 ];
