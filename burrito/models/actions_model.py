@@ -18,7 +18,12 @@ class Actions(Model):
         field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, field="user_id", on_delete="NO ACTION")
+
+    user_id = ForeignKeyField(
+        Users,
+        field="user_id",
+        on_delete="NO ACTION"
+    )
 
     action_date = DateTimeField(default=datetime.datetime.now)
 

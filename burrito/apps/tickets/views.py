@@ -16,6 +16,7 @@ from burrito.schemas.tickets_schema import (
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
+from burrito.models.liked_model import Liked
 
 from burrito.utils.tickets_util import hide_ticket_body
 
@@ -171,6 +172,75 @@ async def tickets__unbookmark_ticket(
     )
 
 
+@check_permission()
+async def tickets__like_ticket(
+    like_ticket_data: TicketIDValueSchema,
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    """Like ticket"""
+    Authorize.jwt_required()
+
+    ticket: Tickets | None = is_ticket_exist(
+        like_ticket_data.ticket_id
+    )
+
+    like: Liked | None = Liked.get_or_none(
+        Liked.user_id == Authorize.get_jwt_subject(),
+        Liked.ticket_id == ticket.ticket_id
+    )
+
+    try:
+        if not like:
+            Liked.create(
+                user_id=Authorize.get_jwt_subject(),
+                ticket_id=ticket.ticket_id
+            )
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Ticket was liked successfully"}
+        )
+
+    except Exception as e:  # pylint: disable=broad-except, invalid-name
+        get_logger().critical(f"Ticket liking error: {e}")
+
+    # if like already exist
+    return JSONResponse(
+        status_code=status.HTTP_403_FORBIDDEN,
+        content={"detail": "Ticked liking error, is this ticket already liked?"}
+    )
+
+
+@check_permission()
+async def tickets__unlike_ticket(
+    unlike_ticket_data: TicketIDValueSchema,
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    """Unlike ticket"""
+    Authorize.jwt_required()
+
+    ticket: Tickets | None = is_ticket_exist(
+        unlike_ticket_data.ticket_id
+    )
+
+    like: Liked | None = Bookmarks.get_or_none(
+        Liked.user_id == Authorize.get_jwt_subject(),
+        Liked.ticket_id == ticket.ticket_id
+    )
+
+    if like:
+        like.delete_instance()
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Ticket unliked successfully"}
+        )
+
+    return JSONResponse(
+        status_code=status.HTTP_403_FORBIDDEN,
+        content={"detail": "This ticket is not liked"}
+    )
+
+
 @check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_tickets_list_by_filter(
     filters: TicketListRequestSchema,
@@ -231,6 +301,10 @@ async def tickets__show_tickets_list_by_filter(
             assignee_modified = model_to_dict(assignee)
             assignee_modified["faculty"] = ticket.assignee.faculty.name
 
+        upvotes = Liked.select().where(
+            Liked.ticket_id == ticket.ticket_id
+        ).count()
+
         response_list.append(
             TicketDetailInfoSchema(
                 creator=creator,
@@ -239,7 +313,8 @@ async def tickets__show_tickets_list_by_filter(
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body),
                 faculty=ticket.faculty.name,
-                status=ticket.status.name
+                status=ticket.status.name,
+                upvotes=upvotes
             )
         )
 
@@ -296,6 +371,10 @@ async def tickets__show_detail_ticket_info(
             )
             assignee_modified["faculty"] = None
 
+    upvotes = Liked.select().where(
+        Liked.ticket_id == ticket.ticket_id
+    ).count()
+
     return TicketDetailInfoSchema(
         creator=creator,
         assignee=assignee,
@@ -303,7 +382,8 @@ async def tickets__show_detail_ticket_info(
         subject=ticket.subject,
         body=ticket.body,
         faculty=ticket.faculty.name,
-        status=ticket.status.name
+        status=ticket.status.name,
+        upvotes=upvotes
     )
 
 

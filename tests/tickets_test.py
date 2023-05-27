@@ -101,6 +101,46 @@ class TicketsTestCase(unittest.TestCase):
             403
         )
 
+    def test_like_ticket(self):
+        """Delete ticket"""
+
+        ticket_id = create_ticket_get_id("for black list")
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": ticket_id
+            },
+            timeout=TIMEOUT
+        )
+
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+    def test_like_ticket_noexist(self):
+        """Delete ticket"""
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": TicketsTestCase.first_ticket + 123456
+            },
+            timeout=TIMEOUT
+        )
+
+        self.assertEqual(
+            response.status_code,
+            403
+        )
+
     def test_bookmark_ticket(self):
         """Bookmark ticket"""
 

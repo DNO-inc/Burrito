@@ -7,6 +7,7 @@ from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 from burrito.models.deleted_model import Deleted
+from burrito.models.liked_model import Liked
 
 from burrito.models.comments_model import Comments
 from burrito.models.actions_model import Actions
@@ -44,7 +45,7 @@ def create_tables():
             Roles,
             RolePermissions,
             Users, Faculties, Groups,
-            Statuses, Deleted,
+            Statuses, Deleted, Liked,
             Tickets, Participants,
             Subscriptions, Actions, Notifications,
             Comments, Queues, Bookmarks

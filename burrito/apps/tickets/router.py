@@ -4,6 +4,8 @@ from burrito.apps.tickets.views import (
     tickets__create_new_ticket,
     tickets__delete_ticket_for_me,
     tickets__bookmark_ticket,
+    tickets__like_ticket,
+    tickets__unlike_ticket,
     tickets__unbookmark_ticket,
     tickets__show_tickets_list_by_filter,
     tickets__show_detail_ticket_info,
@@ -32,6 +34,16 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/unbookmark",
     tickets__unbookmark_ticket,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/like",
+    tickets__like_ticket,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/unlike",
+    tickets__unlike_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
