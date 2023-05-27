@@ -222,7 +222,7 @@ async def tickets__unlike_ticket(
         unlike_ticket_data.ticket_id
     )
 
-    like: Liked | None = Bookmarks.get_or_none(
+    like: Liked | None = Liked.get_or_none(
         Liked.user_id == Authorize.get_jwt_subject(),
         Liked.ticket_id == ticket.ticket_id
     )
