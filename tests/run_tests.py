@@ -30,4 +30,4 @@ all_tests = unittest.TestSuite(
 )
 
 #unittest.TestLoader.sortTestMethodsUsing = None
-unittest.TextTestRunner(verbosity=2).run(all_tests)
+unittest.TextTestRunner(verbosity=1).run(all_tests)
