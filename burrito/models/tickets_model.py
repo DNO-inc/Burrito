@@ -23,6 +23,7 @@ class Tickets(Model):
         field="user_id",
         on_delete="NO ACTION"
     )
+
     assignee = ForeignKeyField(
         Users,
         field="user_id",
@@ -45,12 +46,14 @@ class Tickets(Model):
         field="faculty_id",
         on_delete="NO ACTION"
     )
+
     queue = ForeignKeyField(
         Queues,
         field="queue_id",
         on_delete="NO ACTION",
         null=True
     )
+
     status = ForeignKeyField(
         Statuses,
         field="status_id",

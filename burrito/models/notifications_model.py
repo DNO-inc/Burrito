@@ -17,7 +17,13 @@ class Notifications(Model):
         field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, field="user_id", on_delete="NO ACTION")
+
+    user_id = ForeignKeyField(
+        Users,
+        field="user_id",
+        on_delete="NO ACTION"
+    )
+
     body = TextField()
     read = BooleanField(default=False)
 

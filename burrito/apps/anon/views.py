@@ -1,5 +1,6 @@
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.anon_schema import (
@@ -54,6 +55,10 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 assignee_modified = model_to_dict(assignee)
                 assignee_modified["faculty"] = ticket.assignee.faculty.name
 
+        upvotes = Liked.select().where(
+            Liked.ticket_id == ticket.ticket_id
+        ).count()
+
         response_list.append(
             AnonTicketDetailInfoSchema(
                 creator=creator,
@@ -62,7 +67,8 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body),
                 faculty=ticket.faculty.name,
-                status=ticket.status.name
+                status=ticket.status.name,
+                upvotes=upvotes
             )
         )
 

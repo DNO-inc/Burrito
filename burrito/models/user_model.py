@@ -26,6 +26,7 @@ class Users(Model):
         on_delete="NO ACTION",
         null=True
     )
+
     group = ForeignKeyField(
         Groups,
         field="group_id",

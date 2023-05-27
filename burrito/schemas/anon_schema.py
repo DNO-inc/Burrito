@@ -25,6 +25,7 @@ class AnonTicketDetailInfoSchema(BaseModel):
     body: str
     faculty: str
     status: str
+    upvotes: int
 #    actions: list[object]
 
 

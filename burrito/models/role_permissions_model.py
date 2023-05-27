@@ -12,6 +12,7 @@ class RolePermissions(Model):
         field="role_id",
         on_delete="CASCADE"
     )
+
     permission = ForeignKeyField(
         Permissions,
         field="permission_id",

@@ -19,7 +19,12 @@ class Comments(Model):
         field="ticket_id",
         on_delete="NO ACTION"
     )
-    user_id = ForeignKeyField(Users, field="user_id", on_delete="NO ACTION")
+
+    user_id = ForeignKeyField(
+        Users,
+        field="user_id",
+        on_delete="NO ACTION"
+    )
 
     comment_date = DateTimeField(default=datetime.datetime.now)
 
