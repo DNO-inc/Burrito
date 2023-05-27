@@ -1,5 +1,6 @@
 var profile_2views_8py =
 [
-    [ "my_profile", "profile_2views_8py.html#ac84005c2c979b9898a9a6ce5c394db4d", null ],
-    [ "update_my_profile", "profile_2views_8py.html#ad35689c02cd7c74d87bf7832a22249b3", null ]
+    [ "profile__check_by_id", "profile_2views_8py.html#a87eb9980e10bc061c99b815313f2d983", null ],
+    [ "profile__check_my_profile", "profile_2views_8py.html#ad707b2a09f006449740c5d017aaeb542", null ],
+    [ "profile__update_my_profile", "profile_2views_8py.html#ad9ba9c3341735f578e4cfe60e12b4fcf", null ]
 ];

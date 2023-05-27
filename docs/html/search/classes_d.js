@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['sourceisnotavailableerror_373',['SourceIsNotAvailableError',['../classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotAvailableError.html',1,'burrito::utils::db_preprocessor']]],
-  ['sourceisnotdefinederror_374',['SourceIsNotDefinedError',['../classburrito_1_1utils_1_1db__preprocessor_1_1SourceIsNotDefinedError.html',1,'burrito::utils::db_preprocessor']]],
-  ['statuses_375',['Statuses',['../classstatuses__model_1_1Statuses.html',1,'statuses_model']]],
-  ['statusstrtoint_376',['StatusStrToInt',['../classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html',1,'burrito::utils::converter']]],
-  ['subscriptions_377',['Subscriptions',['../classsubscriptions__model_1_1Subscriptions.html',1,'subscriptions_model']]]
+  ['registrationschema_373',['RegistrationSchema',['../classregistration__schema_1_1RegistrationSchema.html',1,'registration_schema']]],
+  ['requestqueuelistschema_374',['RequestQueueListSchema',['../classmeta__schema_1_1RequestQueueListSchema.html',1,'meta_schema']]],
+  ['requestupdateprofileschema_375',['RequestUpdateProfileSchema',['../classprofile__schema_1_1RequestUpdateProfileSchema.html',1,'profile_schema']]],
+  ['responsefacultieslistschema_376',['ResponseFacultiesListSchema',['../classmeta__schema_1_1ResponseFacultiesListSchema.html',1,'meta_schema']]],
+  ['responsegroupslistschema_377',['ResponseGroupsListSchema',['../classmeta__schema_1_1ResponseGroupsListSchema.html',1,'meta_schema']]],
+  ['responseprofileschema_378',['ResponseProfileSchema',['../classprofile__schema_1_1ResponseProfileSchema.html',1,'profile_schema']]],
+  ['responsequeuelistschema_379',['ResponseQueueListSchema',['../classmeta__schema_1_1ResponseQueueListSchema.html',1,'meta_schema']]],
+  ['responsestatuseslistschema_380',['ResponseStatusesListSchema',['../classmeta__schema_1_1ResponseStatusesListSchema.html',1,'meta_schema']]],
+  ['rolepermissions_381',['RolePermissions',['../classrole__permissions__model_1_1RolePermissions.html',1,'role_permissions_model']]],
+  ['roles_382',['Roles',['../classroles__model_1_1Roles.html',1,'roles_model']]]
 ];

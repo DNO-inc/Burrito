@@ -1,23 +1,7 @@
 var annotated_dup =
 [
-    [ "about", "namespaceabout.html", [
-      [ "views", "namespaceabout_1_1views.html", [
-        [ "VersionView", "classabout_1_1views_1_1VersionView.html", null ],
-        [ "UpdatesView", "classabout_1_1views_1_1UpdatesView.html", null ],
-        [ "TeamView", "classabout_1_1views_1_1TeamView.html", null ]
-      ] ]
-    ] ],
     [ "actions_model", "namespaceactions__model.html", [
       [ "Actions", "classactions__model_1_1Actions.html", "classactions__model_1_1Actions" ]
-    ] ],
-    [ "admin", "namespaceadmin.html", [
-      [ "views", "namespaceadmin_1_1views.html", [
-        [ "AdminUpdateTicketsView", "classadmin_1_1views_1_1AdminUpdateTicketsView.html", null ],
-        [ "AdminGetTicketListView", "classadmin_1_1views_1_1AdminGetTicketListView.html", null ],
-        [ "AdminTicketDetailInfoView", "classadmin_1_1views_1_1AdminTicketDetailInfoView.html", null ],
-        [ "AdminDeleteTicketView", "classadmin_1_1views_1_1AdminDeleteTicketView.html", null ],
-        [ "AdminChangePermissionsView", "classadmin_1_1views_1_1AdminChangePermissionsView.html", null ]
-      ] ]
     ] ],
     [ "admin_schema", "namespaceadmin__schema.html", [
       [ "AdminUpdateTicketSchema", "classadmin__schema_1_1AdminUpdateTicketSchema.html", null ],
@@ -27,11 +11,6 @@ var annotated_dup =
       [ "AdminTicketListResponse", "classadmin__schema_1_1AdminTicketListResponse.html", null ],
       [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
       [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ]
-    ] ],
-    [ "anon", "namespaceanon.html", [
-      [ "views", "namespaceanon_1_1views.html", [
-        [ "AnonTicketListView", "classanon_1_1views_1_1AnonTicketListView.html", null ]
-      ] ]
     ] ],
     [ "anon_schema", "namespaceanon__schema.html", [
       [ "AnonTicketListRequestSchema", "classanon__schema_1_1AnonTicketListRequestSchema.html", null ],
@@ -50,11 +29,11 @@ var annotated_dup =
         [ "app_util", "namespaceburrito_1_1utils_1_1app__util.html", [
           [ "BurritoApi", "classburrito_1_1utils_1_1app__util_1_1BurritoApi.html", "classburrito_1_1utils_1_1app__util_1_1BurritoApi" ]
         ] ],
-        [ "base_view", "namespaceburrito_1_1utils_1_1base__view.html", [
-          [ "BaseView", "classburrito_1_1utils_1_1base__view_1_1BaseView.html", null ]
-        ] ],
         [ "cache_util", "namespaceburrito_1_1utils_1_1cache__util.html", [
           [ "BurritoCache", "classburrito_1_1utils_1_1cache__util_1_1BurritoCache.html", "classburrito_1_1utils_1_1cache__util_1_1BurritoCache" ]
+        ] ],
+        [ "config_reader", "namespaceburrito_1_1utils_1_1config__reader.html", [
+          [ "EnvConfigReader", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader" ]
         ] ],
         [ "converter", "namespaceburrito_1_1utils_1_1converter.html", [
           [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", null ],
@@ -77,11 +56,8 @@ var annotated_dup =
           [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter" ],
           [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", "classburrito_1_1utils_1_1logger_1_1BurritoLogger" ]
         ] ],
-        [ "pubsub_manager", "namespaceburrito_1_1utils_1_1pubsub__manager.html", [
-          [ "PubSubManager", "classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager.html", "classburrito_1_1utils_1_1pubsub__manager_1_1PubSubManager" ]
-        ] ],
-        [ "redis_utils", "namespaceburrito_1_1utils_1_1redis__utils.html", [
-          [ "BurritoRedis", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis.html", "classburrito_1_1utils_1_1redis__utils_1_1BurritoRedis" ]
+        [ "permissions_checker", "namespaceburrito_1_1utils_1_1permissions__checker.html", [
+          [ "EndpointPermissionError", "classburrito_1_1utils_1_1permissions__checker_1_1EndpointPermissionError.html", null ]
         ] ],
         [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", [
           [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager" ]
@@ -100,6 +76,16 @@ var annotated_dup =
     [ "group_model", "namespacegroup__model.html", [
       [ "Groups", "classgroup__model_1_1Groups.html", "classgroup__model_1_1Groups" ]
     ] ],
+    [ "liked_model", "namespaceliked__model.html", [
+      [ "Liked", "classliked__model_1_1Liked.html", "classliked__model_1_1Liked" ]
+    ] ],
+    [ "meta_schema", "namespacemeta__schema.html", [
+      [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ],
+      [ "ResponseGroupsListSchema", "classmeta__schema_1_1ResponseGroupsListSchema.html", null ],
+      [ "ResponseFacultiesListSchema", "classmeta__schema_1_1ResponseFacultiesListSchema.html", null ],
+      [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
+      [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ]
+    ] ],
     [ "notifications_model", "namespacenotifications__model.html", [
       [ "Notifications", "classnotifications__model_1_1Notifications.html", "classnotifications__model_1_1Notifications" ]
     ] ],
@@ -109,12 +95,6 @@ var annotated_dup =
     [ "permissions_model", "namespacepermissions__model.html", [
       [ "Permissions", "classpermissions__model_1_1Permissions.html", "classpermissions__model_1_1Permissions" ]
     ] ],
-    [ "profile", "namespaceprofile.html", [
-      [ "views", "namespaceprofile_1_1views.html", [
-        [ "MyProfileView", "classprofile_1_1views_1_1MyProfileView.html", null ],
-        [ "UpdateMyProfile", "classprofile_1_1views_1_1UpdateMyProfile.html", null ]
-      ] ]
-    ] ],
     [ "profile_schema", "namespaceprofile__schema.html", [
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
@@ -123,11 +103,6 @@ var annotated_dup =
     ] ],
     [ "queues_model", "namespacequeues__model.html", [
       [ "Queues", "classqueues__model_1_1Queues.html", "classqueues__model_1_1Queues" ]
-    ] ],
-    [ "registration", "namespaceregistration.html", [
-      [ "views", "namespaceregistration_1_1views.html", [
-        [ "RegistrationMainView", "classregistration_1_1views_1_1RegistrationMainView.html", null ]
-      ] ]
     ] ],
     [ "registration_schema", "namespaceregistration__schema.html", [
       [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ]
@@ -143,17 +118,6 @@ var annotated_dup =
     ] ],
     [ "subscriptions_model", "namespacesubscriptions__model.html", [
       [ "Subscriptions", "classsubscriptions__model_1_1Subscriptions.html", "classsubscriptions__model_1_1Subscriptions" ]
-    ] ],
-    [ "tickets", "namespacetickets.html", [
-      [ "views", "namespacetickets_1_1views.html", [
-        [ "CreateTicketView", "classtickets_1_1views_1_1CreateTicketView.html", null ],
-        [ "DeleteTicketView", "classtickets_1_1views_1_1DeleteTicketView.html", null ],
-        [ "BookmarkTicketView", "classtickets_1_1views_1_1BookmarkTicketView.html", null ],
-        [ "TicketListView", "classtickets_1_1views_1_1TicketListView.html", null ],
-        [ "TicketDetailInfoView", "classtickets_1_1views_1_1TicketDetailInfoView.html", null ],
-        [ "UpdateTicketView", "classtickets_1_1views_1_1UpdateTicketView.html", null ],
-        [ "CloseTicketView", "classtickets_1_1views_1_1CloseTicketView.html", null ]
-      ] ]
     ] ],
     [ "tickets_model", "namespacetickets__model.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]
@@ -174,7 +138,6 @@ var annotated_dup =
       [ "Users", "classuser__model_1_1Users.html", "classuser__model_1_1Users" ]
     ] ],
     [ "user_schema", "namespaceuser__schema.html", [
-      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ],
-      [ "UserVerificationCode", "classuser__schema_1_1UserVerificationCode.html", null ]
+      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ]
     ] ]
 ];

@@ -12,7 +12,7 @@ from burrito.utils.logger import get_logger
 
 
 def thread_singleton(class_) -> Any:
-    class_instance: dict[int, __TaskManager] = {}
+    class_instance: dict[int, _TaskManager] = {}
 
     def get_class_instance(*args, **kwargs):
         instance_key = (class_, get_native_id())

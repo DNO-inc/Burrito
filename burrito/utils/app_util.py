@@ -1,10 +1,10 @@
 from fastapi import FastAPI, APIRouter, Request
 from fastapi.responses import JSONResponse
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
+# from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth.exceptions import AuthJWTException
 
-from burrito.middlewares.user_agent import UserAgentMiddleware
+# from burrito.middlewares.user_agent import UserAgentMiddleware
 
 from .singleton_pattern import singleton
 from .task_manager import get_async_manager

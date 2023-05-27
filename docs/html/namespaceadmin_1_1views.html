@@ -114,25 +114,185 @@ $(document).ready(function(){initNavTree('namespaceadmin_1_1views.html',''); ini
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">admin.views Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadmin_1_1views_1_1AdminUpdateTicketsView.html">AdminUpdateTicketsView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadmin_1_1views_1_1AdminGetTicketListView.html">AdminGetTicketListView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadmin_1_1views_1_1AdminTicketDetailInfoView.html">AdminTicketDetailInfoView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadmin_1_1views_1_1AdminDeleteTicketView.html">AdminDeleteTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classadmin_1_1views_1_1AdminChangePermissionsView.html">AdminChangePermissionsView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a4976b962dce3db912df879115ec6619b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a4976b962dce3db912df879115ec6619b">admin__update_ticket_data</a> (AdminUpdateTicketSchema admin_updates, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a4976b962dce3db912df879115ec6619b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65fad98a79f35217ffd210c4ca5d8d80"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a65fad98a79f35217ffd210c4ca5d8d80">admin__get_ticket_list_by_filter</a> (AdminGetTicketListSchema filters, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a65fad98a79f35217ffd210c4ca5d8d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af01fc51d03a3e76fa753aa67d7f7934b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#af01fc51d03a3e76fa753aa67d7f7934b">admin__show_detail_ticket_info</a> (AdminTicketIdSchema ticket_id_info, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:af01fc51d03a3e76fa753aa67d7f7934b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171d2089501faba4a3aba7bbd1c92a18"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a171d2089501faba4a3aba7bbd1c92a18">admin__delete_ticket</a> (AdminTicketIdSchema deletion_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a171d2089501faba4a3aba7bbd1c92a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abee5121bbdc7dd2025f2c5aaa479a133"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#abee5121bbdc7dd2025f2c5aaa479a133">admin__change_user_permissions</a> ()</td></tr>
+<tr class="separator:abee5121bbdc7dd2025f2c5aaa479a133"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf3843521a875c5a601c40131d4a3869"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#acf3843521a875c5a601c40131d4a3869">admin__become_an_assignee</a> (AdminTicketIdSchema ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:acf3843521a875c5a601c40131d4a3869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="acf3843521a875c5a601c40131d4a3869"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf3843521a875c5a601c40131d4a3869">&#9670;&nbsp;</a></span>admin__become_an_assignee()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__become_an_assignee </td>
+          <td>(</td>
+          <td class="paramtype">AdminTicketIdSchema&#160;</td>
+          <td class="paramname"><em>ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abee5121bbdc7dd2025f2c5aaa479a133"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abee5121bbdc7dd2025f2c5aaa479a133">&#9670;&nbsp;</a></span>admin__change_user_permissions()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__change_user_permissions </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a171d2089501faba4a3aba7bbd1c92a18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171d2089501faba4a3aba7bbd1c92a18">&#9670;&nbsp;</a></span>admin__delete_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__delete_ticket </td>
+          <td>(</td>
+          <td class="paramtype">AdminTicketIdSchema&#160;</td>
+          <td class="paramname"><em>deletion_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65fad98a79f35217ffd210c4ca5d8d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65fad98a79f35217ffd210c4ca5d8d80">&#9670;&nbsp;</a></span>admin__get_ticket_list_by_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__get_ticket_list_by_filter </td>
+          <td>(</td>
+          <td class="paramtype">AdminGetTicketListSchema&#160;</td>
+          <td class="paramname"><em>filters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af01fc51d03a3e76fa753aa67d7f7934b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af01fc51d03a3e76fa753aa67d7f7934b">&#9670;&nbsp;</a></span>admin__show_detail_ticket_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__show_detail_ticket_info </td>
+          <td>(</td>
+          <td class="paramtype">AdminTicketIdSchema&#160;</td>
+          <td class="paramname"><em>ticket_id_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Show detail ticket info</pre> 
+</div>
+</div>
+<a id="a4976b962dce3db912df879115ec6619b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4976b962dce3db912df879115ec6619b">&#9670;&nbsp;</a></span>admin__update_ticket_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin.views.admin__update_ticket_data </td>
+          <td>(</td>
+          <td class="paramtype">AdminUpdateTicketSchema&#160;</td>
+          <td class="paramname"><em>admin_updates</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

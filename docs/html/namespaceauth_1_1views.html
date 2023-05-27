@@ -122,20 +122,20 @@ $(document).ready(function(){initNavTree('namespaceauth_1_1views.html',''); init
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1e1c2ab308fe5900c1487f1950cf5a25"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a1e1c2ab308fe5900c1487f1950cf5a25">password_login</a> (UserPasswordLoginSchema user_login_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a1e1c2ab308fe5900c1487f1950cf5a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4e081c4c17e62462e0b26ae6d7229fb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#ab4e081c4c17e62462e0b26ae6d7229fb">token_login</a> (AuthJWT Authorize=Depends())</td></tr>
-<tr class="separator:ab4e081c4c17e62462e0b26ae6d7229fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a731f278f8cf6585672f3b46fd6d74d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a4a731f278f8cf6585672f3b46fd6d74d">auth__password_login</a> (UserPasswordLoginSchema user_login_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a4a731f278f8cf6585672f3b46fd6d74d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b67b094c1ed317cbdb6e2c30d2e5969"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a9b67b094c1ed317cbdb6e2c30d2e5969">auth__token_login</a> (AuthJWT Authorize=Depends())</td></tr>
+<tr class="separator:a9b67b094c1ed317cbdb6e2c30d2e5969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a1e1c2ab308fe5900c1487f1950cf5a25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e1c2ab308fe5900c1487f1950cf5a25">&#9670;&nbsp;</a></span>password_login()</h2>
+<a id="a4a731f278f8cf6585672f3b46fd6d74d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a731f278f8cf6585672f3b46fd6d74d">&#9670;&nbsp;</a></span>auth__password_login()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def auth.views.password_login </td>
+          <td class="memname">def auth.views.auth__password_login </td>
           <td>(</td>
           <td class="paramtype">UserPasswordLoginSchema&#160;</td>
           <td class="paramname"><em>user_login_data</em>, </td>
@@ -156,14 +156,14 @@ Functions</h2></td></tr>
 <pre class="fragment">Authentication by login and password</pre> 
 </div>
 </div>
-<a id="ab4e081c4c17e62462e0b26ae6d7229fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4e081c4c17e62462e0b26ae6d7229fb">&#9670;&nbsp;</a></span>token_login()</h2>
+<a id="a9b67b094c1ed317cbdb6e2c30d2e5969"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b67b094c1ed317cbdb6e2c30d2e5969">&#9670;&nbsp;</a></span>auth__token_login()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def auth.views.token_login </td>
+          <td class="memname">def auth.views.auth__token_login </td>
           <td>(</td>
           <td class="paramtype">AuthJWT &#160;</td>
           <td class="paramname"><em>Authorize</em> = <code>Depends()</code></td><td>)</td>

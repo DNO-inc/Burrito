@@ -4,8 +4,6 @@ from fastapi import HTTPException
 from fastapi_jwt_auth import AuthJWT
 
 from burrito.models.user_model import Users
-from burrito.models.roles_model import Roles
-from burrito.models.permissions_model import Permissions
 from burrito.models.role_permissions_model import RolePermissions
 
 from burrito.utils.db_utils import get_user_by_id
@@ -41,20 +39,18 @@ def check_permission(permission_list: set[str] = set()):
                 current_user: Users | None = get_user_by_id(
                     auth_core.get_jwt_subject()
                 )
-                current_user_role: Roles | None = current_user.role
 
                 current_user_permissions: set[str] = set()
                 for item in RolePermissions.select().where(
-                    RolePermissions.role == current_user_role
+                    RolePermissions.role == current_user.role
                 ):
                     current_user_permissions.add(item.permission.name)
 
-                for permission_name in permission_list:
-                    if permission_name not in current_user_permissions:
-                        raise EndpointPermissionError(
-                            status_code=403,
-                            detail="You have not permissions to interact with this resource"
-                        )
+                if not permission_list.issubset(current_user_permissions):
+                    raise EndpointPermissionError(
+                        status_code=403,
+                        detail="You have not permissions to interact with this resource"
+                    )
 
             return await func(*args, **kwargs)
 

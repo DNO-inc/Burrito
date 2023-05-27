@@ -14,6 +14,9 @@ var namespaces_dup =
     [ "deleted_model", "namespacedeleted__model.html", "namespacedeleted__model" ],
     [ "faculty_model", "namespacefaculty__model.html", "namespacefaculty__model" ],
     [ "group_model", "namespacegroup__model.html", "namespacegroup__model" ],
+    [ "liked_model", "namespaceliked__model.html", "namespaceliked__model" ],
+    [ "meta", "namespacemeta.html", "namespacemeta" ],
+    [ "meta_schema", "namespacemeta__schema.html", "namespacemeta__schema" ],
     [ "notifications_model", "namespacenotifications__model.html", "namespacenotifications__model" ],
     [ "participants_model", "namespaceparticipants__model.html", "namespaceparticipants__model" ],
     [ "permissions_model", "namespacepermissions__model.html", "namespacepermissions__model" ],
@@ -24,7 +27,6 @@ var namespaces_dup =
     [ "registration_schema", "namespaceregistration__schema.html", "namespaceregistration__schema" ],
     [ "role_permissions_model", "namespacerole__permissions__model.html", "namespacerole__permissions__model" ],
     [ "roles_model", "namespaceroles__model.html", "namespaceroles__model" ],
-    [ "router", "namespacerouter.html", null ],
     [ "statuses_model", "namespacestatuses__model.html", "namespacestatuses__model" ],
     [ "subscriptions_model", "namespacesubscriptions__model.html", "namespacesubscriptions__model" ],
     [ "tickets", "namespacetickets.html", "namespacetickets" ],
@@ -32,6 +34,5 @@ var namespaces_dup =
     [ "tickets_schema", "namespacetickets__schema.html", "namespacetickets__schema" ],
     [ "user_agent", "namespaceuser__agent.html", "namespaceuser__agent" ],
     [ "user_model", "namespaceuser__model.html", "namespaceuser__model" ],
-    [ "user_schema", "namespaceuser__schema.html", "namespaceuser__schema" ],
-    [ "views", "namespaceviews.html", null ]
+    [ "user_schema", "namespaceuser__schema.html", "namespaceuser__schema" ]
 ];

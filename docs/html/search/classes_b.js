@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['queues_365',['Queues',['../classqueues__model_1_1Queues.html',1,'queues_model']]],
-  ['queuestrtoint_366',['QueueStrToInt',['../classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html',1,'burrito::utils::converter']]]
+  ['participants_369',['Participants',['../classparticipants__model_1_1Participants.html',1,'participants_model']]],
+  ['permissions_370',['Permissions',['../classpermissions__model_1_1Permissions.html',1,'permissions_model']]]
 ];

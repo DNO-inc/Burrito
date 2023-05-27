@@ -114,29 +114,316 @@ $(document).ready(function(){initNavTree('namespacetickets_1_1views.html',''); i
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">tickets.views Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1CreateTicketView.html">CreateTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1DeleteTicketView.html">DeleteTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1BookmarkTicketView.html">BookmarkTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1TicketListView.html">TicketListView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1TicketDetailInfoView.html">TicketDetailInfoView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1UpdateTicketView.html">UpdateTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtickets_1_1views_1_1CloseTicketView.html">CloseTicketView</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:aed8f2376c79c4ff1657e7503b6126ddb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#aed8f2376c79c4ff1657e7503b6126ddb">tickets__create_new_ticket</a> (CreateTicketSchema ticket_creation_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:aed8f2376c79c4ff1657e7503b6126ddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad3a6227bb3e0c04328c677887cb465"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#a1ad3a6227bb3e0c04328c677887cb465">tickets__delete_ticket_for_me</a> (TicketIDValueSchema deletion_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a1ad3a6227bb3e0c04328c677887cb465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35a054553289b4d2175b4d3219047cd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#ab35a054553289b4d2175b4d3219047cd">tickets__bookmark_ticket</a> (TicketIDValueSchema bookmark_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:ab35a054553289b4d2175b4d3219047cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48b406ca350b607cfb8d4f2d8684f92"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#ae48b406ca350b607cfb8d4f2d8684f92">tickets__unbookmark_ticket</a> (TicketIDValueSchema unbookmark_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:ae48b406ca350b607cfb8d4f2d8684f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a1c46f00747b19011d5bc5769cb109"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#a96a1c46f00747b19011d5bc5769cb109">tickets__like_ticket</a> (TicketIDValueSchema like_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a96a1c46f00747b19011d5bc5769cb109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa0741a7323b89339972f7e74906dfe0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#aaa0741a7323b89339972f7e74906dfe0">tickets__unlike_ticket</a> (TicketIDValueSchema unlike_ticket_data, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:aaa0741a7323b89339972f7e74906dfe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4011919f8f2873c194820d5abc5b3c78"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#a4011919f8f2873c194820d5abc5b3c78">tickets__show_tickets_list_by_filter</a> (TicketListRequestSchema filters, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a4011919f8f2873c194820d5abc5b3c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a326388c22ce4120435ad73e048f11032"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#a326388c22ce4120435ad73e048f11032">tickets__show_detail_ticket_info</a> (TicketIDValueSchema ticket_id_info, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a326388c22ce4120435ad73e048f11032"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac46a32e09b7ba5938a04e243e2213612"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#ac46a32e09b7ba5938a04e243e2213612">tickets__update_own_ticket_data</a> (UpdateTicketSchema updates, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:ac46a32e09b7ba5938a04e243e2213612"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05712dff4e05fad979182b8f30e88aee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views.html#a05712dff4e05fad979182b8f30e88aee">tickets__close_own_ticket</a> (TicketIDValueSchema data_to_close_ticket, AuthJWT Authorize=Depends(get_auth_core()))</td></tr>
+<tr class="separator:a05712dff4e05fad979182b8f30e88aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ab35a054553289b4d2175b4d3219047cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab35a054553289b4d2175b4d3219047cd">&#9670;&nbsp;</a></span>tickets__bookmark_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__bookmark_ticket </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>bookmark_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Follow ticket</pre> 
+</div>
+</div>
+<a id="a05712dff4e05fad979182b8f30e88aee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05712dff4e05fad979182b8f30e88aee">&#9670;&nbsp;</a></span>tickets__close_own_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__close_own_ticket </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>data_to_close_ticket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Close ticket</pre> 
+</div>
+</div>
+<a id="aed8f2376c79c4ff1657e7503b6126ddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed8f2376c79c4ff1657e7503b6126ddb">&#9670;&nbsp;</a></span>tickets__create_new_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__create_new_ticket </td>
+          <td>(</td>
+          <td class="paramtype">CreateTicketSchema&#160;</td>
+          <td class="paramname"><em>ticket_creation_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Create ticket</pre> 
+</div>
+</div>
+<a id="a1ad3a6227bb3e0c04328c677887cb465"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ad3a6227bb3e0c04328c677887cb465">&#9670;&nbsp;</a></span>tickets__delete_ticket_for_me()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__delete_ticket_for_me </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>deletion_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Delete ticket</pre> 
+</div>
+</div>
+<a id="a96a1c46f00747b19011d5bc5769cb109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a1c46f00747b19011d5bc5769cb109">&#9670;&nbsp;</a></span>tickets__like_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__like_ticket </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>like_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Like ticket</pre> 
+</div>
+</div>
+<a id="a326388c22ce4120435ad73e048f11032"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326388c22ce4120435ad73e048f11032">&#9670;&nbsp;</a></span>tickets__show_detail_ticket_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__show_detail_ticket_info </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>ticket_id_info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Show detail ticket info</pre> 
+</div>
+</div>
+<a id="a4011919f8f2873c194820d5abc5b3c78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4011919f8f2873c194820d5abc5b3c78">&#9670;&nbsp;</a></span>tickets__show_tickets_list_by_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__show_tickets_list_by_filter </td>
+          <td>(</td>
+          <td class="paramtype">TicketListRequestSchema&#160;</td>
+          <td class="paramname"><em>filters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Show tickets</pre> 
+</div>
+</div>
+<a id="ae48b406ca350b607cfb8d4f2d8684f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae48b406ca350b607cfb8d4f2d8684f92">&#9670;&nbsp;</a></span>tickets__unbookmark_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__unbookmark_ticket </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>unbookmark_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Follow ticket</pre> 
+</div>
+</div>
+<a id="aaa0741a7323b89339972f7e74906dfe0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa0741a7323b89339972f7e74906dfe0">&#9670;&nbsp;</a></span>tickets__unlike_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__unlike_ticket </td>
+          <td>(</td>
+          <td class="paramtype">TicketIDValueSchema&#160;</td>
+          <td class="paramname"><em>unlike_ticket_data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Unlike ticket</pre> 
+</div>
+</div>
+<a id="ac46a32e09b7ba5938a04e243e2213612"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac46a32e09b7ba5938a04e243e2213612">&#9670;&nbsp;</a></span>tickets__update_own_ticket_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def tickets.views.tickets__update_own_ticket_data </td>
+          <td>(</td>
+          <td class="paramtype">UpdateTicketSchema&#160;</td>
+          <td class="paramname"><em>updates</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AuthJWT &#160;</td>
+          <td class="paramname"><em>Authorize</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Update ticket info</pre> 
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

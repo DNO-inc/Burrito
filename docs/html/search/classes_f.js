@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['updatemyprofile_387',['UpdateMyProfile',['../classprofile_1_1views_1_1UpdateMyProfile.html',1,'profile::views']]],
-  ['updatesview_388',['UpdatesView',['../classabout_1_1views_1_1UpdatesView.html',1,'about::views']]],
-  ['updateticketschema_389',['UpdateTicketSchema',['../classtickets__schema_1_1UpdateTicketSchema.html',1,'tickets_schema']]],
-  ['updateticketview_390',['UpdateTicketView',['../classtickets_1_1views_1_1UpdateTicketView.html',1,'tickets::views']]],
-  ['useragentmiddleware_391',['UserAgentMiddleware',['../classuser__agent_1_1UserAgentMiddleware.html',1,'user_agent']]],
-  ['userpasswordloginschema_392',['UserPasswordLoginSchema',['../classuser__schema_1_1UserPasswordLoginSchema.html',1,'user_schema']]],
-  ['users_393',['Users',['../classuser__model_1_1Users.html',1,'user_model']]],
-  ['userverificationcode_394',['UserVerificationCode',['../classuser__schema_1_1UserVerificationCode.html',1,'user_schema']]]
+  ['ticketdetailinfoschema_388',['TicketDetailInfoSchema',['../classtickets__schema_1_1TicketDetailInfoSchema.html',1,'tickets_schema']]],
+  ['ticketidvalueschema_389',['TicketIDValueSchema',['../classtickets__schema_1_1TicketIDValueSchema.html',1,'tickets_schema']]],
+  ['ticketlistrequestschema_390',['TicketListRequestSchema',['../classtickets__schema_1_1TicketListRequestSchema.html',1,'tickets_schema']]],
+  ['ticketlistresponseschema_391',['TicketListResponseSchema',['../classtickets__schema_1_1TicketListResponseSchema.html',1,'tickets_schema']]],
+  ['tickets_392',['Tickets',['../classtickets__model_1_1Tickets.html',1,'tickets_model']]],
+  ['ticketusersinfoschema_393',['TicketUsersInfoSchema',['../classtickets__schema_1_1TicketUsersInfoSchema.html',1,'tickets_schema']]]
 ];
