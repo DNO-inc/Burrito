@@ -10,8 +10,7 @@ from burrito.utils.auth import get_auth_core
 from .utils import (
     get_hash,
     create_user_tmp_foo, get_user_by_login,
-    is_valid_login, is_valid_password,
-    check_permission
+    is_valid_login, is_valid_password
 )
 
 

@@ -152,15 +152,7 @@ def get_user_by_login(login: str) -> Users | None:
         Users | None: return None if user is not exist
     """
 
-    _current_user = Users.get_or_none(Users.login == login)
-
-    if not _current_user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with login ({login}) is not exist"
-        )
-
-    return _current_user
+    return Users.get_or_none(Users.login == login)
 
 
 def get_user_by_id(user_id: int) -> Users | None:

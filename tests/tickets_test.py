@@ -13,6 +13,10 @@ TIMEOUT = 5
 
 
 def create_ticket_get_id(subject: str) -> int:
+#    file_data = ""
+#    with open("test_file", encoding="utf-8") as _file:
+#        file_data = _file.read()
+
     return requests.post(
         f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
         headers={
