@@ -72,7 +72,7 @@ def drop_tables(use: bool = False):
             Roles,
             RolePermissions,
             Users, Faculties, Groups,
-            Statuses, Deleted,
+            Statuses, Deleted, Liked,
             Tickets, Participants,
             Subscriptions, Actions, Notifications,
             Comments, Queues, Bookmarks
