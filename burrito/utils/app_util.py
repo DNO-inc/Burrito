@@ -1,6 +1,7 @@
 from fastapi import FastAPI, APIRouter, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_jwt_auth.exceptions import AuthJWTException
 
 from burrito.middlewares.user_agent import UserAgentMiddleware
@@ -34,8 +35,15 @@ def get_current_app() -> BurritoApi:
 
     app.add_event_handler("startup", startup_event)
     app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_credentials=True,
+        allow_methods=["*"],
+        allow_headers=["*"],
+    )
 
-#    app.add_middleware(
+    #    app.add_middleware(
 #        TrustedHostMiddleware,
 #        allowed_hosts=["127.0.0.1"]
 #    )
