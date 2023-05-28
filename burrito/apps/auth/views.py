@@ -59,7 +59,6 @@ def auth__token_login(Authorize: AuthJWT = Depends()):
 
     Authorize.jwt_required()
 
-    print("hello")
     return {
         "access_token": Authorize.create_access_token(
             subject=Authorize.get_jwt_subject()

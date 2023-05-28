@@ -33,9 +33,10 @@ class _FileManager:
     def push_file(self, file_data: UploadFile) -> None:
         print(file_data.filename)
 
-    def push_files(self, file_data_list: list[UploadFile]) -> None:
-        for item in file_data_list:
-            self.push_file(item)
+    def push_files(self, file_data_list: list[bytes]) -> None:
+        print(file_data_list)
+#        for item in file_data_list:
+#            self.push_file(item)
 
     def pull_file(self) -> FileResponse:
         ...

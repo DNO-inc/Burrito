@@ -1,4 +1,4 @@
-from fastapi import Depends, status, File, UploadFile
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
@@ -25,7 +25,6 @@ from burrito.utils.converter import (
     FacultyStrToInt,
     StatusStrToInt
 )
-from burrito.utils.file_manager import get_file_manager
 
 from .utils import (
     get_auth_core,
@@ -40,7 +39,6 @@ from .utils import (
 @check_permission(permission_list={"CREATE_TICKET"})
 async def tickets__create_new_ticket(
     ticket_creation_data: CreateTicketSchema,
-#    file_list: list[UploadFile] = File(...),
     Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Create ticket"""
@@ -62,9 +60,6 @@ async def tickets__create_new_ticket(
         queue=QueueStrToInt.convert(ticket_creation_data.queue),
         faculty=faculty_id
     )
-
-#    file_manager = get_file_manager()
-#    file_manager.push_files(file_list)
 
     return JSONResponse(
         status_code=200,
