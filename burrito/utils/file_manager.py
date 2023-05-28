@@ -3,7 +3,10 @@ from pathlib import Path
 from fastapi import UploadFile
 from fastapi.responses import FileResponse
 
+import aiofiles
+
 from burrito.utils.singleton_pattern import singleton
+from burrito.utils.task_manager import get_async_manager
 
 
 @singleton
@@ -30,22 +33,29 @@ class _FileManager:
     def max_size(self) -> int | float:
         return self.__max_size
 
-    def push_file(self, file_data: UploadFile) -> None:
-        print(file_data.filename)
+    async def push_file(self, file_data: UploadFile) -> None:
+        path_to_file: Path = self.__base_path / file_data.filename
+        async with aiofiles.open(
+            path_to_file,
+            mode="w"
+        ) as file:
+            await file_data.read()
+            await file.write("123")
 
-    def push_files(self, file_data_list: list[UploadFile]) -> None:
-        for item in file_data_list:
-            self.push_file(item)
+    async def push_files(self, file_data_list: list[UploadFile]) -> None:
+        get_async_manager().add_multiply_task(
+            [self.push_file(item) for item in file_data_list]
+        )
 
-    def pull_file(self) -> FileResponse:
+    async def pull_file(self) -> FileResponse:
         ...
 
-    def pull_files(self) -> list[FileResponse]:
+    async def pull_files(self) -> list[FileResponse]:
         ...
 
 
 def get_file_manager() -> _FileManager:
     return _FileManager(
-        "./",
+        "storage/",
         [""]
     )

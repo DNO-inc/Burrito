@@ -19,6 +19,8 @@ from burrito.apps.admin.router import admin_router
 from burrito.apps.anon.router import anon_router
 from burrito.apps.meta.router import meta_router
 
+from burrito.apps.iofiles.router import iofiles_router
+
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app, get_current_app
 from burrito.utils.config_reader import get_config
@@ -42,6 +44,7 @@ connect_app(app, "/tickets", tickets_router)
 connect_app(app, "/admin", admin_router)
 connect_app(app, "/anon", anon_router)
 connect_app(app, "/meta", meta_router)
+connect_app(app, "/iofiles", iofiles_router)
 
 
 if __name__ == "__main__":
