@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Burrito"
-version = "0.4.0.dev1"
+version = "0.5.1.dev1"
 description = "API for the issue tracker"
 authors = ["DimonBor", "m-o-d-e-r"]
 readme = "README.md"
@@ -26,6 +26,7 @@ pymysql = "^1.0.3"
 cachetools = "^5.3.0"
 python-dotenv = "^1.0.0"
 python-multipart = "^0.0.6"
+aiofiles = "^23.1.0"
 
 
 [build-system]
