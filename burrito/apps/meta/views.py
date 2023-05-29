@@ -16,22 +16,30 @@ from burrito.schemas.meta_schema import (
 
 from burrito.utils.converter import FacultyStrToInt
 
+from burrito.mm.model_manager import get_model_manager
+
 
 async def meta__get_statuses_list():
     return ResponseStatusesListSchema(
-        statuses_list=[s.name for s in Statuses.select()]
+        statuses_list=[
+            s.name for s in get_model_manager().select_all(Statuses)
+        ]
     )
 
 
 async def meta__get_groups_list():
     return ResponseGroupsListSchema(
-        groups_list=[group.name for group in Groups.select()]
+        groups_list=[
+            group.name for group in get_model_manager().select_all(Groups)
+        ]
     )
 
 
 async def meta__faculties_list():
     return ResponseFacultiesListSchema(
-        faculties_list=[faculty.name for faculty in Faculties.select()]
+        faculties_list=[
+            faculty.name for faculty in get_model_manager().select_all(Faculties)
+        ]
     )
 
 
@@ -46,8 +54,9 @@ async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
 
     return ResponseQueueListSchema(
         queues_list=[
-            queue.name for queue in Queues.select().where(
-                Queues.faculty==faculty_id
+            queue.name for queue in get_model_manager().select_by_filter(
+                Queues,
+                _filters=[Queues.faculty == faculty_id]
             )
         ]
     )
