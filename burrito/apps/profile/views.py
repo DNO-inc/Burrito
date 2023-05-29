@@ -10,6 +10,11 @@ from burrito.schemas.profile_schema import (
     RequestUpdateProfileSchema
 )
 
+from burrito.utils.auth_token_util import (
+    read_access_token_payload,
+    AuthTokenPayload
+)
+
 from burrito.utils.converter import (
     FacultyStrToInt,
     GroupStrToInt
@@ -30,7 +35,11 @@ async def profile__check_my_profile(
 
     Authorize.jwt_required()
 
-    return await view_profile_by_user_id(Authorize.get_jwt_subject())
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    return await view_profile_by_user_id(token_payload.user_id)
 
 
 async def profile__check_by_id(
@@ -50,8 +59,10 @@ async def profile__update_my_profile(
 
     Authorize.jwt_required()
 
-    user_id = Authorize.get_jwt_subject()
-    current_user: Users | None = get_user_by_id(user_id)
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+    current_user: Users | None = get_user_by_id(token_payload.user_id)
 
     if profile_updated_data.firstname:
         current_user.firstname = profile_updated_data.firstname

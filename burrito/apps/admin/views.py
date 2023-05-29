@@ -15,6 +15,10 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
+from burrito.utils.auth_token_util import (
+    read_access_token_payload,
+    AuthTokenPayload
+)
 from burrito.utils.db_utils import get_user_by_id
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
@@ -37,6 +41,10 @@ async def admin__update_ticket_data(
 ):
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         admin_updates.ticket_id
     )
@@ -49,7 +57,7 @@ async def admin__update_ticket_data(
     if queue_id:    # queue_id must be > 1
         ticket.queue = queue_id
 
-    current_admin: Users | None = get_user_by_id(Authorize.get_jwt_subject())
+    current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_id = 0
     if ticket.assignee == current_admin:
         status_id = StatusStrToInt.convert(admin_updates.status)
@@ -192,13 +200,17 @@ async def admin__become_an_assignee(
 ):
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         ticket_data.ticket_id
     )
 
     if not ticket.assignee:
         current_admin: Users | None = get_user_by_id(
-            Authorize.get_jwt_subject()
+            token_payload.user_id
         )
         ticket.assignee = current_admin
         ticket.status = StatusStrToInt.convert("OPEN")
