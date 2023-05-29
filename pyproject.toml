@@ -27,6 +27,7 @@ cachetools = "^5.3.0"
 python-dotenv = "^1.0.0"
 python-multipart = "^0.0.6"
 aiofiles = "^23.1.0"
+cryptography = "^40.0.2"
 
 
 [build-system]
