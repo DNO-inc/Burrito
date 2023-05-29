@@ -88,9 +88,9 @@ def drop_tables(use: bool = False):
 
 
 def create_user_tmp_foo(
-        login: str, hashed_password: str,
-        group: str, faculty: str
-) -> int | None:
+    login: str, hashed_password: str,
+    group: str, faculty: str
+) -> Users | None:
     """_summary_
 
     Create user with default fields: (login, hashed_password)
@@ -116,7 +116,7 @@ def create_user_tmp_foo(
             faculty=faculty_id,
             role=Roles.get(Roles.name == "ALL")
         )
-        return user.user_id
+        return user
 
     except Exception as e:  # pylint: disable=broad-except, invalid-name
         get_logger().error(e)

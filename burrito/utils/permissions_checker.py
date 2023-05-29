@@ -8,6 +8,11 @@ from burrito.models.role_permissions_model import RolePermissions
 
 from burrito.utils.db_utils import get_user_by_id
 
+from burrito.utils.auth_token_util import (
+    read_access_token_payload,
+    AuthTokenPayload
+)
+
 
 class EndpointPermissionError(HTTPException):
     ...
@@ -36,8 +41,11 @@ def check_permission(permission_list: set[str] = set()):
             if auth_core:
                 auth_core.jwt_required()
 
-                current_user: Users | None = get_user_by_id(
+                token_payload: AuthTokenPayload = read_access_token_payload(
                     auth_core.get_jwt_subject()
+                )
+                current_user: Users | None = get_user_by_id(
+                    token_payload.user_id
                 )
 
                 current_user_permissions: set[str] = set()

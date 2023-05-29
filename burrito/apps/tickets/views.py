@@ -18,6 +18,10 @@ from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
 
+from burrito.utils.auth_token_util import (
+    read_access_token_payload,
+    AuthTokenPayload
+)
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -44,6 +48,10 @@ async def tickets__create_new_ticket(
     """Create ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     faculty_id = FacultyStrToInt.convert(ticket_creation_data.faculty)
     if not faculty_id:
         return JSONResponse(
@@ -52,7 +60,7 @@ async def tickets__create_new_ticket(
         )
 
     ticket: Tickets = Tickets.create(
-        creator=Authorize.get_jwt_subject(),
+        creator=token_payload.user_id,
         subject=ticket_creation_data.subject,
         body=ticket_creation_data.body,
         hidden=ticket_creation_data.hidden,
@@ -78,13 +86,17 @@ async def tickets__delete_ticket_for_me(
     """Delete ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         deletion_ticket_data.ticket_id
     )
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
-        Authorize.get_jwt_subject()
+        token_payload.user_id
     )
 
     try:
@@ -109,19 +121,23 @@ async def tickets__bookmark_ticket(
     """Follow ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         bookmark_ticket_data.ticket_id
     )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user_id == Authorize.get_jwt_subject(),
+        Bookmarks.user_id == token_payload.user_id,
         Bookmarks.ticket_id == ticket.ticket_id
     )
 
     try:
         if not bookmark:
             Bookmarks.create(
-                user_id=Authorize.get_jwt_subject(),
+                user_id=token_payload.user_id,
                 ticket_id=ticket.ticket_id
             )
         return JSONResponse(
@@ -147,12 +163,16 @@ async def tickets__unbookmark_ticket(
     """Follow ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         unbookmark_ticket_data.ticket_id
     )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user_id == Authorize.get_jwt_subject(),
+        Bookmarks.user_id == token_payload.user_id,
         Bookmarks.ticket_id == ticket.ticket_id
     )
 
@@ -178,19 +198,23 @@ async def tickets__like_ticket(
     """Like ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         like_ticket_data.ticket_id
     )
 
     like: Liked | None = Liked.get_or_none(
-        Liked.user_id == Authorize.get_jwt_subject(),
+        Liked.user_id == token_payload.user_id,
         Liked.ticket_id == ticket.ticket_id
     )
 
     try:
         if not like:
             Liked.create(
-                user_id=Authorize.get_jwt_subject(),
+                user_id=token_payload.user_id,
                 ticket_id=ticket.ticket_id
             )
         return JSONResponse(
@@ -216,12 +240,16 @@ async def tickets__unlike_ticket(
     """Unlike ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         unlike_ticket_data.ticket_id
     )
 
     like: Liked | None = Liked.get_or_none(
-        Liked.user_id == Authorize.get_jwt_subject(),
+        Liked.user_id == token_payload.user_id,
         Liked.ticket_id == ticket.ticket_id
     )
 
@@ -247,6 +275,10 @@ async def tickets__show_tickets_list_by_filter(
     """Show tickets"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     available_filters = {
         "creator": Tickets.creator == filters.creator,
         "hidden": Tickets.hidden == filters.hidden,
@@ -265,7 +297,7 @@ async def tickets__show_tickets_list_by_filter(
 
     tickets_black_list = set()
 
-    for item in Deleted.select().where(Deleted.user_id == Authorize.get_jwt_subject()):
+    for item in Deleted.select().where(Deleted.user_id == token_payload.user_id):
         tickets_black_list.add(item.ticket_id.ticket_id)
 
     expression = None
@@ -278,7 +310,7 @@ async def tickets__show_tickets_list_by_filter(
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
-            Authorize.get_jwt_subject()
+            token_payload.user_id
         )
 
         if not i_am_creator and ticket.hidden:
@@ -329,13 +361,17 @@ async def tickets__show_detail_ticket_info(
     """Show detail ticket info"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
     )
 
     i_am_creator = am_i_own_this_ticket(
         ticket.creator.user_id,
-        Authorize.get_jwt_subject()
+        token_payload.user_id
     )
 
     if not i_am_creator and ticket.hidden:
@@ -393,13 +429,17 @@ async def tickets__update_own_ticket_data(
     """Update ticket info"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         updates.ticket_id
     )
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
-        Authorize.get_jwt_subject()
+        token_payload.user_id
     )
 
     update_ticket_info(ticket, updates)  # autocommit
@@ -418,13 +458,17 @@ async def tickets__close_own_ticket(
     """Close ticket"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         data_to_close_ticket.ticket_id
     )
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
-        Authorize.get_jwt_subject()
+        token_payload.user_id
     )
 
     status_name = "CLOSE"

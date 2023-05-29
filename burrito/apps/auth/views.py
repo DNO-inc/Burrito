@@ -6,6 +6,16 @@ from burrito.schemas.user_schema import UserPasswordLoginSchema
 
 from burrito.models.user_model import Users
 
+from burrito.utils.auth_token_util import (
+    create_access_token_payload,
+    read_access_token_payload,
+    AuthTokenPayload
+)
+
+from burrito.utils.db_utils import (
+    get_user_by_id
+)
+
 from .utils import (
     get_auth_core,
     get_user_by_login,
@@ -26,7 +36,12 @@ def auth__password_login(
 
         if compare_password(user_login_data.password, user.password):
             access_token = Authorize.create_access_token(
-                subject=user.user_id
+                subject=create_access_token_payload(
+                    AuthTokenPayload(
+                        user_id=user.user_id,
+                        role=user.role.name
+                    )
+                )
             )
             refresh_token = Authorize.create_refresh_token(
                 subject=user.user_id
@@ -59,8 +74,16 @@ def auth__token_login(Authorize: AuthJWT = Depends()):
 
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    get_user_by_id(token_payload.user_id)
+
     return {
         "access_token": Authorize.create_access_token(
-            subject=Authorize.get_jwt_subject()
+            subject=create_access_token_payload(
+                token_data=token_payload
+            )
         )
     }
