@@ -16,7 +16,7 @@ COPY pyproject.toml ./
 RUN poetry install --only main
 
 
-FROM python:3.10-alpine
+FROM python:3.10-slim-buster
 
 ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 
