@@ -25,8 +25,6 @@ from burrito.utils.converter import GroupStrToInt, FacultyStrToInt
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
 
-from burrito.mm.model_manager import get_model_manager
-
 
 def setup_database():
     """_summary_
@@ -51,9 +49,6 @@ def create_tables():
         Subscriptions, Actions, Notifications,
         Comments, Queues, Bookmarks
     ]
-
-    model_manager = get_model_manager()
-    model_manager.add_models(all_models)
 
     get_database_cursor().create_tables(all_models)
 
