@@ -19,7 +19,7 @@ from burrito.utils.auth_token_util import (
     read_access_token_payload,
     AuthTokenPayload
 )
-from burrito.utils.db_utils import get_user_by_id
+from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (

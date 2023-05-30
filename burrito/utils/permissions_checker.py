@@ -6,7 +6,7 @@ from fastapi_jwt_auth import AuthJWT
 from burrito.models.user_model import Users
 from burrito.models.role_permissions_model import RolePermissions
 
-from burrito.utils.db_utils import get_user_by_id
+from burrito.utils.users_util import get_user_by_id
 
 from burrito.utils.auth_token_util import (
     read_access_token_payload,

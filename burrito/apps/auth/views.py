@@ -2,7 +2,10 @@ from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
-from burrito.schemas.user_schema import UserPasswordLoginSchema
+from burrito.schemas.auth_schema import (
+    AuthResponseSchema,
+    UserPasswordLoginSchema
+)
 
 from burrito.models.user_model import Users
 
@@ -12,7 +15,7 @@ from burrito.utils.auth_token_util import (
     AuthTokenPayload
 )
 
-from burrito.utils.db_utils import (
+from burrito.utils.users_util import (
     get_user_by_id
 )
 
@@ -47,13 +50,11 @@ def auth__password_login(
                 subject=user.user_id
             )
 
-            return JSONResponse(
-                status_code=status.HTTP_200_OK,
-                content={
-                    "user_id": user.user_id,
-                    "access_token": access_token,
-                    "refresh_token": refresh_token
-                }
+            return AuthResponseSchema(
+                user_id=user.user_id,
+                login=user.login,
+                access_token=access_token,
+                refresh_token=refresh_token
             )
 
         return JSONResponse(
@@ -78,12 +79,14 @@ def auth__token_login(Authorize: AuthJWT = Depends()):
         Authorize.get_jwt_subject()
     )
 
-    get_user_by_id(token_payload.user_id)
+    user: Users | None = get_user_by_id(token_payload.user_id)
 
-    return {
-        "access_token": Authorize.create_access_token(
+    return AuthResponseSchema(
+        user_id=user.user_id,
+        login=user.login,
+        access_token=Authorize.create_access_token(
             subject=create_access_token_payload(
                 token_data=token_payload
             )
         )
-    }
+    )

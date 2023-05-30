@@ -1,5 +1,5 @@
 from burrito.utils.auth import get_auth_core
-from burrito.utils.db_utils import get_user_by_id
+from burrito.utils.users_util import get_user_by_id
 
 from burrito.utils.permissions_checker import check_permission
 
