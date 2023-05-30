@@ -15,7 +15,7 @@ from burrito.utils.auth_token_util import (
     AuthTokenPayload
 )
 
-from burrito.utils.db_utils import (
+from burrito.utils.users_util import (
     get_user_by_id
 )
 
