@@ -341,7 +341,7 @@ async def tickets__show_tickets_list_by_filter(
                 assignee=assignee_modified if assignee else None,
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
-                body=hide_ticket_body(ticket.body),
+                body=hide_ticket_body(ticket.body, 500),
                 faculty=ticket.faculty.name,
                 status=ticket.status.name,
                 upvotes=upvotes
