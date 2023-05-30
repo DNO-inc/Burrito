@@ -65,7 +65,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 assignee=assignee_modified if assignee else None,
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
-                body=hide_ticket_body(ticket.body),
+                body=hide_ticket_body(ticket.body, 500),
                 faculty=ticket.faculty.name,
                 status=ticket.status.name,
                 upvotes=upvotes
