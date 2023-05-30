@@ -2,8 +2,10 @@ from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
-from burrito.schemas.user_schema import UserPasswordLoginSchema
-from burrito.schemas.auth_schema import AuthResponseSchema
+from burrito.schemas.auth_schema import (
+    AuthResponseSchema,
+    UserPasswordLoginSchema
+)
 
 from burrito.models.user_model import Users
 

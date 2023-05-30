@@ -14,6 +14,20 @@ class AuthSettingsModel(BaseModel):
 #    authjwt_denylist_enabled = True
 
 
+class UserPasswordLoginSchema(BaseModel):
+    """_summary_
+
+    User need to transfer this data to get access to API
+
+    Args:
+        login (str): user login
+        password (str): user password
+    """
+
+    login: str
+    password: str
+
+
 class AuthResponseSchema(BaseModel):
     user_id: int
     login: str
