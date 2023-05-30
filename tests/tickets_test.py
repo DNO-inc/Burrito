@@ -20,7 +20,7 @@ def create_ticket_get_id(subject: str) -> int:
         },
         json={
             "subject": subject,
-            "body": "".join([random.choice(string.ascii_letters) for i in range(300)]),
+            "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "queue": "questions",
@@ -45,7 +45,7 @@ class TicketsTestCase(unittest.TestCase):
             },
             json={
                 "subject": "".join(random.sample(string.ascii_letters, 5)),
-                "body": "".join(random.sample(string.ascii_letters, 15)),
+                "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": "questions",
