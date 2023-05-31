@@ -13,6 +13,8 @@ from burrito.schemas.tickets_schema import (
     TicketListRequestSchema,
     TicketListResponseSchema
 )
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
@@ -24,7 +26,7 @@ from burrito.utils.auth_token_util import (
     read_access_token_payload,
     AuthTokenPayload
 )
-from burrito.utils.tickets_util import hide_ticket_body
+from burrito.utils.tickets_util import hide_ticket_body, make_short_user_data
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
     QueueStrToInt,
@@ -300,7 +302,7 @@ async def tickets__show_tickets_list_by_filter(
     for item in Deleted.select().where(Deleted.user_id == token_payload.user_id):
         tickets_black_list.add(item.ticket_id.ticket_id)
 
-    expression = None
+    expression: list[Tickets] = None
     if final_filters:
         expression = Tickets.select().where(*final_filters)
     else:
@@ -321,14 +323,11 @@ async def tickets__show_tickets_list_by_filter(
 
         creator = None
         if not ticket.anonymous or i_am_creator:
-            creator = model_to_dict(ticket.creator)
-            creator["faculty"] = ticket.creator.faculty.name
+            creator = make_short_user_data(ticket.creator, hide_user_id=False)
 
-        assignee = ticket.assignee
-        assignee_modified: dict = {}
-        if assignee:
-            assignee_modified = model_to_dict(assignee)
-            assignee_modified["faculty"] = ticket.assignee.faculty.name
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
 
         upvotes = Liked.select().where(
             Liked.ticket_id == ticket.ticket_id
@@ -337,12 +336,18 @@ async def tickets__show_tickets_list_by_filter(
         response_list.append(
             TicketDetailInfoSchema(
                 creator=creator,
-                assignee=assignee_modified if assignee else None,
+                assignee=assignee,
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body, 500),
-                faculty=ticket.faculty.name,
-                status=ticket.status.name,
+                faculty=FacultyResponseSchema(
+                    faculty_id=ticket.faculty.faculty_id,
+                    name=ticket.faculty.name
+                ),
+                status=StatusResponseSchema(
+                    status_id=ticket.status.status_id,
+                    name=ticket.status.name
+                ),
                 upvotes=upvotes
             )
         )
@@ -381,28 +386,11 @@ async def tickets__show_detail_ticket_info(
 
     creator = None
     if not ticket.anonymous or i_am_creator:
-        creator = model_to_dict(ticket.creator)
+        creator = make_short_user_data(ticket.creator, hide_user_id=False)
 
-        try:
-            creator["faculty"] = ticket.creator.faculty.name
-        except:
-            get_logger().critical(
-                f"User {ticket.creator.user_id} without faculty value"
-            )
-            creator["faculty"] = None
-
-    assignee = ticket.assignee
-    assignee_modified = dict()
-    if assignee:
-        assignee_modified = model_to_dict(assignee)
-
-        try:
-            assignee_modified["faculty"] = ticket.assignee.faculty.name
-        except:
-            get_logger().critical(
-                f"User {ticket.assignee} without faculty value"
-            )
-            assignee_modified["faculty"] = None
+    assignee = None
+    if ticket.assignee:
+        assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
 
     upvotes = Liked.select().where(
         Liked.ticket_id == ticket.ticket_id
@@ -414,8 +402,14 @@ async def tickets__show_detail_ticket_info(
         ticket_id=ticket.ticket_id,
         subject=ticket.subject,
         body=ticket.body,
-        faculty=ticket.faculty.name,
-        status=ticket.status.name,
+        faculty=FacultyResponseSchema(
+            faculty_id=ticket.faculty.faculty_id,
+            name=ticket.faculty.name
+        ),
+        status=StatusResponseSchema(
+            status_id=ticket.status.status_id,
+            name=ticket.status.name,
+        ),
         upvotes=upvotes
     )
 
