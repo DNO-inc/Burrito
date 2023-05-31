@@ -3,8 +3,6 @@ from fastapi.responses import JSONResponse
 
 from fastapi_jwt_auth import AuthJWT
 
-from playhouse.shortcuts import model_to_dict
-
 from burrito.schemas.tickets_schema import (
     CreateTicketSchema,
     TicketIDValueSchema,
@@ -16,6 +14,7 @@ from burrito.schemas.tickets_schema import (
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 
+from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
@@ -348,7 +347,14 @@ async def tickets__show_tickets_list_by_filter(
                     status_id=ticket.status.status_id,
                     name=ticket.status.name
                 ),
-                upvotes=upvotes
+                upvotes=upvotes,
+                is_liked=bool(
+                    Liked.get_or_none(
+                        Liked.user_id == token_payload.user_id,
+                        Liked.ticket_id == ticket.ticket_id
+                    )
+                ),
+                date=str(ticket.created)
             )
         )
 
@@ -410,7 +416,14 @@ async def tickets__show_detail_ticket_info(
             status_id=ticket.status.status_id,
             name=ticket.status.name,
         ),
-        upvotes=upvotes
+        upvotes=upvotes,
+        is_liked=bool(
+            Liked.get_or_none(
+                Liked.user_id == token_payload.user_id,
+                Liked.ticket_id == ticket.ticket_id
+            )
+        ),
+        date=str(ticket.created)
     )
 
 

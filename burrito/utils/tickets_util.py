@@ -7,6 +7,7 @@ from burrito.models.user_model import Users
 
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -61,7 +62,9 @@ def make_short_user_data(
     user_dict_data["faculty"] = FacultyResponseSchema(
         **model_to_dict(user.faculty)
     )
+
     if hide_user_id:
         user_dict_data["user_id"] = None
+        user_dict_data["group"] = None
 
     return TicketUsersInfoSchema(**user_dict_data)

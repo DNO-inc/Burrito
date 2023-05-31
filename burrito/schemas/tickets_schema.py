@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.queue_schema import QueueResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
 
 
 class CreateTicketSchema(BaseModel):
@@ -41,7 +41,7 @@ class TicketUsersInfoSchema(BaseModel):
     lastname: str | None
     login: str
     faculty: FacultyResponseSchema
-#    group: str | None
+    group: GroupResponseSchema | None
 #    role: str | None
 
 
@@ -55,6 +55,8 @@ class TicketDetailInfoSchema(BaseModel):
     faculty: FacultyResponseSchema
     status: StatusResponseSchema
     upvotes: int
+    is_liked: bool
+    date: str
 #    actions: list[object]
 
 
