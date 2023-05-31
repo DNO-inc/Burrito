@@ -2,10 +2,10 @@ var hierarchy =
 [
     [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", null ],
     [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", [
-      [ "FacultyStrToInt", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
-      [ "GroupStrToInt", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
-      [ "QueueStrToInt", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
-      [ "StatusStrToInt", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
+      [ "FacultyStrToModel", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
+      [ "GroupStrToModel", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
+      [ "QueueStrToModel", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
+      [ "StatusStrToModel", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
     ] ],
     [ "DefaultDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1DefaultDataBasePreprocessor.html", [
       [ "CloudDataBasePreprocessor", "classburrito_1_1utils_1_1db__preprocessor_1_1CloudDataBasePreprocessor.html", null ],

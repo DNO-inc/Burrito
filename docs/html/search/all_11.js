@@ -11,7 +11,7 @@ var searchData=
   ['statuses_274',['Statuses',['../classstatuses__model_1_1Statuses.html',1,'statuses_model']]],
   ['statuses_5fmodel_275',['statuses_model',['../namespacestatuses__model.html',1,'']]],
   ['statuses_5fmodel_2epy_276',['statuses_model.py',['../statuses__model_8py.html',1,'']]],
-  ['statusstrtoint_277',['StatusStrToInt',['../classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html',1,'burrito::utils::converter']]],
+  ['statusstrtoint_277',['StatusStrToModel',['../classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html',1,'burrito::utils::converter']]],
   ['stop_278',['stop',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'burrito::utils::task_manager::_TaskManager']]],
   ['str_279',['str',['../classauth__schema_1_1AuthSettingsModel.html#a4b99ff73a8a869319570237b5c57ab03',1,'auth_schema::AuthSettingsModel']]],
   ['subject_280',['subject',['../classtickets__model_1_1Tickets.html#a2c1430033f657c907d71f995985d6ef6',1,'tickets_model::Tickets']]],

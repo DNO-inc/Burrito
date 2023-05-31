@@ -12,9 +12,9 @@ from burrito.schemas.anon_schema import (
 )
 
 from burrito.utils.converter import (
-    FacultyStrToInt,
-    QueueStrToInt,
-    StatusStrToInt
+    FacultyStrToModel,
+    QueueStrToModel,
+    StatusStrToModel
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -25,9 +25,9 @@ from burrito.utils.tickets_util import (
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
         "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
-        "status": Tickets.status == StatusStrToInt.convert(filters.status)
+        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
+        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
+        "status": Tickets.status == StatusStrToModel.convert(filters.status)
     }
 
     final_filters = []

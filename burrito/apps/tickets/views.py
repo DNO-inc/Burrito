@@ -14,7 +14,7 @@ from burrito.schemas.tickets_schema import (
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 
-from burrito.models.user_model import Users
+from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
@@ -28,9 +28,9 @@ from burrito.utils.auth_token_util import (
 from burrito.utils.tickets_util import hide_ticket_body, make_short_user_data
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
-    QueueStrToInt,
-    FacultyStrToInt,
-    StatusStrToInt
+    QueueStrToModel,
+    FacultyStrToModel,
+    StatusStrToModel
 )
 
 from .utils import (
@@ -55,7 +55,14 @@ async def tickets__create_new_ticket(
         Authorize.get_jwt_subject()
     )
 
-    faculty_id = FacultyStrToInt.convert(ticket_creation_data.faculty)
+    faculty_id = FacultyStrToModel.convert(ticket_creation_data.faculty)
+
+    queue: Queues | None = None
+    if faculty_id:
+        queue = Queues.get(
+            Queues.faculty == faculty_id,
+            Queues.name == ticket_creation_data.queue
+        )
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
@@ -63,7 +70,7 @@ async def tickets__create_new_ticket(
         body=ticket_creation_data.body,
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
-        queue=QueueStrToInt.convert(ticket_creation_data.queue),
+        queue=queue,
         faculty=faculty_id if faculty_id else get_user_by_id(
             token_payload.user_id
         ).faculty
@@ -283,9 +290,9 @@ async def tickets__show_tickets_list_by_filter(
         "creator": Tickets.creator == filters.creator,
         "hidden": Tickets.hidden == filters.hidden,
         "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
-        "status": Tickets.status == StatusStrToInt.convert(filters.status)
+        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
+        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
+        "status": Tickets.status == StatusStrToModel.convert(filters.status)
     }
 
     final_filters = []
@@ -478,7 +485,7 @@ async def tickets__close_own_ticket(
     )
 
     status_name = "CLOSE"
-    status_object = StatusStrToInt.convert(status_name)
+    status_object = StatusStrToModel.convert(status_name)
 
     if not status_object:
         get_logger().critical(f"Status {status_name} is not exist in database")

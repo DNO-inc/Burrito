@@ -18,7 +18,7 @@ class Converter:
         raise NotImplementedError("This is an abstract method")
 
 
-class GroupStrToInt(Converter):
+class GroupStrToModel(Converter):
     @staticmethod
     @cached(BurritoCache())
     def convert(str_value: str | None) -> Groups | None:
@@ -31,13 +31,13 @@ class GroupStrToInt(Converter):
             Groups | None: group object or None value
         """
 
-        if GroupStrToInt._is_empty(str_value):
+        if GroupStrToModel._is_empty(str_value):
             return None
 
         return Groups.get_or_none(Groups.name == str_value)
 
 
-class FacultyStrToInt(Converter):
+class FacultyStrToModel(Converter):
     @staticmethod
     @cached(BurritoCache())
     def convert(str_value: str | None) -> Faculties | None:
@@ -50,16 +50,16 @@ class FacultyStrToInt(Converter):
             Faculties | None: faculty object or None value
         """
 
-        if FacultyStrToInt._is_empty(str_value):
+        if FacultyStrToModel._is_empty(str_value):
             return None
 
         return Faculties.get_or_none(Faculties.name == str_value)
 
 
-class QueueStrToInt(Converter):
+class QueueStrToModel(Converter):
     @staticmethod
     @cached(BurritoCache())
-    def convert(str_value: str | None) -> Queues | None:
+    def convert(str_value: str | None, faculty: Faculties = None) -> Queues | None:
         """_summary_
 
         Args:
@@ -69,13 +69,19 @@ class QueueStrToInt(Converter):
             Queues | None: queue object or None value
         """
 
-        if QueueStrToInt._is_empty(str_value):
+        if QueueStrToModel._is_empty(str_value):
             return None
 
-        return Queues.get_or_none(Queues.name == str_value)
+        if not faculty:
+            return None
+
+        return Queues.get_or_none(
+            Queues.name == str_value,
+            Queues.faculty == faculty
+        )
 
 
-class StatusStrToInt(Converter):
+class StatusStrToModel(Converter):
     @staticmethod
     @cached(BurritoCache())
     def convert(str_value: str | None) -> Statuses | None:
@@ -88,7 +94,7 @@ class StatusStrToInt(Converter):
             Statuses | None: 'status' object or None value
         """
 
-        if StatusStrToInt._is_empty(str_value):
+        if StatusStrToModel._is_empty(str_value):
             return None
 
         return Statuses.get_or_none(Statuses.name == str_value)
