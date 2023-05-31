@@ -13,11 +13,13 @@ from burrito.schemas.tickets_schema import (
     TicketListRequestSchema,
     TicketListResponseSchema
 )
+
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
 
+from burrito.utils.users_util import get_user_by_id
 from burrito.utils.auth_token_util import (
     read_access_token_payload,
     AuthTokenPayload
@@ -53,11 +55,6 @@ async def tickets__create_new_ticket(
     )
 
     faculty_id = FacultyStrToInt.convert(ticket_creation_data.faculty)
-    if not faculty_id:
-        return JSONResponse(
-            status_code=status.HTTP_403_FORBIDDEN,
-            content={"detail": "Faculty name is wrong"}
-        )
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
@@ -66,7 +63,9 @@ async def tickets__create_new_ticket(
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
         queue=QueueStrToInt.convert(ticket_creation_data.queue),
-        faculty=faculty_id
+        faculty=faculty_id if faculty_id else get_user_by_id(
+            token_payload.user_id
+        ).faculty
     )
 
     return JSONResponse(
@@ -290,8 +289,9 @@ async def tickets__show_tickets_list_by_filter(
 
     final_filters = []
     for filter_item in filters.dict().items():
-        if filter_item[1] is not None:
-            final_filters.append(available_filters[filter_item[0]])
+        filter_candidate = available_filters.get(filter_item[0])
+        if filter_item[1] is not None and filter_candidate:
+            final_filters.append(filter_candidate)
 
     response_list: TicketDetailInfoSchema = []
 
@@ -316,9 +316,8 @@ async def tickets__show_tickets_list_by_filter(
         if not i_am_creator and ticket.hidden:
             continue
 
-        if i_am_creator:
-            if ticket.ticket_id in tickets_black_list:
-                continue
+        if i_am_creator and (ticket.ticket_id in tickets_black_list):
+            continue
 
         creator = None
         if not ticket.anonymous or i_am_creator:
