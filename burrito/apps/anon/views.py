@@ -3,6 +3,8 @@ from playhouse.shortcuts import model_to_dict
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.anon_schema import (
     AnonTicketListRequestSchema,
     AnonTicketDetailInfoSchema,
@@ -14,7 +16,10 @@ from burrito.utils.converter import (
     QueueStrToInt,
     StatusStrToInt
 )
-from burrito.utils.tickets_util import hide_ticket_body
+from burrito.utils.tickets_util import (
+    hide_ticket_body,
+    make_short_user_data
+)
 
 
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
@@ -32,7 +37,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
 
     response_list: AnonTicketDetailInfoSchema = []
 
-    expression = None
+    expression: list[Tickets] = None
     if final_filters:
         expression = Tickets.select().where(
             Tickets.hidden == 0,
@@ -44,16 +49,18 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
 
     for ticket in expression:
         creator = None
-        assignee = None
         if not ticket.anonymous:
-            creator = model_to_dict(ticket.creator)
-            creator["faculty"] = ticket.creator.faculty.name
+            creator = make_short_user_data(
+                ticket.creator,
+                hide_user_id=True
+            )
 
-            assignee = ticket.assignee
-            assignee_modified = dict()
-            if assignee:
-                assignee_modified = model_to_dict(assignee)
-                assignee_modified["faculty"] = ticket.assignee.faculty.name
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=True
+            )
 
         upvotes = Liked.select().where(
             Liked.ticket_id == ticket.ticket_id
@@ -62,13 +69,18 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
         response_list.append(
             AnonTicketDetailInfoSchema(
                 creator=creator,
-                assignee=assignee_modified if assignee else None,
+                assignee=assignee,
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body, 500),
-                faculty=ticket.faculty.name,
-                status=ticket.status.name,
-                upvotes=upvotes
+                faculty=FacultyResponseSchema(
+                    **model_to_dict(ticket.faculty)
+                ),
+                status=StatusResponseSchema(
+                    **model_to_dict(ticket.status)
+                ),
+                upvotes=upvotes,
+                date=str(ticket.created)
             )
         )
 
