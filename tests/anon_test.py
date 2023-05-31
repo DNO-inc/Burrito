@@ -13,7 +13,7 @@ class AnonTestCase(unittest.TestCase):
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/anon/ticket_list",
             json={
                 "anonymous": True,
-                "status": "ACCEPTED"
+#                "status": "ACCEPTED"
             },
             timeout=TIMEOUT
         )

@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
+
 
 class AnonTicketListRequestSchema(BaseModel):
     anonymous: bool | None
@@ -9,10 +12,11 @@ class AnonTicketListRequestSchema(BaseModel):
 
 
 class AnonTicketUsersInfoSchema(BaseModel):
+    user_id: int | None
     firstname: str | None
     lastname: str | None
     login: str
-    faculty: str | None
+    faculty: FacultyResponseSchema
 #    role: str | None
 
 
@@ -23,9 +27,10 @@ class AnonTicketDetailInfoSchema(BaseModel):
     ticket_id: int
     subject: str
     body: str
-    faculty: str
-    status: str
+    faculty: FacultyResponseSchema
+    status: StatusResponseSchema
     upvotes: int
+    date: str
 #    actions: list[object]
 
 
