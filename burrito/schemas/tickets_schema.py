@@ -1,5 +1,9 @@
 from pydantic import BaseModel
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.queue_schema import QueueResponseSchema
+
 
 class CreateTicketSchema(BaseModel):
     subject: str
@@ -32,10 +36,11 @@ class TicketIDValueSchema(BaseModel):
 
 
 class TicketUsersInfoSchema(BaseModel):
+    user_id: int | None
     firstname: str | None
     lastname: str | None
     login: str
-    faculty: str | None
+    faculty: FacultyResponseSchema
 #    group: str | None
 #    role: str | None
 
@@ -47,8 +52,8 @@ class TicketDetailInfoSchema(BaseModel):
     ticket_id: int
     subject: str
     body: str
-    faculty: str
-    status: str
+    faculty: FacultyResponseSchema
+    status: StatusResponseSchema
     upvotes: int
 #    actions: list[object]
 

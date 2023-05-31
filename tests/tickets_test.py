@@ -24,7 +24,7 @@ def create_ticket_get_id(subject: str) -> int:
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "queue": "questions",
-            "faculty": "EliT",
+            "faculty": random.choice(["EliT", "Biem"]),
         },
         timeout=TIMEOUT
     ).json()["ticket_id"]
@@ -49,7 +49,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": "questions",
-                "faculty": "EliT",
+                "faculty": random.choice(["EliT", "Biem"]),
             },
             timeout=TIMEOUT
         )
