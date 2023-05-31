@@ -55,6 +55,7 @@ class TicketDetailInfoSchema(BaseModel):
     faculty: FacultyResponseSchema
     status: StatusResponseSchema
     upvotes: int
+    is_liked: bool
 #    actions: list[object]
 
 
