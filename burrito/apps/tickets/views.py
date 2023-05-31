@@ -59,10 +59,7 @@ async def tickets__create_new_ticket(
 
     queue: Queues | None = None
     if faculty_id:
-        queue = Queues.get(
-            Queues.faculty == faculty_id,
-            Queues.name == ticket_creation_data.queue
-        )
+        queue = QueueStrToModel.convert(ticket_creation_data.queue, faculty_id)
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
