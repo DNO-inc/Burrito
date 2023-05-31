@@ -14,7 +14,7 @@ from burrito.schemas.meta_schema import (
     ResponseQueueListSchema
 )
 
-from burrito.utils.converter import FacultyStrToInt
+from burrito.utils.converter import FacultyStrToModel
 
 
 async def meta__get_statuses_list():
@@ -42,7 +42,7 @@ async def meta__faculties_list():
 
 
 async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
-    faculty_id = FacultyStrToInt.convert(faculty_data.faculty)
+    faculty_id = FacultyStrToModel.convert(faculty_data.faculty)
 
     if not faculty_id:
         return JSONResponse(

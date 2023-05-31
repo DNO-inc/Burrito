@@ -1,6 +1,6 @@
 from fastapi import HTTPException, status
 
-from burrito.utils.converter import GroupStrToInt, FacultyStrToInt
+from burrito.utils.converter import GroupStrToModel, FacultyStrToModel
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
@@ -23,8 +23,8 @@ def create_user_tmp_foo(
     """
 
     try:
-        group_id = GroupStrToInt.convert(group)
-        faculty_id = FacultyStrToInt.convert(faculty)
+        group_id = GroupStrToModel.convert(group)
+        faculty_id = FacultyStrToModel.convert(faculty)
 
         if not (group_id and faculty_id):
             return

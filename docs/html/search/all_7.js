@@ -22,5 +22,5 @@ var searchData=
   ['group_5fmodel_158',['group_model',['../namespacegroup__model.html',1,'']]],
   ['group_5fmodel_2epy_159',['group_model.py',['../group__model_8py.html',1,'']]],
   ['groups_160',['Groups',['../classgroup__model_1_1Groups.html',1,'group_model']]],
-  ['groupstrtoint_161',['GroupStrToInt',['../classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html',1,'burrito::utils::converter']]]
+  ['groupstrtoint_161',['GroupStrToModel',['../classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html',1,'burrito::utils::converter']]]
 ];

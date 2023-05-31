@@ -23,9 +23,9 @@ from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import hide_ticket_body
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
-    StatusStrToInt,
-    FacultyStrToInt,
-    QueueStrToInt
+    StatusStrToModel,
+    FacultyStrToModel,
+    QueueStrToModel
 )
 
 from .utils import (
@@ -49,18 +49,18 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    faculty_id = FacultyStrToInt.convert(admin_updates.faculty)
+    faculty_id = FacultyStrToModel.convert(admin_updates.faculty)
     if faculty_id:  # faculty_id must be > 1
         ticket.faculty = faculty_id
 
-    queue_id = QueueStrToInt.convert(admin_updates.queue)
+    queue_id = QueueStrToModel.convert(admin_updates.queue, admin_updates.faculty)
     if queue_id:    # queue_id must be > 1
         ticket.queue = queue_id
 
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_id = 0
     if ticket.assignee == current_admin:
-        status_id = StatusStrToInt.convert(admin_updates.status)
+        status_id = StatusStrToModel.convert(admin_updates.status)
         if status_id:    # status_id must be > 1
             ticket.status = status_id
 
@@ -83,9 +83,9 @@ async def admin__get_ticket_list_by_filter(
     available_filters = {
         "hidden": Tickets.hidden == filters.hidden,
         "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToInt.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToInt.convert(filters.queue),
-        "status": Tickets.status == StatusStrToInt.convert(filters.status)
+        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
+        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
+        "status": Tickets.status == StatusStrToModel.convert(filters.status)
     }
 
     final_filters = []
@@ -213,7 +213,7 @@ async def admin__become_an_assignee(
             token_payload.user_id
         )
         ticket.assignee = current_admin
-        ticket.status = StatusStrToInt.convert("OPEN")
+        ticket.status = StatusStrToModel.convert("OPEN")
 
         ticket.save()
 

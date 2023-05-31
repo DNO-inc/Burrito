@@ -37,10 +37,10 @@ var annotated_dup =
         ] ],
         [ "converter", "namespaceburrito_1_1utils_1_1converter.html", [
           [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", null ],
-          [ "GroupStrToInt", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
-          [ "FacultyStrToInt", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
-          [ "QueueStrToInt", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
-          [ "StatusStrToInt", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
+          [ "GroupStrToModel", "classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html", null ],
+          [ "FacultyStrToModel", "classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html", null ],
+          [ "QueueStrToModel", "classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html", null ],
+          [ "StatusStrToModel", "classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html", null ]
         ] ],
         [ "db_cursor_object", "namespaceburrito_1_1utils_1_1db__cursor__object.html", [
           [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor" ]
