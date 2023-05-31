@@ -14,6 +14,7 @@ from burrito.schemas.tickets_schema import (
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 
+from burrito.models.queues_model import Queues
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
@@ -57,13 +58,20 @@ async def tickets__create_new_ticket(
 
     faculty_id = FacultyStrToInt.convert(ticket_creation_data.faculty)
 
+    queue: Queues | None = None
+    if faculty_id:
+        queue = Queues.get(
+            Queues.faculty == faculty_id,
+            Queues.name == ticket_creation_data.queue
+        )
+
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
         subject=ticket_creation_data.subject,
         body=ticket_creation_data.body,
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
-        queue=QueueStrToInt.convert(ticket_creation_data.queue),
+        queue=queue,
         faculty=faculty_id if faculty_id else get_user_by_id(
             token_payload.user_id
         ).faculty
