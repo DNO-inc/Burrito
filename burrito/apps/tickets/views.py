@@ -353,7 +353,8 @@ async def tickets__show_tickets_list_by_filter(
                         Liked.user_id == token_payload.user_id,
                         Liked.ticket_id == ticket.ticket_id
                     )
-                )
+                ),
+                date=str(ticket.created)
             )
         )
 
@@ -421,7 +422,8 @@ async def tickets__show_detail_ticket_info(
                 Liked.user_id == token_payload.user_id,
                 Liked.ticket_id == ticket.ticket_id
             )
-        )
+        ),
+        date=str(ticket.created)
     )
 
 
