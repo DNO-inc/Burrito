@@ -2,6 +2,7 @@ from fastapi import HTTPException, status
 
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
@@ -68,3 +69,12 @@ def make_short_user_data(
         user_dict_data["group"] = None
 
     return TicketUsersInfoSchema(**user_dict_data)
+
+
+def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
+    return bool(
+        Bookmarks.get_or_none(
+            Bookmarks.user_id == user_id,
+            Bookmarks.ticket_id == ticket_id
+        )
+    )

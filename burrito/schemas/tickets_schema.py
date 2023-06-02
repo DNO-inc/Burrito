@@ -56,6 +56,7 @@ class TicketDetailInfoSchema(BaseModel):
     status: StatusResponseSchema
     upvotes: int
     is_liked: bool
+    is_bookmarked: bool
     date: str
 #    actions: list[object]
 
