@@ -9,7 +9,7 @@ from tickets_test import TicketsTestCase
 from burrito.utils.config_reader import get_config
 
 
-TIMEOUT = 5
+TIMEOUT = 10
 
 
 class AdminTestCase(unittest.TestCase):

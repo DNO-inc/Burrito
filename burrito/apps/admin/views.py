@@ -5,8 +5,12 @@ from fastapi_jwt_auth import AuthJWT
 from playhouse.shortcuts import model_to_dict
 
 from burrito.models.user_model import Users
+from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
     AdminUpdateTicketSchema,
@@ -20,7 +24,10 @@ from burrito.utils.auth_token_util import (
     AuthTokenPayload
 )
 from burrito.utils.users_util import get_user_by_id
-from burrito.utils.tickets_util import hide_ticket_body
+from burrito.utils.tickets_util import (
+    hide_ticket_body,
+    make_short_user_data
+)
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
     StatusStrToModel,
@@ -80,6 +87,10 @@ async def admin__get_ticket_list_by_filter(
 ):
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     available_filters = {
         "hidden": Tickets.hidden == filters.hidden,
         "anonymous": Tickets.anonymous == filters.anonymous,
@@ -96,7 +107,7 @@ async def admin__get_ticket_list_by_filter(
 
     response_list: AdminTicketDetailInfo = []
 
-    expression = None
+    expression: list[Tickets] = None
     if final_filters:
         expression = Tickets.select().where(*final_filters)
     else:
@@ -105,26 +116,55 @@ async def admin__get_ticket_list_by_filter(
 
     for ticket in expression:
         creator = None
-        assignee = None
         if not ticket.anonymous:
-            creator = model_to_dict(ticket.creator)
-            creator["faculty"] = ticket.creator.faculty.name
+            creator = make_short_user_data(
+                ticket.creator,
+                hide_user_id=False
+            )
 
-            assignee = ticket.assignee
-            assignee_modified = dict()
-            if assignee:
-                assignee_modified = model_to_dict(assignee)
-                assignee_modified["faculty"] = ticket.assignee.faculty.name
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=False
+            )
+
+        upvotes = Liked.select().where(
+            Liked.ticket_id == ticket.ticket_id
+        ).count()
+
+        queue = None
+        if ticket.queue:
+            queue = QueueResponseSchema(
+                queue_id=ticket.queue.queue_id,
+                faculty=ticket.faculty.faculty_id,
+                name=ticket.queue.name
+            )
 
         response_list.append(
             AdminTicketDetailInfo(
                 creator=creator,
-                assignee=assignee_modified if assignee else None,
+                assignee=assignee,
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body),
-                faculty=ticket.faculty.name,
-                status=ticket.status.name
+                queue=queue,
+                faculty=FacultyResponseSchema(
+                    faculty_id=ticket.faculty.faculty_id,
+                    name=ticket.faculty.name
+                ),
+                status=StatusResponseSchema(
+                    status_id=ticket.status.status_id,
+                    name=ticket.status.name
+                ),
+                upvotes=upvotes,
+                is_liked=bool(
+                    Liked.get_or_none(
+                        Liked.user_id == token_payload.user_id,
+                        Liked.ticket_id == ticket.ticket_id
+                    )
+                ),
+                date=str(ticket.created)
             )
         )
 
@@ -141,21 +181,39 @@ async def admin__show_detail_ticket_info(
     """Show detail ticket info"""
     Authorize.jwt_required()
 
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
     )
 
     creator = None
     if not ticket.anonymous:
-        creator = model_to_dict(ticket.creator)
-        creator["faculty"] = ticket.creator.faculty.name
-        creator["group"] = ticket.creator.group.name
+        creator = make_short_user_data(
+            ticket.creator,
+            hide_user_id=False
+        )
 
-    assignee = ticket.assignee
-    if assignee:
-        assignee = model_to_dict(assignee)
-        assignee["faculty"] = ticket.assignee.faculty.name
-        assignee["group"] = ticket.assignee.group.name
+    assignee = None
+    if ticket.assignee:
+        assignee = make_short_user_data(
+            ticket.assignee,
+            hide_user_id=False
+        )
+
+    queue = None
+    if ticket.queue:
+        queue = QueueResponseSchema(
+            queue_id=ticket.queue.queue_id,
+            faculty=ticket.faculty.faculty_id,
+            name=ticket.queue.name
+        )
+
+    upvotes = Liked.select().where(
+        Liked.ticket_id == ticket.ticket_id
+    ).count()
 
     return AdminTicketDetailInfo(
         creator=creator,
@@ -163,9 +221,23 @@ async def admin__show_detail_ticket_info(
         ticket_id=ticket.ticket_id,
         subject=ticket.subject,
         body=ticket.body,
-        queue=ticket.queue.name if ticket.queue else None,
-        faculty=ticket.faculty.name,
-        status=ticket.status.name
+        queue=queue,
+        faculty=FacultyResponseSchema(
+            faculty_id=ticket.faculty.faculty_id,
+            name=ticket.faculty.name
+        ),
+        status=StatusResponseSchema(
+            status_id=ticket.status.status_id,
+            name=ticket.status.name
+        ),
+        upvotes=upvotes,
+        is_liked=bool(
+            Liked.get_or_none(
+                Liked.user_id == token_payload.user_id,
+                Liked.ticket_id == ticket.ticket_id
+            )
+        ),
+        date=str(ticket.created)
     )
 
 
