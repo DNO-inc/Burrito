@@ -26,7 +26,8 @@ from burrito.utils.auth_token_util import (
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
     hide_ticket_body,
-    make_short_user_data
+    make_short_user_data,
+    is_ticket_bookmarked
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -164,6 +165,10 @@ async def admin__get_ticket_list_by_filter(
                         Liked.ticket_id == ticket.ticket_id
                     )
                 ),
+                is_bookmarked=is_ticket_bookmarked(
+                    token_payload.user_id,
+                    ticket.ticket_id
+                ),
                 date=str(ticket.created)
             )
         )
@@ -236,6 +241,10 @@ async def admin__show_detail_ticket_info(
                 Liked.user_id == token_payload.user_id,
                 Liked.ticket_id == ticket.ticket_id
             )
+        ),
+        is_bookmarked=is_ticket_bookmarked(
+            token_payload.user_id,
+            ticket.ticket_id
         ),
         date=str(ticket.created)
     )
