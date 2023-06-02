@@ -1,19 +1,16 @@
 from pydantic import BaseModel
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.queue_schema import QueueResponseSchema
+
 
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
     faculty: str | None
     queue: str | None
     status: str | None
-
-
-class AdminTicketAuthorInfo(BaseModel):
-    firstname: str | None
-    lastname: str | None
-    login: str
-    faculty: str | None
-    group: str | None
 
 
 class AdminGetTicketListSchema(BaseModel):
@@ -24,6 +21,15 @@ class AdminGetTicketListSchema(BaseModel):
     status: str | None
 
 
+class AdminTicketAuthorInfo(BaseModel):
+    user_id: int
+    firstname: str | None
+    lastname: str | None
+    login: str
+    faculty: FacultyResponseSchema
+    group: GroupResponseSchema | None
+
+
 class AdminTicketDetailInfo(BaseModel):
     creator: AdminTicketAuthorInfo | None
     assignee: AdminTicketAuthorInfo | None
@@ -31,9 +37,12 @@ class AdminTicketDetailInfo(BaseModel):
     ticket_id: int
     subject: str
     body: str
-    queue: str | None
-    faculty: str
-    status: str
+    queue: QueueResponseSchema | None
+    faculty: FacultyResponseSchema
+    status: StatusResponseSchema
+    upvotes: int
+    is_liked: bool
+    date: str
 
 
 class AdminTicketListResponse(BaseModel):
