@@ -10,7 +10,9 @@ from burrito.apps.tickets.views import (
     tickets__show_tickets_list_by_filter,
     tickets__show_detail_ticket_info,
     tickets__update_own_ticket_data,
-    tickets__close_own_ticket
+    tickets__close_own_ticket,
+    tickets__get_liked_tickets,
+    tickets__get_bookmarked_tickets
 )
 
 
@@ -65,4 +67,14 @@ tickets_router.add_api_route(
     "/close",
     tickets__close_own_ticket,
     methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/liked",
+    tickets__get_liked_tickets,
+    methods=["GET"]
+)
+tickets_router.add_api_route(
+    "/bookmarked",
+    tickets__get_bookmarked_tickets,
+    methods=["GET"]
 )
