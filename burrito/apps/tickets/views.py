@@ -137,6 +137,14 @@ async def tickets__bookmark_ticket(
         bookmark_ticket_data.ticket_id
     )
 
+    if ticket.hidden:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={
+                "detail": "You have not permission to bookmark this ticket"
+            }
+        )
+
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
         Bookmarks.user_id == token_payload.user_id,
         Bookmarks.ticket_id == ticket.ticket_id
@@ -214,6 +222,14 @@ async def tickets__like_ticket(
         like_ticket_data.ticket_id
     )
 
+    if ticket.hidden:
+        return JSONResponse(
+            status_code=status.HTTP_403_FORBIDDEN,
+            content={
+                "detail": "You have not permission to follow this ticket"
+            }
+        )
+
     like: Liked | None = Liked.get_or_none(
         Liked.user_id == token_payload.user_id,
         Liked.ticket_id == ticket.ticket_id
@@ -236,7 +252,9 @@ async def tickets__like_ticket(
     # if like already exist
     return JSONResponse(
         status_code=status.HTTP_403_FORBIDDEN,
-        content={"detail": "Ticked liking error, is this ticket already liked?"}
+        content={
+            "detail": "Ticked liking error, is this ticket already liked?"
+        }
     )
 
 
@@ -510,4 +528,150 @@ async def tickets__close_own_ticket(
     return JSONResponse(
         status_code=200,
         content={"detail": "Ticket was closed successfully"}
+    )
+
+
+@check_permission()
+async def tickets__get_liked_tickets(
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    """Get tickets which were liked by current user"""
+
+    Authorize.jwt_required()
+
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    liked_tickets: list[Tickets] = [
+        like_info.ticket_id for like_info in Liked.select().where(
+            Liked.user_id == token_payload.user_id
+        )
+    ]
+
+    response_list: list[TicketDetailInfoSchema] = []
+
+    for ticket in liked_tickets:
+        i_am_creator = am_i_own_this_ticket(
+            ticket.creator.user_id,
+            token_payload.user_id
+        )
+
+        if not i_am_creator and ticket.hidden:
+            continue
+
+        creator = None
+        if not ticket.anonymous or i_am_creator:
+            creator = make_short_user_data(ticket.creator, hide_user_id=False)
+
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=False
+            )
+
+        response_list.append(
+            TicketDetailInfoSchema(
+                creator=creator,
+                assignee=assignee,
+                ticket_id=ticket.ticket_id,
+                subject=ticket.subject,
+                body=hide_ticket_body(ticket.body, 500),
+                faculty=FacultyResponseSchema(
+                    faculty_id=ticket.faculty.faculty_id,
+                    name=ticket.faculty.name
+                ),
+                status=StatusResponseSchema(
+                    status_id=ticket.status.status_id,
+                    name=ticket.status.name
+                ),
+                upvotes=Liked.select().where(
+                    Liked.ticket_id == ticket.ticket_id
+                ).count(),
+                is_liked=True,
+                is_bookmarked=is_ticket_bookmarked(
+                    token_payload.user_id,
+                    ticket.ticket_id
+                ),
+                date=str(ticket.created)
+            )
+        )
+
+    return TicketListResponseSchema(
+        ticket_list=response_list
+    )
+
+
+@check_permission()
+async def tickets__get_bookmarked_tickets(
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    """Get tickets which were bookmarked by current user"""
+
+    Authorize.jwt_required()
+
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    bookmarked_tickets: list[Tickets] = [
+        bookmark_info.ticket_id for bookmark_info in Bookmarks.select().where(
+            Bookmarks.user_id == token_payload.user_id
+        )
+    ]
+
+    response_list: list[TicketDetailInfoSchema] = []
+
+    for ticket in bookmarked_tickets:
+        i_am_creator = am_i_own_this_ticket(
+            ticket.creator.user_id,
+            token_payload.user_id
+        )
+
+        if not i_am_creator and ticket.hidden:
+            continue
+
+        creator = None
+        if not ticket.anonymous or i_am_creator:
+            creator = make_short_user_data(ticket.creator, hide_user_id=False)
+
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=False
+            )
+
+        response_list.append(
+            TicketDetailInfoSchema(
+                creator=creator,
+                assignee=assignee,
+                ticket_id=ticket.ticket_id,
+                subject=ticket.subject,
+                body=hide_ticket_body(ticket.body, 500),
+                faculty=FacultyResponseSchema(
+                    faculty_id=ticket.faculty.faculty_id,
+                    name=ticket.faculty.name
+                ),
+                status=StatusResponseSchema(
+                    status_id=ticket.status.status_id,
+                    name=ticket.status.name
+                ),
+                upvotes=Liked.select().where(
+                    Liked.ticket_id == ticket.ticket_id
+                ).count(),
+                is_liked=bool(
+                    Liked.get_or_none(
+                        Liked.user_id == token_payload.user_id,
+                        Liked.ticket_id == ticket.ticket_id
+                    )
+                ),
+                is_bookmarked=True,
+                date=str(ticket.created)
+            )
+        )
+
+    return TicketListResponseSchema(
+        ticket_list=response_list
     )
