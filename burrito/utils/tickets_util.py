@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi import HTTPException, status
 
 from playhouse.shortcuts import model_to_dict
@@ -8,7 +10,6 @@ from burrito.models.user_model import Users
 
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.group_schema import GroupResponseSchema
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -77,4 +78,35 @@ def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
             Bookmarks.user_id == user_id,
             Bookmarks.ticket_id == ticket_id
         )
+    )
+
+
+def select_filters(available_filters: list[Any], received_filters) -> list[Any]:
+    final_filters = []
+    for filter_item in received_filters.dict().items():
+        filter_candidate = available_filters.get(filter_item[0])
+        if filter_item[1] is not None and filter_candidate:
+            final_filters.append(filter_candidate)
+    return final_filters
+
+
+def get_filtered_tickets(
+    _filters: list[Any],
+    _desc: bool = True,
+    start_page: int = 1,
+    tickets_count: int = 10
+) -> list[Tickets]:
+    if _filters:
+        return Tickets.select().where(*_filters).paginate(
+            start_page,
+            tickets_count
+        ).order_by(
+            Tickets.created.desc() if _desc else Tickets.created
+        )
+
+    return Tickets.select().paginate(
+        start_page,
+        tickets_count
+    ).order_by(
+        Tickets.created.desc() if _desc else Tickets.created
     )

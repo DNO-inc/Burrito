@@ -18,7 +18,9 @@ from burrito.utils.converter import (
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
-    make_short_user_data
+    make_short_user_data,
+    get_filtered_tickets,
+    select_filters
 )
 
 
@@ -29,23 +31,23 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
         "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
         "status": Tickets.status == StatusStrToModel.convert(filters.status)
     }
-
-    final_filters = []
-    for filter_item in filters.dict().items():
-        if filter_item[1] is not None:
-            final_filters.append(available_filters[filter_item[0]])
+    final_filters = select_filters(available_filters, filters)
 
     response_list: AnonTicketDetailInfoSchema = []
 
-    expression: list[Tickets] = None
-    if final_filters:
-        expression = Tickets.select().where(
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters + [
             Tickets.hidden == 0,
-            *final_filters
-        )
-    else:
-        # TODO: make pagination
-        expression = Tickets.select().where(Tickets.hidden == 0)
+            Tickets.status.not_in(
+                [
+                    StatusStrToModel.convert("NEW"),
+                    StatusStrToModel.convert("REJECTED")
+                ]
+            )
+        ],
+        start_page=filters.start_page,
+        tickets_count=filters.tickets_count
+    )
 
     for ticket in expression:
         creator = None

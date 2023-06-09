@@ -218,7 +218,6 @@ class TicketsTestCase(unittest.TestCase):
             json={
                 "anonymous": True,
                 "hidden": False,
-                "status": "NEW"
             },
             timeout=TIMEOUT
         )

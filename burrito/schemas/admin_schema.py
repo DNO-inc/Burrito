@@ -4,6 +4,7 @@ from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
+from burrito.schemas.pagination_schema import BurritoPagination
 
 
 class AdminUpdateTicketSchema(BaseModel):
@@ -13,7 +14,7 @@ class AdminUpdateTicketSchema(BaseModel):
     status: str | None
 
 
-class AdminGetTicketListSchema(BaseModel):
+class AdminGetTicketListSchema(BurritoPagination):
     hidden: bool | None
     anonymous: bool | None
     faculty: str | None
