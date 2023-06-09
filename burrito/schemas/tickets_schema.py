@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
+from burrito.schemas.pagination_schema import BurritoPagination
 
 
 class CreateTicketSchema(BaseModel):
@@ -22,7 +23,7 @@ class UpdateTicketSchema(BaseModel):
     anonymous: bool | None
 
 
-class TicketListRequestSchema(BaseModel):
+class TicketListRequestSchema(BurritoPagination):
     creator: int | None
     hidden: bool | None
     anonymous: bool | None

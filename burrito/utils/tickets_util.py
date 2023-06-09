@@ -81,6 +81,15 @@ def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
     )
 
 
+def select_filters(available_filters: list[Any], received_filters) -> list[Any]:
+    final_filters = []
+    for filter_item in received_filters.dict().items():
+        filter_candidate = available_filters.get(filter_item[0])
+        if filter_item[1] is not None and filter_candidate:
+            final_filters.append(filter_candidate)
+    return final_filters
+
+
 def get_filtered_tickets(
     _filters: list[Any],
     _desc: bool = True,
