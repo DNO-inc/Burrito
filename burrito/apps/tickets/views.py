@@ -28,7 +28,8 @@ from burrito.utils.auth_token_util import (
 from burrito.utils.tickets_util import (
     hide_ticket_body,
     make_short_user_data,
-    is_ticket_bookmarked
+    is_ticket_bookmarked,
+    get_filtered_tickets
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -327,12 +328,17 @@ async def tickets__show_tickets_list_by_filter(
     for item in Deleted.select().where(Deleted.user_id == token_payload.user_id):
         tickets_black_list.add(item.ticket_id.ticket_id)
 
-    expression: list[Tickets] = None
-    if final_filters:
-        expression = Tickets.select().where(*final_filters)
-    else:
-        # TODO: make pagination
-        expression = Tickets.select()
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters + [
+            Tickets.hidden == 0,
+            Tickets.status.not_in(
+                [
+                    StatusStrToModel.convert("NEW"),
+                    StatusStrToModel.convert("REJECTED")
+                ]
+            )
+        ]
+    )
 
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
