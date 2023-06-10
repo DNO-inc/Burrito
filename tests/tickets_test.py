@@ -309,7 +309,6 @@ class TicketsTestCase(unittest.TestCase):
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
-            json={},
             timeout=TIMEOUT
         )
 
@@ -324,7 +323,6 @@ class TicketsTestCase(unittest.TestCase):
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
-            json={},
             timeout=TIMEOUT
         )
 
