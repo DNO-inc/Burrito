@@ -1,3 +1,5 @@
+import math
+
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
@@ -171,7 +173,7 @@ async def admin__get_ticket_list_by_filter(
 
     return AdminTicketListResponse(
         ticket_list=response_list,
-        total_pages=Tickets.select().where(*final_filters).count()/filters.tickets_count
+        total_pages=math.ceil(Tickets.select().where(*final_filters).count()/filters.tickets_count)
     )
 
 

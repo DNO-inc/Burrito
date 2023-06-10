@@ -1,3 +1,5 @@
+import math
+
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
@@ -389,12 +391,12 @@ async def tickets__show_tickets_list_by_filter(
 
     return TicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=Tickets.select().where(*(
+        total_pages=math.ceil(Tickets.select().where(*(
             final_filters + [
                 Tickets.hidden == 0,
                 Tickets.status != StatusStrToModel.convert("NEW")
             ] if filters.creator != token_payload.user_id else []
-        )).count()/filters.tickets_count
+        )).count()/filters.tickets_count)
     )
 
 

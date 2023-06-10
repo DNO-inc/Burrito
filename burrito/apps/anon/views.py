@@ -1,3 +1,5 @@
+import math
+
 from playhouse.shortcuts import model_to_dict
 
 from burrito.models.liked_model import Liked
@@ -83,10 +85,10 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
 
     return AnonTicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=Tickets.select().where(*(
+        total_pages= math.ceil(Tickets.select().where(*(
             final_filters + [
                 Tickets.hidden == 0,
                 Tickets.status != StatusStrToModel.convert("NEW")
             ]
-        )).count()/filters.tickets_count
+        )).count()/filters.tickets_count)
     )
