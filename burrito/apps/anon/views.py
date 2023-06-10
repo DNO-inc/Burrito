@@ -13,10 +13,13 @@ from burrito.schemas.anon_schema import (
     AnonTicketListResponseSchema
 )
 
-from burrito.utils.converter import (
-    FacultyStrToModel,
-    QueueStrToModel,
-    StatusStrToModel
+from burrito.utils.query_util import (
+    q_is_anonymous,
+    q_is_valid_faculty,
+    q_is_valid_queue,
+    q_is_valid_status_list,
+    q_hidden,
+    q_protected_statuses
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -28,20 +31,20 @@ from burrito.utils.tickets_util import (
 
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
-        "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
-        "status": Tickets.status == StatusStrToModel.convert(filters.status)
+        "anonymous": q_is_anonymous(filters.anonymous),
+        "faculty": q_is_valid_faculty(filters.faculty),
+        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "status": q_is_valid_status_list(filters.status)
     }
-    final_filters = select_filters(available_filters, filters)
+    final_filters = select_filters(available_filters, filters) + [
+        q_hidden(),
+        q_protected_statuses()
+    ]
 
     response_list: list[AnonTicketDetailInfoSchema] = []
 
     expression: list[Tickets] = get_filtered_tickets(
-        final_filters + [
-            Tickets.hidden == 0,
-            Tickets.status != StatusStrToModel.convert("NEW")
-        ],
+        final_filters,
         start_page=filters.start_page,
         tickets_count=filters.tickets_count
     )
@@ -85,10 +88,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
 
     return AnonTicketListResponseSchema(
         ticket_list=response_list,
-        total_pages= math.ceil(Tickets.select().where(*(
-            final_filters + [
-                Tickets.hidden == 0,
-                Tickets.status != StatusStrToModel.convert("NEW")
-            ]
-        )).count()/filters.tickets_count)
+        total_pages=math.ceil(Tickets.select().where(
+            *final_filters
+        ).count()/filters.tickets_count)
     )

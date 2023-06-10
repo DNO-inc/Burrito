@@ -4,8 +4,6 @@ from fastapi import Depends
 from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
-from playhouse.shortcuts import model_to_dict
-
 from burrito.models.user_model import Users
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
@@ -24,6 +22,13 @@ from burrito.schemas.admin_schema import (
 from burrito.utils.auth_token_util import (
     read_access_token_payload,
     AuthTokenPayload
+)
+from burrito.utils.query_util import (
+    q_is_anonymous,
+    q_is_valid_faculty,
+    q_is_valid_queue,
+    q_is_valid_status_list,
+    q_is_hidden,
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
@@ -97,11 +102,11 @@ async def admin__get_ticket_list_by_filter(
     )
 
     available_filters = {
-        "hidden": Tickets.hidden == filters.hidden,
-        "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
-        "status": Tickets.status == StatusStrToModel.convert(filters.status)
+        "hidden": q_is_hidden(filters.hidden),
+        "anonymous": q_is_anonymous(filters.anonymous),
+        "faculty": q_is_valid_faculty(filters.faculty),
+        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters)
 

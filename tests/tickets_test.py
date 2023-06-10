@@ -216,8 +216,9 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "anonymous": True,
-                "hidden": False,
+                "status": ["OPEN", "WAITING"]
+#                "anonymous": True,
+#                "hidden": False,
             },
             timeout=TIMEOUT
         )
