@@ -87,6 +87,6 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
             final_filters + [
                 Tickets.hidden == 0,
                 Tickets.status != StatusStrToModel.convert("NEW")
-            ],
+            ]
         )).count()/filters.tickets_count
     )
