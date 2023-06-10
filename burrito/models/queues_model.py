@@ -14,6 +14,7 @@ class Queues(Model):
         field="faculty_id",
         on_delete="NO ACTION"
     )
+    scope = CharField(max_length=50)
 
     class Meta:
         database = get_database_cursor()
