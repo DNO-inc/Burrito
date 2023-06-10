@@ -37,3 +37,4 @@ class AnonTicketDetailInfoSchema(BaseModel):
 
 class AnonTicketListResponseSchema(BaseModel):
     ticket_list: list[AnonTicketDetailInfoSchema]
+    total_pages: int
