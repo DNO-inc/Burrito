@@ -15,6 +15,7 @@ from burrito.schemas.tickets_schema import (
 )
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.pagination_schema import BurritoPagination
 
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
@@ -540,6 +541,7 @@ async def tickets__close_own_ticket(
 
 @check_permission()
 async def tickets__get_liked_tickets(
+        pagination_data: BurritoPagination,
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were liked by current user"""
@@ -553,6 +555,9 @@ async def tickets__get_liked_tickets(
     liked_tickets: list[Tickets] = [
         like_info.ticket_id for like_info in Liked.select().where(
             Liked.user_id == token_payload.user_id
+        ).paginate(
+            pagination_data.start_page,
+            pagination_data.tickets_count
         )
     ]
 
@@ -606,12 +611,17 @@ async def tickets__get_liked_tickets(
         )
 
     return TicketListResponseSchema(
-        ticket_list=response_list
+        ticket_list=response_list,
+        total_pages=math.ceil(Liked.select().where(
+                Liked.user_id == token_payload.user_id
+            ).count()/pagination_data.tickets_count
+        )
     )
 
 
 @check_permission()
 async def tickets__get_bookmarked_tickets(
+        pagination_data: BurritoPagination,
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
@@ -625,6 +635,9 @@ async def tickets__get_bookmarked_tickets(
     bookmarked_tickets: list[Tickets] = [
         bookmark_info.ticket_id for bookmark_info in Bookmarks.select().where(
             Bookmarks.user_id == token_payload.user_id
+        ).paginate(
+            pagination_data.start_page,
+            pagination_data.tickets_count
         )
     ]
 
@@ -680,5 +693,9 @@ async def tickets__get_bookmarked_tickets(
         )
 
     return TicketListResponseSchema(
-        ticket_list=response_list
+        ticket_list=response_list,
+        total_pages=math.ceil(Bookmarks.select().where(
+                Bookmarks.user_id == token_payload.user_id
+            ).count()/pagination_data.tickets_count
+        )
     )

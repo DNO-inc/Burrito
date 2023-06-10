@@ -304,11 +304,12 @@ class TicketsTestCase(unittest.TestCase):
         )
 
     def test_012_get_liked_ticket(self):
-        response = requests.get(
+        response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/liked",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
+            json={},
             timeout=TIMEOUT
         )
 
@@ -318,11 +319,12 @@ class TicketsTestCase(unittest.TestCase):
         )
 
     def test_013_get_bookmarked_ticket(self):
-        response = requests.get(
+        response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarked",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
+            json={},
             timeout=TIMEOUT
         )
 
