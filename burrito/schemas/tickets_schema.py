@@ -29,7 +29,7 @@ class TicketListRequestSchema(BurritoPagination):
     anonymous: bool | None
     faculty: str | None
     queue: str | None
-    status: str | None
+    status: list[str] | None
 
 
 class TicketIDValueSchema(BaseModel):

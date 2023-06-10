@@ -28,6 +28,16 @@ from burrito.utils.auth_token_util import (
     read_access_token_payload,
     AuthTokenPayload
 )
+from burrito.utils.query_util import (
+    q_is_anonymous,
+    q_is_valid_faculty,
+    q_is_valid_queue,
+    q_is_valid_status_list,
+    q_protected_statuses,
+    q_hidden,
+    q_is_hidden,
+    q_is_creator
+)
 from burrito.utils.tickets_util import (
     hide_ticket_body,
     make_short_user_data,
@@ -311,14 +321,19 @@ async def tickets__show_tickets_list_by_filter(
     )
 
     available_filters = {
-        "creator": Tickets.creator == filters.creator,
-        "hidden": Tickets.hidden == filters.hidden,
-        "anonymous": Tickets.anonymous == filters.anonymous,
-        "faculty": Tickets.faculty == FacultyStrToModel.convert(filters.faculty),
-        "queue": Tickets.queue == QueueStrToModel.convert(filters.queue, filters.faculty),
-        "status": Tickets.status == StatusStrToModel.convert(filters.status)
+        "creator": q_is_creator(filters.creator),
+        "hidden": q_is_hidden(filters.hidden),
+        "anonymous": q_is_anonymous(filters.anonymous),
+        "faculty": q_is_valid_faculty(filters.faculty),
+        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "status": q_is_valid_status_list(filters.status)
     }
-    final_filters = select_filters(available_filters, filters)
+    final_filters = select_filters(available_filters, filters) + (
+        [] if filters.creator == token_payload.user_id else [
+            q_hidden(),
+            q_protected_statuses()
+        ]
+    )
 
     response_list: list[TicketDetailInfoSchema] = []
 
@@ -328,10 +343,7 @@ async def tickets__show_tickets_list_by_filter(
         tickets_black_list.add(item.ticket_id.ticket_id)
 
     expression: list[Tickets] = get_filtered_tickets(
-        final_filters + ([] if filters.creator == token_payload.user_id else [
-            Tickets.hidden == 0,
-            Tickets.status != StatusStrToModel.convert("NEW")
-        ]),
+        final_filters,
         start_page=filters.start_page,
         tickets_count=filters.tickets_count
     )
@@ -393,10 +405,7 @@ async def tickets__show_tickets_list_by_filter(
     return TicketListResponseSchema(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
-            final_filters + [
-                Tickets.hidden == 0,
-                Tickets.status != StatusStrToModel.convert("NEW")
-            ] if filters.creator != token_payload.user_id else []
+            final_filters
         )).count()/filters.tickets_count)
     )
 
