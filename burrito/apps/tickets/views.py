@@ -541,7 +541,7 @@ async def tickets__close_own_ticket(
 
 @check_permission()
 async def tickets__get_liked_tickets(
-        pagination_data: BurritoPagination,
+        pagination_data: BurritoPagination = BurritoPagination(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were liked by current user"""
@@ -621,7 +621,7 @@ async def tickets__get_liked_tickets(
 
 @check_permission()
 async def tickets__get_bookmarked_tickets(
-        pagination_data: BurritoPagination,
+        pagination_data: BurritoPagination = BurritoPagination(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
