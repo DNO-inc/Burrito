@@ -327,10 +327,10 @@ async def tickets__show_tickets_list_by_filter(
         tickets_black_list.add(item.ticket_id.ticket_id)
 
     expression: list[Tickets] = get_filtered_tickets(
-        final_filters + [] if filters.creator == token_payload.user_id else [
+        final_filters + ([] if filters.creator == token_payload.user_id else [
             Tickets.hidden == 0,
             Tickets.status != StatusStrToModel.convert("NEW")
-        ],
+        ]),
         start_page=filters.start_page,
         tickets_count=filters.tickets_count
     )
