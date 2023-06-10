@@ -64,3 +64,4 @@ class TicketDetailInfoSchema(BaseModel):
 
 class TicketListResponseSchema(BaseModel):
     ticket_list: list[TicketDetailInfoSchema]
+    total_pages: int

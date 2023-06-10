@@ -49,6 +49,7 @@ class AdminTicketDetailInfo(BaseModel):
 
 class AdminTicketListResponse(BaseModel):
     ticket_list: list[AdminTicketDetailInfo]
+    total_pages: int
 
 
 class AdminTicketIdSchema(BaseModel):

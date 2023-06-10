@@ -51,8 +51,8 @@ from .utils import (
 
 @check_permission(permission_list={"CREATE_TICKET"})
 async def tickets__create_new_ticket(
-    ticket_creation_data: CreateTicketSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        ticket_creation_data: CreateTicketSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Create ticket"""
     Authorize.jwt_required()
@@ -90,8 +90,8 @@ async def tickets__create_new_ticket(
 
 @check_permission()
 async def tickets__delete_ticket_for_me(
-    deletion_ticket_data: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        deletion_ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Delete ticket"""
     Authorize.jwt_required()
@@ -125,8 +125,8 @@ async def tickets__delete_ticket_for_me(
 
 @check_permission()
 async def tickets__bookmark_ticket(
-    bookmark_ticket_data: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        bookmark_ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Follow ticket"""
     Authorize.jwt_required()
@@ -175,8 +175,8 @@ async def tickets__bookmark_ticket(
 
 @check_permission()
 async def tickets__unbookmark_ticket(
-    unbookmark_ticket_data: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        unbookmark_ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Follow ticket"""
     Authorize.jwt_required()
@@ -210,8 +210,8 @@ async def tickets__unbookmark_ticket(
 
 @check_permission()
 async def tickets__like_ticket(
-    like_ticket_data: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        like_ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Like ticket"""
     Authorize.jwt_required()
@@ -262,8 +262,8 @@ async def tickets__like_ticket(
 
 @check_permission()
 async def tickets__unlike_ticket(
-    unlike_ticket_data: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        unlike_ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Unlike ticket"""
     Authorize.jwt_required()
@@ -297,8 +297,8 @@ async def tickets__unlike_ticket(
 
 @check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_tickets_list_by_filter(
-    filters: TicketListRequestSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        filters: TicketListRequestSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Show tickets"""
     Authorize.jwt_required()
@@ -317,7 +317,7 @@ async def tickets__show_tickets_list_by_filter(
     }
     final_filters = select_filters(available_filters, filters)
 
-    response_list: TicketDetailInfoSchema = []
+    response_list: list[TicketDetailInfoSchema] = []
 
     tickets_black_list = set()
 
@@ -325,14 +325,9 @@ async def tickets__show_tickets_list_by_filter(
         tickets_black_list.add(item.ticket_id.ticket_id)
 
     expression: list[Tickets] = get_filtered_tickets(
-        final_filters + [
+        final_filters + [] if filters.creator == token_payload.user_id else [
             Tickets.hidden == 0,
-            Tickets.status.not_in(
-                [
-                    StatusStrToModel.convert("NEW"),
-                    StatusStrToModel.convert("REJECTED")
-                ]
-            )
+            Tickets.status != StatusStrToModel.convert("NEW")
         ],
         start_page=filters.start_page,
         tickets_count=filters.tickets_count
@@ -393,14 +388,20 @@ async def tickets__show_tickets_list_by_filter(
         )
 
     return TicketListResponseSchema(
-        ticket_list=response_list
+        ticket_list=response_list,
+        total_pages=Tickets.select().where(*(
+            final_filters + [
+                Tickets.hidden == 0,
+                Tickets.status != StatusStrToModel.convert("NEW")
+            ] if filters.creator != token_payload.user_id else []
+        )).count()/filters.tickets_count
     )
 
 
 @check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_detail_ticket_info(
-    ticket_id_info: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        ticket_id_info: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Show detail ticket info"""
     Authorize.jwt_required()
@@ -467,8 +468,8 @@ async def tickets__show_detail_ticket_info(
 
 @check_permission()
 async def tickets__update_own_ticket_data(
-    updates: UpdateTicketSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        updates: UpdateTicketSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Update ticket info"""
     Authorize.jwt_required()
@@ -496,8 +497,8 @@ async def tickets__update_own_ticket_data(
 
 @check_permission()
 async def tickets__close_own_ticket(
-    data_to_close_ticket: TicketIDValueSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+        data_to_close_ticket: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Close ticket"""
     Authorize.jwt_required()
@@ -537,7 +538,7 @@ async def tickets__close_own_ticket(
 
 @check_permission()
 async def tickets__get_liked_tickets(
-    Authorize: AuthJWT = Depends(get_auth_core())
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were liked by current user"""
 
@@ -609,7 +610,7 @@ async def tickets__get_liked_tickets(
 
 @check_permission()
 async def tickets__get_bookmarked_tickets(
-    Authorize: AuthJWT = Depends(get_auth_core())
+        Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
 

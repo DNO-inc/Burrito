@@ -33,17 +33,12 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     }
     final_filters = select_filters(available_filters, filters)
 
-    response_list: AnonTicketDetailInfoSchema = []
+    response_list: list[AnonTicketDetailInfoSchema] = []
 
     expression: list[Tickets] = get_filtered_tickets(
         final_filters + [
             Tickets.hidden == 0,
-            Tickets.status.not_in(
-                [
-                    StatusStrToModel.convert("NEW"),
-                    StatusStrToModel.convert("REJECTED")
-                ]
-            )
+            Tickets.status != StatusStrToModel.convert("NEW")
         ],
         start_page=filters.start_page,
         tickets_count=filters.tickets_count
@@ -87,5 +82,11 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
         )
 
     return AnonTicketListResponseSchema(
-        ticket_list=response_list
+        ticket_list=response_list,
+        total_pages=Tickets.select().where(*(
+            final_filters + [
+                Tickets.hidden == 0,
+                Tickets.status != StatusStrToModel.convert("NEW")
+            ],
+        )).count()/filters.tickets_count
     )

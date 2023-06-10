@@ -103,7 +103,7 @@ async def admin__get_ticket_list_by_filter(
     }
     final_filters = select_filters(available_filters, filters)
 
-    response_list: AdminTicketDetailInfo = []
+    response_list: list[AdminTicketDetailInfo] = []
 
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
@@ -170,7 +170,8 @@ async def admin__get_ticket_list_by_filter(
         )
 
     return AdminTicketListResponse(
-        ticket_list=response_list
+        ticket_list=response_list,
+        total_pages=Tickets.select().where(*final_filters).count()/filters.tickets_count
     )
 
 
