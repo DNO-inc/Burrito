@@ -1,7 +1,14 @@
-include .venv
+include .env
 export
 
-PYTHON = $(shell which python3)
+VENV_PATH = .venv
+
+ifeq ("$(wildcard $(VENV_PATH))", "")
+	PYTHON=$(shell which python3)
+else
+	PYTHON=$(VENV_PATH)/bin/python3
+endif
+
 
 run:
 	$(PYTHON) -m burrito
