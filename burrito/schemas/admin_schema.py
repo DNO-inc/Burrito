@@ -38,8 +38,8 @@ class AdminTicketDetailInfo(BaseModel):
     ticket_id: int
     subject: str
     body: str
-    queue: QueueResponseSchema | None
     faculty: FacultyResponseSchema
+    queue: QueueResponseSchema | None
     status: StatusResponseSchema
     upvotes: int
     is_liked: bool
