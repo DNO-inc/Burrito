@@ -4,14 +4,14 @@ from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.pagination_schema import BurritoPagination
-
+from burrito.schemas.queue_schema import QueueResponseSchema
 
 class CreateTicketSchema(BaseModel):
     subject: str
     body: str
     hidden: bool
     anonymous: bool
-    queue: str | None
+    queue: int | None
     faculty: str
 
 
@@ -54,6 +54,7 @@ class TicketDetailInfoSchema(BaseModel):
     subject: str
     body: str
     faculty: FacultyResponseSchema
+    queue: QueueResponseSchema | None
     status: StatusResponseSchema
     upvotes: int
     is_liked: bool

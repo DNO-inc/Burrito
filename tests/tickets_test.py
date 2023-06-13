@@ -23,7 +23,7 @@ def create_ticket_get_id(subject: str) -> int:
             "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-            "queue": "questions",
+            "queue": 1,
             "faculty": random.choice(["EliT", "Biem"]),
         },
         timeout=TIMEOUT
@@ -48,7 +48,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "queue": "questions",
+                "queue": 1,
                 "faculty": random.choice(["EliT", "Biem"]),
             },
             timeout=TIMEOUT
@@ -114,7 +114,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "queue": "questions",
+                "queue": 1,
                 "faculty": random.choice(["EliT", "Biem"]),
             },
             timeout=TIMEOUT
@@ -168,7 +168,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "queue": "questions",
+                "queue": 1,
                 "faculty": random.choice(["EliT", "Biem"]),
             },
             timeout=TIMEOUT
@@ -239,7 +239,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(300)]),
                 "hidden": False,
                 "anonymous": False,
-                "queue": "questions",
+                "queue": 1,
                 "faculty": "EliT",
             },
             timeout=TIMEOUT

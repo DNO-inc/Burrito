@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.pagination_schema import BurritoPagination
-
+from burrito.schemas.queue_schema import QueueResponseSchema
 
 class AnonTicketListRequestSchema(BurritoPagination):
     anonymous: bool | None
@@ -29,6 +29,7 @@ class AnonTicketDetailInfoSchema(BaseModel):
     subject: str
     body: str
     faculty: FacultyResponseSchema
+    queue: QueueResponseSchema | None
     status: StatusResponseSchema
     upvotes: int
     date: str
