@@ -1,5 +1,7 @@
-VENV_PATH = .venv
-PYTHON = $(VENV_PATH)/bin/python3
+include .venv
+export
+
+PYTHON = $(shell which python3)
 
 run:
 	$(PYTHON) -m burrito
