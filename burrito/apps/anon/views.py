@@ -3,9 +3,11 @@ import math
 from playhouse.shortcuts import model_to_dict
 
 from burrito.models.liked_model import Liked
+from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.anon_schema import (
     AnonTicketListRequestSchema,
@@ -68,6 +70,10 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
             Liked.ticket_id == ticket.ticket_id
         ).count()
 
+        queue: Queues | None = None
+        if ticket.queue:
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
         response_list.append(
             AnonTicketDetailInfoSchema(
                 creator=creator,
@@ -78,6 +84,12 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 faculty=FacultyResponseSchema(
                     **model_to_dict(ticket.faculty)
                 ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
                 status=StatusResponseSchema(
                     **model_to_dict(ticket.status)
                 ),

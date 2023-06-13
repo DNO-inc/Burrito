@@ -7,6 +7,7 @@ from fastapi_jwt_auth import AuthJWT
 from burrito.models.user_model import Users
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
+from burrito.models.queues_model import Queues
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
@@ -137,13 +138,9 @@ async def admin__get_ticket_list_by_filter(
             Liked.ticket_id == ticket.ticket_id
         ).count()
 
-        queue = None
+        queue: Queues | None = None
         if ticket.queue:
-            queue = QueueResponseSchema(
-                queue_id=ticket.queue.queue_id,
-                faculty=ticket.faculty.faculty_id,
-                name=ticket.queue.name
-            )
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
 
         response_list.append(
             AdminTicketDetailInfo(
@@ -152,11 +149,16 @@ async def admin__get_ticket_list_by_filter(
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body),
-                queue=queue,
                 faculty=FacultyResponseSchema(
                     faculty_id=ticket.faculty.faculty_id,
                     name=ticket.faculty.name
                 ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
                 status=StatusResponseSchema(
                     status_id=ticket.status.status_id,
                     name=ticket.status.name
@@ -212,13 +214,9 @@ async def admin__show_detail_ticket_info(
             hide_user_id=False
         )
 
-    queue = None
+    queue: Queues | None = None
     if ticket.queue:
-        queue = QueueResponseSchema(
-            queue_id=ticket.queue.queue_id,
-            faculty=ticket.faculty.faculty_id,
-            name=ticket.queue.name
-        )
+        queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
 
     upvotes = Liked.select().where(
         Liked.ticket_id == ticket.ticket_id
@@ -230,7 +228,12 @@ async def admin__show_detail_ticket_info(
         ticket_id=ticket.ticket_id,
         subject=ticket.subject,
         body=ticket.body,
-        queue=queue,
+        queue=QueueResponseSchema(
+            queue_id=queue.queue_id,
+            faculty=queue.faculty.faculty_id,
+            name=queue.name,
+            scope=queue.scope
+        ) if queue else None,
         faculty=FacultyResponseSchema(
             faculty_id=ticket.faculty.faculty_id,
             name=ticket.faculty.name

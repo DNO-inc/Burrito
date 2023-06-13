@@ -60,6 +60,7 @@ from .utils import (
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error
 )
+from ...schemas.queue_schema import QueueResponseSchema
 
 
 @check_permission(permission_list={"CREATE_TICKET"})
@@ -76,9 +77,7 @@ async def tickets__create_new_ticket(
 
     faculty_id = FacultyStrToModel.convert(ticket_creation_data.faculty)
 
-    queue: Queues | None = None
-    if faculty_id:
-        queue = QueueStrToModel.convert(ticket_creation_data.queue, faculty_id)
+    queue: Queues | None = Queues.get_or_none(Queues.queue_id == ticket_creation_data.queue)
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
@@ -372,6 +371,10 @@ async def tickets__show_tickets_list_by_filter(
             Liked.ticket_id == ticket.ticket_id
         ).count()
 
+        queue: Queues | None = None
+        if ticket.queue:
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
         response_list.append(
             TicketDetailInfoSchema(
                 creator=creator,
@@ -383,6 +386,12 @@ async def tickets__show_tickets_list_by_filter(
                     faculty_id=ticket.faculty.faculty_id,
                     name=ticket.faculty.name
                 ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
                 status=StatusResponseSchema(
                     status_id=ticket.status.status_id,
                     name=ticket.status.name
@@ -449,6 +458,10 @@ async def tickets__show_detail_ticket_info(
         Liked.ticket_id == ticket.ticket_id
     ).count()
 
+    queue: Queues | None = None
+    if ticket.queue:
+        queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
     return TicketDetailInfoSchema(
         creator=creator,
         assignee=assignee,
@@ -459,6 +472,12 @@ async def tickets__show_detail_ticket_info(
             faculty_id=ticket.faculty.faculty_id,
             name=ticket.faculty.name
         ),
+        queue=QueueResponseSchema(
+            queue_id=queue.queue_id,
+            faculty=queue.faculty.faculty_id,
+            name=queue.name,
+            scope=queue.scope
+        ) if queue else None,
         status=StatusResponseSchema(
             status_id=ticket.status.status_id,
             name=ticket.status.name,
@@ -592,6 +611,10 @@ async def tickets__get_liked_tickets(
                 hide_user_id=False
             )
 
+        queue: Queues | None = None
+        if ticket.queue:
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
         response_list.append(
             TicketDetailInfoSchema(
                 creator=creator,
@@ -603,6 +626,12 @@ async def tickets__get_liked_tickets(
                     faculty_id=ticket.faculty.faculty_id,
                     name=ticket.faculty.name
                 ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
                 status=StatusResponseSchema(
                     status_id=ticket.status.status_id,
                     name=ticket.status.name
@@ -672,6 +701,10 @@ async def tickets__get_bookmarked_tickets(
                 hide_user_id=False
             )
 
+        queue: Queues | None = None
+        if ticket.queue:
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
         response_list.append(
             TicketDetailInfoSchema(
                 creator=creator,
@@ -683,6 +716,12 @@ async def tickets__get_bookmarked_tickets(
                     faculty_id=ticket.faculty.faculty_id,
                     name=ticket.faculty.name
                 ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
                 status=StatusResponseSchema(
                     status_id=ticket.status.status_id,
                     name=ticket.status.name
