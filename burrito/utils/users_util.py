@@ -1,6 +1,7 @@
 from fastapi import HTTPException, status
 
 from burrito.utils.converter import GroupStrToModel, FacultyStrToModel
+from burrito.utils.logger import get_logger
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users

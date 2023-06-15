@@ -6,6 +6,7 @@ from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.pagination_schema import BurritoPagination
 from burrito.schemas.queue_schema import QueueResponseSchema
 
+
 class CreateTicketSchema(BaseModel):
     subject: str
     body: str

@@ -24,15 +24,15 @@ from burrito.apps.iofiles.router import iofiles_router
 from burrito.utils.db_utils import create_tables
 from burrito.utils.app_util import connect_app, get_current_app
 from burrito.utils.config_reader import get_config
-#from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
+# from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
 
 
 create_tables()
 
-#db_preprocessor = LocalDataBasePreprocessor(
+# db_preprocessor = LocalDataBasePreprocessor(
 #    {"filename": "./preprocessor_config.json"}
-#)
-#db_preprocessor.apply_data()
+# )
+# db_preprocessor.apply_data()
 
 
 app = get_current_app()
@@ -52,7 +52,7 @@ if __name__ == "__main__":
         "burrito.__main__:app",
         host="0.0.0.0",
         port=8080,
-        proxy_headers=True if get_config().BURRITO_PROXY_HEADERS else False,
+        proxy_headers=bool(get_config().BURRITO_PROXY_HEADERS),
         reload=True,
         reload_dirs="burrito"
     )

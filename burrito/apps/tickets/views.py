@@ -13,6 +13,7 @@ from burrito.schemas.tickets_schema import (
     TicketListRequestSchema,
     TicketListResponseSchema
 )
+from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.pagination_schema import BurritoPagination
@@ -47,7 +48,6 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
-    QueueStrToModel,
     FacultyStrToModel,
     StatusStrToModel
 )
@@ -60,7 +60,6 @@ from .utils import (
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error
 )
-from ...schemas.queue_schema import QueueResponseSchema
 
 
 @check_permission(permission_list={"CREATE_TICKET"})
