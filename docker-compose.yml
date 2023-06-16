@@ -7,6 +7,8 @@ services:
     env_file:
       - .env
     command: python3 -m burrito
+    environment:
+      - BURRITO_DB_HOST=burrito_db
     ports:
       - "8080:8080"
     links:
@@ -23,40 +25,28 @@ services:
     ports:
       - "3306:3306"
 
-#  prometheus:
-#    image: prom/prometheus
-#    container_name: prometheus
-#    ports:
-#      - 9090:9090
-#    volumes:
-#      - ./prometheus_data/prometheus.yml:/etc/prometheus/prometheus.yml
-#    command:
-#      - '--config.file=/etc/prometheus/prometheus.yml'
-#
-#  grafana:
-#    image: grafana/grafana
-#    container_name: grafana
-#    ports:
-#      - 3000:3000
-#    volumes:
-#      - grafana_data:/var/lib/grafana
-#
-#volumes:
-#  prometheus_data:
-#    driver: local
-#    driver_opts:
-#      o: bind
-#      type: none
-#      device: ./prometheus_data
-#  grafana_data:
-#    driver: local
-#    driver_opts:
-#      o: bind
-#      type: none
-#      device: ./grafana_data
-#  postgres_data:
-#
-#networks:
-#  default:
-#    name: burrito_net
-#
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  grafana_data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./grafana_data

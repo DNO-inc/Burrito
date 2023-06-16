@@ -21,9 +21,10 @@ FROM python:3.10-slim-buster
 ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 
 COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/
-COPY ./burrito /burrito
+COPY ./preprocessor_config.json /preprocessor_config.json
 COPY ./CONTRIBUTORS.md /CONTRIBUTORS.md
 COPY ./CHANGELOG.md /CHANGELOG.md
+COPY ./burrito /burrito
 
 WORKDIR ./
 

@@ -5,35 +5,42 @@ needed for Burrito functionality.
 
 """
 
-import uvicorn
-from prometheus_fastapi_instrumentator import Instrumentator, metrics
+from burrito.init.init_system import InitManager, get_logger
 
-from burrito.apps.registration.router import registration_router
-from burrito.apps.about.router import about_router
-
-from burrito.apps.auth.router import auth_router
-from burrito.apps.profile.router import profile_router
-
-from burrito.apps.tickets.router import tickets_router
-from burrito.apps.admin.router import admin_router
-
-from burrito.apps.anon.router import anon_router
-from burrito.apps.meta.router import meta_router
-
-from burrito.apps.iofiles.router import iofiles_router
-
-from burrito.utils.db_utils import create_tables
-from burrito.utils.app_util import connect_app, get_current_app
-from burrito.utils.config_reader import get_config
-# from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
+from burrito.init.tasks.check_db_task import CheckDBTask
 
 
-create_tables()
+init_manager = InitManager(
+    error_attempt_delta=3
+)
+init_manager.add_task(CheckDBTask(attempt_count=100))
 
-# db_preprocessor = LocalDataBasePreprocessor(
-#    {"filename": "./preprocessor_config.json"}
-# )
-# db_preprocessor.apply_data()
+init_manager.run_cycle()
+
+if not init_manager.critical:
+    import uvicorn
+    from prometheus_fastapi_instrumentator import Instrumentator, metrics
+
+    from burrito.apps.registration.router import registration_router
+    from burrito.apps.about.router import about_router
+
+    from burrito.apps.auth.router import auth_router
+    from burrito.apps.profile.router import profile_router
+
+    from burrito.apps.tickets.router import tickets_router
+    from burrito.apps.admin.router import admin_router
+
+    from burrito.apps.anon.router import anon_router
+    from burrito.apps.meta.router import meta_router
+
+    from burrito.apps.iofiles.router import iofiles_router
+
+    from burrito.utils.app_util import connect_app, get_current_app
+    from burrito.utils.config_reader import get_config
+else:
+    print()
+    get_logger().critical("Some critical error was ocurred before")
+    exit(1)
 
 
 app = get_current_app()
