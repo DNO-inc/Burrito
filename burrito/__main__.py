@@ -6,6 +6,7 @@ needed for Burrito functionality.
 """
 
 import uvicorn
+from prometheus_fastapi_instrumentator import Instrumentator, metrics
 
 from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router
@@ -46,8 +47,30 @@ connect_app(app, "/anon", anon_router)
 connect_app(app, "/meta", meta_router)
 connect_app(app, "/iofiles", iofiles_router)
 
+# connect prometheus
+instrumentator = Instrumentator().instrument(app)
+instrumentator.add(
+    metrics.request_size(
+        should_include_handler=True,
+        should_include_method=False,
+        should_include_status=True,
+        metric_namespace="a",
+        metric_subsystem="b",
+    )
+).add(
+    metrics.response_size(
+        should_include_handler=True,
+        should_include_method=False,
+        should_include_status=True,
+        metric_namespace="namespace",
+        metric_subsystem="subsystem",
+    )
+)
+
+instrumentator.expose(app)
 
 if __name__ == "__main__":
+
     uvicorn.run(
         "burrito.__main__:app",
         host="0.0.0.0",
