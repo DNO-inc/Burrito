@@ -11,6 +11,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.utils.db_cursor_object import get_database_cursor
 
 
+# TODO: add reply_to field to this model
 class Comments(Model):
     comment_id = AutoField()
 
@@ -20,7 +21,7 @@ class Comments(Model):
         on_delete="NO ACTION"
     )
 
-    user_id = ForeignKeyField(
+    author = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"
@@ -28,7 +29,7 @@ class Comments(Model):
 
     comment_date = DateTimeField(default=datetime.datetime.now)
 
-    upvotes = IntegerField()
+    upvotes = IntegerField(default=0)
 
     body = TextField()
 

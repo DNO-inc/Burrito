@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Burrito"
-version = "0.5.2.dev1"
+version = "0.5.5.dev1"
 description = "API for the issue tracker"
 authors = ["DimonBor", "m-o-d-e-r"]
 readme = "README.md"
@@ -28,6 +28,7 @@ python-dotenv = "^1.0.0"
 python-multipart = "^0.0.6"
 aiofiles = "^23.1.0"
 cryptography = "^40.0.2"
+prometheus-fastapi-instrumentator = "^6.0.0"
 
 
 [build-system]
