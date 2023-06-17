@@ -34,6 +34,7 @@ if not init_manager.critical:
     from burrito.apps.meta.router import meta_router
 
     from burrito.apps.iofiles.router import iofiles_router
+    from burrito.apps.comments.router import comments_router
 
     from burrito.utils.app_util import connect_app, get_current_app
     from burrito.utils.config_reader import get_config
@@ -53,6 +54,7 @@ connect_app(app, "/admin", admin_router)
 connect_app(app, "/anon", anon_router)
 connect_app(app, "/meta", meta_router)
 connect_app(app, "/iofiles", iofiles_router)
+connect_app(app, "/comments", comments_router)
 
 # connect prometheus
 instrumentator = Instrumentator().instrument(app)
@@ -81,7 +83,7 @@ if __name__ == "__main__":
     uvicorn.run(
         "burrito.__main__:app",
         host="0.0.0.0",
-        port=8080,
+        port=int(get_config().BURRITO_PORT),
         proxy_headers=bool(get_config().BURRITO_PROXY_HEADERS),
         reload=True,
         reload_dirs="burrito"
