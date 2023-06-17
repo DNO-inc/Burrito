@@ -6,9 +6,6 @@ services:
     build: .
     env_file:
       - .env
-    command: python3 -m burrito
-    environment:
-      - BURRITO_DB_HOST=burrito_db
     ports:
       - "8080:8080"
     links:
