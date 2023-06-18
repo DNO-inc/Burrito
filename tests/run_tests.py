@@ -12,6 +12,7 @@ from admin_tests import AdminTestCase
 from anon_test import AnonTestCase
 from meta_test import MetaTestCase
 from iofiles_test import IOFilesTestCase
+from comments_test import CommentsTestCase
 
 # modify sys.path to get access to burrito
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -28,6 +29,7 @@ all_tests = unittest.TestSuite(
         unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
         unittest.TestLoader().loadTestsFromTestCase(MetaTestCase),
         #unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase)
+        unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase)
     ]
 )
 

@@ -9,7 +9,9 @@ from burrito.schemas.comment_schema import (
 )
 
 from burrito.models.comments_model import Comments
+from burrito.models.tickets_model import Tickets
 
+from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth_token_util import (
@@ -17,7 +19,7 @@ from burrito.utils.auth_token_util import (
     read_access_token_payload
 )
 
-from .utils import is_comment_exist_with_ext, is_my_comment_with_ext
+from .utils import is_comment_exist_with_ext, is_allowed_to_interact
 
 
 @check_permission()
@@ -31,9 +33,22 @@ async def comments__create(
         Authorize.get_jwt_subject()
     )
 
+    ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
+    if ticket.hidden:
+        creator_id = ticket.creator.user_id
+        assignee_id = ticket.assignee.user_id if ticket.assignee else None
+
+        if token_payload.user_id != creator_id and token_payload.user_id != assignee_id:
+            return JSONResponse(
+                status_code=403,
+                content={
+                    "detail": "You have not permissions to create comment here"
+                }
+            )
+
     # TODO: add reply_to to this request
     comment: Comments = Comments.create(
-        ticket_id=creation_comment_data.ticket_id,
+        ticket=creation_comment_data.ticket_id,
         author=token_payload.user_id,
         body=creation_comment_data.body
     )
@@ -59,7 +74,7 @@ async def comments__edit(
     )
 
     comment: Comments | None = is_comment_exist_with_ext(edit_comment_data.comment_id)
-    is_my_comment_with_ext(comment, token_payload.user_id)
+    is_allowed_to_interact(comment, token_payload.user_id)
 
     if edit_comment_data.body:
         comment.body = edit_comment_data.body
@@ -86,7 +101,7 @@ async def comments__delete(
     )
 
     comment: Comments | None = is_comment_exist_with_ext(deletion_comment_data.comment_id)
-    is_my_comment_with_ext(comment, token_payload.user_id)
+    is_allowed_to_interact(comment, token_payload.user_id)
 
     comment.delete_instance()
 

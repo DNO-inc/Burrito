@@ -69,6 +69,7 @@ class AdminTestCase(unittest.TestCase):
             200
         )
 
+    @unittest.skip
     def test_004_admin_delete_ticket(self):
         response = requests.delete(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/delete",

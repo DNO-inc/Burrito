@@ -15,7 +15,7 @@ from burrito.utils.db_cursor_object import get_database_cursor
 class Comments(Model):
     comment_id = AutoField()
 
-    ticket_id = ForeignKeyField(
+    ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
         on_delete="NO ACTION"
