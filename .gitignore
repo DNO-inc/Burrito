@@ -6,3 +6,5 @@ __pycache__
 
 /poetry.lock
 test[0-9]*.py
+grafana_data/*
+grafana/*
