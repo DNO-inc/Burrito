@@ -1,4 +1,4 @@
-from fastapi.responses import JSONResponse
+from fastapi import HTTPException
 
 from burrito.models.comments_model import Comments
 
@@ -17,12 +17,10 @@ def is_comment_exist_with_ext(comment_id: int) -> Comments | None:
     return comment
 
 
-def is_my_comment_with_ext(comment: Comments, user_id: int) -> bool | None:
+def is_allowed_to_interact(comment: Comments, user_id: int) -> bool | None:
     if comment.author.user_id != user_id:
-        return JSONResponse(
+        raise HTTPException(
             status_code=403,
-            content={
-                "detail": "You have not permissions to interact with this comment"
-            }
+            detail="You have not permissions to interact with this comment"
         )
     return True

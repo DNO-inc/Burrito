@@ -22,5 +22,5 @@ comments_router.add_api_route(
 comments_router.add_api_route(
     "/delete",
     comments__delete,
-    methods=["POST"]
+    methods=["DELETE"]
 )
