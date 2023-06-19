@@ -13,13 +13,13 @@ from burrito.utils.db_cursor_object import get_database_cursor
 
 class Actions(Model):
     action_id = AutoField()
-    ticket_id = ForeignKeyField(
+    ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
         on_delete="NO ACTION"
     )
 
-    user_id = ForeignKeyField(
+    author = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"

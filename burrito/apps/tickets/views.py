@@ -44,7 +44,9 @@ from burrito.utils.tickets_util import (
     make_short_user_data,
     is_ticket_bookmarked,
     get_filtered_tickets,
-    select_filters
+    select_filters,
+    create_ticket_action,
+    get_ticket_actions
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -492,7 +494,8 @@ async def tickets__show_detail_ticket_info(
             token_payload.user_id,
             ticket.ticket_id
         ),
-        date=str(ticket.created)
+        date=str(ticket.created),
+        history=get_ticket_actions(ticket.ticket_id)
     )
 
 
@@ -556,6 +559,14 @@ async def tickets__close_own_ticket(
             status_code=500,
             content={"detail": "Ticket is not closed. Try latter."}
         )
+
+    create_ticket_action(
+        ticket_id=data_to_close_ticket.ticket_id,
+        author_id=token_payload.user_id,
+        field_name="status",
+        old_value=ticket.status.name,
+        new_value=status_object.name
+    )
 
     ticket.status = status_object
     ticket.save()

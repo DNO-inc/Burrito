@@ -5,6 +5,7 @@ from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.pagination_schema import BurritoPagination
+from burrito.schemas.action_schema import ActionSchema
 
 
 class AdminUpdateTicketSchema(BaseModel):
@@ -45,6 +46,7 @@ class AdminTicketDetailInfo(BaseModel):
     is_liked: bool
     is_bookmarked: bool
     date: str
+    history: list[ActionSchema] = []
 
 
 class AdminTicketListResponse(BaseModel):
