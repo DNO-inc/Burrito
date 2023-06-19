@@ -9,7 +9,6 @@ class CommentCreationSchema(BaseModel):
 
 class CommentEditSchema(BaseModel):
     comment_id: int
-    make_upvote: bool | None = None
     body: str | None
 
 

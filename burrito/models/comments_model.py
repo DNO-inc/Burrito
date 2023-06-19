@@ -29,8 +29,6 @@ class Comments(Model):
 
     comment_date = DateTimeField(default=datetime.datetime.now)
 
-    upvotes = IntegerField(default=0)
-
     body = TextField()
 
     class Meta:
