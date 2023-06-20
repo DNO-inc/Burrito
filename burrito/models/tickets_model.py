@@ -1,7 +1,7 @@
 import datetime
 
 from peewee import (
-    Model, AutoField,
+    AutoField,
     IntegerField, TextField,
     DateTimeField, BooleanField,
     CharField, ForeignKeyField
@@ -11,11 +11,10 @@ from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.faculty_model import Faculties
 from burrito.models.user_model import Users
+from burrito.models.basic_model import BurritoBasicModel
 
-from burrito.utils.db_cursor_object import get_database_cursor
 
-
-class Tickets(Model):
+class Tickets(BurritoBasicModel):
     ticket_id = AutoField()
 
     creator = ForeignKeyField(
@@ -62,5 +61,4 @@ class Tickets(Model):
     )
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Users, Queues, Faculties, Statuses]

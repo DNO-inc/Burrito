@@ -1,15 +1,14 @@
 from peewee import (
-    Model, BooleanField, AutoField,
+    BooleanField, AutoField,
     ForeignKeyField, TextField
 )
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
+from burrito.models.basic_model import BurritoBasicModel
 
-from burrito.utils.db_cursor_object import get_database_cursor
 
-
-class Notifications(Model):
+class Notifications(BurritoBasicModel):
     notification_id = AutoField()
 
     ticket_id = ForeignKeyField(
@@ -28,5 +27,4 @@ class Notifications(Model):
     read = BooleanField(default=False)
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Tickets, Users]

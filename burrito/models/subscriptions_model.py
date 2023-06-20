@@ -1,12 +1,11 @@
-from peewee import Model, ForeignKeyField, CompositeKey
+from peewee import ForeignKeyField, CompositeKey
 
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
+from burrito.models.basic_model import BurritoBasicModel
 
-from burrito.utils.db_cursor_object import get_database_cursor
 
-
-class Subscriptions(Model):
+class Subscriptions(BurritoBasicModel):
     user_id = ForeignKeyField(
         Users,
         field="user_id",
@@ -20,6 +19,5 @@ class Subscriptions(Model):
     )
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Tickets, Users]
         primary_key = CompositeKey('user_id', 'ticket_id')

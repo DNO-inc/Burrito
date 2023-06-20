@@ -1,11 +1,11 @@
-from peewee import Model, AutoField, ForeignKeyField, CharField
+from peewee import AutoField, ForeignKeyField, CharField
 
 from burrito.models.faculty_model import Faculties
 
-from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.models.basic_model import BurritoBasicModel
 
 
-class Queues(Model):
+class Queues(BurritoBasicModel):
     queue_id = AutoField()
 
     name = CharField(max_length=255)
@@ -17,5 +17,4 @@ class Queues(Model):
     scope = CharField(max_length=50)
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Faculties]
