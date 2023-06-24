@@ -37,7 +37,9 @@ from burrito.utils.query_util import (
     q_protected_statuses,
     q_hidden,
     q_is_hidden,
-    q_is_creator
+    q_is_creator,
+    q_is_deleted,
+    q_is_not_deleted
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -329,18 +331,15 @@ async def tickets__show_tickets_list_by_filter(
         "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters) + (
-        [] if filters.creator == token_payload.user_id else [
+        [
+            q_is_not_deleted(token_payload.user_id)
+        ] if filters.creator == token_payload.user_id else [
             q_hidden(),
             q_protected_statuses()
         ]
     )
 
     response_list: list[TicketDetailInfoSchema] = []
-
-    tickets_black_list = set()
-
-    for item in Deleted.select().where(Deleted.user_id == token_payload.user_id):
-        tickets_black_list.add(item.ticket_id.ticket_id)
 
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
@@ -355,9 +354,6 @@ async def tickets__show_tickets_list_by_filter(
         )
 
         if not i_am_creator and ticket.hidden:
-            continue
-
-        if i_am_creator and (ticket.ticket_id in tickets_black_list):
             continue
 
         creator = None
@@ -756,4 +752,82 @@ async def tickets__get_bookmarked_tickets(
                 Bookmarks.user_id == token_payload.user_id
             ).count()/pagination_data.tickets_count
         )
+    )
+
+
+@check_permission()
+async def tickets__get_deleted_tickets(
+        pagination_data: BurritoPagination = BurritoPagination(),
+        Authorize: AuthJWT = Depends(get_auth_core())
+):
+    Authorize.jwt_required()
+
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    final_filters = [
+        q_is_deleted(token_payload.user_id)
+    ]
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters,
+        start_page=pagination_data.start_page,
+        tickets_count=pagination_data.tickets_count
+    )
+
+    response_list: list = []
+    for ticket in expression:
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
+
+        upvotes = Liked.select().where(
+            Liked.ticket_id == ticket.ticket_id
+        ).count()
+
+        queue: Queues | None = None
+        if ticket.queue:
+            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
+
+        response_list.append(
+            TicketDetailInfoSchema(
+                creator=make_short_user_data(ticket.creator, hide_user_id=False),
+                assignee=assignee,
+                ticket_id=ticket.ticket_id,
+                subject=ticket.subject,
+                body=hide_ticket_body(ticket.body, 500),
+                faculty=FacultyResponseSchema(
+                    faculty_id=ticket.faculty.faculty_id,
+                    name=ticket.faculty.name
+                ),
+                queue=QueueResponseSchema(
+                    queue_id=queue.queue_id,
+                    faculty=queue.faculty.faculty_id,
+                    name=queue.name,
+                    scope=queue.scope
+                ) if queue else None,
+                status=StatusResponseSchema(
+                    status_id=ticket.status.status_id,
+                    name=ticket.status.name
+                ),
+                upvotes=upvotes,
+                is_liked=bool(
+                    Liked.get_or_none(
+                        Liked.user_id == token_payload.user_id,
+                        Liked.ticket_id == ticket.ticket_id
+                    )
+                ),
+                is_bookmarked=is_ticket_bookmarked(
+                    token_payload.user_id,
+                    ticket.ticket_id
+                ),
+                date=str(ticket.created)
+            )
+        )
+
+    return TicketListResponseSchema(
+        ticket_list=response_list,
+        total_pages=math.ceil(Tickets.select().where(*(
+            final_filters
+        )).count()/pagination_data.tickets_count)
     )
