@@ -14,11 +14,8 @@ services:
   db:
     container_name: burrito_db
     image: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=super_password
-      - MYSQL_DATABASE=burrito
-      - MYSQL_USER=burrito_user
-      - MYSQL_PASSWORD=Qwerty123
+    env_file:
+      - .env
     ports:
       - "3306:3306"
 
