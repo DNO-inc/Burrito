@@ -22,8 +22,9 @@ class AdminTestCase(unittest.TestCase):
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
                 "status": random.choice(
-                    ["ACCEPTED", "OPEN", "WAITING", "REJECTED", "CLOSE", None]
-                )
+                    ["ACCEPTED", "OPEN", "WAITING", "REJECTED", "CLOSE"]
+                ),
+                "faculty": "Biem"
             },
             timeout=TIMEOUT
         )

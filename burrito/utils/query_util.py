@@ -2,6 +2,7 @@ from peewee import Expression
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
+from burrito.models.deleted_model import Deleted
 
 from burrito.utils.converter import (
     StatusStrToModel,
@@ -67,3 +68,15 @@ def q_is_valid_status_list(values: list[str]) -> Expression | None:
     for item in values[1:]:
         result_query |= q_is_valid_status(item)
     return result_query
+
+
+def q_is_deleted(_user_id: int) -> Expression:
+    return Tickets.ticket_id.in_(
+        Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
+    )
+
+
+def q_is_not_deleted(_user_id: int) -> Expression:
+    return Tickets.ticket_id.not_in(
+        Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
+    )

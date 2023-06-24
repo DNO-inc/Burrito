@@ -1,12 +1,12 @@
-from peewee import Model, ForeignKeyField
+from peewee import ForeignKeyField
 
 from burrito.models.roles_model import Roles
 from burrito.models.permissions_model import Permissions
 
-from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.models.basic_model import BurritoBasicModel
 
 
-class RolePermissions(Model):
+class RolePermissions(BurritoBasicModel):
     role = ForeignKeyField(
         Roles,
         field="role_id",
@@ -20,5 +20,4 @@ class RolePermissions(Model):
     )
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Roles, Permissions]

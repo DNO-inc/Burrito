@@ -6,8 +6,10 @@ from playhouse.shortcuts import model_to_dict
 
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.tickets_model import Tickets
+from burrito.models.actions_model import Actions
 from burrito.models.user_model import Users
 
+from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 
@@ -110,3 +112,34 @@ def get_filtered_tickets(
     ).order_by(
         Tickets.created.desc() if _desc else Tickets.created
     )
+
+
+def create_ticket_action(
+    *,
+    ticket_id: int,
+    author_id: int,
+    field_name: str,
+    old_value: str,
+    new_value: str
+) -> None:
+    Actions.create(
+        ticket=ticket_id,
+        author=author_id,
+        field_name=field_name,
+        old_value=old_value,
+        new_value=new_value
+    )
+
+
+def get_ticket_actions(ticket_id: int) -> list[Actions]:
+    return [
+        ActionSchema(
+            action_id=action.action_id,
+            ticket_id=action.ticket_id,
+            author_id=action.author_id,
+            action_date=str(action.action_date),
+            field_name=action.field_name,
+            old_value=action.old_value,
+            new_value=action.new_value
+        ) for action in Actions.select().where(Actions.ticket == ticket_id)
+    ]

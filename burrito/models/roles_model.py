@@ -1,11 +1,8 @@
-from peewee import Model, AutoField, CharField
+from peewee import AutoField, CharField
 
-from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.models.basic_model import BurritoBasicModel
 
 
-class Roles(Model):
+class Roles(BurritoBasicModel):
     role_id = AutoField()
     name = CharField(32)
-
-    class Meta:
-        database = get_database_cursor()

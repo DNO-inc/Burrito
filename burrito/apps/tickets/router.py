@@ -12,7 +12,8 @@ from burrito.apps.tickets.views import (
     tickets__update_own_ticket_data,
     tickets__close_own_ticket,
     tickets__get_liked_tickets,
-    tickets__get_bookmarked_tickets
+    tickets__get_bookmarked_tickets,
+    tickets__get_deleted_tickets
 )
 
 
@@ -76,5 +77,10 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/bookmarked",
     tickets__get_bookmarked_tickets,
+    methods=["GET"]
+)
+tickets_router.add_api_route(
+    "/deleted",
+    tickets__get_deleted_tickets,
     methods=["GET"]
 )

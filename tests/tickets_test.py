@@ -331,3 +331,17 @@ class TicketsTestCase(unittest.TestCase):
             response.status_code,
             200
         )
+
+    def test_014_get_deleted_ticket(self):
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/deleted",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            timeout=TIMEOUT
+        )
+
+        self.assertEqual(
+            response.status_code,
+            200
+        )

@@ -1,18 +1,17 @@
 import datetime
 
 from peewee import (
-    Model, AutoField, ForeignKeyField,
-    DateTimeField, TextField, IntegerField
+    AutoField, ForeignKeyField,
+    DateTimeField, TextField
 )
 
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
-
-from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.models.basic_model import BurritoBasicModel
 
 
 # TODO: add reply_to field to this model
-class Comments(Model):
+class Comments(BurritoBasicModel):
     comment_id = AutoField()
 
     ticket = ForeignKeyField(
@@ -29,10 +28,7 @@ class Comments(Model):
 
     comment_date = DateTimeField(default=datetime.datetime.now)
 
-    upvotes = IntegerField(default=0)
-
     body = TextField()
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Tickets, Users]

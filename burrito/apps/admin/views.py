@@ -37,7 +37,9 @@ from burrito.utils.tickets_util import (
     make_short_user_data,
     is_ticket_bookmarked,
     get_filtered_tickets,
-    select_filters
+    select_filters,
+    create_ticket_action,
+    get_ticket_actions
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -67,22 +69,43 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    faculty_id = FacultyStrToModel.convert(admin_updates.faculty)
-    if faculty_id:  # faculty_id must be > 1
-        ticket.faculty = faculty_id
+    faculty_object = FacultyStrToModel.convert(admin_updates.faculty)
+    if faculty_object:  # faculty_id must be > 1
+        create_ticket_action(
+            ticket_id=admin_updates.ticket_id,
+            author_id=token_payload.user_id,
+            field_name="faculty",
+            old_value=ticket.faculty.name,
+            new_value=faculty_object.name
+        )
+        ticket.faculty = faculty_object
 
-    queue_id = QueueStrToModel.convert(admin_updates.queue, admin_updates.faculty)
-    if queue_id:    # queue_id must be > 1
-        ticket.queue = queue_id
+    queue_object = QueueStrToModel.convert(admin_updates.queue, admin_updates.faculty)
+    if queue_object:    # queue_id must be > 1
+        create_ticket_action(
+            ticket_id=admin_updates.ticket_id,
+            author_id=token_payload.user_id,
+            field_name="queue",
+            old_value=ticket.queue.name,
+            new_value=queue_object.name
+        )
+        ticket.queue = queue_object
 
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
-    status_id = 0
+    status_object = None
     if ticket.assignee == current_admin:
-        status_id = StatusStrToModel.convert(admin_updates.status)
-        if status_id:    # status_id must be > 1
-            ticket.status = status_id
+        status_object = StatusStrToModel.convert(admin_updates.status)
+        if status_object:    # status_id must be > 1
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                author_id=token_payload.user_id,
+                field_name="status",
+                old_value=ticket.status.name,
+                new_value=status_object.name
+            )
+            ticket.status = status_object
 
-    if any((faculty_id, queue_id, status_id)):
+    if any((faculty_object, queue_object, status_object)):
         ticket.save()
 
     return JSONResponse(
@@ -253,7 +276,8 @@ async def admin__show_detail_ticket_info(
             token_payload.user_id,
             ticket.ticket_id
         ),
-        date=str(ticket.created)
+        date=str(ticket.created),
+        history=get_ticket_actions(ticket.ticket_id)
     )
 
 
@@ -300,8 +324,24 @@ async def admin__become_an_assignee(
         current_admin: Users | None = get_user_by_id(
             token_payload.user_id
         )
+        create_ticket_action(
+            ticket_id=ticket_data.ticket_id,
+            author_id=token_payload.user_id,
+            field_name="assignee",
+            old_value=ticket.assignee.login,
+            new_value=current_admin.login
+        )
         ticket.assignee = current_admin
-        ticket.status = StatusStrToModel.convert("OPEN")
+
+        new_status = StatusStrToModel.convert("OPEN")
+        create_ticket_action(
+            ticket_id=ticket_data.ticket_id,
+            author_id=token_payload.user_id,
+            field_name="status",
+            old_value=ticket.status.name,
+            new_value=new_status.name
+        )
+        ticket.status = new_status
 
         ticket.save()
 

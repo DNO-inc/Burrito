@@ -5,10 +5,12 @@ needed for Burrito functionality.
 
 """
 
-from burrito.init.init_system import InitManager, get_logger
+from burrito.utils.config_reader import get_config
 
+from burrito.init.init_system import InitManager, get_logger
 from burrito.init.tasks.check_db_task import CheckDBTask
 
+get_config()  # read configs
 
 init_manager = InitManager(
     error_attempt_delta=3
@@ -37,7 +39,6 @@ if not init_manager.critical:
     from burrito.apps.comments.router import comments_router
 
     from burrito.utils.app_util import connect_app, get_current_app
-    from burrito.utils.config_reader import get_config
 else:
     print()
     get_logger().critical("Some critical error was ocurred before")

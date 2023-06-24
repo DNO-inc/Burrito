@@ -1,25 +1,24 @@
 import datetime
 
 from peewee import (
-    Model, CharField, AutoField,
+    CharField, AutoField,
     DateTimeField, ForeignKeyField
 )
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
+from burrito.models.basic_model import BurritoBasicModel
 
-from burrito.utils.db_cursor_object import get_database_cursor
 
-
-class Actions(Model):
+class Actions(BurritoBasicModel):
     action_id = AutoField()
-    ticket_id = ForeignKeyField(
+    ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
         on_delete="NO ACTION"
     )
 
-    user_id = ForeignKeyField(
+    author = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"
@@ -32,5 +31,4 @@ class Actions(Model):
     new_value = CharField(max_length=255)
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Tickets, Users]

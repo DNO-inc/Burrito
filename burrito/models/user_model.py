@@ -1,18 +1,17 @@
 import datetime
 
 from peewee import (
-    Model, CharField, TextField, AutoField,
+    CharField, TextField, AutoField,
     DateTimeField, ForeignKeyField
 )
 
 from burrito.models.roles_model import Roles
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
+from burrito.models.basic_model import BurritoBasicModel
 
-from burrito.utils.db_cursor_object import get_database_cursor
 
-
-class Users(Model):
+class Users(BurritoBasicModel):
     user_id = AutoField()
 
     firstname = CharField(60, null=True)
@@ -49,5 +48,4 @@ class Users(Model):
     )
 
     class Meta:
-        database = get_database_cursor()
         depends_on = [Roles, Groups, Faculties]
