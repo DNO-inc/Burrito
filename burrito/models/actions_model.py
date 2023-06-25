@@ -18,7 +18,7 @@ class Actions(BurritoBasicModel):
         on_delete="NO ACTION"
     )
 
-    author = ForeignKeyField(
+    user = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"

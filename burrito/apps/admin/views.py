@@ -73,7 +73,7 @@ async def admin__update_ticket_data(
     if faculty_object:  # faculty_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
-            author_id=token_payload.user_id,
+            user_id=token_payload.user_id,
             field_name="faculty",
             old_value=ticket.faculty.name,
             new_value=faculty_object.name
@@ -84,7 +84,7 @@ async def admin__update_ticket_data(
     if queue_object:    # queue_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
-            author_id=token_payload.user_id,
+            user_id=token_payload.user_id,
             field_name="queue",
             old_value=ticket.queue.name,
             new_value=queue_object.name
@@ -98,7 +98,7 @@ async def admin__update_ticket_data(
         if status_object:    # status_id must be > 1
             create_ticket_action(
                 ticket_id=admin_updates.ticket_id,
-                author_id=token_payload.user_id,
+                user_id=token_payload.user_id,
                 field_name="status",
                 old_value=ticket.status.name,
                 new_value=status_object.name
@@ -326,7 +326,7 @@ async def admin__become_an_assignee(
         )
         create_ticket_action(
             ticket_id=ticket_data.ticket_id,
-            author_id=token_payload.user_id,
+            user_id=token_payload.user_id,
             field_name="assignee",
             old_value="None",
             new_value=current_admin.login
@@ -336,7 +336,7 @@ async def admin__become_an_assignee(
         new_status = StatusConverter.convert(1)
         create_ticket_action(
             ticket_id=ticket_data.ticket_id,
-            author_id=token_payload.user_id,
+            user_id=token_payload.user_id,
             field_name="status",
             old_value=ticket.status.name,
             new_value=new_status.name

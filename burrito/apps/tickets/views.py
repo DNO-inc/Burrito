@@ -558,7 +558,7 @@ async def tickets__close_own_ticket(
 
     create_ticket_action(
         ticket_id=data_to_close_ticket.ticket_id,
-        author_id=token_payload.user_id,
+        user_id=token_payload.user_id,
         field_name="status",
         old_value=ticket.status.name,
         new_value=status_object.name

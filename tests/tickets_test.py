@@ -245,7 +245,7 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": [1, 2, 3]
+                "status": [6]
             },
             timeout=TIMEOUT
         )
@@ -286,7 +286,8 @@ class TicketsTestCase(unittest.TestCase):
             },
             timeout=TIMEOUT
         )
-
+        from pprint import pprint
+        pprint(response.json())
         check_error(
             self.assertEqual,
             {
