@@ -53,7 +53,8 @@ from burrito.utils.tickets_util import (
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
     FacultyStrToModel,
-    StatusStrToModel
+    StatusStrToModel,
+    QueueStrToModel
 )
 
 from .utils import (
@@ -79,8 +80,7 @@ async def tickets__create_new_ticket(
     )
 
     faculty_id = FacultyStrToModel.convert(ticket_creation_data.faculty)
-
-    queue: Queues | None = Queues.get_or_none(Queues.queue_id == ticket_creation_data.queue)
+    queue: Queues = QueueStrToModel.convert(ticket_creation_data.queue)
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
@@ -326,8 +326,8 @@ async def tickets__show_tickets_list_by_filter(
         "creator": q_is_creator(filters.creator),
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty),
-        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
+        "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
         "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters) + (
@@ -545,11 +545,11 @@ async def tickets__close_own_ticket(
         token_payload.user_id
     )
 
-    status_name = "CLOSE"
-    status_object = StatusStrToModel.convert(status_name)
+    status_id = 6
+    status_object = StatusStrToModel.convert(status_id)
 
     if not status_object:
-        get_logger().critical(f"Status {status_name} is not exist in database")
+        get_logger().critical(f"Status {status_id} is not exist in database")
 
         return JSONResponse(
             status_code=500,

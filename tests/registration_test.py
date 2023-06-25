@@ -12,8 +12,8 @@ TIMEOUT = 5
 def make_user_registration(
     login: str = "".join(random.sample(string.ascii_letters, 5)),
     password: str = "".join(random.sample(string.ascii_letters, 8)),
-    group: str = random.choice(["IT-11", "LOL-11"]),
-    faculty: str = random.choice(["EliT", "Biem"])
+    group: int = random.choice([1, 2]),
+    faculty: int = random.choice([1, 2])
 ):
     response = requests.post(
         f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/registration/",
@@ -25,6 +25,7 @@ def make_user_registration(
         },
         timeout=TIMEOUT
     )
+
     if response.json().get("user_id"):
         return response.json().get("user_id")
 
@@ -50,7 +51,7 @@ class RegistrationTestCase(unittest.TestCase):
 
         user_data = make_user_registration(
             login=RegistrationTestCase.random_login,
-            password=RegistrationTestCase.random_password
+            password=RegistrationTestCase.random_password,
         )
 
         self.assertIsInstance(user_data, int)

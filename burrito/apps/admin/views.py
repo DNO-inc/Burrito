@@ -80,7 +80,7 @@ async def admin__update_ticket_data(
         )
         ticket.faculty = faculty_object
 
-    queue_object = QueueStrToModel.convert(admin_updates.queue, admin_updates.faculty)
+    queue_object = QueueStrToModel.convert(admin_updates.queue) if admin_updates.queue else None
     if queue_object:    # queue_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
@@ -128,8 +128,8 @@ async def admin__get_ticket_list_by_filter(
     available_filters = {
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty),
-        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
+        "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
         "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters)
@@ -328,12 +328,12 @@ async def admin__become_an_assignee(
             ticket_id=ticket_data.ticket_id,
             author_id=token_payload.user_id,
             field_name="assignee",
-            old_value=ticket.assignee.login,
+            old_value="None",
             new_value=current_admin.login
         )
         ticket.assignee = current_admin
 
-        new_status = StatusStrToModel.convert("OPEN")
+        new_status = StatusStrToModel.convert(1)
         create_ticket_action(
             ticket_id=ticket_data.ticket_id,
             author_id=token_payload.user_id,

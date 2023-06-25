@@ -16,9 +16,6 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/1000000",
-            json={
-                "user_id": 1000000
-            },
             timeout=0.5
         )
 
@@ -90,7 +87,6 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
-            json={},
             timeout=0.5
         )
 
@@ -112,8 +108,8 @@ class ProfileTestCase(unittest.TestCase):
                 "lastname": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "email": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "phone": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
-                "faculty": random.choice(["EliT", "Biem"]),
-                "group": random.choice(["IT-11", "LOL-11"]),
+                "faculty": random.choice([1, 2]),
+                "group": random.choice([1, 2]),
             },
             timeout=0.5
         )

@@ -28,6 +28,7 @@ class CommentsTestCase(unittest.TestCase):
             response.status_code,
             200
         )
+
         return response.json()["comment_id"]
 
     def test_002_comments_edit(self):

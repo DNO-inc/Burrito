@@ -1,5 +1,8 @@
 from pydantic import BaseModel
 
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
+
 
 class CheckProfileSchema(BaseModel):
     user_id: int | None
@@ -28,8 +31,8 @@ class BaseProfile(BaseModel):
 
     login: str
 
-    faculty: str | None
-    group: str | None
+    faculty: int | None
+    group: int | None
 
     phone: str | None
     email: str | None
@@ -43,6 +46,9 @@ class ResponseProfileSchema(BaseProfile):
     Args:
         registration_date (str): date when user registered account
     """
+
+    faculty: FacultyResponseSchema | None
+    group: GroupResponseSchema | None
 
     registration_date: str
 

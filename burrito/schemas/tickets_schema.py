@@ -14,7 +14,7 @@ class CreateTicketSchema(BaseModel):
     hidden: bool
     anonymous: bool
     queue: int | None
-    faculty: str
+    faculty: int
 
 
 class UpdateTicketSchema(BaseModel):
@@ -29,9 +29,9 @@ class TicketListRequestSchema(BurritoPagination):
     creator: int | None
     hidden: bool | None
     anonymous: bool | None
-    faculty: str | None
-    queue: str | None
-    status: list[str] | None
+    faculty: int | None
+    queue: int | None
+    status: list[int] | None
 
 
 class TicketIDValueSchema(BaseModel):

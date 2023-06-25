@@ -12,7 +12,7 @@ from burrito.utils.converter import (
 
 
 _PROTECTED_STATUSES: tuple[int] = (
-    StatusStrToModel.convert("NEW").status_id,
+    StatusStrToModel.convert(1).status_id,
 )
 
 STATUSES_FOR_USER: list[int] = []
@@ -47,7 +47,7 @@ def q_protected_statuses() -> Expression:
     return Tickets.status.not_in(_PROTECTED_STATUSES)
 
 
-def q_is_valid_faculty(value: str) -> Expression:
+def q_is_valid_faculty(value: int) -> Expression:
     return Tickets.faculty == FacultyStrToModel.convert(value)
 
 
@@ -55,8 +55,8 @@ def q_is_valid_queue(queue: str, faculty: str) -> Expression:
     return Tickets.queue == QueueStrToModel.convert(queue, faculty)
 
 
-def q_is_valid_status(value: str) -> Expression:
-    return Tickets.status == StatusStrToModel.convert(value)
+def q_is_valid_status(value: int) -> Expression:
+    return Tickets.status == value
 
 
 def q_is_valid_status_list(values: list[str]) -> Expression | None:

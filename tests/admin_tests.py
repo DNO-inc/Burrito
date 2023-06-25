@@ -22,9 +22,9 @@ class AdminTestCase(unittest.TestCase):
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
                 "status": random.choice(
-                    ["ACCEPTED", "OPEN", "WAITING", "REJECTED", "CLOSE"]
+                    [1, 2, 3, 4, 5]
                 ),
-                "faculty": "Biem"
+                "faculty": 1
             },
             timeout=TIMEOUT
         )
@@ -41,7 +41,7 @@ class AdminTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": ["OPEN"],
+                "status": [1],
 #                "hidden": True,
 #                "anonymous": True
             },
@@ -79,6 +79,23 @@ class AdminTestCase(unittest.TestCase):
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket - 1
+            },
+            timeout=TIMEOUT
+        )
+
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+    def test_005_admin_become_assignee(self):
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/become_assignee",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": TicketsTestCase.first_ticket
             },
             timeout=TIMEOUT
         )

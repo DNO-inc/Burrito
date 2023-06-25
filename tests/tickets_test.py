@@ -24,7 +24,7 @@ def create_ticket_get_id(subject: str) -> int:
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "queue": 1,
-            "faculty": random.choice(["EliT", "Biem"]),
+            "faculty": 1,
         },
         timeout=TIMEOUT
     ).json()["ticket_id"]
@@ -49,7 +49,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": 1,
-                "faculty": random.choice(["EliT", "Biem"]),
+                "faculty": 1,
             },
             timeout=TIMEOUT
         )
@@ -115,7 +115,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": 1,
-                "faculty": random.choice(["EliT", "Biem"]),
+                "faculty": random.choice([1, 2]),
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]
@@ -169,7 +169,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": 1,
-                "faculty": random.choice(["EliT", "Biem"]),
+                "faculty": random.choice([1, 2]),
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]
@@ -216,9 +216,7 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": ["OPEN", "WAITING"]
-#                "anonymous": True,
-#                "hidden": False,
+                "status": [1, 2, 3]
             },
             timeout=TIMEOUT
         )
@@ -240,7 +238,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": False,
                 "queue": 1,
-                "faculty": "EliT",
+                "faculty": 1,
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]

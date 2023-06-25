@@ -45,7 +45,7 @@ class MetaTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
             json={
-                "faculty": "EliT"
+                "faculty": 1
             },
             timeout=TIMEOUT
         )
@@ -66,5 +66,5 @@ class MetaTestCase(unittest.TestCase):
 
         self.assertEqual(
             response.status_code,
-            403
+            422
         )

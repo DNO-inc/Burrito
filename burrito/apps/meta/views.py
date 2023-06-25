@@ -54,12 +54,6 @@ async def meta__faculties_list():
 async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
     faculty_object = FacultyStrToModel.convert(faculty_data.faculty)
 
-    if not faculty_object:
-        return JSONResponse(
-            status_code=status.HTTP_403_FORBIDDEN,
-            content={"detail": "Faculty name is wrong"}
-        )
-
     response_list: list[QueueResponseSchema] = []
     for queue in Queues.select().where(
         Queues.faculty == faculty_object

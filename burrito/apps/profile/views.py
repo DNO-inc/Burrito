@@ -52,7 +52,7 @@ async def profile__check_by_id(
 
 @check_permission(permission_list={"UPDATE_PROFILE"})
 async def profile__update_my_profile(
-    profile_updated_data: RequestUpdateProfileSchema,
+    profile_updated_data: RequestUpdateProfileSchema | None = RequestUpdateProfileSchema(),
     Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Update profile data"""
