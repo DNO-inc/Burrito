@@ -7,6 +7,7 @@ import requests
 from auth_test import AuthTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 10
@@ -54,9 +55,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
         TicketsTestCase.first_ticket = response.json()["ticket_id"]
@@ -77,9 +82,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_003_delete_ticket_noexist(self):
@@ -96,9 +105,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            403
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 403
+            },
+            response
         )
 
     def test_004_like_ticket(self):
@@ -131,9 +144,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_005_like_ticket_noexist(self):
@@ -150,9 +167,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            403
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 403
+            },
+            response
         )
 
     def test_006_bookmark_ticket(self):
@@ -185,9 +206,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_007_bookmark_ticket_noexist(self):
@@ -204,9 +229,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            403
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 403
+            },
+            response
         )
 
     def test_008_tickets_filter(self):
@@ -221,9 +250,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_009_ticket_detail_view(self):
@@ -254,9 +287,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_010_update_ticket(self):
@@ -278,9 +315,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_011_close_ticket(self):
@@ -297,9 +338,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_012_get_liked_ticket(self):
@@ -311,9 +356,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_013_get_bookmarked_ticket(self):
@@ -325,9 +374,13 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_014_get_deleted_ticket(self):
@@ -339,7 +392,11 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

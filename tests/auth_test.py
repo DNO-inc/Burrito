@@ -4,6 +4,7 @@ import requests
 from registration_test import RegistrationTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 def do_auth():
@@ -36,8 +37,22 @@ class AuthTestCase(unittest.TestCase):
         access_token = result[1].get("access_token")
         AuthTestCase.access_token = access_token
 
-        self.assertEqual(result[0], 200)
-        self.assertIsNotNone(access_token)
+        check_error(
+            self.assertEqual,
+            {
+                "first": result[0],
+                "second": 200
+            },
+            result[1]
+        )
+
+        check_error(
+            self.assertIsNotNone,
+            {
+                "obj": access_token
+            },
+            result[1]
+        )
 
     def test_do_token_auth(self):
         """
@@ -55,7 +70,14 @@ class AuthTestCase(unittest.TestCase):
             timeout=5
         )
 
-        self.assertEqual(response.status_code, 200)
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
 
     def test_do_token_auth_with_old_token(self):
         """
@@ -75,4 +97,11 @@ class AuthTestCase(unittest.TestCase):
             timeout=5
         )
 
-        self.assertEqual(response.status_code, 200)
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )

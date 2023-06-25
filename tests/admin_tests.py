@@ -7,6 +7,7 @@ from auth_test import AuthTestCase
 from tickets_test import TicketsTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 10
@@ -29,9 +30,13 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_002_admin_ticket_list_view(self):
@@ -48,9 +53,13 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_003_admin_ticket_detail_view(self):
@@ -65,9 +74,13 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     @unittest.skip
@@ -83,9 +96,13 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_005_admin_become_assignee(self):
@@ -100,7 +117,11 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

@@ -8,6 +8,7 @@ from auth_test import AuthTestCase
 from registration_test import RegistrationTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 class ProfileTestCase(unittest.TestCase):
@@ -19,9 +20,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            404
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 404
+            },
+            response
         )
 
     def test_view_profile_without_auth_with_id(self):
@@ -32,9 +37,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_view_profile_without_auth_without_id(self):
@@ -61,9 +70,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_view_profile_with_auth_without_id(self):
@@ -77,9 +90,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_update_profile_without_auth(self):
@@ -114,7 +131,11 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

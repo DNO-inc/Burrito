@@ -2,6 +2,7 @@ import unittest
 import requests
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 5
@@ -18,7 +19,11 @@ class AnonTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

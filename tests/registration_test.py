@@ -4,6 +4,7 @@ import unittest
 import requests
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 5
@@ -54,7 +55,14 @@ class RegistrationTestCase(unittest.TestCase):
             password=RegistrationTestCase.random_password,
         )
 
-        self.assertIsInstance(user_data, int)
+        check_error(
+            self.assertIsInstance,
+            {
+                "obj": user_data,
+                "cls": int
+            }
+        )
+
         RegistrationTestCase.user_id = user_data
 
     def test_do_registration_with_invalid_login(self):
@@ -65,7 +73,13 @@ class RegistrationTestCase(unittest.TestCase):
             password=RegistrationTestCase.random_password
         )
 
-        self.assertEqual(user_data.status_code, 422)
+        check_error(
+            self.assertEqual,
+            {
+                "first": user_data.status_code,
+                "second": 422
+            }
+        )
 
     def test_do_registration_with_invalid_password(self):
         """make registration with invalid datas"""
@@ -75,7 +89,13 @@ class RegistrationTestCase(unittest.TestCase):
             password="."
         )
 
-        self.assertEqual(user_data.status_code, 422)
+        check_error(
+            self.assertEqual,
+            {
+                "first": user_data.status_code,
+                "second": 422
+            }
+        )
 
     def test_do_registration_with_invalid_group(self):
         """make registration with invalid datas"""
@@ -84,7 +104,13 @@ class RegistrationTestCase(unittest.TestCase):
             group="hello_man_11"
         )
 
-        self.assertEqual(user_data.status_code, 422)
+        check_error(
+            self.assertEqual,
+            {
+                "first": user_data.status_code,
+                "second": 422
+            }
+        )
 
     def test_do_registration_with_invalid_faculty(self):
         """make registration with invalid datas"""
@@ -93,7 +119,13 @@ class RegistrationTestCase(unittest.TestCase):
             faculty="hello_man_11"
         )
 
-        self.assertEqual(user_data.status_code, 422)
+        check_error(
+            self.assertEqual,
+            {
+                "first": user_data.status_code,
+                "second": 422
+            }
+        )
 
     def test_do_registration_with_the_same_login(self):
         """Test case when users try to register with the existent login"""
@@ -103,4 +135,10 @@ class RegistrationTestCase(unittest.TestCase):
             password=RegistrationTestCase.random_password
         )
 
-        self.assertEqual(user_data.status_code, 422)
+        check_error(
+            self.assertEqual,
+            {
+                "first": user_data.status_code,
+                "second": 422
+            }
+        )
