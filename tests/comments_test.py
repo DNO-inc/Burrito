@@ -5,6 +5,7 @@ from burrito.utils.config_reader import get_config
 
 from auth_test import AuthTestCase
 from tickets_test import create_ticket_get_id
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 5
@@ -24,10 +25,15 @@ class CommentsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
+
         return response.json()["comment_id"]
 
     def test_002_comments_edit(self):
@@ -43,9 +49,13 @@ class CommentsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_003_comments_delete(self):
@@ -59,8 +69,12 @@ class CommentsTestCase(unittest.TestCase):
             },
             timeout=TIMEOUT
         )
- 
-        self.assertEqual(
-            response.status_code,
-            200
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

@@ -2,6 +2,7 @@ import unittest
 import requests
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 5
@@ -14,9 +15,13 @@ class MetaTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_groups_list(self):
@@ -25,9 +30,13 @@ class MetaTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_faculties_list(self):
@@ -36,23 +45,31 @@ class MetaTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_queues_list(self):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
             json={
-                "faculty": "EliT"
+                "faculty": 1
             },
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_queues_list_with_wrong_faculty(self):
@@ -64,7 +81,11 @@ class MetaTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            403
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 422
+            },
+            response
         )

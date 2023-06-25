@@ -1,15 +1,17 @@
 from fastapi import HTTPException, status
 
-from burrito.utils.converter import GroupStrToModel, FacultyStrToModel
+from burrito.utils.converter import GroupConverter, FacultyConverter
 from burrito.utils.logger import get_logger
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
+from burrito.models.group_model import Groups
+from burrito.models.faculty_model import Faculties
 
 
 def create_user_tmp_foo(
     login: str, hashed_password: str,
-    group: str, faculty: str
+    group: Groups, faculty: Faculties
 ) -> Users | None:
     """_summary_
 
@@ -23,22 +25,27 @@ def create_user_tmp_foo(
         bool: status creating new user
     """
 
+    role_object: Roles = Roles.get(Roles.name == "ALL")
+
     try:
-        group_id = GroupStrToModel.convert(group)
-        faculty_id = FacultyStrToModel.convert(faculty)
-
-        if not (group_id and faculty_id):
-            return
-
         user: Users = Users.create(
             login=login, password=hashed_password,
-            group=group_id,
-            faculty=faculty_id,
-            role=Roles.get(Roles.name == "ALL")
+            group=group,
+            faculty=faculty,
+            role=role_object
         )
         return user
 
     except Exception as e:  # pylint: disable=broad-except, invalid-name
+        get_logger().info(
+            f"""
+                login: {login}
+                group: {group.name}
+                faculty: {faculty.name}
+                role: {role_object.name}
+
+            """
+        )
         get_logger().error(e)
 
 

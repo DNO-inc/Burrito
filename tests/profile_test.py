@@ -8,6 +8,7 @@ from auth_test import AuthTestCase
 from registration_test import RegistrationTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 class ProfileTestCase(unittest.TestCase):
@@ -16,15 +17,16 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/1000000",
-            json={
-                "user_id": 1000000
-            },
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            404
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 404
+            },
+            response
         )
 
     def test_view_profile_without_auth_with_id(self):
@@ -35,9 +37,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_view_profile_without_auth_without_id(self):
@@ -64,9 +70,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_view_profile_with_auth_without_id(self):
@@ -80,9 +90,13 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_update_profile_without_auth(self):
@@ -90,7 +104,6 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
-            json={},
             timeout=0.5
         )
 
@@ -112,13 +125,17 @@ class ProfileTestCase(unittest.TestCase):
                 "lastname": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "email": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "phone": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
-                "faculty": random.choice(["EliT", "Biem"]),
-                "group": random.choice(["IT-11", "LOL-11"]),
+                "faculty": random.choice([1, 2]),
+                "group": random.choice([1, 2]),
             },
             timeout=0.5
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )

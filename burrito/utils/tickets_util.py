@@ -117,14 +117,14 @@ def get_filtered_tickets(
 def create_ticket_action(
     *,
     ticket_id: int,
-    author_id: int,
+    user_id: int,
     field_name: str,
     old_value: str,
     new_value: str
 ) -> None:
     Actions.create(
         ticket=ticket_id,
-        author=author_id,
+        user=user_id,
         field_name=field_name,
         old_value=old_value,
         new_value=new_value
@@ -136,7 +136,7 @@ def get_ticket_actions(ticket_id: int) -> list[Actions]:
         ActionSchema(
             action_id=action.action_id,
             ticket_id=action.ticket_id,
-            author_id=action.author_id,
+            user_id=action.user_id,
             action_date=str(action.action_date),
             field_name=action.field_name,
             old_value=action.old_value,

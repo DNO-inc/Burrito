@@ -36,3 +36,6 @@ _delete_docker_container:
 
 docker_run: _delete_docker_container Dockerfile
 	docker run --env-file .env --name burrito_love burrito
+
+rmi:
+	docker rmi $(docker images -q) 2> /dev/null

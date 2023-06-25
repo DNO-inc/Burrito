@@ -19,7 +19,7 @@ class ResponseFacultiesListSchema(BaseModel):
 
 
 class RequestQueueListSchema(BaseModel):
-    faculty: str
+    faculty: int
 
 
 class ResponseQueueListSchema(BaseModel):

@@ -10,9 +10,9 @@ from burrito.schemas.action_schema import ActionSchema
 
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
-    faculty: str | None
-    queue: str | None
-    status: str | None
+    faculty: int | None
+    queue: int | None
+    status: int | None
 
 
 class AdminGetTicketListSchema(BurritoPagination):

@@ -10,7 +10,7 @@ class AnonTicketListRequestSchema(BurritoPagination):
     anonymous: bool | None
     faculty: str | None
     queue: str | None
-    status: list[str] | None
+    status: list[int] | None
 
 
 class AnonTicketUsersInfoSchema(BaseModel):

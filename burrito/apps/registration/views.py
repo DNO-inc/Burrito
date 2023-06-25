@@ -7,6 +7,8 @@ from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.user_model import Users
 
+from burrito.utils.converter import GroupConverter, FacultyConverter
+
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth_token_util import (
     AuthTokenPayload,
@@ -47,8 +49,8 @@ async def registration__user_registration(
     current_user: Users | None = create_user_tmp_foo(
         user_data.login,
         get_hash(user_data.password),
-        user_data.group,
-        user_data.faculty
+        GroupConverter.convert(user_data.group),
+        FacultyConverter.convert(user_data.faculty)
     )
 
     if current_user:
@@ -75,5 +77,5 @@ async def registration__user_registration(
 
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={"detail": "Group or faculty is not valid"}
+        content={"detail": "..."}
     )

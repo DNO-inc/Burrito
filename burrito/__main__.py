@@ -19,6 +19,13 @@ init_manager.add_task(CheckDBTask(attempt_count=100))
 
 init_manager.run_cycle()
 
+#from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
+#db_preprocessor = LocalDataBasePreprocessor(
+#    {"filename": "./preprocessor_config.json"}
+#)
+#db_preprocessor.apply_data()
+
+
 if not init_manager.critical:
     import uvicorn
     from prometheus_fastapi_instrumentator import Instrumentator, metrics

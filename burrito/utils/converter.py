@@ -1,100 +1,104 @@
-from cachetools import cached
+from fastapi import HTTPException
 
 from burrito.models.group_model import Groups
 from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 
-from burrito.utils.cache_util import BurritoCache
+
+def _raise_converter_error(detail) -> None:
+    raise HTTPException(
+        status_code=422,
+        detail=detail
+    )
 
 
 class Converter:
     @staticmethod
-    def _is_empty(str_value: str | None) -> bool:
-        return not bool(str_value)
+    def _is_empty(int_value: int | None, error_detail: str = "") -> None:
+        if not isinstance(int_value, int) or int_value <= 0:
+            _raise_converter_error(error_detail)
 
     @staticmethod
-    def convert(str_value: str | None):
+    def convert(int_value: int | None):
         raise NotImplementedError("This is an abstract method")
 
 
-class GroupStrToModel(Converter):
+class GroupConverter(Converter):
     @staticmethod
-    @cached(BurritoCache())
-    def convert(str_value: str | None) -> Groups | None:
+    def convert(int_value: int | None) -> Groups | None:
         """_summary_
 
         Args:
-            str_value (str): group name
+            int_value (int): group id
 
         Returns:
             Groups | None: group object or None value
         """
+        GroupConverter._is_empty(int_value, f"Group {int_value} is invalid")
 
-        if GroupStrToModel._is_empty(str_value):
-            return None
+        group_object = Groups.get_or_none(Groups.group_id == int_value)
+        if not group_object:
+            _raise_converter_error(f"Group {int_value} is not found")
 
-        return Groups.get_or_none(Groups.name == str_value)
+        return group_object
 
 
-class FacultyStrToModel(Converter):
+class FacultyConverter(Converter):
     @staticmethod
-    @cached(BurritoCache())
-    def convert(str_value: str | None) -> Faculties | None:
+    def convert(int_value: int | None) -> Faculties | None:
         """_summary_
 
         Args:
-            str_value (str): faculty name
+            int_value (int): faculty id
 
         Returns:
             Faculties | None: faculty object or None value
         """
+        FacultyConverter._is_empty(int_value, f"Faculty {int_value} is invalid")
 
-        if FacultyStrToModel._is_empty(str_value):
-            return None
+        faculty_object = Faculties.get_or_none(Faculties.faculty_id == int_value)
+        if not faculty_object:
+            _raise_converter_error(f"Faculty {int_value} is not found")
 
-        return Faculties.get_or_none(Faculties.name == str_value)
+        return faculty_object
 
 
-class QueueStrToModel(Converter):
+class QueueConverter(Converter):
     @staticmethod
-    @cached(BurritoCache())
-    def convert(str_value: str | None, faculty: Faculties = None) -> Queues | None:
+    def convert(int_value: int | None) -> Queues | None:
         """_summary_
 
         Args:
-            str_value (str): queue name
+            int_value (int): queue id
 
         Returns:
             Queues | None: queue object or None value
         """
+        QueueConverter._is_empty(int_value, f"Queue {int_value} is invalid")
 
-        if QueueStrToModel._is_empty(str_value):
-            return None
+        queue_object = Queues.get_or_none(Queues.queue_id == int_value)
+        if not queue_object:
+            _raise_converter_error(f"Queue {int_value} is not found")
 
-        if not faculty:
-            return None
-
-        return Queues.get_or_none(
-            Queues.name == str_value,
-            Queues.faculty == faculty
-        )
+        return queue_object
 
 
-class StatusStrToModel(Converter):
+class StatusConverter(Converter):
     @staticmethod
-    @cached(BurritoCache())
-    def convert(str_value: str | None) -> Statuses | None:
+    def convert(int_value: int | None) -> Statuses | None:
         """_summary_
 
         Args:
-            str_value (str): 'status' name
+            int_value (int): 'status' id
 
         Returns:
             Statuses | None: 'status' object or None value
         """
+        StatusConverter._is_empty(int_value, "Status is invalid")
 
-        if StatusStrToModel._is_empty(str_value):
-            return None
+        status_object = Statuses.get_or_none(Statuses.status_id == int_value)
+        if not status_object:
+            _raise_converter_error("Status is invalid")
 
-        return Statuses.get_or_none(Statuses.name == str_value)
+        return status_object

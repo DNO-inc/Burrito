@@ -20,7 +20,7 @@ from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 
-from burrito.utils.converter import FacultyStrToModel
+from burrito.utils.converter import FacultyConverter
 
 
 async def meta__get_statuses_list():
@@ -52,13 +52,7 @@ async def meta__faculties_list():
 
 
 async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
-    faculty_object = FacultyStrToModel.convert(faculty_data.faculty)
-
-    if not faculty_object:
-        return JSONResponse(
-            status_code=status.HTTP_403_FORBIDDEN,
-            content={"detail": "Faculty name is wrong"}
-        )
+    faculty_object = FacultyConverter.convert(faculty_data.faculty)
 
     response_list: list[QueueResponseSchema] = []
     for queue in Queues.select().where(

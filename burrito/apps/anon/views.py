@@ -34,8 +34,8 @@ from burrito.utils.tickets_util import (
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
         "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty),
-        "queue": q_is_valid_queue(filters.queue, filters.faculty),
+        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
+        "queue": q_is_valid_queue(filters.queue, filters.faculty) if filters.faculty and filters.faculty else None,
         "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters) + [

@@ -1,3 +1,5 @@
+from playhouse.shortcuts import model_to_dict
+
 from burrito.utils.auth import get_auth_core
 from burrito.utils.users_util import get_user_by_id
 
@@ -8,6 +10,9 @@ from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 
 from burrito.schemas.profile_schema import ResponseProfileSchema
+from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
+
 
 __all__ = (
     "get_auth_core",
@@ -27,8 +32,8 @@ async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
         firstname=current_user.firstname,
         lastname=current_user.lastname,
         login=current_user.login,
-        faculty=faculty_object.name if faculty_object else None,
-        group=group_object.name if group_object else None,
+        faculty=FacultyResponseSchema(**model_to_dict(faculty_object)) if faculty_object else None,
+        group=GroupResponseSchema(**model_to_dict(group_object)) if group_object else None,
         phone=current_user.phone,
         email=current_user.email,
         registration_date=str(current_user.registration_date)

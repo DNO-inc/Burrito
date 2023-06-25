@@ -7,6 +7,7 @@ from auth_test import AuthTestCase
 from tickets_test import TicketsTestCase
 
 from burrito.utils.config_reader import get_config
+from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 10
@@ -22,16 +23,20 @@ class AdminTestCase(unittest.TestCase):
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
                 "status": random.choice(
-                    ["ACCEPTED", "OPEN", "WAITING", "REJECTED", "CLOSE"]
+                    [1, 2, 3, 4, 5]
                 ),
-                "faculty": "Biem"
+                "faculty": 1
             },
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_002_admin_ticket_list_view(self):
@@ -41,16 +46,20 @@ class AdminTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": ["OPEN"],
+                "status": [1],
 #                "hidden": True,
 #                "anonymous": True
             },
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     def test_003_admin_ticket_detail_view(self):
@@ -65,9 +74,13 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
 
     @unittest.skip
@@ -83,7 +96,32 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        self.assertEqual(
-            response.status_code,
-            200
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    def test_005_admin_become_assignee(self):
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/become_assignee",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": TicketsTestCase.first_ticket
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
         )
