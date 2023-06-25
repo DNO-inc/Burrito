@@ -1,13 +1,9 @@
-from cachetools import cached
-
 from fastapi import HTTPException
 
 from burrito.models.group_model import Groups
 from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
-
-from burrito.utils.cache_util import BurritoCache
 
 
 def _raise_converter_error(detail) -> None:
