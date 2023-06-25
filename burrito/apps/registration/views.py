@@ -7,7 +7,7 @@ from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.user_model import Users
 
-from burrito.utils.converter import GroupStrToModel, FacultyStrToModel
+from burrito.utils.converter import GroupConverter, FacultyConverter
 
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth_token_util import (
@@ -49,8 +49,8 @@ async def registration__user_registration(
     current_user: Users | None = create_user_tmp_foo(
         user_data.login,
         get_hash(user_data.password),
-        GroupStrToModel.convert(user_data.group),
-        FacultyStrToModel.convert(user_data.faculty)
+        GroupConverter.convert(user_data.group),
+        FacultyConverter.convert(user_data.faculty)
     )
 
     if current_user:

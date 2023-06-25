@@ -52,9 +52,9 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
-    FacultyStrToModel,
-    StatusStrToModel,
-    QueueStrToModel
+    FacultyConverter,
+    StatusConverter,
+    QueueConverter
 )
 
 from .utils import (
@@ -79,8 +79,8 @@ async def tickets__create_new_ticket(
         Authorize.get_jwt_subject()
     )
 
-    faculty_id = FacultyStrToModel.convert(ticket_creation_data.faculty)
-    queue: Queues = QueueStrToModel.convert(ticket_creation_data.queue)
+    faculty_id = FacultyConverter.convert(ticket_creation_data.faculty)
+    queue: Queues = QueueConverter.convert(ticket_creation_data.queue)
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
@@ -546,7 +546,7 @@ async def tickets__close_own_ticket(
     )
 
     status_id = 6
-    status_object = StatusStrToModel.convert(status_id)
+    status_object = StatusConverter.convert(status_id)
 
     if not status_object:
         get_logger().critical(f"Status {status_id} is not exist in database")

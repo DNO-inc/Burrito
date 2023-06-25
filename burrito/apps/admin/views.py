@@ -43,9 +43,9 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
-    StatusStrToModel,
-    FacultyStrToModel,
-    QueueStrToModel
+    StatusConverter,
+    FacultyConverter,
+    QueueConverter
 )
 
 from .utils import (
@@ -69,7 +69,7 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    faculty_object = FacultyStrToModel.convert(admin_updates.faculty)
+    faculty_object = FacultyConverter.convert(admin_updates.faculty)
     if faculty_object:  # faculty_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
@@ -80,7 +80,7 @@ async def admin__update_ticket_data(
         )
         ticket.faculty = faculty_object
 
-    queue_object = QueueStrToModel.convert(admin_updates.queue) if admin_updates.queue else None
+    queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
     if queue_object:    # queue_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
@@ -94,7 +94,7 @@ async def admin__update_ticket_data(
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_object = None
     if ticket.assignee == current_admin:
-        status_object = StatusStrToModel.convert(admin_updates.status)
+        status_object = StatusConverter.convert(admin_updates.status)
         if status_object:    # status_id must be > 1
             create_ticket_action(
                 ticket_id=admin_updates.ticket_id,
@@ -333,7 +333,7 @@ async def admin__become_an_assignee(
         )
         ticket.assignee = current_admin
 
-        new_status = StatusStrToModel.convert(1)
+        new_status = StatusConverter.convert(1)
         create_ticket_action(
             ticket_id=ticket_data.ticket_id,
             author_id=token_payload.user_id,

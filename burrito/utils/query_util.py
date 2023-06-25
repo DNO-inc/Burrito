@@ -5,14 +5,14 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.deleted_model import Deleted
 
 from burrito.utils.converter import (
-    StatusStrToModel,
-    FacultyStrToModel,
-    QueueStrToModel
+    StatusConverter,
+    FacultyConverter,
+    QueueConverter
 )
 
 
 _PROTECTED_STATUSES: tuple[int] = (
-    StatusStrToModel.convert(1).status_id,
+    StatusConverter.convert(1).status_id,
 )
 
 STATUSES_FOR_USER: list[int] = []
@@ -48,11 +48,11 @@ def q_protected_statuses() -> Expression:
 
 
 def q_is_valid_faculty(value: int) -> Expression:
-    return Tickets.faculty == FacultyStrToModel.convert(value)
+    return Tickets.faculty == FacultyConverter.convert(value)
 
 
 def q_is_valid_queue(queue: str, faculty: str) -> Expression:
-    return Tickets.queue == QueueStrToModel.convert(queue, faculty)
+    return Tickets.queue == QueueConverter.convert(queue, faculty)
 
 
 def q_is_valid_status(value: int) -> Expression:

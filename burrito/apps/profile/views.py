@@ -16,8 +16,8 @@ from burrito.utils.auth_token_util import (
 )
 
 from burrito.utils.converter import (
-    FacultyStrToModel,
-    GroupStrToModel
+    FacultyConverter,
+    GroupConverter
 )
 
 from .utils import (
@@ -77,12 +77,12 @@ async def profile__update_my_profile(
         current_user.email = profile_updated_data.email
 
     # check faculty
-    faculty_id = FacultyStrToModel.convert(profile_updated_data.faculty)
+    faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
     if faculty_id and profile_updated_data.faculty:
         current_user.faculty = faculty_id
 
     # check group
-    group_id = GroupStrToModel.convert(profile_updated_data.group)
+    group_id = GroupConverter.convert(profile_updated_data.group)
     if group_id and profile_updated_data.group:
         current_user.group = group_id
 

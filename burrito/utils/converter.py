@@ -28,7 +28,7 @@ class Converter:
         raise NotImplementedError("This is an abstract method")
 
 
-class GroupStrToModel(Converter):
+class GroupConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Groups | None:
         """_summary_
@@ -39,7 +39,7 @@ class GroupStrToModel(Converter):
         Returns:
             Groups | None: group object or None value
         """
-        GroupStrToModel._is_empty(int_value, f"Group {int_value} is invalid")
+        GroupConverter._is_empty(int_value, f"Group {int_value} is invalid")
 
         group_object = Groups.get_or_none(Groups.group_id == int_value)
         if not group_object:
@@ -48,7 +48,7 @@ class GroupStrToModel(Converter):
         return group_object
 
 
-class FacultyStrToModel(Converter):
+class FacultyConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Faculties | None:
         """_summary_
@@ -59,7 +59,7 @@ class FacultyStrToModel(Converter):
         Returns:
             Faculties | None: faculty object or None value
         """
-        FacultyStrToModel._is_empty(int_value, f"Faculty {int_value} is invalid")
+        FacultyConverter._is_empty(int_value, f"Faculty {int_value} is invalid")
 
         faculty_object = Faculties.get_or_none(Faculties.faculty_id == int_value)
         if not faculty_object:
@@ -68,7 +68,7 @@ class FacultyStrToModel(Converter):
         return faculty_object
 
 
-class QueueStrToModel(Converter):
+class QueueConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Queues | None:
         """_summary_
@@ -79,7 +79,7 @@ class QueueStrToModel(Converter):
         Returns:
             Queues | None: queue object or None value
         """
-        QueueStrToModel._is_empty(int_value, f"Queue {int_value} is invalid")
+        QueueConverter._is_empty(int_value, f"Queue {int_value} is invalid")
 
         queue_object = Queues.get_or_none(Queues.queue_id == int_value)
         if not queue_object:
@@ -88,7 +88,7 @@ class QueueStrToModel(Converter):
         return queue_object
 
 
-class StatusStrToModel(Converter):
+class StatusConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Statuses | None:
         """_summary_
@@ -99,7 +99,7 @@ class StatusStrToModel(Converter):
         Returns:
             Statuses | None: 'status' object or None value
         """
-        StatusStrToModel._is_empty(int_value, "Status is invalid")
+        StatusConverter._is_empty(int_value, "Status is invalid")
 
         status_object = Statuses.get_or_none(Statuses.status_id == int_value)
         if not status_object:
