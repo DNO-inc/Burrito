@@ -35,7 +35,7 @@ from burrito.utils.query_util import (
     q_is_valid_queue,
     q_is_valid_status_list,
     q_protected_statuses,
-    q_hidden,
+    q_not_hidden,
     q_is_hidden,
     q_is_creator,
     q_is_deleted,
@@ -334,7 +334,7 @@ async def tickets__show_tickets_list_by_filter(
         [
             q_is_not_deleted(token_payload.user_id)
         ] if filters.creator == token_payload.user_id else [
-            q_hidden(),
+            q_not_hidden(),
             q_protected_statuses()
         ]
     )

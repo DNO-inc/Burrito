@@ -286,8 +286,7 @@ class TicketsTestCase(unittest.TestCase):
             },
             timeout=TIMEOUT
         )
-        from pprint import pprint
-        pprint(response.json())
+
         check_error(
             self.assertEqual,
             {

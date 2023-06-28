@@ -13,8 +13,8 @@ class AnonTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/anon/ticket_list",
             json={
-                "status": [1, 2],
-#                "anonymous": True
+                "status": [1, 2, 3],
+                "anonymous": True
             },
             timeout=TIMEOUT
         )
