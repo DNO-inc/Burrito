@@ -39,7 +39,7 @@ def q_is_hidden(value: bool | int) -> Expression:
     return Tickets.hidden == value
 
 
-def q_hidden() -> Expression:
+def q_not_hidden() -> Expression:
     return Tickets.hidden == 0
 
 
@@ -51,8 +51,8 @@ def q_is_valid_faculty(value: int) -> Expression:
     return Tickets.faculty == FacultyConverter.convert(value)
 
 
-def q_is_valid_queue(queue: str, faculty: str) -> Expression:
-    return Tickets.queue == QueueConverter.convert(queue, faculty)
+def q_is_valid_queue(queue: int) -> Expression:
+    return Tickets.queue == QueueConverter.convert(queue)
 
 
 def q_is_valid_status(value: int) -> Expression:

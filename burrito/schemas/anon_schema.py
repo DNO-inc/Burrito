@@ -8,8 +8,8 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 
 class AnonTicketListRequestSchema(BurritoPagination):
     anonymous: bool | None
-    faculty: str | None
-    queue: str | None
+    faculty: int | None
+    queue: int | None
     status: list[int] | None
 
 
