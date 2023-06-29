@@ -38,4 +38,7 @@ docker_run: _delete_docker_container Dockerfile
 	docker run --env-file .env --name burrito_love burrito
 
 rmi:
-	docker rmi $(docker images -q) 2> /dev/null
+	scripts/docker_rm_all_images.sh
+
+db_conn:
+	scripts/connect_to_db.sh
