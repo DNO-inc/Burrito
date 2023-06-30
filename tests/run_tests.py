@@ -1,5 +1,7 @@
+from pathlib import Path
 import sys
-import os
+
+sys.path.append(Path(__file__).parents[1].__str__())
 
 import unittest
 
@@ -13,9 +15,6 @@ from anon_test import AnonTestCase
 from meta_test import MetaTestCase
 from iofiles_test import IOFilesTestCase
 from comments_test import CommentsTestCase
-
-# modify sys.path to get access to burrito
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 all_tests = unittest.TestSuite(

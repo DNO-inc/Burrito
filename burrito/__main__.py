@@ -68,6 +68,7 @@ connect_app(app, "/comments", comments_router)
 instrumentator = Instrumentator().instrument(app)
 instrumentator.add(
     metrics.request_size(
+        metric_name="burrito_request_size_bytes",
         should_include_handler=True,
         should_include_method=False,
         should_include_status=True,
@@ -76,6 +77,16 @@ instrumentator.add(
     )
 ).add(
     metrics.response_size(
+        metric_name="burrito_response_size_bytes",
+        should_include_handler=True,
+        should_include_method=False,
+        should_include_status=True,
+        metric_namespace="namespace",
+        metric_subsystem="subsystem",
+    )
+).add(
+    metrics.combined_size(
+        metric_name="burrito_combined_size_bytes",
         should_include_handler=True,
         should_include_method=False,
         should_include_status=True,
@@ -83,6 +94,7 @@ instrumentator.add(
         metric_subsystem="subsystem",
     )
 )
+
 
 instrumentator.expose(app)
 
