@@ -9,6 +9,8 @@ from burrito.utils.config_reader import get_config
 
 from burrito.init.init_system import InitManager, get_logger
 from burrito.init.tasks.check_db_task import CheckDBTask
+from burrito.init.tasks.preprocessor_task import PreProcessorTask
+
 
 get_config()  # read configs
 
@@ -16,14 +18,9 @@ init_manager = InitManager(
     error_attempt_delta=3
 )
 init_manager.add_task(CheckDBTask(attempt_count=100))
+init_manager.add_task(PreProcessorTask(attempt_count=100))
 
 init_manager.run_cycle()
-
-#from burrito.utils.db_preprocessor import LocalDataBasePreprocessor
-#db_preprocessor = LocalDataBasePreprocessor(
-#    {"filename": "./preprocessor_config.json"}
-#)
-#db_preprocessor.apply_data()
 
 
 if not init_manager.critical:
@@ -68,6 +65,7 @@ connect_app(app, "/comments", comments_router)
 instrumentator = Instrumentator().instrument(app)
 instrumentator.add(
     metrics.request_size(
+        metric_name="burrito_request_size_bytes",
         should_include_handler=True,
         should_include_method=False,
         should_include_status=True,
@@ -76,6 +74,16 @@ instrumentator.add(
     )
 ).add(
     metrics.response_size(
+        metric_name="burrito_response_size_bytes",
+        should_include_handler=True,
+        should_include_method=False,
+        should_include_status=True,
+        metric_namespace="namespace",
+        metric_subsystem="subsystem",
+    )
+).add(
+    metrics.combined_size(
+        metric_name="burrito_combined_size_bytes",
         should_include_handler=True,
         should_include_method=False,
         should_include_status=True,
@@ -83,6 +91,7 @@ instrumentator.add(
         metric_subsystem="subsystem",
     )
 )
+
 
 instrumentator.expose(app)
 

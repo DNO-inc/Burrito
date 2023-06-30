@@ -16,12 +16,6 @@ run:
 docs_:
 	doxygen docs.conf
 
-create_user: tests/utils/create_user.py
-	$(PYTHON) tests/utils/create_user.py
-
-create_db_env: tests/utils/create_db_env.py
-	$(PYTHON) tests/utils/create_db_env.py
-
 clear_db: tests/utils/clear_db.py
 	$(PYTHON) tests/utils/clear_db.py
 
@@ -38,4 +32,7 @@ docker_run: _delete_docker_container Dockerfile
 	docker run --env-file .env --name burrito_love burrito
 
 rmi:
-	docker rmi $(docker images -q) 2> /dev/null
+	scripts/docker_rm_all_images.sh
+
+db_conn:
+	scripts/connect_to_db.sh
