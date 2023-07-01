@@ -1,8 +1,10 @@
 from peewee import Expression
 
+from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.deleted_model import Deleted
+from burrito.models.liked_model import Liked
 
 from burrito.utils.converter import (
     StatusConverter,
@@ -79,4 +81,16 @@ def q_deleted(_user_id: int) -> Expression:
 def q_not_deleted(_user_id: int) -> Expression:
     return Tickets.ticket_id.not_in(
         Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
+    )
+
+
+def q_bookmarked(_user_id: int) -> Expression:
+    return Tickets.ticket_id.in_(
+        Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id)
+    )
+
+
+def q_liked(_user_id: int) -> Expression:
+    return Tickets.ticket_id.in_(
+        Liked.select(Liked.ticket_id).where(Liked.user_id == _user_id)
     )

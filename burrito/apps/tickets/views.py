@@ -40,7 +40,9 @@ from burrito.utils.query_util import (
     q_is_hidden,
     q_is_creator,
     q_deleted,
-    q_not_deleted
+    q_not_deleted,
+    q_bookmarked,
+    q_liked
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -521,18 +523,25 @@ async def tickets__get_liked_tickets(
         Authorize.get_jwt_subject()
     )
 
-    liked_tickets: list[Tickets] = [
-        like_info.ticket_id for like_info in Liked.select().where(
-            Liked.user_id == token_payload.user_id
-        ).paginate(
-            _filters.start_page,
-            _filters.tickets_count
-        )
+    available_filters = {
+        "hidden": q_is_hidden(_filters.hidden),
+        "anonymous": q_is_anonymous(_filters.anonymous),
+        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
+        "status": q_is_valid_status_list(_filters.status)
+    }
+    final_filters = select_filters(available_filters, _filters) + [
+        q_liked(token_payload.user_id)
     ]
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters,
+        start_page=_filters.start_page,
+        tickets_count=_filters.tickets_count
+    )
 
     response_list: list[TicketDetailInfoSchema] = []
 
-    for ticket in liked_tickets:
+    for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
             token_payload.user_id
@@ -552,40 +561,13 @@ async def tickets__get_liked_tickets(
                 hide_user_id=False
             )
 
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            TicketDetailInfoSchema(
-                creator=creator,
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body, 500),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=Liked.select().where(
-                    Liked.ticket_id == ticket.ticket_id
-                ).count(),
-                is_liked=True,
-                is_bookmarked=is_ticket_bookmarked(
-                    token_payload.user_id,
-                    ticket.ticket_id
-                ),
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                creator,
+                assignee,
+                crop_body=True
             )
         )
 
@@ -611,18 +593,25 @@ async def tickets__get_bookmarked_tickets(
         Authorize.get_jwt_subject()
     )
 
-    bookmarked_tickets: list[Tickets] = [
-        bookmark_info.ticket_id for bookmark_info in Bookmarks.select().where(
-            Bookmarks.user_id == token_payload.user_id
-        ).paginate(
-            _filters.start_page,
-            _filters.tickets_count
-        )
+    available_filters = {
+        "hidden": q_is_hidden(_filters.hidden),
+        "anonymous": q_is_anonymous(_filters.anonymous),
+        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
+        "status": q_is_valid_status_list(_filters.status)
+    }
+    final_filters = select_filters(available_filters, _filters) + [
+        q_bookmarked(token_payload.user_id)
     ]
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters,
+        start_page=_filters.start_page,
+        tickets_count=_filters.tickets_count
+    )
 
     response_list: list[TicketDetailInfoSchema] = []
 
-    for ticket in bookmarked_tickets:
+    for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
             token_payload.user_id
@@ -642,37 +631,13 @@ async def tickets__get_bookmarked_tickets(
                 hide_user_id=False
             )
 
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            TicketDetailInfoSchema(
-                creator=creator,
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body, 500),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=Liked.select().where(
-                    Liked.ticket_id == ticket.ticket_id
-                ).count(),
-                is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-                is_bookmarked=True,
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                creator,
+                assignee,
+                crop_body=True
             )
         )
 
