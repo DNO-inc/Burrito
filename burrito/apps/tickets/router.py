@@ -72,15 +72,15 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/liked",
     tickets__get_liked_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
 tickets_router.add_api_route(
     "/bookmarked",
     tickets__get_bookmarked_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
 tickets_router.add_api_route(
     "/deleted",
     tickets__get_deleted_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
