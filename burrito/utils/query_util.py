@@ -70,13 +70,13 @@ def q_is_valid_status_list(values: list[str]) -> Expression | None:
     return result_query
 
 
-def q_is_deleted(_user_id: int) -> Expression:
+def q_deleted(_user_id: int) -> Expression:
     return Tickets.ticket_id.in_(
         Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
     )
 
 
-def q_is_not_deleted(_user_id: int) -> Expression:
+def q_not_deleted(_user_id: int) -> Expression:
     return Tickets.ticket_id.not_in(
         Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
     )

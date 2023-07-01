@@ -11,7 +11,8 @@ from burrito.schemas.tickets_schema import (
     UpdateTicketSchema,
     TicketDetailInfoSchema,
     TicketListRequestSchema,
-    TicketListResponseSchema
+    TicketListResponseSchema,
+    TicketsBasicFilterSchema
 )
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -38,8 +39,8 @@ from burrito.utils.query_util import (
     q_not_hidden,
     q_is_hidden,
     q_is_creator,
-    q_is_deleted,
-    q_is_not_deleted
+    q_deleted,
+    q_not_deleted
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -48,7 +49,8 @@ from burrito.utils.tickets_util import (
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions
+    get_ticket_actions,
+    is_ticket_liked
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -63,7 +65,8 @@ from .utils import (
     update_ticket_info,
     check_permission,
     am_i_own_this_ticket,
-    am_i_own_this_ticket_with_error
+    am_i_own_this_ticket_with_error,
+    make_ticket_detail_info
 )
 
 
@@ -312,7 +315,7 @@ async def tickets__unlike_ticket(
 
 @check_permission(permission_list={"READ_TICKET"})
 async def tickets__show_tickets_list_by_filter(
-        filters: TicketListRequestSchema,
+        filters: TicketListRequestSchema | None = TicketListRequestSchema(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Show tickets"""
@@ -332,7 +335,7 @@ async def tickets__show_tickets_list_by_filter(
     }
     final_filters = select_filters(available_filters, filters) + (
         [
-            q_is_not_deleted(token_payload.user_id)
+            q_not_deleted(token_payload.user_id)
         ] if filters.creator == token_payload.user_id else [
             q_not_hidden(),
             q_protected_statuses()
@@ -364,47 +367,13 @@ async def tickets__show_tickets_list_by_filter(
         if ticket.assignee:
             assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
 
-        upvotes = Liked.select().where(
-            Liked.ticket_id == ticket.ticket_id
-        ).count()
-
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            TicketDetailInfoSchema(
-                creator=creator,
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body, 500),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=upvotes,
-                is_liked=bool(
-                    Liked.get_or_none(
-                        Liked.user_id == token_payload.user_id,
-                        Liked.ticket_id == ticket.ticket_id
-                    )
-                ),
-                is_bookmarked=is_ticket_bookmarked(
-                    token_payload.user_id,
-                    ticket.ticket_id
-                ),
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                creator,
+                assignee,
+                crop_body=True
             )
         )
 
@@ -451,47 +420,13 @@ async def tickets__show_detail_ticket_info(
     if ticket.assignee:
         assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
 
-    upvotes = Liked.select().where(
-        Liked.ticket_id == ticket.ticket_id
-    ).count()
-
-    queue: Queues | None = None
-    if ticket.queue:
-        queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
-    return TicketDetailInfoSchema(
-        creator=creator,
-        assignee=assignee,
-        ticket_id=ticket.ticket_id,
-        subject=ticket.subject,
-        body=ticket.body,
-        faculty=FacultyResponseSchema(
-            faculty_id=ticket.faculty.faculty_id,
-            name=ticket.faculty.name
-        ),
-        queue=QueueResponseSchema(
-            queue_id=queue.queue_id,
-            faculty=queue.faculty.faculty_id,
-            name=queue.name,
-            scope=queue.scope
-        ) if queue else None,
-        status=StatusResponseSchema(
-            status_id=ticket.status.status_id,
-            name=ticket.status.name,
-        ),
-        upvotes=upvotes,
-        is_liked=bool(
-            Liked.get_or_none(
-                Liked.user_id == token_payload.user_id,
-                Liked.ticket_id == ticket.ticket_id
-            )
-        ),
-        is_bookmarked=is_ticket_bookmarked(
-            token_payload.user_id,
-            ticket.ticket_id
-        ),
-        date=str(ticket.created),
-        history=get_ticket_actions(ticket.ticket_id)
+    return make_ticket_detail_info(
+        ticket,
+        token_payload,
+        creator,
+        assignee,
+        crop_body=False,
+        show_history=True
     )
 
 
@@ -575,7 +510,7 @@ async def tickets__close_own_ticket(
 
 @check_permission()
 async def tickets__get_liked_tickets(
-        pagination_data: BurritoPagination = BurritoPagination(),
+        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were liked by current user"""
@@ -590,8 +525,8 @@ async def tickets__get_liked_tickets(
         like_info.ticket_id for like_info in Liked.select().where(
             Liked.user_id == token_payload.user_id
         ).paginate(
-            pagination_data.start_page,
-            pagination_data.tickets_count
+            _filters.start_page,
+            _filters.tickets_count
         )
     ]
 
@@ -658,14 +593,14 @@ async def tickets__get_liked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Liked.select().where(
                 Liked.user_id == token_payload.user_id
-            ).count()/pagination_data.tickets_count
+            ).count()/_filters.tickets_count
         )
     )
 
 
 @check_permission()
 async def tickets__get_bookmarked_tickets(
-        pagination_data: BurritoPagination = BurritoPagination(),
+        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
@@ -680,8 +615,8 @@ async def tickets__get_bookmarked_tickets(
         bookmark_info.ticket_id for bookmark_info in Bookmarks.select().where(
             Bookmarks.user_id == token_payload.user_id
         ).paginate(
-            pagination_data.start_page,
-            pagination_data.tickets_count
+            _filters.start_page,
+            _filters.tickets_count
         )
     ]
 
@@ -735,12 +670,7 @@ async def tickets__get_bookmarked_tickets(
                 upvotes=Liked.select().where(
                     Liked.ticket_id == ticket.ticket_id
                 ).count(),
-                is_liked=bool(
-                    Liked.get_or_none(
-                        Liked.user_id == token_payload.user_id,
-                        Liked.ticket_id == ticket.ticket_id
-                    )
-                ),
+                is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
                 is_bookmarked=True,
                 date=str(ticket.created)
             )
@@ -750,14 +680,14 @@ async def tickets__get_bookmarked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Bookmarks.select().where(
                 Bookmarks.user_id == token_payload.user_id
-            ).count()/pagination_data.tickets_count
+            ).count()/_filters.tickets_count
         )
     )
 
 
 @check_permission()
 async def tickets__get_deleted_tickets(
-        pagination_data: BurritoPagination = BurritoPagination(),
+        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     Authorize.jwt_required()
@@ -766,13 +696,20 @@ async def tickets__get_deleted_tickets(
         Authorize.get_jwt_subject()
     )
 
-    final_filters = [
-        q_is_deleted(token_payload.user_id)
+    available_filters = {
+        "hidden": q_is_hidden(_filters.hidden),
+        "anonymous": q_is_anonymous(_filters.anonymous),
+        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
+        "status": q_is_valid_status_list(_filters.status)
+    }
+    final_filters = select_filters(available_filters, _filters) + [
+        q_deleted(token_payload.user_id)
     ]
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
-        start_page=pagination_data.start_page,
-        tickets_count=pagination_data.tickets_count
+        start_page=_filters.start_page,
+        tickets_count=_filters.tickets_count
     )
 
     response_list: list = []
@@ -781,47 +718,13 @@ async def tickets__get_deleted_tickets(
         if ticket.assignee:
             assignee = make_short_user_data(ticket.assignee, hide_user_id=False)
 
-        upvotes = Liked.select().where(
-            Liked.ticket_id == ticket.ticket_id
-        ).count()
-
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            TicketDetailInfoSchema(
-                creator=make_short_user_data(ticket.creator, hide_user_id=False),
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body, 500),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=upvotes,
-                is_liked=bool(
-                    Liked.get_or_none(
-                        Liked.user_id == token_payload.user_id,
-                        Liked.ticket_id == ticket.ticket_id
-                    )
-                ),
-                is_bookmarked=is_ticket_bookmarked(
-                    token_payload.user_id,
-                    ticket.ticket_id
-                ),
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                make_short_user_data(ticket.creator, hide_user_id=False),
+                assignee,
+                crop_body=True
             )
         )
 
@@ -829,5 +732,5 @@ async def tickets__get_deleted_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
             final_filters
-        )).count()/pagination_data.tickets_count)
+        )).count()/_filters.tickets_count)
     )

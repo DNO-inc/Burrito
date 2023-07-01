@@ -3,9 +3,9 @@ from pydantic import BaseModel
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
-from burrito.schemas.pagination_schema import BurritoPagination
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.action_schema import ActionSchema
+from burrito.schemas.filters_schema import BaseFilterSchema
 
 
 class CreateTicketSchema(BaseModel):
@@ -25,13 +25,13 @@ class UpdateTicketSchema(BaseModel):
     anonymous: bool | None
 
 
-class TicketListRequestSchema(BurritoPagination):
+class TicketListRequestSchema(BaseFilterSchema):
     creator: int | None
     hidden: bool | None
-    anonymous: bool | None
-    faculty: int | None
-    queue: int | None
-    status: list[int] | None
+
+
+class TicketsBasicFilterSchema(BaseFilterSchema):
+    hidden: bool | None
 
 
 class TicketIDValueSchema(BaseModel):

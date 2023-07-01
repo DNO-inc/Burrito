@@ -39,7 +39,8 @@ from burrito.utils.tickets_util import (
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions
+    get_ticket_actions,
+    is_ticket_liked
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -116,7 +117,7 @@ async def admin__update_ticket_data(
 
 @check_permission()
 async def admin__get_ticket_list_by_filter(
-    filters: AdminGetTicketListSchema,
+    filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
     Authorize: AuthJWT = Depends(get_auth_core())
 ):
     Authorize.jwt_required()
@@ -187,12 +188,7 @@ async def admin__get_ticket_list_by_filter(
                     name=ticket.status.name
                 ),
                 upvotes=upvotes,
-                is_liked=bool(
-                    Liked.get_or_none(
-                        Liked.user_id == token_payload.user_id,
-                        Liked.ticket_id == ticket.ticket_id
-                    )
-                ),
+                is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
                 is_bookmarked=is_ticket_bookmarked(
                     token_payload.user_id,
                     ticket.ticket_id
@@ -266,12 +262,7 @@ async def admin__show_detail_ticket_info(
             name=ticket.status.name
         ),
         upvotes=upvotes,
-        is_liked=bool(
-            Liked.get_or_none(
-                Liked.user_id == token_payload.user_id,
-                Liked.ticket_id == ticket.ticket_id
-            )
-        ),
+        is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
         is_bookmarked=is_ticket_bookmarked(
             token_payload.user_id,
             ticket.ticket_id
