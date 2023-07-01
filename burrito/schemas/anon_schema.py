@@ -2,15 +2,12 @@ from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.pagination_schema import BurritoPagination
 from burrito.schemas.queue_schema import QueueResponseSchema
+from burrito.schemas.filters_schema import BaseFilterSchema
 
 
-class AnonTicketListRequestSchema(BurritoPagination):
-    anonymous: bool | None
-    faculty: int | None
-    queue: int | None
-    status: list[int] | None
+class AnonTicketListRequestSchema(BaseFilterSchema):
+    ...
 
 
 class AnonTicketUsersInfoSchema(BaseModel):
