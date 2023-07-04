@@ -51,7 +51,8 @@ from burrito.utils.converter import (
 
 from .utils import (
     check_permission,
-    is_ticket_exist
+    is_ticket_exist,
+    make_ticket_detail_info
 )
 
 
@@ -144,56 +145,20 @@ async def admin__get_ticket_list_by_filter(
     )
 
     for ticket in expression:
-        creator = None
-        if not ticket.anonymous:
-            creator = make_short_user_data(
-                ticket.creator,
-                hide_user_id=False
-            )
-
-        assignee = None
-        if ticket.assignee:
-            assignee = make_short_user_data(
-                ticket.assignee,
-                hide_user_id=False
-            )
-
-        upvotes = Liked.select().where(
-            Liked.ticket_id == ticket.ticket_id
-        ).count()
-
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            AdminTicketDetailInfo(
-                creator=creator,
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=upvotes,
-                is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-                is_bookmarked=is_ticket_bookmarked(
-                    token_payload.user_id,
-                    ticket.ticket_id
-                ),
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                make_short_user_data(
+                    ticket.creator,
+                    hide_user_id=False
+                ) if not ticket.anonymous else None,
+                make_short_user_data(
+                    ticket.assignee,
+                    hide_user_id=False
+                ) if ticket.assignee else None,
+                crop_body=True,
+                show_history=False
             )
         )
 
@@ -219,56 +184,19 @@ async def admin__show_detail_ticket_info(
         ticket_id_info.ticket_id
     )
 
-    creator = None
-    if not ticket.anonymous:
-        creator = make_short_user_data(
+    return make_ticket_detail_info(
+        ticket,
+        token_payload,
+        make_short_user_data(
             ticket.creator,
             hide_user_id=False
-        )
-
-    assignee = None
-    if ticket.assignee:
-        assignee = make_short_user_data(
+        ) if not ticket.anonymous else None,
+        make_short_user_data(
             ticket.assignee,
             hide_user_id=False
-        )
-
-    queue: Queues | None = None
-    if ticket.queue:
-        queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
-    upvotes = Liked.select().where(
-        Liked.ticket_id == ticket.ticket_id
-    ).count()
-
-    return AdminTicketDetailInfo(
-        creator=creator,
-        assignee=assignee,
-        ticket_id=ticket.ticket_id,
-        subject=ticket.subject,
-        body=ticket.body,
-        queue=QueueResponseSchema(
-            queue_id=queue.queue_id,
-            faculty=queue.faculty.faculty_id,
-            name=queue.name,
-            scope=queue.scope
-        ) if queue else None,
-        faculty=FacultyResponseSchema(
-            faculty_id=ticket.faculty.faculty_id,
-            name=ticket.faculty.name
-        ),
-        status=StatusResponseSchema(
-            status_id=ticket.status.status_id,
-            name=ticket.status.name
-        ),
-        upvotes=upvotes,
-        is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-        is_bookmarked=is_ticket_bookmarked(
-            token_payload.user_id,
-            ticket.ticket_id
-        ),
-        date=str(ticket.created),
-        history=get_ticket_actions(ticket.ticket_id)
+        ) if ticket.assignee else None,
+        crop_body=False,
+        show_history=True
     )
 
 

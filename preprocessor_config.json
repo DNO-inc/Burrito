@@ -41,7 +41,8 @@
         {"permission_id": 1, "name": "UPDATE_PROFILE"},
         {"permission_id": 2, "name": "CREATE_TICKET"},
         {"permission_id": 3, "name": "READ_TICKET"},
-        {"permission_id": 4, "name": "SEND_MESSAGE"}
+        {"permission_id": 4, "name": "SEND_MESSAGE"},
+        {"permission_id": 5, "name": "ADMIN"}
     ],
     "roles": [
         {"role_id": 1, "name": "ALL"},
@@ -51,7 +52,8 @@
         {"role_id": 5, "name": "NO_PCT"},
         {"role_id": 6, "name": "NO_CTM"},
         {"role_id": 7, "name": "NO_PM"},
-        {"role_id": 8, "name": "NO_PCTM"}
+        {"role_id": 8, "name": "NO_PCTM"},
+        {"role_id": 9, "name": "ADMIN"}
     ],
     "role_permissions": [
         {"id": 1, "role_id": 1, "permission_id": 1},
@@ -80,6 +82,8 @@
         {"id": 18, "role_id": 7, "permission_id": 2},
         {"id": 19, "role_id": 7, "permission_id": 3},
 
-        {"id": 20, "role_id": 8, "permission_id": 3}
+        {"id": 20, "role_id": 8, "permission_id": 3},
+
+        {"id": 20, "role_id": 9, "permission_id": 5}
     ]
 }
