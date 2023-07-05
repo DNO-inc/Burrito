@@ -102,24 +102,3 @@ class AdminTestCase(unittest.TestCase):
             },
             response
         )
-
-    def test_005_admin_become_assignee(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/become_assignee",
-            headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
-            },
-            json={
-                "ticket_id": TicketsTestCase.first_ticket
-            },
-            timeout=TIMEOUT
-        )
-
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )

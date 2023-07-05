@@ -19,18 +19,18 @@ services:
     ports:
       - "3306:3306"
 
-  prometheus:
-    container_name: burrito_prometheus
-    image: prom/prometheus
-    ports:
-      - 9090:9090
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-
-  grafana:
-    container_name: burrito_grafana
-    image: grafana/grafana
-    ports:
-      - 3000:3000
+#  prometheus:
+#    container_name: burrito_prometheus
+#    image: prom/prometheus
+#    ports:
+#      - 9090:9090
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#
+#  grafana:
+#    container_name: burrito_grafana
+#    image: grafana/grafana
+#    ports:
+#      - 3000:3000

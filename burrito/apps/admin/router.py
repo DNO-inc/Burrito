@@ -5,8 +5,7 @@ from .views import (
     admin__get_ticket_list_by_filter,
     admin__show_detail_ticket_info,
     admin__delete_ticket,
-    admin__change_user_permissions,
-    admin__become_an_assignee
+    admin__change_user_permissions
 )
 
 admin_router = APIRouter()
@@ -35,9 +34,4 @@ admin_router.add_api_route(
     "/users/change_permissions",
     admin__change_user_permissions,
     methods=["DELETE"]
-)
-admin_router.add_api_route(
-    "/tickets/become_assignee",
-    admin__become_an_assignee,
-    methods=["POST"]
 )

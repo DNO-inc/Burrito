@@ -10,6 +10,7 @@ from burrito.schemas.filters_schema import BaseFilterSchema
 
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
+    assignee_id: int | None
     faculty: int | None
     queue: int | None
     status: int | None

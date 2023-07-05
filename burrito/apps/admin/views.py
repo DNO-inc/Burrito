@@ -5,13 +5,8 @@ from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
 from burrito.models.user_model import Users
-from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
-from burrito.models.queues_model import Queues
 
-from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
     AdminUpdateTicketSchema,
@@ -33,14 +28,10 @@ from burrito.utils.query_util import (
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
-    hide_ticket_body,
     make_short_user_data,
-    is_ticket_bookmarked,
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions,
-    is_ticket_liked
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -107,7 +98,53 @@ async def admin__update_ticket_data(
             )
             ticket.status = status_object
 
-    if any((faculty_object, queue_object, status_object)):
+    # changing assignee value
+    if admin_updates.assignee_id:  # cause user can give values less
+        provided_assignee: Users | None = get_user_by_id(admin_updates.assignee_id)
+
+        # become assignee
+        if not ticket.assignee and token_payload.user_id == provided_assignee.user_id:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="assignee",
+                old_value="None",
+                new_value=provided_assignee.login
+            )
+            ticket.assignee = provided_assignee
+
+            new_status = StatusConverter.convert(1)
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="status",
+                old_value=ticket.status.name,
+                new_value=new_status.name
+            )
+            ticket.status = new_status
+
+        # forward ticket
+        elif ticket.assignee and ticket.assignee.user_id == token_payload.user_id:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="assignee",
+                old_value=ticket.assignee.login,
+                new_value=provided_assignee.login
+            )
+            ticket.assignee = provided_assignee
+
+            new_status = StatusConverter.convert(1)
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="status",
+                old_value=ticket.status.name,
+                new_value=new_status.name
+            )
+            ticket.status = new_status
+
+    if any((faculty_object, queue_object, status_object, admin_updates.assignee_id)):
         ticket.save()
 
     return JSONResponse(
