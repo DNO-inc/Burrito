@@ -14,10 +14,6 @@ from burrito.schemas.tickets_schema import (
     TicketListResponseSchema,
     TicketsBasicFilterSchema
 )
-from burrito.schemas.queue_schema import QueueResponseSchema
-from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.pagination_schema import BurritoPagination
 
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
@@ -45,14 +41,10 @@ from burrito.utils.query_util import (
     q_liked
 )
 from burrito.utils.tickets_util import (
-    hide_ticket_body,
     make_short_user_data,
-    is_ticket_bookmarked,
     get_filtered_tickets,
     select_filters,
-    create_ticket_action,
-    get_ticket_actions,
-    is_ticket_liked
+    create_ticket_action
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (

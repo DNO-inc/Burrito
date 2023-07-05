@@ -5,13 +5,8 @@ from fastapi.responses import JSONResponse
 from fastapi_jwt_auth import AuthJWT
 
 from burrito.models.user_model import Users
-from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
-from burrito.models.queues_model import Queues
 
-from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
     AdminUpdateTicketSchema,
@@ -33,14 +28,10 @@ from burrito.utils.query_util import (
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
-    hide_ticket_body,
     make_short_user_data,
-    is_ticket_bookmarked,
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions,
-    is_ticket_liked
 )
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
@@ -51,7 +42,8 @@ from burrito.utils.converter import (
 
 from .utils import (
     check_permission,
-    is_ticket_exist
+    is_ticket_exist,
+    make_ticket_detail_info
 )
 
 
@@ -106,7 +98,53 @@ async def admin__update_ticket_data(
             )
             ticket.status = status_object
 
-    if any((faculty_object, queue_object, status_object)):
+    # changing assignee value
+    if admin_updates.assignee_id:  # cause user can give values less
+        provided_assignee: Users | None = get_user_by_id(admin_updates.assignee_id)
+
+        # become assignee
+        if not ticket.assignee and token_payload.user_id == provided_assignee.user_id:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="assignee",
+                old_value="None",
+                new_value=provided_assignee.login
+            )
+            ticket.assignee = provided_assignee
+
+            new_status = StatusConverter.convert(1)
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="status",
+                old_value=ticket.status.name,
+                new_value=new_status.name
+            )
+            ticket.status = new_status
+
+        # forward ticket
+        elif ticket.assignee and ticket.assignee.user_id == token_payload.user_id:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="assignee",
+                old_value=ticket.assignee.login,
+                new_value=provided_assignee.login
+            )
+            ticket.assignee = provided_assignee
+
+            new_status = StatusConverter.convert(1)
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="status",
+                old_value=ticket.status.name,
+                new_value=new_status.name
+            )
+            ticket.status = new_status
+
+    if any((faculty_object, queue_object, status_object, admin_updates.assignee_id)):
         ticket.save()
 
     return JSONResponse(
@@ -144,56 +182,20 @@ async def admin__get_ticket_list_by_filter(
     )
 
     for ticket in expression:
-        creator = None
-        if not ticket.anonymous:
-            creator = make_short_user_data(
-                ticket.creator,
-                hide_user_id=False
-            )
-
-        assignee = None
-        if ticket.assignee:
-            assignee = make_short_user_data(
-                ticket.assignee,
-                hide_user_id=False
-            )
-
-        upvotes = Liked.select().where(
-            Liked.ticket_id == ticket.ticket_id
-        ).count()
-
-        queue: Queues | None = None
-        if ticket.queue:
-            queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
         response_list.append(
-            AdminTicketDetailInfo(
-                creator=creator,
-                assignee=assignee,
-                ticket_id=ticket.ticket_id,
-                subject=ticket.subject,
-                body=hide_ticket_body(ticket.body),
-                faculty=FacultyResponseSchema(
-                    faculty_id=ticket.faculty.faculty_id,
-                    name=ticket.faculty.name
-                ),
-                queue=QueueResponseSchema(
-                    queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
-                    name=queue.name,
-                    scope=queue.scope
-                ) if queue else None,
-                status=StatusResponseSchema(
-                    status_id=ticket.status.status_id,
-                    name=ticket.status.name
-                ),
-                upvotes=upvotes,
-                is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-                is_bookmarked=is_ticket_bookmarked(
-                    token_payload.user_id,
-                    ticket.ticket_id
-                ),
-                date=str(ticket.created)
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                make_short_user_data(
+                    ticket.creator,
+                    hide_user_id=False
+                ) if not ticket.anonymous else None,
+                make_short_user_data(
+                    ticket.assignee,
+                    hide_user_id=False
+                ) if ticket.assignee else None,
+                crop_body=True,
+                show_history=False
             )
         )
 
@@ -219,56 +221,19 @@ async def admin__show_detail_ticket_info(
         ticket_id_info.ticket_id
     )
 
-    creator = None
-    if not ticket.anonymous:
-        creator = make_short_user_data(
+    return make_ticket_detail_info(
+        ticket,
+        token_payload,
+        make_short_user_data(
             ticket.creator,
             hide_user_id=False
-        )
-
-    assignee = None
-    if ticket.assignee:
-        assignee = make_short_user_data(
+        ) if not ticket.anonymous else None,
+        make_short_user_data(
             ticket.assignee,
             hide_user_id=False
-        )
-
-    queue: Queues | None = None
-    if ticket.queue:
-        queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
-
-    upvotes = Liked.select().where(
-        Liked.ticket_id == ticket.ticket_id
-    ).count()
-
-    return AdminTicketDetailInfo(
-        creator=creator,
-        assignee=assignee,
-        ticket_id=ticket.ticket_id,
-        subject=ticket.subject,
-        body=ticket.body,
-        queue=QueueResponseSchema(
-            queue_id=queue.queue_id,
-            faculty=queue.faculty.faculty_id,
-            name=queue.name,
-            scope=queue.scope
-        ) if queue else None,
-        faculty=FacultyResponseSchema(
-            faculty_id=ticket.faculty.faculty_id,
-            name=ticket.faculty.name
-        ),
-        status=StatusResponseSchema(
-            status_id=ticket.status.status_id,
-            name=ticket.status.name
-        ),
-        upvotes=upvotes,
-        is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-        is_bookmarked=is_ticket_bookmarked(
-            token_payload.user_id,
-            ticket.ticket_id
-        ),
-        date=str(ticket.created),
-        history=get_ticket_actions(ticket.ticket_id)
+        ) if ticket.assignee else None,
+        crop_body=False,
+        show_history=True
     )
 
 
