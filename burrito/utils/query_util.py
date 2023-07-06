@@ -17,6 +17,8 @@ _PROTECTED_STATUSES: tuple[int] = (
     StatusConverter.convert(1).status_id,
 )
 
+ADMIN_ROLES: list[int] = [9]
+
 STATUSES_FOR_USER: list[int] = []
 STATUSES_FOR_ADMIN: list[int] = []
 

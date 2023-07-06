@@ -4,7 +4,8 @@ from .views import (
     meta__get_statuses_list,
     meta__get_groups_list,
     meta__faculties_list,
-    meta__get_queues_list
+    meta__get_queues_list,
+    meta__get_admins
 )
 
 
@@ -31,5 +32,11 @@ meta_router.add_api_route(
 meta_router.add_api_route(
     "/get_queues",
     meta__get_queues_list,
+    methods=["POST"]
+)
+
+meta_router.add_api_route(
+    "/get_admins",
+    meta__get_admins,
     methods=["POST"]
 )
