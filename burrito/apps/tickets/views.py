@@ -12,7 +12,8 @@ from burrito.schemas.tickets_schema import (
     TicketDetailInfoSchema,
     TicketListRequestSchema,
     TicketListResponseSchema,
-    TicketsBasicFilterSchema
+    TicketsBasicFilterSchema,
+    TicketIDValuesListScheme
 )
 
 from burrito.models.queues_model import Queues
@@ -102,7 +103,7 @@ async def tickets__create_new_ticket(
 
 @check_permission()
 async def tickets__delete_ticket_for_me(
-        deletion_ticket_data: TicketIDValueSchema,
+        deletion_ticket_data: TicketIDValuesListScheme,
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Delete ticket"""
@@ -112,26 +113,25 @@ async def tickets__delete_ticket_for_me(
         Authorize.get_jwt_subject()
     )
 
-    ticket: Tickets | None = is_ticket_exist(
-        deletion_ticket_data.ticket_id
-    )
+    for id_value in deletion_ticket_data.ticket_id_list:
+        ticket: Tickets | None = is_ticket_exist(id_value)
 
-    am_i_own_this_ticket_with_error(
-        ticket.creator.user_id,
-        token_payload.user_id
-    )
-
-    try:
-        Deleted.create(
-            user_id=ticket.creator.user_id,
-            ticket_id=ticket.ticket_id
+        am_i_own_this_ticket_with_error(
+            ticket.creator.user_id,
+            token_payload.user_id
         )
-    except Exception as e:  # pylint: disable=broad-except, invalid-name
-        get_logger().critical(f"Creation error: {e}")
+
+        try:
+            Deleted.create(
+                user_id=ticket.creator.user_id,
+                ticket_id=ticket.ticket_id
+            )
+        except Exception as e:  # pylint: disable=broad-except, invalid-name
+            get_logger().critical(f"Creation error: {e}")
 
     return JSONResponse(
         status_code=200,
-        content={"detail": "Ticket was deleted successfully"}
+        content={"detail": "Tickets were deleted successfully"}
     )
 
 
