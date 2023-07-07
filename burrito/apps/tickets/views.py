@@ -523,6 +523,7 @@ async def tickets__get_liked_tickets(
         "status": q_is_valid_status_list(_filters.status)
     }
     final_filters = select_filters(available_filters, _filters) + [
+        q_not_deleted(token_payload.user_id),
         q_liked(token_payload.user_id)
     ]
     expression: list[Tickets] = get_filtered_tickets(
@@ -593,6 +594,7 @@ async def tickets__get_bookmarked_tickets(
         "status": q_is_valid_status_list(_filters.status)
     }
     final_filters = select_filters(available_filters, _filters) + [
+        q_not_deleted(token_payload.user_id),
         q_bookmarked(token_payload.user_id)
     ]
     expression: list[Tickets] = get_filtered_tickets(
