@@ -13,7 +13,8 @@ from burrito.apps.tickets.views import (
     tickets__close_own_ticket,
     tickets__get_liked_tickets,
     tickets__get_bookmarked_tickets,
-    tickets__get_deleted_tickets
+    tickets__get_deleted_tickets,
+    tickets__undelete_ticket
 )
 
 
@@ -28,6 +29,11 @@ tickets_router.add_api_route(
     "/delete",
     tickets__delete_ticket_for_me,
     methods=["DELETE"]
+)
+tickets_router.add_api_route(
+    "/undelete",
+    tickets__undelete_ticket,
+    methods=["POST"]
 )
 tickets_router.add_api_route(
     "/bookmark",

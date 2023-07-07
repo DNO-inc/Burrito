@@ -129,9 +129,50 @@ async def tickets__delete_ticket_for_me(
         except Exception as e:  # pylint: disable=broad-except, invalid-name
             get_logger().critical(f"Creation error: {e}")
 
+            return JSONResponse(
+                status_code=500,
+                content={"detail": "Something went wrong"}
+            )
+
     return JSONResponse(
         status_code=200,
         content={"detail": "Tickets were deleted successfully"}
+    )
+
+
+@check_permission()
+async def tickets__undelete_ticket(
+        ticket_data: TicketIDValueSchema,
+        Authorize: AuthJWT = Depends(get_auth_core())
+):
+    Authorize.jwt_required()
+
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+    ticket: Tickets | None = is_ticket_exist(ticket_data.ticket_id)
+
+    am_i_own_this_ticket_with_error(
+        ticket.creator.user_id,
+        token_payload.user_id
+    )
+
+    try:
+        # delete ticket from black list
+        Deleted.get(Deleted.ticket_id == ticket.ticket_id).delete_instance()
+
+    except Exception as e:
+        get_logger().critical(f"Deletion error: {e}")
+
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "Something went wrong"}
+        )
+
+    return JSONResponse(
+        status_code=200,
+        content={"detail": "Ticket was deleted from black list successfully"}
     )
 
 

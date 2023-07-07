@@ -49,7 +49,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "queue": 1,
+#                "queue": 1,
                 "faculty": 1,
             },
             timeout=TIMEOUT
@@ -388,6 +388,52 @@ class TicketsTestCase(unittest.TestCase):
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/deleted",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    def test_015_undelete_ticket(self):
+        """Delete ticket"""
+
+        ticket_id = create_ticket_get_id("for black list to undelete")
+
+        response = requests.delete(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id_list": [ticket_id]
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/undelete",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": ticket_id
             },
             timeout=TIMEOUT
         )
