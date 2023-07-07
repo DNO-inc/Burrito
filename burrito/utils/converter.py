@@ -75,6 +75,11 @@ class QueueConverter(Converter):
         Returns:
             Queues | None: queue object or None value
         """
+
+        # INFO: queue value can be None
+        if int_value is None:
+            return None
+
         QueueConverter._is_empty(int_value, f"Queue {int_value} is invalid")
 
         queue_object = Queues.get_or_none(Queues.queue_id == int_value)

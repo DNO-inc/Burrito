@@ -49,7 +49,7 @@ class TicketsTestCase(unittest.TestCase):
                 "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
-                "queue": 1,
+#                "queue": 1,
                 "faculty": 1,
             },
             timeout=TIMEOUT
