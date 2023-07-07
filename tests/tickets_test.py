@@ -400,3 +400,49 @@ class TicketsTestCase(unittest.TestCase):
             },
             response
         )
+
+    def test_015_undelete_ticket(self):
+        """Delete ticket"""
+
+        ticket_id = create_ticket_get_id("for black list to undelete")
+
+        response = requests.delete(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id_list": [ticket_id]
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/undelete",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": ticket_id
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
