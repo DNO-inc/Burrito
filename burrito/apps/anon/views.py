@@ -48,7 +48,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
-        tickets_count=filters.tickets_count
+        tickets_count=filters.items_count
     )
 
     for ticket in expression:
@@ -102,5 +102,5 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(
             *final_filters
-        ).count()/filters.tickets_count)
+        ).count()/filters.items_count)
     )

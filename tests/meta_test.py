@@ -100,7 +100,7 @@ class MetaTestCase(unittest.TestCase):
             self.assertEqual,
             {
                 "first": response.status_code,
-                "second": 422
+                "second": 200
             },
             response
         )

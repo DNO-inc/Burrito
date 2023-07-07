@@ -341,7 +341,7 @@ async def tickets__show_tickets_list_by_filter(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
-        tickets_count=filters.tickets_count
+        tickets_count=filters.items_count
     )
 
     for ticket in expression:
@@ -375,7 +375,7 @@ async def tickets__show_tickets_list_by_filter(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
             final_filters
-        )).count()/filters.tickets_count)
+        )).count()/filters.items_count)
     )
 
 
@@ -528,7 +528,7 @@ async def tickets__get_liked_tickets(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list[TicketDetailInfoSchema] = []
@@ -567,7 +567,7 @@ async def tickets__get_liked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Liked.select().where(
                 Liked.user_id == token_payload.user_id
-            ).count()/_filters.tickets_count
+            ).count()/_filters.items_count
         )
     )
 
@@ -598,7 +598,7 @@ async def tickets__get_bookmarked_tickets(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list[TicketDetailInfoSchema] = []
@@ -637,7 +637,7 @@ async def tickets__get_bookmarked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Bookmarks.select().where(
                 Bookmarks.user_id == token_payload.user_id
-            ).count()/_filters.tickets_count
+            ).count()/_filters.items_count
         )
     )
 
@@ -666,7 +666,7 @@ async def tickets__get_deleted_tickets(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list = []
@@ -689,5 +689,5 @@ async def tickets__get_deleted_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
             final_filters
-        )).count()/_filters.tickets_count)
+        )).count()/_filters.items_count)
     )

@@ -5,13 +5,15 @@ from fastapi_jwt_auth import AuthJWT
 from burrito.schemas.comment_schema import (
     CommentCreationSchema,
     CommentEditSchema,
-    CommentDeletionSchema
+    CommentDeletionSchema,
+    RequestTicketsCommentSchema,
+    ResponseTicketsCommentSchema
 )
 
 from burrito.models.comments_model import Comments
 from burrito.models.tickets_model import Tickets
 
-from burrito.utils.tickets_util import is_ticket_exist
+from burrito.utils.tickets_util import is_ticket_exist, am_i_own_this_ticket
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth_token_util import (
@@ -111,3 +113,18 @@ async def comments__delete(
             "detail": "Comment was deleted successfully"
         }
     )
+
+
+@check_permission()
+async def comments__get_related_comments(
+    filters: RequestTicketsCommentSchema,
+    Authorize: AuthJWT = Depends(get_auth_core())
+):
+    Authorize.jwt_required()
+
+    token_payload: AuthTokenPayload = read_access_token_payload(
+        Authorize.get_jwt_subject()
+    )
+
+
+    return ResponseTicketsCommentSchema
