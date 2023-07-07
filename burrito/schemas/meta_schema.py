@@ -24,3 +24,16 @@ class RequestQueueListSchema(BaseModel):
 
 class ResponseQueueListSchema(BaseModel):
     queues_list: list[QueueResponseSchema]
+
+
+class ResponseAdminDetailSchema(BaseModel):
+    user_id: int
+    firstname: str | None
+    lastname: str | None
+    login: str
+    faculty: FacultyResponseSchema
+    group: GroupResponseSchema | None
+
+
+class ResponseAdminListSchema(BaseModel):
+    admin_list: list[ResponseAdminDetailSchema]

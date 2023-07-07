@@ -89,3 +89,18 @@ class MetaTestCase(unittest.TestCase):
             },
             response
         )
+
+    def test_get_admin_list(self):
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_admins",
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )

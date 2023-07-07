@@ -12,7 +12,8 @@ from burrito.schemas.tickets_schema import (
     TicketDetailInfoSchema,
     TicketListRequestSchema,
     TicketListResponseSchema,
-    TicketsBasicFilterSchema
+    TicketsBasicFilterSchema,
+    TicketIDValuesListScheme
 )
 
 from burrito.models.queues_model import Queues
@@ -102,7 +103,7 @@ async def tickets__create_new_ticket(
 
 @check_permission()
 async def tickets__delete_ticket_for_me(
-        deletion_ticket_data: TicketIDValueSchema,
+        deletion_ticket_data: TicketIDValuesListScheme,
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Delete ticket"""
@@ -112,26 +113,25 @@ async def tickets__delete_ticket_for_me(
         Authorize.get_jwt_subject()
     )
 
-    ticket: Tickets | None = is_ticket_exist(
-        deletion_ticket_data.ticket_id
-    )
+    for id_value in deletion_ticket_data.ticket_id_list:
+        ticket: Tickets | None = is_ticket_exist(id_value)
 
-    am_i_own_this_ticket_with_error(
-        ticket.creator.user_id,
-        token_payload.user_id
-    )
-
-    try:
-        Deleted.create(
-            user_id=ticket.creator.user_id,
-            ticket_id=ticket.ticket_id
+        am_i_own_this_ticket_with_error(
+            ticket.creator.user_id,
+            token_payload.user_id
         )
-    except Exception as e:  # pylint: disable=broad-except, invalid-name
-        get_logger().critical(f"Creation error: {e}")
+
+        try:
+            Deleted.create(
+                user_id=ticket.creator.user_id,
+                ticket_id=ticket.ticket_id
+            )
+        except Exception as e:  # pylint: disable=broad-except, invalid-name
+            get_logger().critical(f"Creation error: {e}")
 
     return JSONResponse(
         status_code=200,
-        content={"detail": "Ticket was deleted successfully"}
+        content={"detail": "Tickets were deleted successfully"}
     )
 
 
@@ -341,7 +341,7 @@ async def tickets__show_tickets_list_by_filter(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
-        tickets_count=filters.tickets_count
+        tickets_count=filters.items_count
     )
 
     for ticket in expression:
@@ -375,7 +375,7 @@ async def tickets__show_tickets_list_by_filter(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
             final_filters
-        )).count()/filters.tickets_count)
+        )).count()/filters.items_count)
     )
 
 
@@ -523,12 +523,13 @@ async def tickets__get_liked_tickets(
         "status": q_is_valid_status_list(_filters.status)
     }
     final_filters = select_filters(available_filters, _filters) + [
+        q_not_deleted(token_payload.user_id),
         q_liked(token_payload.user_id)
     ]
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list[TicketDetailInfoSchema] = []
@@ -567,7 +568,7 @@ async def tickets__get_liked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Liked.select().where(
                 Liked.user_id == token_payload.user_id
-            ).count()/_filters.tickets_count
+            ).count()/_filters.items_count
         )
     )
 
@@ -593,12 +594,13 @@ async def tickets__get_bookmarked_tickets(
         "status": q_is_valid_status_list(_filters.status)
     }
     final_filters = select_filters(available_filters, _filters) + [
+        q_not_deleted(token_payload.user_id),
         q_bookmarked(token_payload.user_id)
     ]
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list[TicketDetailInfoSchema] = []
@@ -637,7 +639,7 @@ async def tickets__get_bookmarked_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Bookmarks.select().where(
                 Bookmarks.user_id == token_payload.user_id
-            ).count()/_filters.tickets_count
+            ).count()/_filters.items_count
         )
     )
 
@@ -666,7 +668,7 @@ async def tickets__get_deleted_tickets(
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
-        tickets_count=_filters.tickets_count
+        tickets_count=_filters.items_count
     )
 
     response_list: list = []
@@ -689,5 +691,5 @@ async def tickets__get_deleted_tickets(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
             final_filters
-        )).count()/_filters.tickets_count)
+        )).count()/_filters.items_count)
     )

@@ -77,7 +77,7 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "ticket_id": ticket_id
+                "ticket_id_list": [ticket_id]
             },
             timeout=TIMEOUT
         )
@@ -100,7 +100,7 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "ticket_id": TicketsTestCase.first_ticket + 123456
+                "ticket_id_list": [TicketsTestCase.first_ticket + 123456]
             },
             timeout=TIMEOUT
         )

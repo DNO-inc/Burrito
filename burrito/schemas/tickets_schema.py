@@ -38,6 +38,10 @@ class TicketIDValueSchema(BaseModel):
     ticket_id: int
 
 
+class TicketIDValuesListScheme(BaseModel):
+    ticket_id_list: list[int]
+
+
 class TicketUsersInfoSchema(BaseModel):
     user_id: int | None
     firstname: str | None

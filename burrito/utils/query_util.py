@@ -17,6 +17,8 @@ _PROTECTED_STATUSES: tuple[int] = (
     StatusConverter.convert(1).status_id,
 )
 
+ADMIN_ROLES: list[int] = [9]
+
 STATUSES_FOR_USER: list[int] = []
 STATUSES_FOR_ADMIN: list[int] = []
 
@@ -58,7 +60,7 @@ def q_is_valid_queue(queue: int) -> Expression:
 
 
 def q_is_valid_status(value: int) -> Expression:
-    return Tickets.status == value
+    return Tickets.status == StatusConverter.convert(value)
 
 
 def q_is_valid_status_list(values: list[str]) -> Expression | None:
