@@ -71,6 +71,9 @@ def make_short_user_data(
     if hide_user_id:
         user_dict_data["user_id"] = None
         user_dict_data["group"] = None
+        user_dict_data["firstname"] = None
+        user_dict_data["lastname"] = None
+        user_dict_data["login"] = None
 
     return TicketUsersInfoSchema(**user_dict_data)
 

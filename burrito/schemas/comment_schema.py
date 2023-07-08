@@ -21,17 +21,17 @@ class CommentDeletionSchema(BaseModel):
 
 
 class CommentAuthorInfoSchema(BaseModel):
-    user_id: int
+    user_id: int | None
     firstname: str | None
     lastname: str | None
-    login: str
+    login: str | None
     faculty: FacultyResponseSchema
     group: GroupResponseSchema | None
 
 
 class CommentDetailInfoScheme(BaseModel):
     comment_id: int
-    author: CommentAuthorInfoSchema
+    author: CommentAuthorInfoSchema | None
     body: str
 
     comment_date: str
