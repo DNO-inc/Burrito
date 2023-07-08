@@ -7,13 +7,14 @@ from burrito.schemas.comment_schema import (
     CommentEditSchema,
     CommentDeletionSchema,
     RequestTicketsCommentSchema,
-    ResponseTicketsCommentSchema
+    ResponseTicketsCommentSchema,
+    CommentDetailInfoScheme
 )
 
 from burrito.models.comments_model import Comments
 from burrito.models.tickets_model import Tickets
 
-from burrito.utils.tickets_util import is_ticket_exist, am_i_own_this_ticket
+from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth_token_util import (
@@ -21,7 +22,11 @@ from burrito.utils.auth_token_util import (
     read_access_token_payload
 )
 
-from .utils import is_comment_exist_with_ext, is_allowed_to_interact
+from .utils import (
+    is_comment_exist_with_error,
+    is_allowed_to_interact,
+    make_short_comment_author_info
+)
 
 
 @check_permission()
@@ -40,7 +45,7 @@ async def comments__create(
         creator_id = ticket.creator.user_id
         assignee_id = ticket.assignee.user_id if ticket.assignee else None
 
-        if token_payload.user_id != creator_id and token_payload.user_id != assignee_id:
+        if token_payload.user_id not in (creator_id, assignee_id):
             return JSONResponse(
                 status_code=403,
                 content={
@@ -75,7 +80,7 @@ async def comments__edit(
         Authorize.get_jwt_subject()
     )
 
-    comment: Comments | None = is_comment_exist_with_ext(edit_comment_data.comment_id)
+    comment: Comments | None = is_comment_exist_with_error(edit_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
 
     if edit_comment_data.body:
@@ -102,7 +107,7 @@ async def comments__delete(
         Authorize.get_jwt_subject()
     )
 
-    comment: Comments | None = is_comment_exist_with_ext(deletion_comment_data.comment_id)
+    comment: Comments | None = is_comment_exist_with_error(deletion_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
 
     comment.delete_instance()
@@ -120,11 +125,43 @@ async def comments__get_related_comments(
     filters: RequestTicketsCommentSchema,
     Authorize: AuthJWT = Depends(get_auth_core())
 ):
+    """Obtain comments related to the ticket"""
+
     Authorize.jwt_required()
 
     token_payload: AuthTokenPayload = read_access_token_payload(
         Authorize.get_jwt_subject()
     )
 
+    ticket: Tickets | None = is_ticket_exist(filters.ticket_id)
+    if ticket.hidden:
+        creator_id = ticket.creator.user_id
+        assignee_id = ticket.assignee.user_id if ticket.assignee else None
 
-    return ResponseTicketsCommentSchema
+        if token_payload.user_id not in (creator_id, assignee_id):
+            return JSONResponse(
+                status_code=403,
+                content={
+                    "detail": "You have not permissions to get comments"
+                }
+            )
+
+    return ResponseTicketsCommentSchema(
+        ticket_id=filters.ticket_id,
+        comment_list=[
+            CommentDetailInfoScheme(
+                comment_id=comment.comment_id,
+                author=make_short_comment_author_info(
+                    comment.author,
+                    hide_user_id=ticket.anonymous and comment.author.user_id == ticket.creator.user_id
+                ),
+                body=comment.body,
+                comment_date=str(comment.comment_date)
+            ) for comment in Comments.select().where(Comments.ticket == filters.ticket_id).paginate(
+            filters.start_page,
+                filters.items_count
+            ).order_by(
+                Comments.comment_date.desc()
+            )
+        ]
+    )
