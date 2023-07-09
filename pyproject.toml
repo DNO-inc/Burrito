@@ -31,6 +31,9 @@ cryptography = "^40.0.2"
 prometheus-fastapi-instrumentator = "^6.0.0"
 
 
+[tool.poetry.group.dev.dependencies]
+prospector = "^1.10.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

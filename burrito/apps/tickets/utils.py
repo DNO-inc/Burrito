@@ -93,6 +93,8 @@ def make_ticket_detail_info(
         ticket_id=ticket.ticket_id,
         subject=ticket.subject,
         body=hide_ticket_body(ticket.body, 500) if crop_body else ticket.body,
+        hidden=ticket.hidden,
+        anonymous=ticket.anonymous,
         faculty=FacultyResponseSchema(
             faculty_id=ticket.faculty.faculty_id,
             name=ticket.faculty.name
