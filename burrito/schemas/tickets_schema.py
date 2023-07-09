@@ -59,6 +59,8 @@ class TicketDetailInfoSchema(BaseModel):
     ticket_id: int
     subject: str
     body: str
+    hidden: bool
+    anonymous: bool
     faculty: FacultyResponseSchema
     queue: QueueResponseSchema | None
     status: StatusResponseSchema
