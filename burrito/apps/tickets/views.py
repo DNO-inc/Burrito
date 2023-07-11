@@ -13,7 +13,8 @@ from burrito.schemas.tickets_schema import (
     TicketListRequestSchema,
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
-    TicketIDValuesListScheme
+    TicketIDValuesListScheme,
+    TicketBookmarksTypeSchema
 )
 
 from burrito.models.queues_model import Queues
@@ -616,7 +617,7 @@ async def tickets__get_liked_tickets(
 
 @check_permission()
 async def tickets__get_bookmarked_tickets(
-        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
+        _filters: TicketBookmarksTypeSchema | None = TicketBookmarksTypeSchema(),
         Authorize: AuthJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
@@ -632,18 +633,18 @@ async def tickets__get_bookmarked_tickets(
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
         "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
-        "status": q_is_valid_status_list(_filters.status)
+        "status": q_is_valid_status_list(_filters.status),
+        "bookmarks_type": q_bookmarked(token_payload.user_id, _filters.bookmarks_type)
     }
     final_filters = select_filters(available_filters, _filters) + [
-        q_not_deleted(token_payload.user_id),
-        q_bookmarked(token_payload.user_id)
-    ]
+        q_not_deleted(token_payload.user_id)
+    ] if _filters.bookmarks_type == "my" else []
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
     )
-
+    print(expression)
     response_list: list[TicketDetailInfoSchema] = []
 
     for ticket in expression:

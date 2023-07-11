@@ -371,6 +371,9 @@ class TicketsTestCase(unittest.TestCase):
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
+            json={
+                "bookmarks_type": "strangers"
+            },
             timeout=TIMEOUT
         )
 

@@ -21,7 +21,7 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 
 from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
-from burrito.utils.query_util import ADMIN_ROLES
+from burrito.utils.query_util import ADMIN_ROLES, BOOKMARKS_TYPE
 
 
 async def meta__get_statuses_list():
@@ -80,3 +80,7 @@ async def meta__get_admins():
             ) for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))
         ]
     )
+
+
+async def meta__get_bookmarks_type():
+    return BOOKMARKS_TYPE
