@@ -1,7 +1,7 @@
-version: "2.2"
+version: "3.0"
 
 services:
-  burrito:
+  burrito_app:
     container_name: burrito_app
     build: .
     env_file:

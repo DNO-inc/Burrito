@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from peewee import Expression
 
 from burrito.models.bookmarks_model import Bookmarks
@@ -12,6 +13,8 @@ from burrito.utils.converter import (
     QueueConverter
 )
 
+
+BOOKMARKS_TYPE: list[str] = ["my", "strangers"]
 
 _PROTECTED_STATUSES: tuple[int] = (
     StatusConverter.convert(1).status_id,
@@ -86,10 +89,26 @@ def q_not_deleted(_user_id: int) -> Expression:
     )
 
 
-def q_bookmarked(_user_id: int) -> Expression:
-    return Tickets.ticket_id.in_(
-        Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id)
+def q_bookmarked(_user_id: int, _type: str = "my") -> Expression:
+    if _type not in BOOKMARKS_TYPE:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Bookmark type is not valid: {_type}. Allowed: {BOOKMARKS_TYPE} or check /meta/get_bookmarks_type"
+        )
+
+    if _type == "my":
+        return (
+            Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
+            & (Tickets.creator == _user_id)
+        )
+
+    return (
+        Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
+        & (Tickets.creator != _user_id)
     )
+
+    # if you want to have more types of 'bookmarks' just
+    # add a new type to this list 'BOOKMARKS_TYPE' and also create a new 'elif' statement
 
 
 def q_liked(_user_id: int) -> Expression:
