@@ -644,7 +644,6 @@ async def tickets__get_bookmarked_tickets(
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
     )
-    print(expression)
     response_list: list[TicketDetailInfoSchema] = []
 
     for ticket in expression:
