@@ -11,7 +11,7 @@ WORKDIR /opt/pysetup
 
 RUN pip3 install poetry
 
-COPY ./pyproject.toml ./
+COPY pyproject.toml ./
 
 RUN poetry install --only main
 
@@ -28,4 +28,4 @@ COPY ./burrito /burrito
 
 WORKDIR ./
 
-CMD ["python", "burrito/apps/registration"]
+CMD ["python", "-m", "burrito.apps.registration"]
