@@ -36,3 +36,6 @@ rmi:
 
 db_conn:
 	scripts/connect_to_db.sh
+
+check_burrito_cluster:
+	$(PYTHON) scripts/check_burrito_cluster.py
