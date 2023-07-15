@@ -22,15 +22,6 @@ clear_db: tests/utils/clear_db.py
 tests_:
 	$(PYTHON) tests/run_tests.py
 
-docker_build: Dockerfile
-	docker build -t burrito .
-
-_delete_docker_container:
-	docker rm burrito_love || true
-
-docker_run: _delete_docker_container Dockerfile
-	docker run --env-file .env --name burrito_love burrito
-
 rmi:
 	scripts/docker_rm_all_images.sh
 
@@ -39,3 +30,9 @@ db_conn:
 
 check_burrito_cluster:
 	$(PYTHON) scripts/check_burrito_cluster.py
+
+run_burrito_cluster:
+	scripts/run_burrito_cluster.sh
+
+burrito_cluster_status:
+	$(PYTHON) scripts/burrito_cluster_status.py
