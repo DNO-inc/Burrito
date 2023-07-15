@@ -13,7 +13,7 @@ else:
     print("App preparation failed")
 
 
-app = get_current_app()
+app = get_current_app(docs_url="/tickets/docs", openapi_url="/tickets/openapi.json")
 connect_app(app, "/tickets", tickets_router)
 
 

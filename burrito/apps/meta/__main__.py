@@ -13,7 +13,7 @@ else:
     print("App preparation failed")
 
 
-app = get_current_app()
+app = get_current_app(docs_url="/meta/docs", openapi_url="/meta/openapi.json")
 connect_app(app, "/meta", meta_router)
 
 

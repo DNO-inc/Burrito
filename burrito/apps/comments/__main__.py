@@ -13,7 +13,7 @@ else:
     print("App preparation failed")
 
 
-app = get_current_app()
+app = get_current_app(docs_url="/comments/docs", openapi_url="/comments/openapi.json")
 connect_app(app, "/comments", comments_router)
 
 

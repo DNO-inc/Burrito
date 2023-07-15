@@ -3,6 +3,16 @@ version: "3.0"
 services:
 # GENERAL SECTION
 
+  nginx:
+    container_name: burrito_nginx
+    image: nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - burrito_about
+
   db:
     container_name: burrito_db
     image: mysql
@@ -29,6 +39,7 @@ services:
 
 
 # APPS SECTION
+# INFO: port forwarding is provided only for testing, this option will be deleted soon
 
   burrito_about:
     container_name: burrito_about
