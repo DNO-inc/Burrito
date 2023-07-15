@@ -22,7 +22,7 @@ class BurritoApi(FastAPI):
         super().__init__(*args, **kwargs)
 
 
-def get_current_app() -> BurritoApi:
+def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> BurritoApi:
     """_summary_
 
     Return current application object
@@ -31,7 +31,7 @@ def get_current_app() -> BurritoApi:
         BurritoApi: current application object
     """
 
-    app = BurritoApi()
+    app = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
 
     app.add_event_handler("startup", startup_event)
     app.add_exception_handler(AuthJWTException, authjwt_exception_handler)

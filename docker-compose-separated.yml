@@ -1,150 +1,17 @@
 version: "3.0"
 
 services:
-#  burrito_about:
-#    container_name: burrito_about
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/about/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10000:10000"
-#    links:
-#      - "db"
-#
-#
-#  burrito_admin:
-#    container_name: burrito_admin
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/admin/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10001:10001"
-#    links:
-#      - "db"
-#
-#
-#  burrito_anon:
-#    container_name: burrito_anon
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/anon/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10002:10002"
-#    links:
-#      - "db"
-#
-#
-#  burrito_auth:
-#    container_name: burrito_auth
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/auth/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10003:10003"
-#    links:
-#      - "db"
-#
-#
-#  burrito_comments:
-#    container_name: burrito_comments
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/comments/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10004:10004"
-#    links:
-#      - "db"
-#
-#
-#  burrito_iofiles:
-#    container_name: burrito_iofiles
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/iofiles/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10005:10005"
-#    links:
-#      - "db"
-#
-#
+# GENERAL SECTION
 
-
-#  burrito_meta:
-#    container_name: burrito_meta
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/meta/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "$BURRITO_PORT_META:$BURRITO_PORT_META"
-#    links:
-#      - "db"
-
-
-##  burrito_notifications:
-##    container_name: burrito_notifications
-##    build:
-##      context: .
-##      dockerfile: burrito/apps/notifications/Dockerfile
-##    env_file:
-##      - .env
-##    ports:
-##      - "10007:10007"
-##    links:
-##      - "db"
-#
-#
-#  burrito_profile:
-#    container_name: burrito_profile
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/profile/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10008:10008"
-#    links:
-#      - "db"
-#
-#
-#  burrito_registration:
-#    container_name: burrito_registration
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/registration/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10009:10009"
-#    links:
-#      - "db"
-#
-#
-#  burrito_tickets:
-#    container_name: burrito_tickets
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/tickets/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10010:10010"
-#    links:
-#      - "db"
-
+  nginx:
+    container_name: burrito_nginx
+    image: nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - burrito_about
 
   db:
     container_name: burrito_db
@@ -169,3 +36,139 @@ services:
 #    image: grafana/grafana
 #    ports:
 #      - 3000:3000
+
+
+# APPS SECTION
+# INFO: port forwarding is provided only for testing, this option will be deleted soon
+
+  burrito_about:
+    container_name: burrito_about
+    build:
+      context: .
+      dockerfile: burrito/apps/about/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10000:10000"
+    links:
+      - "db"
+
+  burrito_admin:
+    container_name: burrito_admin
+    build:
+      context: .
+      dockerfile: burrito/apps/admin/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10001:10001"
+    links:
+      - "db"
+
+  burrito_anon:
+    container_name: burrito_anon
+    build:
+      context: .
+      dockerfile: burrito/apps/anon/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10002:10002"
+    links:
+      - "db"
+
+  burrito_auth:
+    container_name: burrito_auth
+    build:
+      context: .
+      dockerfile: burrito/apps/auth/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10003:10003"
+    links:
+      - "db"
+
+  burrito_comments:
+    container_name: burrito_comments
+    build:
+      context: .
+      dockerfile: burrito/apps/comments/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10004:10004"
+    links:
+      - "db"
+
+  burrito_iofiles:
+    container_name: burrito_iofiles
+    build:
+      context: .
+      dockerfile: burrito/apps/iofiles/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10005:10005"
+    links:
+      - "db"
+
+  burrito_meta:
+    container_name: burrito_meta
+    build:
+      context: .
+      dockerfile: burrito/apps/meta/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_META:$BURRITO_PORT_META"
+    links:
+      - "db"
+
+#  burrito_notifications:
+#    container_name: burrito_notifications
+#    build:
+#      context: .
+#      dockerfile: burrito/apps/notifications/Dockerfile
+#    env_file:
+#      - .env
+#    ports:
+#      - "10007:10007"
+#    links:
+#      - "db"
+
+  burrito_profile:
+    container_name: burrito_profile
+    build:
+      context: .
+      dockerfile: burrito/apps/profile/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10008:10008"
+    links:
+      - "db"
+
+  burrito_registration:
+    container_name: burrito_registration
+    build:
+      context: .
+      dockerfile: burrito/apps/registration/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10009:10009"
+    links:
+      - "db"
+
+  burrito_tickets:
+    container_name: burrito_tickets
+    build:
+      context: .
+      dockerfile: burrito/apps/tickets/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "10010:10010"
+    links:
+      - "db"
