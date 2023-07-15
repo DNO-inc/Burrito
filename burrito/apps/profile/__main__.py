@@ -17,16 +17,6 @@ app = get_current_app(docs_url="/profile/docs", openapi_url="/profile/openapi.js
 connect_app(app, "/profile", profile_router)
 
 
-# TODO: temporary function, should be deleted in soon
-def use_route_names_as_operation_ids(app) -> None:
-    for route in app.routes:
-        if isinstance(route, APIRoute):
-            route.operation_id = route.name + str(randint(0, 1000))  # TODO: delete this fuc
-
-
-use_route_names_as_operation_ids(app)
-
-
 if __name__ == "__main__":
     uvicorn.run(
         "burrito.apps.profile.__main__:app",
