@@ -118,7 +118,13 @@ class BurritoJWT:
         )
 
     async def _read_token_payload(self, token: str) -> AuthTokenPayload | None:
-        return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
+        try:
+            return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
+        except:
+            raise AuthTokenError(
+                detail="Authorization token is invalid or expired",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
 
 
 def get_auth_core() -> BurritoJWT:
