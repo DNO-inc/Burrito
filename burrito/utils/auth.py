@@ -5,6 +5,7 @@ import uuid
 from fastapi import HTTPException, Request, status
 from pydantic import BaseModel
 
+from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
 
 
@@ -19,9 +20,9 @@ class AuthTokenPayload(BaseModel):
     role: str
 
 
-TMP_KEY_ = "123"
+_JWT_SECRET = get_config().BURRITO_JWT_SECRET
+_TOKEN_TTL = get_config().BURRITO_JWT_TTL
 _KEY_TEMPLATE = "{}_{}_{}"
-_TOKEN_TTL = 60
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
@@ -56,7 +57,7 @@ class BurritoJWT:
         token_data.token_id = uuid.uuid4().hex
         token_data.token_type = "access"
 
-        _token = jwt.encode(token_data.dict(), TMP_KEY_).decode("utf-8")
+        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
         _token_redis_key = _make_redis_key(token_data)
 
         get_redis_connector().set(_token_redis_key, _token)
@@ -67,7 +68,7 @@ class BurritoJWT:
         token_data.token_id = uuid.uuid4().hex
         token_data.token_type = "refresh"
 
-        _token = jwt.encode(token_data.dict(), TMP_KEY_).decode("utf-8")
+        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
         _token_redis_key = _make_redis_key(token_data)
 
         get_redis_connector().set(_token_redis_key, _token)
@@ -117,7 +118,7 @@ class BurritoJWT:
         )
 
     async def _read_token_payload(self, token: str) -> AuthTokenPayload | None:
-        return AuthTokenPayload(**jwt.decode(token, TMP_KEY_))
+        return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
 
 
 def get_auth_core() -> BurritoJWT:
