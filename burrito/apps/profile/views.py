@@ -1,8 +1,6 @@
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from fastapi_jwt_auth import AuthJWT
-
 from burrito.models.user_model import Users
 
 from burrito.schemas.profile_schema import (
@@ -10,10 +8,7 @@ from burrito.schemas.profile_schema import (
     RequestUpdateProfileSchema
 )
 
-from burrito.utils.auth_token_util import (
-    read_access_token_payload,
-    AuthTokenPayload
-)
+from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 
 from burrito.utils.converter import (
     FacultyConverter,
@@ -27,17 +22,13 @@ from .utils import (
 )
 
 
-@check_permission()
 async def profile__check_my_profile(
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ) -> ResponseProfileSchema:
     """Return some data to check user profile"""
 
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     return await view_profile_by_user_id(token_payload.user_id)
 
@@ -50,18 +41,15 @@ async def profile__check_by_id(
     return await view_profile_by_user_id(user_id)
 
 
-@check_permission(permission_list={"UPDATE_PROFILE"})
 async def profile__update_my_profile(
     profile_updated_data: RequestUpdateProfileSchema | None = RequestUpdateProfileSchema(),
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Update profile data"""
 
-    Authorize.jwt_required()
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload, permission_list={"UPDATE_PROFILE"})
 
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
     current_user: Users | None = get_user_by_id(token_payload.user_id)
 
     if profile_updated_data.firstname:

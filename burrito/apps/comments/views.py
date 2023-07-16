@@ -1,6 +1,5 @@
 from fastapi.responses import JSONResponse
 from fastapi import Depends
-from fastapi_jwt_auth import AuthJWT
 
 from burrito.schemas.comment_schema import (
     CommentCreationSchema,
@@ -17,10 +16,8 @@ from burrito.models.tickets_model import Tickets
 from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
-from burrito.utils.auth_token_util import (
-    AuthTokenPayload,
-    read_access_token_payload
-)
+from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+
 
 from .utils import (
     is_comment_exist_with_error,
@@ -29,16 +26,12 @@ from .utils import (
 )
 
 
-@check_permission()
 async def comments__create(
     creation_comment_data: CommentCreationSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
     if ticket.hidden:
@@ -69,16 +62,12 @@ async def comments__create(
     )
 
 
-@check_permission()
 async def comments__edit(
     edit_comment_data: CommentEditSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     comment: Comments | None = is_comment_exist_with_error(edit_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
@@ -96,16 +85,12 @@ async def comments__edit(
     )
 
 
-@check_permission()
 async def comments__delete(
     deletion_comment_data: CommentDeletionSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     comment: Comments | None = is_comment_exist_with_error(deletion_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
@@ -120,18 +105,14 @@ async def comments__delete(
     )
 
 
-@check_permission()
 async def comments__get_related_comments(
     filters: RequestTicketsCommentSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Obtain comments related to the ticket"""
 
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(filters.ticket_id)
     if ticket.hidden:
@@ -158,7 +139,7 @@ async def comments__get_related_comments(
                 body=comment.body,
                 comment_date=str(comment.comment_date)
             ) for comment in Comments.select().where(Comments.ticket == filters.ticket_id).paginate(
-            filters.start_page,
+                filters.start_page,
                 filters.items_count
             ).order_by(
                 Comments.comment_date.desc()

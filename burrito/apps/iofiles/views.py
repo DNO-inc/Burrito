@@ -2,22 +2,21 @@ from typing import Annotated
 from pathlib import Path
 
 from fastapi import Depends, Form, UploadFile
-from fastapi_jwt_auth import AuthJWT
 
 import aiofiles
 
 from burrito.models.tickets_model import Tickets
 
-from burrito.utils.auth import get_auth_core
+from burrito.utils.auth import get_auth_core, BurritoJWT
 from burrito.utils.tickets_util import is_ticket_exist
 
 
 async def iofiles__upload_file_for_ticket(
     ticket_id: Annotated[int, Form(...)],
     file_list: list[UploadFile],
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
+    await __auth_obj.verify_access_token()
 
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 

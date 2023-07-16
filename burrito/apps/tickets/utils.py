@@ -21,7 +21,7 @@ from burrito.schemas.tickets_schema import (
     TicketDetailInfoSchema
 )
 
-from burrito.utils.auth_token_util import AuthTokenPayload
+from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import (
     is_ticket_exist,
     am_i_own_this_ticket,

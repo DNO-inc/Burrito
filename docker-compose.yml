@@ -19,6 +19,14 @@ services:
     ports:
       - "3306:3306"
 
+  redis:
+    container_name: burrito_redis
+    image: redis
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+
 #  prometheus:
 #    container_name: burrito_prometheus
 #    image: prom/prometheus

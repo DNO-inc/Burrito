@@ -2,7 +2,6 @@ import math
 
 from fastapi import Depends
 from fastapi.responses import JSONResponse
-from fastapi_jwt_auth import AuthJWT
 
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
@@ -15,10 +14,7 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
-from burrito.utils.auth_token_util import (
-    read_access_token_payload,
-    AuthTokenPayload
-)
+from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -47,16 +43,12 @@ from .utils import (
 )
 
 
-@check_permission()
 async def admin__update_ticket_data(
     admin_updates: AdminUpdateTicketSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         admin_updates.ticket_id
@@ -153,16 +145,12 @@ async def admin__update_ticket_data(
     )
 
 
-@check_permission()
 async def admin__get_ticket_list_by_filter(
     filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     available_filters = {
         "hidden": q_is_hidden(filters.hidden),
@@ -205,17 +193,13 @@ async def admin__get_ticket_list_by_filter(
     )
 
 
-@check_permission()
 async def admin__show_detail_ticket_info(
     ticket_id_info: AdminTicketIdSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Show detail ticket info"""
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
@@ -237,12 +221,12 @@ async def admin__show_detail_ticket_info(
     )
 
 
-@check_permission()
 async def admin__delete_ticket(
     deletion_ticket_data: AdminTicketIdSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         deletion_ticket_data.ticket_id
@@ -256,21 +240,16 @@ async def admin__delete_ticket(
     )
 
 
-@check_permission()
 async def admin__change_user_permissions():
     return {"1": 1}
 
 
-@check_permission()
 async def admin__become_an_assignee(
     ticket_data: AdminTicketIdSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    Authorize.jwt_required()
-
-    token_payload: AuthTokenPayload = read_access_token_payload(
-        Authorize.get_jwt_subject()
-    )
+    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         ticket_data.ticket_id

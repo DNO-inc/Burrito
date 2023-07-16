@@ -1,4 +1,3 @@
-from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 
 from burrito.models.statuses_model import Statuses
@@ -12,7 +11,7 @@ from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.tickets_schema import TicketDetailInfoSchema
 
-from burrito.utils.auth_token_util import AuthTokenPayload
+from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import (
     is_ticket_exist,
     is_ticket_bookmarked,

@@ -28,6 +28,9 @@ rmi:
 db_conn:
 	scripts/connect_to_db.sh
 
+redis_conn:
+	scripts/connect_to_redis.sh
+
 check_burrito_cluster:
 	$(PYTHON) scripts/check_burrito_cluster.py
 
