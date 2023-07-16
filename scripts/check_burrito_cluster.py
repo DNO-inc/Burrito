@@ -7,7 +7,6 @@ import rich
 
 __env_path = find_dotenv()
 __port_data = []
-__base_url = "http://localhost:{}/docs"
 
 print("Test version \n\n")
 
@@ -37,15 +36,3 @@ def _ping(data):
 rich.print("\n[blue][*] Checking for host accessability")
 for host in __port_data:
     _ping(host)
-
-
-# get host docs
-rich.print("\n[blue][*] Checking for docs accessability")
-for host in __port_data:
-    url = __base_url.format(host[1])
-
-    try:
-        response = requests.get(url)
-        rich.print(f"\t[green][+] Docs is available for host: {host} via url {url}")
-    except:
-        rich.print(f"\t[red][-] Docs is not available for host: {host} via url {url}")
