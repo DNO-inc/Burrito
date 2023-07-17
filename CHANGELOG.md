@@ -1,16 +1,17 @@
 	==============================
-	Generated 2023-07-17 21:09:20
+	Generated 2023-07-17 22:06:04
 	==============================
 
 
-	 66cf074 6 minutes ago  (HEAD -> bodya, origin/bodya) applied a new format to CHANGELOG.md & created a script  for generation changelog (m-o-d-e-r)
-	 e2ac215 22 minutes ago  update CHANGELOG.md (delete graph) (m-o-d-e-r)
-	 2bf8b1c 23 minutes ago  update CHANGELOG.md (m-o-d-e-r)
-	 ed0233d 49 minutes ago  updates scripts (rename some files) (m-o-d-e-r)
-	 1593c07 24 hours ago  added handler for errors related to wrong token & update nginx.conf (m-o-d-e-r)
-	 a73a1e8 25 hours ago  read JWT_SECRET & JWT_TTL from configs (m-o-d-e-r)
-	 a76bb99 26 hours ago  new JWT processor (m-o-d-e-r)
-	 c071e20 33 hours ago  update scripts (m-o-d-e-r)
+	 d53b0a8 56 minutes ago  (HEAD -> bodya, origin/bodya) fix script for changelog generation (m-o-d-e-r)
+	 66cf074 63 minutes ago  applied a new format to CHANGELOG.md & created a script  for generation changelog (m-o-d-e-r)
+	 e2ac215 79 minutes ago  update CHANGELOG.md (delete graph) (m-o-d-e-r)
+	 2bf8b1c 80 minutes ago  update CHANGELOG.md (m-o-d-e-r)
+	 ed0233d 2 hours ago  updates scripts (rename some files) (m-o-d-e-r)
+	 1593c07 25 hours ago  added handler for errors related to wrong token & update nginx.conf (m-o-d-e-r)
+	 a73a1e8 26 hours ago  read JWT_SECRET & JWT_TTL from configs (m-o-d-e-r)
+	 a76bb99 27 hours ago  new JWT processor (m-o-d-e-r)
+	 c071e20 34 hours ago  update scripts (m-o-d-e-r)
 	 51b02d2 2 days ago  changed the version of cryptography to 41.0.2 (m-o-d-e-r)
 	 9def8a4 3 days ago  updated scripts (m-o-d-e-r)
 	 47d461e 3 days ago  deleted unhelpful function use_route_names_as_operation_ids (m-o-d-e-r)
@@ -161,8 +162,8 @@
 	 1fc55ab 7 weeks ago  Merge pull request #40 from DNO-inc/bodya (m-o-d-e-r)
 	 c6cc716 7 weeks ago  added ReconnectMixin to database cursor (moder)
 	 aa048d6 7 weeks ago  Update bandit.yml (m-o-d-e-r)
-	 7129864 7 weeks ago  Merge pull request #39 from DNO-inc/m-o-d-e-r-patch-1 (m-o-d-e-r)
-	 922861e 7 weeks ago  Create bandit.yml (m-o-d-e-r)
+	 7129864 8 weeks ago  Merge pull request #39 from DNO-inc/m-o-d-e-r-patch-1 (m-o-d-e-r)
+	 922861e 8 weeks ago  Create bandit.yml (m-o-d-e-r)
 	 7ad4c48 8 weeks ago  changed hash algorithm (moder)
 	 1673768 8 weeks ago  Merge pull request #36 from DNO-inc/bodya (m-o-d-e-r)
 	 5dcac5a 8 weeks ago  update config_reader component (moder)
