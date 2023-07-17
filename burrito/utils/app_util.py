@@ -1,8 +1,7 @@
-from fastapi import FastAPI, APIRouter, Request
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI, APIRouter
+
 # from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi_jwt_auth.exceptions import AuthJWTException
 
 # from burrito.middlewares.user_agent import UserAgentMiddleware
 
@@ -34,7 +33,6 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
     app = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
 
     app.add_event_handler("startup", startup_event)
-    app.add_exception_handler(AuthJWTException, authjwt_exception_handler)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],
@@ -75,23 +73,6 @@ async def startup_event():
     task_manager.run()
 
     get_logger().info("All tasks was started")
-
-
-async def authjwt_exception_handler(request: Request, exc: AuthJWTException) -> JSONResponse:
-    """_summary_
-
-    Args:
-        request (Request): request object
-        exc (AuthJWTException): exception type
-
-    Returns:
-        JSONResponse: json response that user will recv
-    """
-
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={"detail": exc.message}
-    )
 
 
 def connect_app(fast_api_object: FastAPI, prefix: str, router: APIRouter):

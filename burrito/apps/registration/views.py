@@ -1,19 +1,13 @@
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from fastapi_jwt_auth import AuthJWT
-
 from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.user_model import Users
 
 from burrito.utils.converter import GroupConverter, FacultyConverter
 
-from burrito.utils.auth import get_auth_core
-from burrito.utils.auth_token_util import (
-    AuthTokenPayload,
-    create_access_token_payload
-)
+from burrito.utils.auth import get_auth_core, BurritoJWT, AuthTokenPayload
 
 from .utils import (
     get_hash,
@@ -24,7 +18,7 @@ from .utils import (
 
 async def registration__user_registration(
     user_data: RegistrationSchema,
-    Authorize: AuthJWT = Depends(get_auth_core())
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Handle user registration"""
 
@@ -54,25 +48,16 @@ async def registration__user_registration(
     )
 
     if current_user:
-        access_token = Authorize.create_access_token(
-            subject=create_access_token_payload(
-                AuthTokenPayload(
-                    user_id=current_user.user_id,
-                    role=current_user.role.name
-                )
+        result = (await __auth_obj.create_token_pare(
+            AuthTokenPayload(
+                user_id=current_user.user_id,
+                role=current_user.role.name
             )
-        )
-        refresh_token = Authorize.create_refresh_token(
-            subject=current_user.user_id
-        )
+        )) | {"user_id": current_user.user_id}
 
         return JSONResponse(
             status_code=status.HTTP_200_OK,
-            content={
-                "user_id": current_user.user_id,
-                "access_token": access_token,
-                "refresh_token": refresh_token
-            }
+            content=result
         )
 
     return JSONResponse(

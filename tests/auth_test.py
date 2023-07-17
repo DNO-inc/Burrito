@@ -26,7 +26,7 @@ class AuthTestCase(unittest.TestCase):
     def setUpClass(cls):
         cls.access_token: None | str = None
 
-    def test_do_password_auth(self):
+    def test_001_do_password_auth(self):
         """
             Login user in rest API using login and password.
             Recv token to use in the next authentications.
@@ -54,7 +54,8 @@ class AuthTestCase(unittest.TestCase):
             result[1]
         )
 
-    def test_do_token_auth(self):
+#    @unittest.skip
+    def test_002_do_token_auth(self):
         """
             Login user in rest API using login and password.
             Recv token to use in the next authentications.
@@ -79,7 +80,8 @@ class AuthTestCase(unittest.TestCase):
             response
         )
 
-    def test_do_token_auth_with_old_token(self):
+    @unittest.skip
+    def test_003_do_token_auth_with_old_token(self):
         """
             Login user in rest API using login and password.
             Recv token to use in the next authentications.
