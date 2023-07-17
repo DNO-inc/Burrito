@@ -39,3 +39,6 @@ burrito_cluster_run:
 
 burrito_cluster_ps:
 	$(PYTHON) scripts/burrito_cluster_ps.py
+
+changelog:
+	scripts/generate_changelog.sh
