@@ -1,7 +1,444 @@
-# Changelog
-
-### \[indev 0.1.0\] - 09.05.2023
-
-#### Detail
-
-Created tickets app.
+* 	 21 minutes ago  (HEAD -> bodya, origin/bodya) updates scripts (rename some files) (m-o-d-e-r)
+* 	 24 hours ago  added handler for errors related to wrong token & update nginx.conf (m-o-d-e-r)
+* 	 25 hours ago  read JWT_SECRET & JWT_TTL from configs (m-o-d-e-r)
+* 	 25 hours ago  new JWT processor (m-o-d-e-r)
+* 	 33 hours ago  update scripts (m-o-d-e-r)
+* 	 2 days ago  changed the version of cryptography to 41.0.2 (m-o-d-e-r)
+* 	 2 days ago  updated scripts (m-o-d-e-r)
+* 	 3 days ago  deleted unhelpful function use_route_names_as_operation_ids (m-o-d-e-r)
+* 	 3 days ago  updated __main__.py for each app & created nginx.conf (m-o-d-e-r)
+* 	 4 days ago  updated __main__.py for each app (m-o-d-e-r)
+* 	 5 days ago  updated Dockerfile's for all apps (m-o-d-e-r)
+* 	 6 days ago  fix bug in anon app (m-o-d-e-r)
+* 	 6 days ago  [apps] added new endpoint /meta/get_bookmarks_type & added filter bookmarks_type to /tickets/bookmarked (m-o-d-e-r)
+* 	 6 days ago  start preparation to use microservice architecture (m-o-d-e-r)
+* 	 8 days ago  added fields 'hidden' and 'anonymous' to detail the ticket view (m-o-d-e-r)
+* 	 9 days ago  new endpoint '/comments' (m-o-d-e-r)
+* 	 10 days ago  created '/tickets/undelete' endpoint (m-o-d-e-r)
+* 	 10 days ago  fixed Queue Converter (allowed None values for queue) (m-o-d-e-r)
+* 	 10 days ago  added 'q_not_deleted' filter to /tickets/bookmarked and /tickets/bookmarked endpoints (m-o-d-e-r)
+* 	 10 days ago  renamed field tickets_count to items_count in BurritoPagination schema (m-o-d-e-r)
+* 	 11 days ago  created endpoint '/meta/get_admins' (m-o-d-e-r)
+* 	 11 days ago  added ability to delete several tickets (m-o-d-e-r)
+* 	 12 days ago  fixed filter 'q_is_valid_status' using StatusConverter (m-o-d-e-r)
+* 	 12 days ago  remove 'become_assignee' ticket (m-o-d-e-r)
+* 	 13 days ago  [apps][admin] added function 'make_ticket-detail_info' to reduce the amount of code (m-o-d-e-r)
+* 	 2 weeks ago  update version label (m-o-d-e-r)
+* 	 2 weeks ago  added filters to /tickets/bookmarked and /tickets/liked endpoints (m-o-d-e-r)
+* 	 2 weeks ago  change GET method to POST in (/liked, /bookmarked, /deleted) (m-o-d-e-r)
+* 	 2 weeks ago  added BaseFilterSchema & mini fix (m-o-d-e-r)
+* 	 2 weeks ago  removed old preprocessor (m-o-d-e-r)
+* 	 2 weeks ago  created new task for Init (PreProcessorTask) (m-o-d-e-r)
+* 	 2 weeks ago  mini fix in prometheus.yml (m-o-d-e-r)
+* 	 3 weeks ago  created folder 'scripts' & updated Makafile (m-o-d-e-r)
+* 	 3 weeks ago  [apps] fix bug in anon app (m-o-d-e-r)
+* 	 3 weeks ago  update version label (m-o-d-e-r)
+* 	 3 weeks ago  renamed field 'author' to 'user' in 'Actions' model (m-o-d-e-r)
+* 	 3 weeks ago  deleted cache tools (m-o-d-e-r)
+* 	 3 weeks ago  renamed converters (m-o-d-e-r)
+* 	 3 weeks ago  added function for pretty output when an error occurs in the tests (m-o-d-e-r)
+* 	 3 weeks ago  replaced str values of groups, statuses, and faculties with int-based values (id) (m-o-d-e-r)
+| *   	 3 weeks ago  (origin/patch-1, origin/main, patch-1) Merge pull request #78 from DNO-inc/bodya (m-o-d-e-r)
+| |\  
+| |/  
+|/|   
+* | 	 3 weeks ago  update README.md & remove environment variables from docker-compose file (m-o-d-e-r)
+|/  
+* 	 3 weeks ago  Update README.md (m-o-d-e-r)
+*   	 3 weeks ago  Merge pull request #77 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 3 weeks ago  created endpoint '/tickets/deleted' (m-o-d-e-r)
+| * 	 4 weeks ago  change models structure (added BurritoBasicModel) (moder)
+| * 	 4 weeks ago  added ticket history in detail views of tickets (moder)
+| * 	 4 weeks ago  delete 'upvotes' field from Comments model and schema (moder)
+| * 	 4 weeks ago  update starlette (0.26.1 -> 0.27.0) (moder)
+| * 	 4 weeks ago  remove grafana_data content from cache (moder)
+| * 	 4 weeks ago  updated .gitignore (moder)
+* | 	 4 weeks ago  Merge pull request #76 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 weeks ago  update 'comments' app (moder)
+* | 	 4 weeks ago  Merge pull request #75 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 weeks ago  updated 'comments' app (moder)
+| * 	 4 weeks ago  [apps] created 'comments' app (moder)
+| * 	 4 weeks ago  created 'init' system & created docker-compose (moder)
+| * 	 4 weeks ago  change version label (moder)
+| * 	 4 weeks ago  try to run this fu**ing f**k in docker compose (moder)
+| * 	 5 weeks ago  added config files for pylint and flake8 & some changes in code style (moder)
+|/  
+*   	 5 weeks ago  (tag: v0.5.5-indev) Merge pull request #74 from DNO-inc/create_ticket_queue_by_id (Dmytro)
+|\  
+| * 	 5 weeks ago  Makefile update (DimonBor)
+| * 	 5 weeks ago  Tests adaptation to the new queue format (DimonBor)
+| * 	 5 weeks ago  Schemas update (DimonBor)
+| * 	 5 weeks ago  Add queue to ticket detailed response (DimonBor)
+| * 	 5 weeks ago  Test config update (DimonBor)
+|/  
+*   	 5 weeks ago  Merge pull request #73 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 5 weeks ago  added ability to apply few statuses as filter per request & modified filters (moder)
+* | 	 5 weeks ago  Merge pull request #72 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 5 weeks ago  set default pagination rules if body was not provided (moder)
+* | 	 5 weeks ago  Merge pull request #71 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 5 weeks ago  changed methods from GET to POST in 'liked' & 'bookmarkeed' endpoints (moder)
+* | 	 5 weeks ago  Merge pull request #70 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 5 weeks ago  added pagination to 'liked' and 'bookmarked' endpoints in 'tickets' app (moder)
+|/  
+*   	 5 weeks ago  Merge remote-tracking branch 'origin/main' (DimonBor)
+|\  
+| *   	 5 weeks ago  Merge pull request #69 from DNO-inc/ticket_list_fix (Dmytro)
+| |\  
+| | * 	 5 weeks ago  Ternary fix operator (DimonBor)
+| |/  
+* / 	 5 weeks ago  total_pages rounding fix (DimonBor)
+|/  
+*   	 5 weeks ago  Merge pull request #68 from DNO-inc/models_update (Dmytro)
+|\  
+| * 	 5 weeks ago  (origin/models_update) Queue scopes implementation (DimonBor)
+|/  
+* 	 5 weeks ago  Pagination hot(girl)fix (DimonBor)
+*   	 5 weeks ago  Merge pull request #67 from DNO-inc/pagination_update (Dmytro)
+|\  
+| * 	 5 weeks ago  Pagination update (DimonBor)
+|/  
+*   	 5 weeks ago  (tag: v0.5.4-indev, tag: v0.5.3.1-indev) Merge pull request #66 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 5 weeks ago  added ability to use pagination (moder)
+| * 	 5 weeks ago  applied new function for selecting tickets by filters (admin app) (moder)
+| * 	 5 weeks ago  return sorted tickets from new to older & remove ability to view tickets with statuses 'NEW' or 'REJECTED' (nott for admins)) (moder)
+* | 	 6 weeks ago  Merge pull request #65 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 6 weeks ago  added new endpoints to 'tickets' app to show liked or bookmarked tickets (moder)
+* | 	 6 weeks ago  (tag: v0.5.3-indev) Merge pull request #64 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 6 weeks ago  added 'is_bookmarked' label for 'tickets' and 'admin' apps (moder)
+* | 	 6 weeks ago  Merge pull request #63 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 6 weeks ago  updated response schemas in 'meta' app (moder)
+* | 	 6 weeks ago  Merge pull request #62 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 6 weeks ago  update schemas in 'admin' app (moder)
+* | 	 7 weeks ago  Merge pull request #61 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  fix error with noexistent queue names (moder)
+* | 	 7 weeks ago  Merge pull request #60 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  add 'faculty' parameter to QueueStrToModel (moder)
+| * 	 7 weeks ago  fix queue in tickets creation (moder)
+* | 	 7 weeks ago  Merge pull request #59 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  change tickets output for anon users (moder)
+* | 	 7 weeks ago  Merge pull request #58 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  added group output for tickets in 'tickets' app (moder)
+| * 	 7 weeks ago  added filed 'is_liked' to tickets output in 'tickets' app (moder)
+* | 	 7 weeks ago  Merge pull request #57 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  added additional info in tickets output (moder)
+* | 	 7 weeks ago  Merge pull request #56 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  fix 'tickets' app & fix ticket creation proccess (moder)
+* | 	 7 weeks ago  Merge pull request #55 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  fix wrong imports (moder)
+| * 	 7 weeks ago  replaced some function from 'db_utils' component to 'users_util' (moder)
+| * 	 7 weeks ago  replaced 'UserPasswordLoginSchema' to 'auth_schema' (moder)
+| * 	 7 weeks ago  [apps] 'auth' app is now return also user's login as a response (moder)
+* | 	 7 weeks ago  Merge pull request #54 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  fix 'hide_ticket_body' function (moder)
+* | 	 7 weeks ago  Merge pull request #53 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  solved problem of ticket's body visibility (moder)
+* | 	 7 weeks ago  Merge pull request #52 from DNO-inc/mm (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  (origin/mm, mm) 'mm' was deleted and will be rewritten in future (moder)
+|/  
+*   	 7 weeks ago  Merge pull request #51 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 7 weeks ago  implemented new format of access token via AuthTokenPayload (moder)
+* | 	 7 weeks ago  Create codeql.yml (m-o-d-e-r)
+* | 	 7 weeks ago  Update bandit.yml (m-o-d-e-r)
+|/  
+*   	 7 weeks ago  (tag: v0.5.2-indev) Merge pull request #50 from DNO-inc/mm (m-o-d-e-r)
+|\  
+| * 	 7 weeks ago  update Makefile (moder)
+|/  
+*   	 7 weeks ago  Merge pull request #49 from DNO-inc/dockerfile_crypto-fix (Dmytro)
+|\  
+| * 	 7 weeks ago  alpine -> buster migration (DimonBor)
+|/  
+*   	 7 weeks ago  Merge pull request #48 from DNO-inc/mm (m-o-d-e-r)
+|\  
+| * 	 7 weeks ago  update dependencies (moder)
+* | 	 7 weeks ago  Merge pull request #47 from DNO-inc/mm (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  update dependencies (moder)
+* | 	 7 weeks ago  Merge pull request #46 from DNO-inc/mm (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  version 0.5.2 & created ModelManager & [apps] update 'meta' app (do request to db via ModelManager) (moder)
+* | 	 7 weeks ago  (tag: v0.5.1-indev) Merge pull request #45 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  version 0.5.1 & created 'iofiles' app & updated file_manager (moder)
+| * 	 7 weeks ago  try to test file_manager (moder)
+* | 	 7 weeks ago  Merge pull request #44 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  created file_manager & fix bug in registration (moder)
+* | 	 7 weeks ago  Merge pull request #43 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  update db_utils (added Exception to get_user_by_login function) (moder)
+* | 	 7 weeks ago  Update docker-publish.yml (Dmytro)
+* | 	 7 weeks ago  Merge pull request #42 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  [docs] update (moder)
+| * 	 7 weeks ago  turn db_preprocessor to old version & afix db_utils (moder)
+| * 	 7 weeks ago  mini update in permission checker & update type hint in task_manager (moder)
+| * 	 7 weeks ago  remove aioredis from the dependencies (moder)
+* | 	 7 weeks ago  Merge pull request #41 from DNO-inc/models_update (m-o-d-e-r)
+|\| 
+| * 	 7 weeks ago  Unlike method query fix (DimonBor)
+| * 	 7 weeks ago  DB schemes update and upvotes implementation (DimonBor)
+* | 	 7 weeks ago  Update docker-publish.yml (Dmytro)
+|/  
+* 	 7 weeks ago  CORS middleware (DimonBor)
+*   	 7 weeks ago  Merge pull request #40 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 7 weeks ago  added ReconnectMixin to database cursor (moder)
+| * 	 8 weeks ago  changed hash algorithm (moder)
+* | 	 7 weeks ago  Update bandit.yml (m-o-d-e-r)
+* |   	 7 weeks ago  Merge pull request #39 from DNO-inc/m-o-d-e-r-patch-1 (m-o-d-e-r)
+|\ \  
+| * | 	 7 weeks ago  Create bandit.yml (m-o-d-e-r)
+|/ /  
+* | 	 8 weeks ago  Merge pull request #36 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  update config_reader component (moder)
+| * 	 8 weeks ago  [apps] added endpoint that allow to unbookmark tickets (moder)
+| * 	 8 weeks ago  update preprocessor (need fix) (moder)
+* | 	 8 weeks ago  Merge pull request #35 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  remove redis from the project (may be temporary -_- ) (moder)
+| * 	 8 weeks ago  fix 'tickets' app (moder)
+* | 	 8 weeks ago  Merge pull request #34 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  [apps] fix create ticket bug (moder)
+| * 	 8 weeks ago  fix path in preprocessor (moder)
+* | 	 8 weeks ago  Merge pull request #33 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  tested anon (moder)
+| * 	 8 weeks ago  delete cache from about app (moder)
+| * 	 8 weeks ago  Update docker-publish.yml (Dmytro)
+| * 	 8 weeks ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
+| * 	 8 weeks ago  test some features in auth (moder)
+* | 	 8 weeks ago  Update docker-publish.yml (Dmytro)
+* |   	 8 weeks ago  Merge pull request #32 from DNO-inc/dockerfile_update (Dmytro)
+|\ \  
+| * | 	 8 weeks ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
+|/ /  
+* | 	 8 weeks ago  (tag: v0.4.0-indev) Merge pull request #31 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  updated permission checker (moder)
+| * 	 8 weeks ago  fix models & added new info to preprocessor_config.json (moder)
+* | 	 8 weeks ago  Merge pull request #30 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  delete BaseView class (moder)
+| * 	 8 weeks ago  [apps] update views in auth app (moder)
+| * 	 8 weeks ago  [apps] update views in registration app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in meta app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in anon app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in admin app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in about app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in tickets app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in profile app (moder)
+| * 	 8 weeks ago  [apps] change class-based views to function-bases in registration app (moder)
+* | 	 8 weeks ago  Merge pull request #29 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 8 weeks ago  [apps] admin can become an assignee (moder)
+| * 	 8 weeks ago  deleted component that is responsible for backups (moder)
+| * 	 8 weeks ago  [apps] registration app returns token data & admin is able to change ticket status if he is assignee (moder)
+|/  
+* 	 8 weeks ago  Trusted hosts fix (DimonBor)
+* 	 8 weeks ago  config_reader logging decrease (DimonBor)
+*   	 8 weeks ago  Merge pull request #28 from DNO-inc/uvicorn_tunning (Dmytro)
+|\  
+| * 	 8 weeks ago  Uvicorn proxy_headers add (DimonBor)
+|/  
+*   	 8 weeks ago  Merge pull request #27 from DNO-inc/docker_adjustment (Dmytro)
+|\  
+| * 	 8 weeks ago  Disabling server_header for uvicorn (DimonBor)
+|/  
+* 	 8 weeks ago  Delete docker-image.yml (Dmytro)
+* 	 8 weeks ago  Create docker-publish.yml (Dmytro)
+*   	 8 weeks ago  Merge pull request #26 from DNO-inc/CI-setup (Dmytro)
+|\  
+| * 	 8 weeks ago  Create docker-image.yml (Dmytro)
+|/  
+*   	 8 weeks ago  Merge pull request #25 from DNO-inc/mysql_docker (Dmytro)
+|\  
+| * 	 8 weeks ago  Update Dockerfile for MySQL (DimonBor)
+|/  
+*   	 8 weeks ago  Merge pull request #24 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 8 weeks ago  EnvConfigReader can stop Burrito if one of env variables is not exist (moder)
+* | 	 8 weeks ago  Merge pull request #23 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  new function for checking ticket authority (moder)
+| * 	 9 weeks ago  [apps] user can view profile by link & added ability to raise error in Burrito's core functions (moder)
+| * 	 9 weeks ago  update tests (moder)
+| * 	 9 weeks ago  update dependencies (moder)
+* | 	 9 weeks ago  Merge pull request #22 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  created config reader & some fix in registraion app (moder)
+| * 	 9 weeks ago  [apps] created new app 'meta' (moder)
+| * 	 9 weeks ago  added cached decorator for converters (moder)
+* | 	 9 weeks ago  Merge pull request #21 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  rename field 'group_id' to 'group' (moder)
+| * 	 9 weeks ago  rename field 'faculty_id' to 'faculty' (moder)
+| * 	 9 weeks ago  rename field 'queue_id' to 'queue' (moder)
+| * 	 9 weeks ago  rename field 'status_id' to 'status' (moder)
+| * 	 9 weeks ago  [apps] fix admin app (moder)
+* | 	 9 weeks ago  Merge pull request #20 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  [docs] update Burrito docs (moder)
+| * 	 9 weeks ago  created registration schemas & some fix in tests & added TTL cache for 'about' app (moder)
+* | 	 9 weeks ago  Merge pull request #19 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  [apps] fix anon app (fix filters) (moder)
+| * 	 9 weeks ago  [apps] created app anon (for unregistred users) & version 0.3.3 (moder)
+| * 	 9 weeks ago  [apps] update filter in tickets app (moder)
+| * 	 9 weeks ago  update docs & replace some field types in model (peewee) (moder)
+* | 	 9 weeks ago  Merge pull request #18 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 9 weeks ago  start of using MySQL driver (moder)
+|/  
+*   	 10 weeks ago  Merge pull request #17 from DNO-inc/docker_update (Dmytro)
+|\  
+| * 	 10 weeks ago  Corrected wrong copy path (DimonBor)
+|/  
+*   	 10 weeks ago  Merge pull request #16 from DNO-inc/docker_era (Dmytro)
+|\  
+| * 	 10 weeks ago  Dcokerfile created (DimonBor)
+|/  
+*   	 10 weeks ago  Merge pull request #15 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 10 weeks ago  [apps] update about, tickets, profile apps & new version 0.3.1 indev (moder)
+| * 	 10 weeks ago  [apps] create admin app (need many fixes) & Burrito version 0.2.0 indev (moder)
+| * 	 10 weeks ago  update version in pyproject.toml (moder)
+| * 	 10 weeks ago  [apps] created about app (moder)
+| * 	 10 weeks ago  [docs] update docs (moder)
+* | 	 10 weeks ago  Merge pull request #14 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 10 weeks ago  [apps] update tickets app & added aiblity to view tickets by filter (moder)
+| * 	 2 months ago  [apps] add ability to edit own tickets (moder)
+| * 	 2 months ago  [apps] update tickets app & check permissions to delete ticket (moder)
+| * 	 2 months ago  [apps] add ability to detele own tickets (moder)
+| * 	 2 months ago  [apps] update tickets app & added ability to create tickets (moder)
+| * 	 2 months ago  update DB preprocessor (moder)
+| * 	 2 months ago  [models] fix bug in models (moder)
+| * 	 2 months ago  [models] create new models && aply new schemas (moder)
+| * 	 2 months ago  [apps] update profile app (decode group/faculty ID to group/faculty name) (moder)
+| * 	 2 months ago  update Makefile (moder)
+| * 	 2 months ago  create Makefile (moder)
+| * 	 2 months ago  [apps] update tickets app (create new views) (moder)
+| * 	 2 months ago  [models] create models for the tickets app (moder)
+| * 	 2 months ago  [docs] update docs (moder)
+| * 	 2 months ago  [apps] apply new concept to the registration app (moder)
+* | 	 2 months ago  Merge pull request #13 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 2 months ago  [apps] create decorator for checking user permissions (moder)
+| * 	 2 months ago  [apps] update profile app (allow check profile for unauthorized users) (moder)
+| * 	 2 months ago  delete unused components (moder)
+| * 	 2 months ago  [apps] update token's subject data (moder)
+| * 	 2 months ago  [apps] test class-based-views in profile app (moder)
+* | 	 2 months ago  Merge pull request #12 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 3 months ago  [apps] add __init__.py to auth, profile, registration apps (moder)
+| * 	 3 months ago  [apps] update auth, profile, registration apps (moder)
+| * 	 3 months ago  [apps] update profile app (moder)
+| * 	 3 months ago  [doc] update docs & mini code refactoring (moder)
+| * 	 3 months ago  [fix] add parenthesis in TaskManager (moder)
+| * 	 3 months ago  create thread singleton for TaskManager (moder)
+| * 	 3 months ago  add Burrito response codes (moder)
+| * 	 3 months ago  rename reports app to tickets (moder)
+| * 	 3 months ago  update dependencies (moder)
+* | 	 3 months ago  Merge pull request #11 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 3 months ago  update .gitignore & update dependencies (moder)
+| * 	 3 months ago  update db_utils.py (moder)
+* | 	 3 months ago  Merge pull request #10 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 3 months ago  [docs] update Burrito docs (moder)
+| * 	 3 months ago  update models (moder)
+| * 	 3 months ago  format some code to PEP8 (moder)
+| * 	 3 months ago  mini fix (moder)
+| * 	 3 months ago  update PubSub main cycle (moder)
+| * 	 3 months ago  create pubsub manager & update registration app & create validators (moder)
+* | 	 4 months ago  Merge pull request #9 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 months ago  [docs] update in task_mamager.py (moder)
+* | 	 4 months ago  Merge pull request #8 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 months ago  update logger (moder)
+| * 	 4 months ago  delete unused files (moder)
+| * 	 4 months ago  update convert_dependencies.sh (moder)
+| * 	 4 months ago  new config for doxygen (moder)
+| * 	 4 months ago  add docs for schemas (moder)
+| * 	 4 months ago  add doxygen to project (moder)
+| * 	 4 months ago  reorganize app_util (moder)
+| * 	 4 months ago  create TaskManager & mini fixes (moder)
+| * 	 4 months ago  add script for adding dependencies from requirements.txt to pyproject.toml (moder)
+| * 	 4 months ago  remove unittest_prettify module (moder)
+| * 	 4 months ago  replacing the cursor object with a function (moder)
+* | 	 4 months ago  Merge pull request #7 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 months ago  mini fix in models & write tests (moder)
+| * 	 4 months ago  create reports app (moder)
+|/  
+*   	 4 months ago  Merge pull request #6 from DNO-inc/models_update (m-o-d-e-r)
+|\  
+| * 	 4 months ago  db_utils.py update (DimonBor)
+| * 	 4 months ago  Models actualisation (DimonBor)
+|/  
+*   	 4 months ago  Merge pull request #5 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 4 months ago  updated auth app & renamed account app to profile (moder)
+|/  
+*   	 4 months ago  Merge pull request #4 from DNO-inc/bodya (m-o-d-e-r)
+|\  
+| * 	 4 months ago  modify new models & create singleton cursor object (moder)
+* |   	 4 months ago  Merge pull request #3 from DNO-inc/dmytro (m-o-d-e-r)
+|\ \  
+| * | 	 4 months ago  Format repair (DimonBor)
+| * | 	 4 months ago  Normal version (DimonBor)
+| * | 	 4 months ago  Remove debugging from __main__.py (DimonBor)
+| * | 	 4 months ago  Reformat __main__.py (DimonBor)
+| * | 	 4 months ago  Custom Burrito logger (DimonBor)
+|/ /  
+* | 	 4 months ago  Merge pull request #2 from DNO-inc/bodya (m-o-d-e-r)
+|\| 
+| * 	 4 months ago  create new model-files (moder)
+| * 	 4 months ago  added the ability to register using the rest api (modified registration app) (moder)
+| * 	 4 months ago  remove unused file (moder)
+| * 	 4 months ago  rename database in user_model.py (moder)
+| * 	 4 months ago  create hash_util.py (moder)
+| * 	 4 months ago  create hash_util.py (moder)
+* | 	 4 months ago  Update README.md (DimonBor)
+|/  
+* 	 4 months ago  Restoring models (DimonBor)
+* 	 4 months ago  No more needed (DimonBor)
+*   	 4 months ago  Merge branch 'dmytro' (DimonBor)
+|\  
+| * 	 4 months ago  Project refactoring | Poetry configuration (DimonBor)
+| | * 	 4 months ago  (origin/fix, fix) fix structure (moder)
+| | * 	 4 months ago  (main) create  pyproject.toml (moder)
+| |/  
+|/|   
+* | 	 4 months ago  Create README.md (m-o-d-e-r)
+* | 	 4 months ago  create new models: tags, statuses, roles (moder)
+* | 	 4 months ago  modify auth & account apps (moder)
+|/  
+* 	 4 months ago  first commit (moder)
