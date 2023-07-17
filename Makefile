@@ -31,11 +31,11 @@ db_conn:
 redis_conn:
 	scripts/connect_to_redis.sh
 
-check_burrito_cluster:
-	$(PYTHON) scripts/check_burrito_cluster.py
+burrito_cluster_ping:
+	$(PYTHON) scripts/burrito_cluster_ping.py
 
-run_burrito_cluster:
-	scripts/run_burrito_cluster.sh
+burrito_cluster_run:
+	scripts/burrito_cluster_run.sh
 
-burrito_cluster_status:
-	$(PYTHON) scripts/burrito_cluster_status.py
+burrito_cluster_ps:
+	$(PYTHON) scripts/burrito_cluster_ps.py
