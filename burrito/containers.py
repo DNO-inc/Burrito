@@ -1,10 +1,15 @@
-import uvicorn
+from pathlib import Path
+import inspect
 
 from burrito.utils.config_reader import get_config
 
 from burrito.init.init_system import InitManager
 from burrito.init.tasks.check_db_task import CheckDBTask
 from burrito.init.tasks.preprocessor_task import PreProcessorTask
+
+
+def get_current_app_name() -> str:
+    return Path(inspect.getouterframes(inspect.currentframe(), 2)[1][1]).parent.name
 
 
 def prepare_app():
