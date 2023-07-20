@@ -23,13 +23,6 @@ from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
 
 
-def setup_database():
-    """_summary_
-
-    Setup database. Insert base roles, etc
-    """
-
-
 def create_tables():
     """_summary_
 
