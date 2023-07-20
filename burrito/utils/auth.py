@@ -95,7 +95,7 @@ class BurritoJWT:
             return token_payload
 
         raise AuthTokenError(
-            detail="Authorization token is invalid or expired",
+            detail="Something went wrong",
             status_code=status.HTTP_401_UNAUTHORIZED
         )
 
@@ -113,7 +113,7 @@ class BurritoJWT:
             return token_payload
 
         raise AuthTokenError(
-            detail="Authorization token is invalid or expired",
+            detail="Something went wrong",
             status_code=status.HTTP_401_UNAUTHORIZED
         )
 
