@@ -1,9 +1,7 @@
 import uvicorn
-from random import randint
-from fastapi.routing import APIRoute
 
 from burrito.utils.config_reader import get_config
-from burrito.containers import prepare_app
+from burrito.containers import prepare_app, get_current_app_name
 from burrito.utils.app_util import get_current_app, connect_app
 
 
@@ -12,14 +10,15 @@ if prepare_app():
 else:
     print("App preparation failed")
 
+_APP_NAME = get_current_app_name()
 
-app = get_current_app(docs_url="/about/docs", openapi_url="/about/openapi.json")
-connect_app(app, "/about", about_router)
+app = get_current_app(docs_url=f"/{_APP_NAME}/docs", openapi_url=f"/{_APP_NAME}/openapi.json")
+connect_app(app, f"/{_APP_NAME}", about_router)
 
 
 if __name__ == "__main__":
     uvicorn.run(
-        "burrito.apps.about.__main__:app",
+        f"burrito.apps.{_APP_NAME}.__main__:app",
         host="0.0.0.0",
         port=int(get_config().BURRITO_PORT_ABOUT),
         proxy_headers=bool(get_config().BURRITO_PROXY_HEADERS)

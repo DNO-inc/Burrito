@@ -1,7 +1,9 @@
 import redis
+from fastapi import HTTPException
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
+from burrito.utils.logger import get_logger
 
 
 @singleton
@@ -11,7 +13,18 @@ class RedisConnector(redis.Redis):
 
 
 def get_redis_connector() -> RedisConnector:
-    return RedisConnector(
+    _redis_object = RedisConnector(
         host=get_config().BURRITO_REDIS_HOST,
         port=int(get_config().BURRITO_REDIS_PORT)
     )
+
+    try:
+        _redis_object.ping()
+    except (redis.exceptions.ConnectionError, ConnectionRefusedError) as exc:
+        get_logger().critical("Redis server is unavailable")
+        raise HTTPException(
+            status_code=500,
+            detail="Some of the services is unavailable, please try late"
+        ) from exc
+
+    return _redis_object
