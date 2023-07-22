@@ -4,6 +4,8 @@ from fastapi import HTTPException, status
 
 from playhouse.shortcuts import model_to_dict
 
+from burrito.utils.logger import get_logger
+
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
@@ -135,6 +137,18 @@ def create_ticket_action(
     old_value: str,
     new_value: str
 ) -> None:
+    get_logger().info(
+        f"""
+        New action (
+            ticket={ticket_id},
+            user={user_id},
+            field_name={field_name},
+            old_value={old_value},
+            new_value={new_value}
+        )
+
+        """
+    )
     Actions.create(
         ticket=ticket_id,
         user=user_id,

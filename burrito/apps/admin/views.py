@@ -29,6 +29,7 @@ from burrito.utils.tickets_util import (
     select_filters,
     create_ticket_action,
 )
+from burrito.utils.logger import get_logger
 from burrito.utils.auth import get_auth_core
 from burrito.utils.converter import (
     StatusConverter,
@@ -232,6 +233,15 @@ async def admin__delete_ticket(
         deletion_ticket_data.ticket_id
     )
 
+    get_logger().info(
+        f"""
+        New deletion (
+            ticket_id={ticket.ticket_id},
+            initiator={token_payload.user_id}
+        )
+
+        """
+    )
     ticket.delete_instance()
 
     return JSONResponse(
@@ -242,45 +252,3 @@ async def admin__delete_ticket(
 
 async def admin__change_user_permissions():
     return {"1": 1}
-
-
-async def admin__become_an_assignee(
-    ticket_data: AdminTicketIdSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
-):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
-
-    ticket: Tickets | None = is_ticket_exist(
-        ticket_data.ticket_id
-    )
-
-    if not ticket.assignee:
-        current_admin: Users | None = get_user_by_id(
-            token_payload.user_id
-        )
-        create_ticket_action(
-            ticket_id=ticket_data.ticket_id,
-            user_id=token_payload.user_id,
-            field_name="assignee",
-            old_value="None",
-            new_value=current_admin.login
-        )
-        ticket.assignee = current_admin
-
-        new_status = StatusConverter.convert(1)
-        create_ticket_action(
-            ticket_id=ticket_data.ticket_id,
-            user_id=token_payload.user_id,
-            field_name="status",
-            old_value=ticket.status.name,
-            new_value=new_status.name
-        )
-        ticket.status = new_status
-
-        ticket.save()
-
-    return JSONResponse(
-        status_code=200,
-        content={"detail": "You are assignee now"}
-    )

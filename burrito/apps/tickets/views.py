@@ -74,6 +74,10 @@ async def tickets__create_new_ticket(
     faculty_id = FacultyConverter.convert(ticket_creation_data.faculty)
     queue: Queues = QueueConverter.convert(ticket_creation_data.queue)
 
+    faculty = faculty_id if faculty_id else get_user_by_id(
+        token_payload.user_id
+    ).faculty
+
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
         subject=ticket_creation_data.subject,
@@ -81,9 +85,22 @@ async def tickets__create_new_ticket(
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
         queue=queue,
-        faculty=faculty_id if faculty_id else get_user_by_id(
-            token_payload.user_id
-        ).faculty
+        faculty=faculty
+    )
+
+    get_logger().info(
+        f"""
+        New ticket (
+            ticket_id={ticket.ticket_id},
+            creator={token_payload.user_id},
+            subject={ticket_creation_data.subject},
+            hidden={ticket_creation_data.hidden},
+            anonymous={ticket_creation_data.anonymous},
+            queue={queue},
+            faculty={faculty}
+        )
+
+        """
     )
 
     return JSONResponse(
