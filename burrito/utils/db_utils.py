@@ -11,7 +11,6 @@ from burrito.models.comments_model import Comments
 from burrito.models.actions_model import Actions
 from burrito.models.participants_model import Participants
 from burrito.models.queues_model import Queues
-from burrito.models.notifications_model import Notifications
 from burrito.models.subscriptions_model import Subscriptions
 
 from burrito.models.bookmarks_model import Bookmarks
@@ -36,7 +35,7 @@ def create_tables():
         Users, Faculties, Groups,
         Statuses, Deleted, Liked,
         Tickets, Participants,
-        Subscriptions, Actions, Notifications,
+        Subscriptions, Actions,
         Comments, Queues, Bookmarks
     ]
 
@@ -65,7 +64,7 @@ def drop_tables(use: bool = False):
             Users, Faculties, Groups,
             Statuses, Deleted, Liked,
             Tickets, Participants,
-            Subscriptions, Actions, Notifications,
+            Subscriptions, Actions,
             Comments, Queues, Bookmarks
         )
     )

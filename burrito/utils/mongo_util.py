@@ -1,4 +1,6 @@
+from fastapi import HTTPException
 from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
@@ -17,5 +19,13 @@ def get_mongo_cursor():
         int(get_config().BURRITO_MONGO_PORT)
     )
 
-    mongo_cursor.admin.command("ping")
-    print("111111111111111111111111111111111111111")
+    try:
+        mongo_cursor.admin.command("ping")
+    except ServerSelectionTimeoutError as exc:
+        get_logger().critical("Mongo server is unavailable")
+        raise HTTPException(
+            status_code=500,
+            detail="Some of the services is unavailable, please try late"
+        ) from exc
+
+    return mongo_cursor

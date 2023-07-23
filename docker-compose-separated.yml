@@ -40,7 +40,7 @@ services:
 
   mongo:
     container_name: burrito_mongo
-    image: mongo
+    image: mongo:4.4.6
     ports:
       - "27017:27017"
 
