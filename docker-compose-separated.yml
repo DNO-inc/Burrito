@@ -1,351 +1,183 @@
 version: "3.0"
 
 
-volumes:
-  redis_1_volume: {}
-  redis_2_volume: {}
-  redis_3_volume: {}
-  redis_4_volume: {}
-  redis_5_volume: {}
-  redis_6_volume: {}
-
-
-networks:
-  redis_cluster_net:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 173.18.0.0/24
-
-
 services:
 # GENERAL SECTION
 
-#  nginx:
-#    container_name: burrito_nginx
-#    image: nginx
-#    ports:
-#      - "8080:8080"
-#    volumes:
-#      - ./nginx.conf:/etc/nginx/nginx.conf
-#    depends_on:
-#      - burrito_about
-#      - burrito_admin
-#      - burrito_anon
-#      - burrito_auth
-#      - burrito_comments
-#      - burrito_iofiles
-#      - burrito_meta
-##      - burrito_notifications
-#      - burrito_profile
-#      - burrito_registration
-#      - burrito_tickets
-#
-#  db:
-#    container_name: burrito_db
-#    image: mysql
-#    env_file:
-#      - .env
-#    ports:
-#      - "3306:3306"
-
-#  redis:
-#    container_name: burrito_redis
-#    image: redis
-#    env_file:
-#      - .env
-#    ports:
-#      - "6379:6379"
-
-
-  redis_cluster:
-    image: 'redis'
-    container_name: redis_cluster_init
-    command: redis-cli --cluster create 173.18.0.2:11001 173.18.0.3:11002 173.18.0.4:11003 173.18.0.5:11004 173.18.0.6:11005 173.18.0.7:11006 --cluster-replicas 1 --cluster-yes
-    tty: true
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.30
+  nginx:
+    container_name: burrito_nginx
+    image: nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - redis_1
-      - redis_2
-      - redis_3
-      - redis_4
-      - redis_5
-      - redis_6
+      - burrito_about
 
-  redis_1:
-    image: 'redis'
-    container_name: burrito_redis_1
+  db:
+    container_name: burrito_db
+    image: mysql
+    env_file:
+      - .env
     ports:
-      - "11001"
-    volumes:
-      - redis_1_volume:/data
-      - ./redis/redis_1/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.2
+      - "3306:3306"
 
-  redis_2:
-    image: 'redis'
-    container_name: burrito_redis_2
+  redis:
+    container_name: burrito_redis
+    image: redis
+    env_file:
+      - .env
     ports:
-      - "11002"
-    volumes:
-      - redis_2_volume:/data
-      - ./redis/redis_2/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.3
+      - "6379:6379"
 
-  redis_3:
-    image: 'redis'
-    container_name: burrito_redis_3
+#  prometheus:
+#    container_name: burrito_prometheus
+#    image: prom/prometheus
+#    ports:
+#      - 9090:9090
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#
+#  grafana:
+#    container_name: burrito_grafana
+#    image: grafana/grafana
+#    ports:
+#      - 3000:3000
+
+
+# APPS SECTION
+# INFO: port forwarding is provided only for testing, this option will be deleted soon
+
+  burrito_about:
+    container_name: burrito_about
+    build:
+      context: .
+      dockerfile: burrito/apps/about/Dockerfile
+    env_file:
+      - .env
     ports:
-      - "11003"
-    volumes:
-      - redis_3_volume:/data
-      - ./redis/redis_3/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.4
+      - "$BURRITO_PORT_ABOUT:$BURRITO_PORT_ABOUT"
+    links:
+      - "db"
 
-  redis_4:
-    image: 'redis'
-    container_name: burrito_redis_4
+  burrito_admin:
+    container_name: burrito_admin
+    build:
+      context: .
+      dockerfile: burrito/apps/admin/Dockerfile
+    env_file:
+      - .env
     ports:
-      - "11004"
-    volumes:
-      - redis_4_volume:/data
-      - ./redis/redis_4/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.5
+      - "$BURRITO_PORT_ADMIN:$BURRITO_PORT_ADMIN"
+    links:
+      - "db"
 
-  redis_5:
-    image: 'redis'
-    container_name: burrito_redis_5
+  burrito_anon:
+    container_name: burrito_anon
+    build:
+      context: .
+      dockerfile: burrito/apps/anon/Dockerfile
+    env_file:
+      - .env
     ports:
-      - "11005"
-    volumes:
-      - redis_5_volume:/data
-      - ./redis/redis_5/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.6
+      - "$BURRITO_PORT_ANON:$BURRITO_PORT_ANON"
+    links:
+      - "db"
 
-  redis_6:
-    image: 'redis'
-    container_name: burrito_redis_6
+  burrito_auth:
+    container_name: burrito_auth
+    build:
+      context: .
+      dockerfile: burrito/apps/auth/Dockerfile
+    env_file:
+      - .env
     ports:
-      - "11006"
-    volumes:
-      - redis_6_volume:/data
-      - ./redis/redis_6/redis.conf:/usr/local/etc/redis/redis.conf
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf" ]
-    networks:
-      redis_cluster_net:
-        ipv4_address: 173.18.0.7
+      - "$BURRITO_PORT_AUTH:$BURRITO_PORT_AUTH"
+    links:
+      - "db"
 
-##  prometheus:
-##    container_name: burrito_prometheus
-##    image: prom/prometheus
-##    ports:
-##      - 9090:9090
-##    volumes:
-##      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-##    command:
-##      - '--config.file=/etc/prometheus/prometheus.yml'
-##
-##  grafana:
-##    container_name: burrito_grafana
-##    image: grafana/grafana
-##    ports:
-##      - 3000:3000
-#
-#
-## APPS SECTION
-## INFO: port forwarding is provided only for testing, this option will be deleted soon
-#
-#  burrito_about:
-#    container_name: burrito_about
+  burrito_comments:
+    container_name: burrito_comments
+    build:
+      context: .
+      dockerfile: burrito/apps/comments/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_COMMENTS:$BURRITO_PORT_COMMENTS"
+    links:
+      - "db"
+
+  burrito_iofiles:
+    container_name: burrito_iofiles
+    build:
+      context: .
+      dockerfile: burrito/apps/iofiles/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_IOFILES:$BURRITO_PORT_IOFILES"
+    links:
+      - "db"
+
+  burrito_meta:
+    container_name: burrito_meta
+    build:
+      context: .
+      dockerfile: burrito/apps/meta/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_META:$BURRITO_PORT_META"
+    links:
+      - "db"
+
+#  burrito_notifications:
+#    container_name: burrito_notifications
 #    build:
 #      context: .
-#      dockerfile: burrito/apps/about/Dockerfile
+#      dockerfile: burrito/apps/notifications/Dockerfile
 #    env_file:
 #      - .env
 #    ports:
-#      - "10000:10000"
+#      - "$BURRITO_PORT_NOTIFICATION:$BURRITO_PORT_NOTIFICATION"
 #    links:
 #      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.100
-#
-#  burrito_admin:
-#    container_name: burrito_admin
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/admin/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10001:10001"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.101
-#
-#  burrito_anon:
-#    container_name: burrito_anon
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/anon/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10002:10002"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.102
-#
-#  burrito_auth:
-#    container_name: burrito_auth
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/auth/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10003:10003"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.103
-#
-#  burrito_comments:
-#    container_name: burrito_comments
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/comments/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10004:10004"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.104
-#
-#  burrito_iofiles:
-#    container_name: burrito_iofiles
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/iofiles/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10005:10005"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.105
-#
-#  burrito_meta:
-#    container_name: burrito_meta
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/meta/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "$BURRITO_PORT_META:$BURRITO_PORT_META"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.106
-#
-##  burrito_notifications:
-##    container_name: burrito_notifications
-##    build:
-##      context: .
-##      dockerfile: burrito/apps/notifications/Dockerfile
-##    env_file:
-##      - .env
-##    ports:
-##      - "10007:10007"
-##    links:
-##      - "db"
-##      - "redis_cluster"
-##    networks:
-##      redis_cluster_net:
-##        ipv4_address: 173.18.0.107
-#
-#  burrito_profile:
-#    container_name: burrito_profile
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/profile/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10008:10008"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.108
-#
-#  burrito_registration:
-#    container_name: burrito_registration
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/registration/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10009:10009"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.109
-#
-#  burrito_tickets:
-#    container_name: burrito_tickets
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/tickets/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "10010:10010"
-#    links:
-#      - "db"
-#      - "redis_cluster"
-#    networks:
-#      redis_cluster_net:
-#        ipv4_address: 173.18.0.110
-#
+
+  burrito_profile:
+    container_name: burrito_profile
+    build:
+      context: .
+      dockerfile: burrito/apps/profile/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_PROFILE:$BURRITO_PORT_PROFILE"
+    links:
+      - "db"
+
+  burrito_registration:
+    container_name: burrito_registration
+    build:
+      context: .
+      dockerfile: burrito/apps/registration/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_REGISTRATION:$BURRITO_PORT_REGISTRATION"
+    links:
+      - "db"
+
+  burrito_tickets:
+    container_name: burrito_tickets
+    build:
+      context: .
+      dockerfile: burrito/apps/tickets/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT_TICKETS:$BURRITO_PORT_TICKETS"
+    links:
+      - "db"
