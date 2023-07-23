@@ -15,6 +15,7 @@ from anon_test import AnonTestCase
 from meta_test import MetaTestCase
 from iofiles_test import IOFilesTestCase
 from comments_test import CommentsTestCase
+from notifications_test import NotificationsTestCase
 
 
 all_tests = unittest.TestSuite(
@@ -28,7 +29,8 @@ all_tests = unittest.TestSuite(
         unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
         unittest.TestLoader().loadTestsFromTestCase(MetaTestCase),
 #        #unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase)
-        unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase)
+        unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(NotificationsTestCase)
     ]
 )
 

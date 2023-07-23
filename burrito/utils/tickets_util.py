@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
+from burrito.utils.mongo_util import get_mongo_cursor
 
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.liked_model import Liked
@@ -135,7 +136,8 @@ def create_ticket_action(
     user_id: int,
     field_name: str,
     old_value: str,
-    new_value: str
+    new_value: str,
+    generate_notification: bool = True
 ) -> None:
     get_logger().info(
         f"""
@@ -156,6 +158,26 @@ def create_ticket_action(
         old_value=old_value,
         new_value=new_value
     )
+
+    if generate_notification:
+        get_logger().info(
+            f"""
+            New notification (
+                ticket={ticket_id},
+                user={user_id},
+                body={new_value}
+            )
+
+            """
+        )
+
+        get_mongo_cursor()["burrito"]["notifications"].insert_one(
+            {
+                "ticket_id": ticket_id,
+                "user_id": user_id,
+                "body": f"{user_id} changed the value '{field_name}' from ({old_value}) to ({new_value})"
+            }
+        )
 
 
 def get_ticket_actions(ticket_id: int) -> list[Actions]:

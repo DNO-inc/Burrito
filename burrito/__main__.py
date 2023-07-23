@@ -42,6 +42,8 @@ if not init_manager.critical:
     from burrito.apps.iofiles.router import iofiles_router
     from burrito.apps.comments.router import comments_router
 
+    from burrito.apps.notifications.router import notifications_router
+
     from burrito.utils.app_util import connect_app, get_current_app
 else:
     print()
@@ -60,6 +62,7 @@ connect_app(app, "/anon", anon_router)
 connect_app(app, "/meta", meta_router)
 connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
+connect_app(app, "/notifications", notifications_router)
 
 # connect prometheus
 instrumentator = Instrumentator().instrument(app)

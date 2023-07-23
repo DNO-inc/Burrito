@@ -27,6 +27,12 @@ services:
     ports:
       - "6379:6379"
 
+  mongo:
+    container_name: burrito_mongo
+    image: mongo:4.4.6
+    ports:
+      - "27017:27017"
+
 #  prometheus:
 #    container_name: burrito_prometheus
 #    image: prom/prometheus
