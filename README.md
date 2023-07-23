@@ -36,15 +36,14 @@ touch .env
     - `BURRITO_REDIS_PORT` - redis port
     - `BURRITO_JWT_SECRET` - this key is used to encrypt/decrypt JWT tokens
     - `BURRITO_JWT_TTL` - token's expiration time
+    - `BURRITO_HOST` - specify `Burrito API` host
+    - `BURRITO_PORT` - specify `Burrito API` port
   - `burrito_db` - contain MySQL database (you can find more information about MySql docker container and its environment variables [here](https://hub.docker.com/_/mysql)
     - `MYSQL_ROOT_PASSWORD`
     - `MYSQL_DATABASE`
     - `MYSQL_USER`
     - `MYSQL_PASSWORD`
   - `burrito_redis` - contains access/refresh tokens (no variables are needed)
-  - `tests` - it's not a container, tests should know where Burrito API is located
-    - `BURRITO_HOST` - specify `Burrito API` IP to make test connections
-    - `BURRITO_PORT` - specify `Burrito API` port to make test connections
 - Launch Burrito API
 ```bash
 docker-compose up
@@ -79,17 +78,8 @@ touch .env
     - `BURRITO_REDIS_PORT` - redis port
     - `BURRITO_JWT_SECRET` - this key used to encrypt/decrypt JWT tokens
     - `BURRITO_JWT_TTL` - token's expiration time
-    - `BURRITO_PORT_ABOUT` - port to access to `about` app
-    - `BURRITO_PORT_ADMIN` - port to access to `admin` app
-    - `BURRITO_PORT_ANON` - port to access to `anon` app
-    - `BURRITO_PORT_AUTH` - port to access to `auth` app
-    - `BURRITO_PORT_COMMENTS` - port to access to `comment` app
-    - `BURRITO_PORT_IOFILES` - port to access to `iofiles` app
-    - `BURRITO_PORT_META` - port to access to `meta` app
-    - `BURRITO_PORT_NOTIFICATION` - port to access to `notification` app
-    - `BURRITO_PORT_PROFILE` - port to access to `profile` app
-    - `BURRITO_PORT_REGISTRATION` - port to access to `registration` app
-    - `BURRITO_PORT_TICKETS` - port to access to `tickets` app
+    - `BURRITO_HOST` - specify `Burrito API` host
+    - `BURRITO_PORT` - specify `Burrito API` port (for each container of cluster)
   - `burrito_db` - contain MySQL database (you can find more information about MySql docker container and its environment variables [here](https://hub.docker.com/_/mysql)
     - `MYSQL_ROOT_PASSWORD`
     - `MYSQL_DATABASE`
@@ -97,9 +87,6 @@ touch .env
     - `MYSQL_PASSWORD`
   - `burrito_nginx` - proxy-server and load balancer for `burrito cluster` (no variables are needed)
   - `burrito_redis` - contains access/refresh tokens (no variables are needed)
-  - `tests` - it's not a container, tests should know where Burrito's proxy server is located
-    - `BURRITO_HOST` - specify `Burrito API` IP to make test connections
-    - `BURRITO_PORT` - specify `Burrito API` port to make test connections
 - Launch Burrito API
 ```bash
 make burrito_cluster_run

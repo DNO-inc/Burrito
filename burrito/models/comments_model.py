@@ -14,6 +14,13 @@ from burrito.models.basic_model import BurritoBasicModel
 class Comments(BurritoBasicModel):
     comment_id = AutoField()
 
+#    reply_to = ForeignKeyField(
+#        "self",
+#        field="comment_id",
+#        on_delete="NO ACTION",
+#        null=True
+#    )
+
     ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
