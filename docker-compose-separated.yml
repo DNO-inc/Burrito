@@ -13,6 +13,16 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
       - burrito_about
+      - burrito_admin
+      - burrito_anon
+      - burrito_auth
+      - burrito_comments
+      - burrito_iofiles
+      - burrito_meta
+#      - burrito_notifications
+      - burrito_profile
+      - burrito_registration
+      - burrito_tickets
 
   db:
     container_name: burrito_db
@@ -58,7 +68,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_ABOUT:$BURRITO_PORT_ABOUT"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -70,7 +80,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_ADMIN:$BURRITO_PORT_ADMIN"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -82,7 +92,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_ANON:$BURRITO_PORT_ANON"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -94,7 +104,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_AUTH:$BURRITO_PORT_AUTH"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -106,7 +116,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_COMMENTS:$BURRITO_PORT_COMMENTS"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -118,7 +128,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_IOFILES:$BURRITO_PORT_IOFILES"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -130,7 +140,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_META:$BURRITO_PORT_META"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -142,7 +152,7 @@ services:
 #    env_file:
 #      - .env
 #    ports:
-#      - "$BURRITO_PORT_NOTIFICATION:$BURRITO_PORT_NOTIFICATION"
+#      - "$BURRITO_PORT"
 #    links:
 #      - "db"
 
@@ -154,7 +164,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_PROFILE:$BURRITO_PORT_PROFILE"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -166,7 +176,7 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_REGISTRATION:$BURRITO_PORT_REGISTRATION"
+      - "$BURRITO_PORT"
     links:
       - "db"
 
@@ -178,6 +188,6 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT_TICKETS:$BURRITO_PORT_TICKETS"
+      - "$BURRITO_PORT"
     links:
       - "db"

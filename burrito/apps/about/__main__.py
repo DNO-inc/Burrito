@@ -20,6 +20,6 @@ if __name__ == "__main__":
     uvicorn.run(
         f"burrito.apps.{_APP_NAME}.__main__:app",
         host="0.0.0.0",
-        port=int(get_config().BURRITO_PORT_ABOUT),
+        port=int(get_config().BURRITO_PORT),
         proxy_headers=bool(get_config().BURRITO_PROXY_HEADERS)
     )
