@@ -11,20 +11,19 @@ from burrito.models.basic_model import BurritoBasicModel
 class Notifications(BurritoBasicModel):
     notification_id = AutoField()
 
-    ticket_id = ForeignKeyField(
+    ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
         on_delete="NO ACTION"
     )
 
-    user_id = ForeignKeyField(
+    user = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"
     )
 
     body = TextField()
-    read = BooleanField(default=False)
 
     class Meta:
         depends_on = [Tickets, Users]

@@ -19,7 +19,7 @@ services:
       - burrito_comments
       - burrito_iofiles
       - burrito_meta
-#      - burrito_notifications
+      - burrito_notifications
       - burrito_profile
       - burrito_registration
       - burrito_tickets
@@ -35,10 +35,14 @@ services:
   redis:
     container_name: burrito_redis
     image: redis
-    env_file:
-      - .env
     ports:
       - "6379:6379"
+
+  mongo:
+    container_name: burrito_mongo
+    image: mongo
+    ports:
+      - "27017:27017"
 
 #  prometheus:
 #    container_name: burrito_prometheus
@@ -144,17 +148,17 @@ services:
     links:
       - "db"
 
-#  burrito_notifications:
-#    container_name: burrito_notifications
-#    build:
-#      context: .
-#      dockerfile: burrito/apps/notifications/Dockerfile
-#    env_file:
-#      - .env
-#    ports:
-#      - "$BURRITO_PORT"
-#    links:
-#      - "db"
+  burrito_notifications:
+    container_name: burrito_notifications
+    build:
+      context: .
+      dockerfile: burrito/apps/notifications/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT"
+    links:
+      - "db"
 
   burrito_profile:
     container_name: burrito_profile
