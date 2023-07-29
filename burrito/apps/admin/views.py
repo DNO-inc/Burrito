@@ -20,6 +20,7 @@ from burrito.utils.query_util import (
     q_is_valid_faculty,
     q_is_valid_queue,
     q_is_valid_status_list,
+    q_scope_is,
     q_is_hidden,
 )
 from burrito.utils.users_util import get_user_by_id
@@ -157,8 +158,9 @@ async def admin__get_ticket_list_by_filter(
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
         "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
+        "status": q_is_valid_status_list(filters.status),
+        "scope": q_scope_is(filters.scope) if filters.scope else None,
         "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
-        "status": q_is_valid_status_list(filters.status)
     }
     final_filters = select_filters(available_filters, filters)
 

@@ -28,6 +28,7 @@ from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
+    q_scope_is,
     q_is_valid_status_list,
     q_protected_statuses,
     q_not_hidden,
@@ -349,8 +350,9 @@ async def tickets__show_tickets_list_by_filter(
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
         "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
-        "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
-        "status": q_is_valid_status_list(filters.status)
+        "status": q_is_valid_status_list(filters.status),
+        "scope": q_scope_is(filters.scope) if filters.scope else None,
+        "queue": q_is_valid_queue(filters.queue) if filters.queue else None
     }
     final_filters = select_filters(available_filters, filters) + (
         [
@@ -528,8 +530,9 @@ async def tickets__get_liked_tickets(
         "hidden": q_is_hidden(_filters.hidden),
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
-        "status": q_is_valid_status_list(_filters.status)
+        "status": q_is_valid_status_list(_filters.status),
+        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
     }
     final_filters = select_filters(available_filters, _filters) + [
         q_not_deleted(token_payload.user_id),
@@ -595,9 +598,10 @@ async def tickets__get_bookmarked_tickets(
         "hidden": q_is_hidden(_filters.hidden),
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
         "status": q_is_valid_status_list(_filters.status),
-        "bookmarks_type": q_bookmarked(token_payload.user_id, _filters.bookmarks_type)
+        "bookmarks_type": q_bookmarked(token_payload.user_id, _filters.bookmarks_type),
+        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
     }
     final_filters = select_filters(available_filters, _filters) + [
         q_not_deleted(token_payload.user_id)
@@ -659,8 +663,9 @@ async def tickets__get_deleted_tickets(
         "hidden": q_is_hidden(_filters.hidden),
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
-        "status": q_is_valid_status_list(_filters.status)
+        "status": q_is_valid_status_list(_filters.status),
+        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
     }
     final_filters = select_filters(available_filters, _filters) + [
         q_deleted(token_payload.user_id)

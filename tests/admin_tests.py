@@ -44,9 +44,11 @@ class AdminTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": [1],
-#                "hidden": True,
-#                "anonymous": True
+                "scope": 'Reports',
+                "queue": [2],
+                "status": [6],
+                "hidden": True,
+                "anonymous": True
             },
             timeout=TIMEOUT
         )
