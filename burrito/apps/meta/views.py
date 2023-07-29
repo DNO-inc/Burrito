@@ -1,4 +1,7 @@
+from typing import Any
 from playhouse.shortcuts import model_to_dict
+
+from fastapi import Response
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.group_model import Groups
@@ -22,6 +25,12 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
 from burrito.utils.query_util import ADMIN_ROLES, BOOKMARKS_TYPE
+
+
+_ICON_FILE = None
+with open("burrito/resources/general_icon.png", "rb") as file:
+    _ICON_FILE = file.read()
+
 
 
 async def meta__get_statuses_list():
@@ -84,3 +93,33 @@ async def meta__get_admins():
 
 async def meta__get_bookmarks_type():
     return BOOKMARKS_TYPE
+
+
+async def meta__cabinet_meta_root(key: str = "", mode: int = 256, flag: int = 0, params: Any = None):
+    match mode:
+        case 0:
+            ...
+
+        case 1:
+            return Response(
+                content="<b>Сервіс зроблений жоскими челіками</b>",
+                media_type="text/html"
+            )
+
+        case 2:
+            return Response(
+                content=_ICON_FILE,
+                media_type="image/png"
+            )
+
+        case 3:
+            return Response(
+                content="Тікетингова система для написання скарг/пропозицій/запитань",
+                media_type="text/plain"
+            )
+
+        case 100:
+            ...
+
+        case _:
+            ...

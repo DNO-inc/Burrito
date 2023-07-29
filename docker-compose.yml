@@ -10,6 +10,16 @@ services:
       - "8080:8080"
     links:
       - "db"
+#    deploy:
+#      mode: replicated
+#      replicas: 5
+#      resources:
+#        limits:
+#          cpus: '0.70'
+#          memory: 500M
+#        reservations:
+#          cpus: '0.25'
+#          memory: 20M
 
   db:
     container_name: burrito_db

@@ -190,7 +190,9 @@ async def admin__get_ticket_list_by_filter(
 
     return AdminTicketListResponse(
         ticket_list=response_list,
-        total_pages=math.ceil(Tickets.select().where(*final_filters).count()/filters.items_count)
+        total_pages=math.ceil(
+            Tickets.select().where(*final_filters).count()/filters.items_count
+        ) if final_filters else math.ceil(Tickets.select().count()/filters.items_count)
     )
 
 
