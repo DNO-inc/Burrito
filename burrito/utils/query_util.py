@@ -5,6 +5,7 @@ from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.deleted_model import Deleted
+from burrito.models.queues_model import Queues
 from burrito.models.liked_model import Liked
 
 from burrito.utils.converter import (
@@ -58,8 +59,14 @@ def q_is_valid_faculty(value: int) -> Expression:
     return Tickets.faculty == FacultyConverter.convert(value)
 
 
-def q_is_valid_queue(queue: int) -> Expression:
-    return Tickets.queue == QueueConverter.convert(queue)
+def q_scope_is(scope: str) -> Expression:
+    return Tickets.queue.in_(
+        Queues.select(Queues.queue_id).where(Queues.scope == scope)
+    )
+
+
+def q_is_valid_queue(queues: list[int]) -> Expression:
+    return Tickets.queue.in_(queues)
 
 
 def q_is_valid_status(value: int) -> Expression:
