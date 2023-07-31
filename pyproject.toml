@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "Burrito"
-version = "0.7.0.dev2"
+version = "0.7.1.dev2"
 description = "API for the issue tracker"
 authors = ["DimonBor", "m-o-d-e-r"]
 readme = "README.md"
