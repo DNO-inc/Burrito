@@ -31,7 +31,7 @@ async def comments__create(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"SEND_MESSAGE"})
 
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
     if ticket.hidden:
@@ -67,7 +67,7 @@ async def comments__edit(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"SEND_MESSAGE"})
 
     comment: Comments | None = is_comment_exist_with_error(edit_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
@@ -90,7 +90,7 @@ async def comments__delete(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"SEND_MESSAGE"})
 
     comment: Comments | None = is_comment_exist_with_error(deletion_comment_data.comment_id)
     is_allowed_to_interact(comment, token_payload.user_id)
@@ -112,7 +112,7 @@ async def comments__get_related_comments(
     """Obtain comments related to the ticket"""
 
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"SEND_MESSAGE"})
 
     ticket: Tickets | None = is_ticket_exist(filters.ticket_id)
     if ticket.hidden:

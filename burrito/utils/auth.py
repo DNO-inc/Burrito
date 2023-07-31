@@ -9,6 +9,11 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
 
 
+_JWT_SECRET = get_config().BURRITO_JWT_SECRET
+_TOKEN_TTL = get_config().BURRITO_JWT_TTL
+_KEY_TEMPLATE = "{}_{}_{}"
+
+
 class AuthTokenError(HTTPException):
     ...
 
@@ -18,11 +23,7 @@ class AuthTokenPayload(BaseModel):
     token_type: str = ""
     user_id: int
     role: str
-
-
-_JWT_SECRET = get_config().BURRITO_JWT_SECRET
-_TOKEN_TTL = get_config().BURRITO_JWT_TTL
-_KEY_TEMPLATE = "{}_{}_{}"
+    exp: int = _TOKEN_TTL
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:

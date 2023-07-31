@@ -12,7 +12,7 @@ else:
 
 _APP_NAME = get_current_app_name()
 
-app = get_current_app(docs_url=f"/{_APP_NAME}/docs", openapi_url=f"/{_APP_NAME}/openapi.json")
+app = get_current_app(docs_url=f"/{_APP_NAME}/", openapi_url=f"/{_APP_NAME}/openapi.json")
 connect_app(app, f"/{_APP_NAME}", meta_router)
 
 

@@ -50,7 +50,7 @@ async def admin__update_ticket_data(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"ADMIN"})
 
     ticket: Tickets | None = is_ticket_exist(
         admin_updates.ticket_id
@@ -152,7 +152,7 @@ async def admin__get_ticket_list_by_filter(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"ADMIN"})
 
     available_filters = {
         "hidden": q_is_hidden(filters.hidden),
@@ -204,7 +204,7 @@ async def admin__show_detail_ticket_info(
 ):
     """Show detail ticket info"""
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"ADMIN"})
 
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
@@ -231,7 +231,7 @@ async def admin__delete_ticket(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
+    check_permission(token_payload, {"ADMIN"})
 
     ticket: Tickets | None = is_ticket_exist(
         deletion_ticket_data.ticket_id
