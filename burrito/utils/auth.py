@@ -1,16 +1,18 @@
 from typing import Any
+from datetime import datetime
 import jwt
 import uuid
 
 from fastapi import HTTPException, Request, status
 from pydantic import BaseModel
 
+from burrito.utils.logger import get_logger
 from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
 
 
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
-_TOKEN_TTL = get_config().BURRITO_JWT_TTL
+_TOKEN_TTL = int(get_config().BURRITO_JWT_TTL)
 _KEY_TEMPLATE = "{}_{}_{}"
 
 
@@ -23,7 +25,7 @@ class AuthTokenPayload(BaseModel):
     token_type: str = ""
     user_id: int
     role: str
-    exp: int = _TOKEN_TTL
+    exp: int = datetime.now().timestamp() + _TOKEN_TTL
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
@@ -95,8 +97,9 @@ class BurritoJWT:
         if get_redis_connector().get(token_key):
             return token_payload
 
+        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
         raise AuthTokenError(
-            detail="Something went wrong",
+            detail="Authorization error: something went wrong",
             status_code=status.HTTP_401_UNAUTHORIZED
         )
 
@@ -113,19 +116,27 @@ class BurritoJWT:
         if get_redis_connector().get(token_key):
             return token_payload
 
+        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
         raise AuthTokenError(
-            detail="Something went wrong",
+            detail="Authorization error: something went wrong",
             status_code=status.HTTP_401_UNAUTHORIZED
         )
 
     async def _read_token_payload(self, token: str) -> AuthTokenPayload | None:
         try:
             return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
-        except:
+
+        except jwt.exceptions.ExpiredSignatureError as exc:
             raise AuthTokenError(
-                detail="Authorization token is invalid or expired",
+                detail="Authorization token is expired",
                 status_code=status.HTTP_401_UNAUTHORIZED
-            )
+            ) from exc
+
+        except Exception as exc:
+            raise AuthTokenError(
+                detail="Authorization token payload is invalid",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            ) from exc
 
 
 def get_auth_core() -> BurritoJWT:
