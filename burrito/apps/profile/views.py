@@ -22,17 +22,6 @@ from .utils import (
 )
 
 
-async def profile__check_my_profile(
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
-) -> ResponseProfileSchema:
-    """Return some data to check user profile"""
-
-    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
-    check_permission(token_payload)
-
-    return await view_profile_by_user_id(token_payload.user_id)
-
-
 async def profile__check_by_id(
     user_id: int,
 ) -> ResponseProfileSchema:
