@@ -81,12 +81,17 @@ def make_short_user_data(
     return TicketUsersInfoSchema(**user_dict_data)
 
 
-def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
+def is_ticket_followed(user_id: int, ticket_id: int) -> bool:
     return bool(
-        Bookmarks.get_or_none(
-            Bookmarks.user_id == user_id,
-            Bookmarks.ticket_id == ticket_id
-        )
+        Tickets.select(Tickets.ticket_id).join(
+            Bookmarks,
+            on=(
+                (Tickets.ticket_id == Bookmarks.ticket_id) &
+                (Tickets.creator != user_id)
+            )
+        ).where(
+            Tickets.ticket_id == ticket_id
+        ).get_or_none()
     )
 
 
