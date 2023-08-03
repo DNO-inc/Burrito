@@ -578,10 +578,9 @@ async def tickets__get_liked_tickets(
 
     return TicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=math.ceil(Liked.select().where(
-                Liked.user_id == token_payload.user_id
-            ).count()/_filters.items_count
-        )
+        total_pages=math.ceil(Tickets.select().where(*(
+            final_filters
+        )).count()/_filters.items_count) if final_filters else math.ceil(Tickets.select().count()/_filters.items_count)
     )
 
 
@@ -595,7 +594,6 @@ async def tickets__get_bookmarked_tickets(
     check_permission(token_payload)
 
     available_filters = {
-        "hidden": q_is_hidden(_filters.hidden),
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
         "status": q_is_valid_status_list(_filters.status),
@@ -604,7 +602,8 @@ async def tickets__get_bookmarked_tickets(
         "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
     }
     final_filters = select_filters(available_filters, _filters) + [
-        q_not_deleted(token_payload.user_id)
+        q_not_deleted(token_payload.user_id),
+        q_is_hidden(_filters.hidden)
     ] if _filters.bookmarks_type == "my" else []
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
@@ -645,10 +644,9 @@ async def tickets__get_bookmarked_tickets(
 
     return TicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=math.ceil(Bookmarks.select().where(
-                Bookmarks.user_id == token_payload.user_id
-            ).count()/_filters.items_count
-        )
+        total_pages=math.ceil(Tickets.select().where(*(
+            final_filters
+        )).count()/_filters.items_count) if final_filters else math.ceil(Tickets.select().count()/_filters.items_count)
     )
 
 
