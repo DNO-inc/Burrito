@@ -613,7 +613,6 @@ async def tickets__get_bookmarked_tickets(
     )
     response_list: list[TicketDetailInfoSchema] = []
 
-    print(expression)
     for ticket in expression:
         assignee = None
         if ticket.assignee:
@@ -667,7 +666,7 @@ async def tickets__get_followed_tickets(
     )
     response_list: list[TicketDetailInfoSchema] = []
 
-    print(expression)
+
     for ticket in expression:
         creator = None
         if not ticket.anonymous:
