@@ -72,7 +72,7 @@ async def auth__token_login(__auth_obj: BurritoJWT = Depends(get_auth_core())):
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=await __auth_obj.create_token(
+        access_token=await __auth_obj.push_token(
             token_payload,
             "access"
         )
