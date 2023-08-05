@@ -21,3 +21,4 @@ class RolePermissions(BurritoBasicModel):
 
     class Meta:
         depends_on = [Roles, Permissions]
+        primary_key = False
