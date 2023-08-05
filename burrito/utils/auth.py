@@ -22,19 +22,53 @@ class AuthTokenError(HTTPException):
 
 
 class AuthTokenPayload(BaseModel):
-    token_id: str = ""
+    # common payload
+    iss: str = "DNO-inc"
+    sub: str = "auth"
+    exp: float = 0
+    iat: float = 0
+    jti: str = ""
+
+    # burrito payload
     token_type: str = ""
     user_id: int
     role: str
-    exp: int = 0
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
     return _KEY_TEMPLATE.format(
-        data.token_id,
+        data.jti,
         data.token_type,
         data.user_id
     )
+
+
+def _make_token_body(token_data: AuthTokenPayload, token_type: str) -> str:
+    token_creation_time = datetime.now().timestamp()
+
+    token_data.jti = uuid.uuid4().hex
+    token_data.token_type = token_type
+    token_data.exp = token_creation_time + _TOKEN_TTL
+    token_data.iat = token_creation_time
+
+    return jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
+
+
+def _read_token_payload(token: str) -> AuthTokenPayload | None:
+    try:
+        return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
+
+    except jwt.exceptions.ExpiredSignatureError as exc:
+        raise AuthTokenError(
+            detail="Authorization token is expired",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        ) from exc
+
+    except Exception as exc:
+        raise AuthTokenError(
+            detail="Authorization token payload is invalid",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        ) from exc
 
 
 class BurritoJWT:
@@ -53,38 +87,18 @@ class BurritoJWT:
 
         return raw_token.removeprefix("Bearer ")
 
-    async def _read_token_payload(self, token: str) -> AuthTokenPayload | None:
-        try:
-            return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
-
-        except jwt.exceptions.ExpiredSignatureError as exc:
-            raise AuthTokenError(
-                detail="Authorization token is expired",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            ) from exc
-
-        except Exception as exc:
-            raise AuthTokenError(
-                detail="Authorization token payload is invalid",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            ) from exc
-
     @property
     def request(self) -> Request:
         return self.__req
 
-    async def create_token(self, token_data: AuthTokenPayload, token_type: str) -> str:
+    async def push_token(self, token_data: AuthTokenPayload, token_type: str) -> str:
         if token_type not in _TOKEN_TYPES:
             raise AuthTokenError(
                 detail=f"Invalid token type: available token types is {_TOKEN_TYPES}, received {token_type}",
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
-        token_data.token_id = uuid.uuid4().hex
-        token_data.token_type = token_type
-        token_data.exp = datetime.now().timestamp() + _TOKEN_TTL
-
-        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
+        _token = _make_token_body(token_data, token_type)
         _token_redis_key = _make_redis_key(token_data)
 
         get_redis_connector().set(_token_redis_key, _token)
@@ -93,8 +107,8 @@ class BurritoJWT:
 
     async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
         return {
-            "access_token": await self.create_token(token_data, "access"),
-            "refresh_token": await self.create_token(token_data, "refresh")
+            "access_token": await self.push_token(token_data, "access"),
+            "refresh_token": await self.push_token(token_data, "refresh")
         }
 
     async def verify_token(self) -> AuthTokenPayload:
@@ -109,7 +123,7 @@ class BurritoJWT:
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
-        token_payload = await self._read_token_payload(self.__token)
+        token_payload = _read_token_payload(self.__token)
         token_key = _make_redis_key(token_payload)
 
         if get_redis_connector().get(token_key):

@@ -1,10 +1,15 @@
 	============================================
-	Generated 2023-08-05 13:41:41	EEST +0300
+	Generated 2023-08-06 00:28:11	EEST +0300
 	============================================
 
 
-	 d974de4 8 seconds ago  (HEAD -> bodya) update permissions checker (m-o-d-e-r)
-	 3fe04f2 2 days ago  (origin/bodya) fix is_bookmarked field in general_tickets (m-o-d-e-r)
+	 5f69448 2 hours ago  (HEAD -> bodya, origin/bodya) added is_followed/is_bookmarked labels to tickets output (m-o-d-e-r)
+	 09d5e69 6 hours ago  group some endpoints into single (m-o-d-e-r)
+	 794c322 6 hours ago  added new endpoint for followed tickets (test commit, need fix) (m-o-d-e-r)
+	 96e09aa 10 hours ago  added CompositeKey to RolePermissions model (m-o-d-e-r)
+	 dd9d044 11 hours ago  update CHANGELOG.md (m-o-d-e-r)
+	 d974de4 11 hours ago  update permissions checker (m-o-d-e-r)
+	 3fe04f2 2 days ago  fix is_bookmarked field in general_tickets (m-o-d-e-r)
 	 5e6dbaa 2 days ago  fix broken filters (m-o-d-e-r)
 	 20a2961 3 days ago  united function for token generation (m-o-d-e-r)
 	 f69a732 3 days ago  changed version labels (bug fix release) (m-o-d-e-r)
@@ -30,7 +35,7 @@
 	 65c4655 13 days ago  Update microservices-docker-publish.yml (Dmytro)
 	 ecfd024 13 days ago  Create microservices-docker-publish.yml (Dmytro)
 	 5f7ff4e 13 days ago  Merge pull request #102 from DNO-inc/bodya (m-o-d-e-r)
-	 85673fd 13 days ago  split docker-compose file (m-o-d-e-r)
+	 85673fd 2 weeks ago  split docker-compose file (m-o-d-e-r)
 	 03894bd 2 weeks ago  Merge pull request #101 from DNO-inc/bodya (m-o-d-e-r)
 	 80f5446 2 weeks ago  change version labels (m-o-d-e-r)
 	 8854c1c 2 weeks ago  tried to prepare test configs for Redis cluster (m-o-d-e-r)
@@ -234,12 +239,12 @@
 	 c87b936 2 months ago  Merge pull request #33 from DNO-inc/bodya (m-o-d-e-r)
 	 108489a 2 months ago  tested anon (moder)
 	 05b15fb 2 months ago  delete cache from about app (moder)
-	 d5820d2 2 months ago  Update docker-publish.yml (Dmytro)
-	 4c451d6 2 months ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
+	 d5820d2 3 months ago  Update docker-publish.yml (Dmytro)
+	 4c451d6 3 months ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
 	 ae46567 2 months ago  test some features in auth (moder)
-	 176b0ef 2 months ago  Update docker-publish.yml (Dmytro)
-	 ec15b3c 2 months ago  Merge pull request #32 from DNO-inc/dockerfile_update (Dmytro)
-	 d0df0d8 2 months ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
+	 176b0ef 3 months ago  Update docker-publish.yml (Dmytro)
+	 ec15b3c 3 months ago  Merge pull request #32 from DNO-inc/dockerfile_update (Dmytro)
+	 d0df0d8 3 months ago  Added CHANGELOG.md and CONTRIBUTORS.md to docker image (DimonBor)
 	 22234b3 3 months ago  (tag: v0.4.0-indev) Merge pull request #31 from DNO-inc/bodya (m-o-d-e-r)
 	 335af98 3 months ago  updated permission checker (moder)
 	 2905aa0 3 months ago  fix models & added new info to preprocessor_config.json (moder)

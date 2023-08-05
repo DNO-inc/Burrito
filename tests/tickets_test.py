@@ -218,7 +218,7 @@ class TicketsTestCase(unittest.TestCase):
     def test_007_bookmark_ticket_noexist(self):
         """Bookmark ticket"""
 
-        response = requests.get(
+        response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarks",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
