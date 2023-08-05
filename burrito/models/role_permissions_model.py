@@ -1,4 +1,4 @@
-from peewee import ForeignKeyField
+from peewee import ForeignKeyField, CompositeKey
 
 from burrito.models.roles_model import Roles
 from burrito.models.permissions_model import Permissions
@@ -21,4 +21,4 @@ class RolePermissions(BurritoBasicModel):
 
     class Meta:
         depends_on = [Roles, Permissions]
-        primary_key = False
+        primary_key = CompositeKey('role', 'permission')
