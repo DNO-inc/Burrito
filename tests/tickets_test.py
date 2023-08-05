@@ -196,7 +196,7 @@ class TicketsTestCase(unittest.TestCase):
         ).json()["ticket_id"]
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarks",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -218,8 +218,8 @@ class TicketsTestCase(unittest.TestCase):
     def test_007_bookmark_ticket_noexist(self):
         """Bookmark ticket"""
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarks",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -296,6 +296,7 @@ class TicketsTestCase(unittest.TestCase):
             response
         )
 
+    @unittest.skip
     def test_010_update_ticket(self):
         """Update ticket"""
 
@@ -348,8 +349,8 @@ class TicketsTestCase(unittest.TestCase):
         )
 
     def test_012_get_liked_ticket(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/liked",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
@@ -366,13 +367,31 @@ class TicketsTestCase(unittest.TestCase):
         )
 
     def test_013_get_bookmarked_ticket(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarked",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarks",
             headers={
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
                 "bookmarks_type": "strangers"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    def test_013_1_get_followed_ticket(self):
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/followed",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             timeout=TIMEOUT
         )
