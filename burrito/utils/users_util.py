@@ -1,6 +1,5 @@
 from fastapi import HTTPException, status
 
-from burrito.utils.converter import GroupConverter, FacultyConverter
 from burrito.utils.logger import get_logger
 
 from burrito.models.roles_model import Roles
@@ -25,7 +24,7 @@ def create_user_tmp_foo(
         bool: status creating new user
     """
 
-    role_object: Roles = Roles.get(Roles.name == "ALL")
+    role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
     try:
         user: Users = Users.create(

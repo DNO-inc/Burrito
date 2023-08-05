@@ -36,7 +36,7 @@ async def profile__update_my_profile(
 ):
     """Update profile data"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
     check_permission(token_payload, permission_list={"UPDATE_PROFILE"})
 
     current_user: Users | None = get_user_by_id(token_payload.user_id)

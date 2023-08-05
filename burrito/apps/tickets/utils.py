@@ -26,7 +26,7 @@ from burrito.utils.tickets_util import (
     is_ticket_exist,
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error,
-    is_ticket_bookmarked,
+    is_ticket_followed,
     is_ticket_liked,
     get_ticket_actions,
     hide_ticket_body
@@ -113,7 +113,7 @@ def make_ticket_detail_info(
             Liked.ticket_id == ticket.ticket_id
         ).count(),
         is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-        is_bookmarked=is_ticket_bookmarked(token_payload.user_id, ticket.ticket_id),
+        is_bookmarked=is_ticket_followed(token_payload.user_id, ticket.ticket_id),
         date=str(ticket.created),
         history=get_ticket_actions(ticket.ticket_id) if show_history else []
     )

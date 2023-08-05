@@ -14,6 +14,7 @@ from burrito.utils.redis_utils import get_redis_connector
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
 _TOKEN_TTL = int(get_config().BURRITO_JWT_TTL)
 _KEY_TEMPLATE = "{}_{}_{}"
+_TOKEN_TYPES = {"access", "refresh"}
 
 
 class AuthTokenError(HTTPException):
@@ -52,76 +53,6 @@ class BurritoJWT:
 
         return raw_token.removeprefix("Bearer ")
 
-    @property
-    def request(self) -> Request:
-        return self.__req
-
-    async def create_access_token(self, token_data: AuthTokenPayload) -> str:
-        token_data.token_id = uuid.uuid4().hex
-        token_data.token_type = "access"
-
-        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
-        _token_redis_key = _make_redis_key(token_data)
-
-        get_redis_connector().set(_token_redis_key, _token)
-        get_redis_connector().expire(_token_redis_key, _TOKEN_TTL)
-        return _token
-
-    async def create_refresh_token(self, token_data: AuthTokenPayload) -> str:
-        token_data.token_id = uuid.uuid4().hex
-        token_data.token_type = "refresh"
-
-        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
-        _token_redis_key = _make_redis_key(token_data)
-
-        get_redis_connector().set(_token_redis_key, _token)
-        get_redis_connector().expire(_token_redis_key, _TOKEN_TTL)
-        return _token
-
-    async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
-        return {
-            "access_token": await self.create_access_token(token_data),
-            "refresh_token": await self.create_refresh_token(token_data)
-        }
-
-    async def verify_access_token(self) -> AuthTokenPayload:
-        if not self.__token:
-            raise AuthTokenError(
-                detail="Missing authorization header",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        token_payload = await self._read_token_payload(self.__token)
-        token_key = _make_redis_key(token_payload)
-
-        if get_redis_connector().get(token_key):
-            return token_payload
-
-        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
-        raise AuthTokenError(
-            detail="Authorization error: something went wrong",
-            status_code=status.HTTP_401_UNAUTHORIZED
-        )
-
-    async def verify_refresh_token(self) -> AuthTokenPayload:
-        if not self.__token:
-            raise AuthTokenError(
-                detail="Missing authorization header",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        token_payload = await self._read_token_payload(self.__token)
-        token_key = _make_redis_key(token_payload)
-
-        if get_redis_connector().get(token_key):
-            return token_payload
-
-        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
-        raise AuthTokenError(
-            detail="Authorization error: something went wrong",
-            status_code=status.HTTP_401_UNAUTHORIZED
-        )
-
     async def _read_token_payload(self, token: str) -> AuthTokenPayload | None:
         try:
             return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
@@ -137,6 +68,57 @@ class BurritoJWT:
                 detail="Authorization token payload is invalid",
                 status_code=status.HTTP_401_UNAUTHORIZED
             ) from exc
+
+    @property
+    def request(self) -> Request:
+        return self.__req
+
+    async def create_token(self, token_data: AuthTokenPayload, token_type: str) -> str:
+        if token_type not in _TOKEN_TYPES:
+            raise AuthTokenError(
+                detail=f"Invalid token type: available token types is {_TOKEN_TYPES}, received {token_type}",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
+
+        token_data.token_id = uuid.uuid4().hex
+        token_data.token_type = token_type
+
+        _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
+        _token_redis_key = _make_redis_key(token_data)
+
+        get_redis_connector().set(_token_redis_key, _token)
+        get_redis_connector().expire(_token_redis_key, _TOKEN_TTL)
+        return _token
+
+    async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
+        return {
+            "access_token": await self.create_token(token_data, "access"),
+            "refresh_token": await self.create_token(token_data, "refresh")
+        }
+
+    async def verify_token(self) -> AuthTokenPayload:
+        """
+            This function verify current token received from user in headers, it can be access or refresh token.
+
+        """
+
+        if not self.__token:
+            raise AuthTokenError(
+                detail="Missing authorization header",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
+
+        token_payload = await self._read_token_payload(self.__token)
+        token_key = _make_redis_key(token_payload)
+
+        if get_redis_connector().get(token_key):
+            return token_payload
+
+        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
+        raise AuthTokenError(
+            detail="Authorization error: something went wrong",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )
 
 
 def get_auth_core() -> BurritoJWT:

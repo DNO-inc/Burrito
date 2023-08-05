@@ -65,14 +65,15 @@ async def auth__token_login(__auth_obj: BurritoJWT = Depends(get_auth_core())):
         Authentication by access token. It will return new access token ^_^
     """
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_access_token()
+    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
 
     user: Users | None = get_user_by_id(token_payload.user_id)
 
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=await __auth_obj.create_access_token(
-            token_payload
+        access_token=await __auth_obj.create_token(
+            token_payload,
+            "access"
         )
     )

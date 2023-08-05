@@ -21,7 +21,15 @@ def check_permission(token_payload, permission_list: set[str] = set()):
     ):
         current_user_permissions.add(item.permission.name)
 
-    if not permission_list.issubset(current_user_permissions):
+    # if permission_list is empty we can skip permission verification
+    # else we should check current user permissions
+    is_accepted = not bool(permission_list)
+    for permission in permission_list:
+        if permission in current_user_permissions:
+            is_accepted = True
+            break
+
+    if not is_accepted:
         raise EndpointPermissionError(
             status_code=403,
             detail="You have not permissions to interact with this resource"

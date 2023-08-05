@@ -16,7 +16,7 @@ async def iofiles__upload_file_for_ticket(
     file_list: list[UploadFile],
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    await __auth_obj.verify_access_token()
+    await __auth_obj.verify_token()
 
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
