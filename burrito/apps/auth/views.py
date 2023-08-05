@@ -8,6 +8,7 @@ from burrito.schemas.auth_schema import (
 
 from burrito.models.user_model import Users
 
+from burrito.utils.logger import get_logger
 from burrito.utils.auth import (
     AuthTokenPayload,
     BurritoJWT
@@ -36,17 +37,27 @@ async def auth__password_login(
         # if user login exist we can compare password and hashed password
 
         if compare_password(user_login_data.password, user.password):
+            tokens = await __auth_obj.create_token_pare(
+                AuthTokenPayload(
+                    user_id=user.user_id,
+                    role=user.role.name
+                )
+            )
+
+            get_logger().info(
+                f"""
+                    Password login:
+                        * user_id: {user.user_id}
+                        * login: {user_login_data.login}
+                        * tokens: {tokens}
+
+                """
+            )
+
             return AuthResponseSchema(
                 user_id=user.user_id,
                 login=user.login,
-                **(
-                    await __auth_obj.create_token_pare(
-                        AuthTokenPayload(
-                            user_id=user.user_id,
-                            role=user.role.name
-                        )
-                    )
-                )
+                **tokens
             )
 
         return JSONResponse(
@@ -69,11 +80,23 @@ async def auth__token_login(__auth_obj: BurritoJWT = Depends(get_auth_core())):
 
     user: Users | None = get_user_by_id(token_payload.user_id)
 
+    new_access_token = await __auth_obj.push_token(
+        token_payload,
+        "access"
+    )
+
+    get_logger().info(
+        f"""
+            Token login:
+                * user_id: {user.user_id}
+                * login: {user.login}
+                * tokens: {new_access_token}
+
+        """
+    )
+
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=await __auth_obj.push_token(
-            token_payload,
-            "access"
-        )
+        access_token=new_access_token
     )
