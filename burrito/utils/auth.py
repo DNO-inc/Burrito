@@ -23,10 +23,10 @@ class AuthTokenError(HTTPException):
 
 class AuthTokenPayload(BaseModel):
     # common payload
-    iss: str = "DNO-inc"
+    iss: str = "https://github.com/DNO-inc"
     sub: str = "auth"
-    exp: float = 0
-    iat: float = 0
+    exp: int = 0
+    iat: int = 0
     jti: str = ""
 
     # burrito payload
@@ -44,7 +44,7 @@ def _make_redis_key(data: AuthTokenPayload) -> str:
 
 
 def _make_token_body(token_data: AuthTokenPayload, token_type: str) -> str:
-    token_creation_time = datetime.now().timestamp()
+    token_creation_time = int(datetime.now().timestamp())
 
     token_data.jti = uuid.uuid4().hex
     token_data.token_type = token_type
@@ -103,6 +103,15 @@ class BurritoJWT:
 
         get_redis_connector().set(_token_redis_key, _token)
         get_redis_connector().expire(_token_redis_key, _TOKEN_TTL)
+        get_logger().info(
+            f"""
+                Generate new token:
+                    * token: {_token}
+                    * redis key: {_token_redis_key}
+                    * payload:  {token_data.dict()}
+
+            """
+        )
         return _token
 
     async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
@@ -129,7 +138,15 @@ class BurritoJWT:
         if get_redis_connector().get(token_key):
             return token_payload
 
-        get_logger().error(f"Authorization: something went wrong with token payload {token_payload.dict()}")
+        get_logger().error(
+            f"""
+                Authorization error:
+                    * token: {self.__token}
+                    * redis key: {token_key}
+                    * payload:  {token_payload.dict()}
+
+            """
+        )
         raise AuthTokenError(
             detail="Authorization error: something went wrong",
             status_code=status.HTTP_401_UNAUTHORIZED
