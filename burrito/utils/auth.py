@@ -26,7 +26,7 @@ class AuthTokenPayload(BaseModel):
     token_type: str = ""
     user_id: int
     role: str
-    exp: int = datetime.now().timestamp() + _TOKEN_TTL
+    exp: int = 0
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
@@ -82,6 +82,7 @@ class BurritoJWT:
 
         token_data.token_id = uuid.uuid4().hex
         token_data.token_type = token_type
+        token_data.exp = datetime.now().timestamp() + _TOKEN_TTL
 
         _token = jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
         _token_redis_key = _make_redis_key(token_data)

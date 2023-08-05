@@ -12,7 +12,7 @@ from burrito.schemas.tickets_schema import (
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
     TicketIDValuesListScheme,
-    TicketBookmarksTypeSchema
+    BaseFilterSchema
 )
 
 from burrito.models.queues_model import Queues
@@ -37,6 +37,7 @@ from burrito.utils.query_util import (
     q_deleted,
     q_not_deleted,
     q_bookmarked,
+    q_followed,
     q_liked
 )
 from burrito.utils.tickets_util import (
@@ -585,7 +586,7 @@ async def tickets__get_liked_tickets(
 
 
 async def tickets__get_bookmarked_tickets(
-        _filters: TicketBookmarksTypeSchema | None = TicketBookmarksTypeSchema(),
+        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Get tickets which were bookmarked by current user"""
@@ -597,14 +598,14 @@ async def tickets__get_bookmarked_tickets(
         "anonymous": q_is_anonymous(_filters.anonymous),
         "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
         "status": q_is_valid_status_list(_filters.status),
-        "bookmarks_type": q_bookmarked(token_payload.user_id, _filters.bookmarks_type),
         "scope": q_scope_is(_filters.scope) if _filters.scope else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
+        "hidden": q_is_hidden(_filters.hidden)
     }
     final_filters = select_filters(available_filters, _filters) + [
         q_not_deleted(token_payload.user_id),
-        q_is_hidden(_filters.hidden)
-    ] if _filters.bookmarks_type == "my" else []
+        q_bookmarked(token_payload.user_id)
+    ]
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
@@ -612,17 +613,64 @@ async def tickets__get_bookmarked_tickets(
     )
     response_list: list[TicketDetailInfoSchema] = []
 
+    print(expression)
     for ticket in expression:
-        i_am_creator = am_i_own_this_ticket(
-            ticket.creator.user_id,
-            token_payload.user_id
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=False
+            )
+
+        response_list.append(
+            make_ticket_detail_info(
+                ticket,
+                token_payload,
+                make_short_user_data(ticket.creator, hide_user_id=False),
+                assignee,
+                crop_body=True
+            )
         )
 
-        if not i_am_creator and ticket.hidden:
-            continue
+    return TicketListResponseSchema(
+        ticket_list=response_list,
+        total_pages=math.ceil(Tickets.select().where(*(
+            final_filters
+        )).count()/_filters.items_count) if final_filters else math.ceil(Tickets.select().count()/_filters.items_count)
+    )
 
+
+async def tickets__get_followed_tickets(
+        _filters: BaseFilterSchema | None = BaseFilterSchema(),
+        __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    """Get tickets which were followed by current user"""
+
+    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    check_permission(token_payload)
+
+    available_filters = {
+        "anonymous": q_is_anonymous(_filters.anonymous),
+        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
+        "status": q_is_valid_status_list(_filters.status),
+        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
+        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
+    }
+    final_filters = select_filters(available_filters, _filters) + [
+        q_not_hidden(),
+        q_followed(token_payload.user_id)
+    ]
+    expression: list[Tickets] = get_filtered_tickets(
+        final_filters,
+        start_page=_filters.start_page,
+        tickets_count=_filters.items_count
+    )
+    response_list: list[TicketDetailInfoSchema] = []
+
+    print(expression)
+    for ticket in expression:
         creator = None
-        if not ticket.anonymous or i_am_creator:
+        if not ticket.anonymous:
             creator = make_short_user_data(ticket.creator, hide_user_id=False)
 
         assignee = None

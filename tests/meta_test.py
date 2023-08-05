@@ -104,19 +104,3 @@ class MetaTestCase(unittest.TestCase):
             },
             response
         )
-
-    def test_get_bookmarks_type(self):
-        response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_bookmarks_type",
-            timeout=TIMEOUT
-        )
-
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
-

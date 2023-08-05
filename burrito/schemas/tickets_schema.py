@@ -74,7 +74,3 @@ class TicketDetailInfoSchema(BaseModel):
 class TicketListResponseSchema(BaseModel):
     ticket_list: list[TicketDetailInfoSchema]
     total_pages: int
-
-
-class TicketBookmarksTypeSchema(TicketsBasicFilterSchema):
-    bookmarks_type: str = "my"

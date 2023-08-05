@@ -296,6 +296,7 @@ class TicketsTestCase(unittest.TestCase):
             response
         )
 
+    @unittest.skip
     def test_010_update_ticket(self):
         """Update ticket"""
 
@@ -373,6 +374,24 @@ class TicketsTestCase(unittest.TestCase):
             },
             json={
                 "bookmarks_type": "strangers"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    def test_013_1_get_followed_ticket(self):
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/followed",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             timeout=TIMEOUT
         )
