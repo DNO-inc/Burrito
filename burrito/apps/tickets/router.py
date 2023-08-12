@@ -37,7 +37,6 @@ tickets_router.add_api_route(
     methods=["POST"]
 )
 
-
 tickets_router.add_api_route(
     "/delete",
     tickets__delete_ticket_for_me,
@@ -54,28 +53,26 @@ tickets_router.add_api_route(
     methods=["POST"]
 )
 
-
 tickets_router.add_api_route(
-    "/bookmarks",
+    "/bookmark",
     tickets__bookmark_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/bookmarks",
+    "/unbookmark",
     tickets__unbookmark_ticket,
-    methods=["DELETE"]
+    methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/bookmarks",
+    "/bookmarked",
     tickets__get_bookmarked_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
 tickets_router.add_api_route(
     "/followed",
     tickets__get_followed_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
-
 
 tickets_router.add_api_route(
     "/like",
@@ -83,16 +80,15 @@ tickets_router.add_api_route(
     methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/like",
+    "/unlike",
     tickets__unlike_ticket,
-    methods=["DELETE"]
+    methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/like",
+    "/liked",
     tickets__get_liked_tickets,
-    methods=["GET"]
+    methods=["POST"]
 )
-
 
 tickets_router.add_api_route(
     "/ticket_list",

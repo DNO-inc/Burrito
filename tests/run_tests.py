@@ -29,7 +29,7 @@ all_tests = unittest.TestSuite(
         unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
         unittest.TestLoader().loadTestsFromTestCase(MetaTestCase),
         #unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase)
-#        unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase),
+        unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase),
         unittest.TestLoader().loadTestsFromTestCase(NotificationsTestCase)
     ]
 )
