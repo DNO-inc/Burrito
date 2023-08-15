@@ -1,3 +1,4 @@
+from copy import deepcopy
 from typing import Any
 from datetime import datetime
 import jwt
@@ -43,10 +44,10 @@ def _make_redis_key(data: AuthTokenPayload) -> str:
     )
 
 
-def _make_token_body(token_data: AuthTokenPayload, token_type: str) -> str:
+def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) -> str:
     token_creation_time = int(datetime.now().timestamp())
 
-    token_data.jti = uuid.uuid4().hex
+    token_data.jti = jti
     token_data.token_type = token_type
     token_data.exp = token_creation_time + _TOKEN_TTL
     token_data.iat = token_creation_time
@@ -91,14 +92,14 @@ class BurritoJWT:
     def request(self) -> Request:
         return self.__req
 
-    async def push_token(self, token_data: AuthTokenPayload, token_type: str) -> str:
+    async def push_token(self, token_data: AuthTokenPayload, token_type: str, _jti: str) -> str:
         if token_type not in _TOKEN_TYPES:
             raise AuthTokenError(
                 detail=f"Invalid token type: available token types is {_TOKEN_TYPES}, received {token_type}",
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
-        _token = _make_token_body(token_data, token_type)
+        _token = _make_token_body(token_data, token_type, _jti)
         _token_redis_key = _make_redis_key(token_data)
 
         get_redis_connector().set(_token_redis_key, _token)
@@ -115,42 +116,63 @@ class BurritoJWT:
         return _token
 
     async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
+        jti = uuid.uuid4().hex
+
         return {
-            "access_token": await self.push_token(token_data, "access"),
-            "refresh_token": await self.push_token(token_data, "refresh")
+            "access_token": await self.push_token(token_data, "access", jti),
+            "refresh_token": await self.push_token(token_data, "refresh", jti)
         }
 
-    async def verify_token(self) -> AuthTokenPayload:
-        """
-            This function verify current token received from user in headers, it can be access or refresh token.
+    async def require_access_token(self) -> AuthTokenPayload:
+        token_payload = _read_token_payload(self.__token)
 
-        """
+        if (
+            token_payload.token_type != "access" or
+            get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != self.__token
+        ):
+            get_logger().error(
+                f"""
+                    access token is invalid or expired:
+                        * payload:  {token_payload.dict()}
 
-        if not self.__token:
+                """
+            )
             raise AuthTokenError(
-                detail="Missing authorization header",
+                detail="Authorization error: access token is invalid or expired",
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
+        return token_payload
+
+    async def require_refresh_token(self) -> AuthTokenPayload:
         token_payload = _read_token_payload(self.__token)
-        token_key = _make_redis_key(token_payload)
 
-        if get_redis_connector().get(token_key):
-            return token_payload
+        if (
+            token_payload.token_type != "refresh" or
+            get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != self.__token
+        ):
+            get_logger().error(
+                f"""
+                    refresh token is invalid or expired:
+                        * payload:  {token_payload.dict()}
 
-        get_logger().error(
-            f"""
-                Authorization error:
-                    * token: {self.__token}
-                    * redis key: {token_key}
-                    * payload:  {token_payload.dict()}
+                """
+            )
+            raise AuthTokenError(
+                detail="Authorization error: refresh token is invalid or expired",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
 
-            """
-        )
-        raise AuthTokenError(
-            detail="Authorization error: something went wrong",
-            status_code=status.HTTP_401_UNAUTHORIZED
-        )
+        return token_payload
+
+    async def refresh_access_token(self) -> str:
+        refresh_token_payload = await self.require_refresh_token()
+
+        access_token_old_payload: AuthTokenPayload = deepcopy(refresh_token_payload)
+        access_token_old_payload.token_type = "access"
+        get_redis_connector().delete(_make_redis_key(access_token_old_payload))
+
+        return await self.push_token(refresh_token_payload, "access", refresh_token_payload.jti)
 
 
 def get_auth_core() -> BurritoJWT:

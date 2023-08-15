@@ -17,6 +17,9 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/1000000",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
             timeout=0.5
         )
 
@@ -34,6 +37,9 @@ class ProfileTestCase(unittest.TestCase):
 
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/{RegistrationTestCase.user_id}",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
             timeout=0.5
         )
 
