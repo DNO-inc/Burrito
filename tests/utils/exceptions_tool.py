@@ -9,7 +9,7 @@ def check_error(foo, foo_args: dict, response = None):
         pprint(
             {
                 "name_of_test": inspect.stack()[1][3],
-                "response": response.json() if response is not None else response,
+                "response": response.json() if response is not None and not isinstance(response, dict) else response,
                 "exception": e,
             }
         )

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from .views import auth__password_login, auth__token_login
+from .views import auth__password_login, auth__token_refresh
 
 
 auth_router = APIRouter()
@@ -14,8 +14,8 @@ auth_router.add_api_route(
 
 # token auth
 auth_router.add_api_route(
-    "/token/login",
-    auth__token_login,
+    "/token/refresh",
+    auth__token_refresh,
     methods=["POST"]
 )
 # auth_router.add_api_route("/token/logout", token_login, methods=["POST"])

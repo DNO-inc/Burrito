@@ -70,7 +70,7 @@ async def tickets__create_new_ticket(
 ):
     """Create ticket"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, permission_list={"CREATE_TICKET"})
 
     faculty_id = FacultyConverter.convert(ticket_creation_data.faculty)
@@ -120,7 +120,7 @@ async def tickets__delete_ticket_for_me(
 ):
     """Delete ticket"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     for id_value in deletion_ticket_data.ticket_id_list:
@@ -154,7 +154,7 @@ async def tickets__undelete_ticket(
         ticket_data: TicketIDValueSchema,
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(ticket_data.ticket_id)
@@ -187,7 +187,7 @@ async def tickets__bookmark_ticket(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Follow ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -233,7 +233,7 @@ async def tickets__unbookmark_ticket(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Follow ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -264,7 +264,7 @@ async def tickets__like_ticket(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Like ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -312,7 +312,7 @@ async def tickets__unlike_ticket(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Unlike ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -343,7 +343,7 @@ async def tickets__show_tickets_list_by_filter(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Show tickets"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, permission_list={"READ_TICKET"})
 
     available_filters = {
@@ -412,7 +412,7 @@ async def tickets__show_detail_ticket_info(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Show detail ticket info"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, permission_list={"READ_TICKET"})
 
     ticket: Tickets | None = is_ticket_exist(
@@ -453,7 +453,7 @@ async def tickets__update_own_ticket_data(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Update ticket info"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -478,7 +478,7 @@ async def tickets__close_own_ticket(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     """Close ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
@@ -524,7 +524,7 @@ async def tickets__get_liked_tickets(
 ):
     """Get tickets which were liked by current user"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     available_filters = {
@@ -591,7 +591,7 @@ async def tickets__get_bookmarked_tickets(
 ):
     """Get tickets which were bookmarked by current user"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     available_filters = {
@@ -645,7 +645,7 @@ async def tickets__get_followed_tickets(
 ):
     """Get tickets which were followed by current user"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     available_filters = {
@@ -701,7 +701,7 @@ async def tickets__get_deleted_tickets(
         _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
     available_filters = {

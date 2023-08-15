@@ -1,4 +1,4 @@
-from fastapi import Depends, status
+from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.auth_schema import (
@@ -9,6 +9,7 @@ from burrito.schemas.auth_schema import (
 from burrito.models.user_model import Users
 
 from burrito.utils.logger import get_logger
+from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import (
     AuthTokenPayload,
     BurritoJWT
@@ -71,32 +72,18 @@ async def auth__password_login(
     )
 
 
-async def auth__token_login(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core())):
     """
         Authentication by access token. It will return new access token ^_^
     """
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_refresh_token()
+    check_permission(token_payload)
 
     user: Users | None = get_user_by_id(token_payload.user_id)
-
-    new_access_token = await __auth_obj.push_token(
-        token_payload,
-        "access"
-    )
-
-    get_logger().info(
-        f"""
-            Token login:
-                * user_id: {user.user_id}
-                * login: {user.login}
-                * tokens: {new_access_token}
-
-        """
-    )
 
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=new_access_token
+        access_token=(await __auth_obj.refresh_access_token())
     )

@@ -25,6 +25,7 @@ class AuthTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.access_token: None | str = None
+        cls.refresh_token: None | str = None
 
     def test_001_do_password_auth(self):
         """
@@ -37,6 +38,9 @@ class AuthTestCase(unittest.TestCase):
         access_token = result[1].get("access_token")
         AuthTestCase.access_token = access_token
 
+        refresh_token = result[1].get("refresh_token")
+        AuthTestCase.refresh_token = refresh_token
+
         check_error(
             self.assertEqual,
             {
@@ -46,31 +50,15 @@ class AuthTestCase(unittest.TestCase):
             result[1]
         )
 
-        check_error(
-            self.assertIsNotNone,
-            {
-                "obj": access_token
-            },
-            result[1]
-        )
-
 #    @unittest.skip
-    def test_002_do_token_auth(self):
-        """
-            Login user in rest API using login and password.
-            Recv token to use in the next authentications.
-        """
-
+    def test_002_refresh_access_token(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/login",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/refresh",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
-            },
-            json={
+               "Authorization": f"Bearer {AuthTestCase.refresh_token}"
             },
             timeout=5
         )
-
         check_error(
             self.assertEqual,
             {
@@ -79,6 +67,7 @@ class AuthTestCase(unittest.TestCase):
             },
             response
         )
+        AuthTestCase.access_token = response.json()["access_token"]
 
     @unittest.skip
     def test_003_do_token_auth_with_old_token(self):

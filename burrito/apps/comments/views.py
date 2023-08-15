@@ -30,7 +30,7 @@ async def comments__create(
     creation_comment_data: CommentCreationSchema,
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, {"SEND_MESSAGE"})
 
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
@@ -66,7 +66,7 @@ async def comments__edit(
     edit_comment_data: CommentEditSchema,
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, {"SEND_MESSAGE"})
 
     comment: Comments | None = is_comment_exist_with_error(edit_comment_data.comment_id)
@@ -89,7 +89,7 @@ async def comments__delete(
     deletion_comment_data: CommentDeletionSchema,
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, {"SEND_MESSAGE"})
 
     comment: Comments | None = is_comment_exist_with_error(deletion_comment_data.comment_id)
@@ -111,7 +111,7 @@ async def comments__get_related_comments(
 ):
     """Obtain comments related to the ticket"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.verify_token()
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, {"SEND_MESSAGE"})
 
     ticket: Tickets | None = is_ticket_exist(filters.ticket_id)
