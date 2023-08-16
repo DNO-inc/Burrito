@@ -69,21 +69,15 @@ class AuthTestCase(unittest.TestCase):
         )
         AuthTestCase.access_token = response.json()["access_token"]
 
-    @unittest.skip
-    def test_003_do_token_auth_with_old_token(self):
-        """
-            Login user in rest API using login and password.
-            Recv token to use in the next authentications.
-        """
+    def test_003_delete_token_pare(self):
+        result: tuple[int, dict] = do_auth()
 
-        do_auth()
-
+        refresh_token = result[1].get("refresh_token")
+        print(refresh_token)
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/login",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/delete",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
-            },
-            json={
+               "Authorization": f"Bearer {refresh_token}"
             },
             timeout=5
         )

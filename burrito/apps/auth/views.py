@@ -73,10 +73,6 @@ async def auth__password_login(
 
 
 async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    """
-        Authentication by access token. It will return new access token ^_^
-    """
-
     token_payload: AuthTokenPayload = await __auth_obj.require_refresh_token()
     check_permission(token_payload)
 
@@ -86,4 +82,18 @@ async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core()))
         user_id=user.user_id,
         login=user.login,
         access_token=(await __auth_obj.refresh_access_token())
+    )
+
+
+async def auth__delete_tokens(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+    token_payload: AuthTokenPayload = await __auth_obj.require_refresh_token()
+    check_permission(token_payload)
+
+    get_user_by_id(token_payload.user_id)
+
+    await __auth_obj.delete_token_pare()
+
+    return JSONResponse(
+        content="Refresh and access tokens was deleted",
+        status_code=200
     )
