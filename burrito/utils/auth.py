@@ -14,7 +14,8 @@ from burrito.utils.redis_utils import get_redis_connector
 
 
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
-_TOKEN_TTL = int(get_config().BURRITO_JWT_TTL)
+_JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)
+_JWT_REFRESH_TTL = int(get_config().BURRITO_JWT_REFRESH_TTL)
 _KEY_TEMPLATE = "{}_{}_{}"
 _TOKEN_TYPES = {"access", "refresh"}
 
@@ -51,7 +52,7 @@ def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) ->
 
     token_data.jti = jti
     token_data.token_type = token_type
-    token_data.exp = token_creation_time + _TOKEN_TTL
+    token_data.exp = token_creation_time + (_JWT_ACCESS_TTL if token_type == "access" else _JWT_REFRESH_TTL)
     token_data.iat = token_creation_time
     token_data.burrito_salt = secrets.token_hex(64)
 
@@ -106,7 +107,7 @@ class BurritoJWT:
         _token_redis_key = _make_redis_key(token_data)
 
         get_redis_connector().set(_token_redis_key, _token)
-        get_redis_connector().expire(_token_redis_key, _TOKEN_TTL)
+        get_redis_connector().expire(_token_redis_key, (_JWT_ACCESS_TTL if token_type == "access" else _JWT_REFRESH_TTL))
         get_logger().info(
             f"""
                 Generate new token:
