@@ -4,7 +4,6 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 
 # from burrito.middlewares.user_agent import UserAgentMiddleware
-from burrito.middlewares.auth import AuthMiddleware
 
 from .singleton_pattern import singleton
 from .task_manager import get_async_manager
@@ -40,9 +39,6 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
-    )
-    app.add_middleware(
-        AuthMiddleware
     )
 
     return app

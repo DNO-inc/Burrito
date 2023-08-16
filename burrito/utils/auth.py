@@ -124,6 +124,12 @@ class BurritoJWT:
         }
 
     async def require_access_token(self) -> AuthTokenPayload:
+        if not self.__token:
+            raise AuthTokenError(
+                detail="Missing authorization header",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
+
         token_payload = _read_token_payload(self.__token)
 
         if (
@@ -145,6 +151,12 @@ class BurritoJWT:
         return token_payload
 
     async def require_refresh_token(self) -> AuthTokenPayload:
+        if not self.__token:
+            raise AuthTokenError(
+                detail="Missing authorization header",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
+
         token_payload = _read_token_payload(self.__token)
 
         if (
