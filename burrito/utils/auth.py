@@ -1,6 +1,7 @@
 from copy import deepcopy
 from typing import Any
 from datetime import datetime
+import secrets
 import jwt
 import uuid
 
@@ -34,6 +35,7 @@ class AuthTokenPayload(BaseModel):
     token_type: str = ""
     user_id: int
     role: str
+    burrito_salt: str = ""
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
@@ -51,6 +53,7 @@ def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) ->
     token_data.token_type = token_type
     token_data.exp = token_creation_time + _TOKEN_TTL
     token_data.iat = token_creation_time
+    token_data.burrito_salt = secrets.token_hex(64)
 
     return jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
 
