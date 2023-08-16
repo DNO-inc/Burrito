@@ -190,6 +190,15 @@ class BurritoJWT:
 
         return await self.push_token(refresh_token_payload, "access", refresh_token_payload.jti)
 
+    async def delete_token_pare(self):
+        refresh_token_payload = await self.require_refresh_token()
+
+        access_token_payload: AuthTokenPayload = deepcopy(refresh_token_payload)
+        access_token_payload.token_type = "access"
+
+        get_redis_connector().delete(_make_redis_key(refresh_token_payload))
+        get_redis_connector().delete(_make_redis_key(access_token_payload))
+
 
 def get_auth_core() -> BurritoJWT:
     return BurritoJWT
