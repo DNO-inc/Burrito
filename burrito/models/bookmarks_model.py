@@ -1,4 +1,5 @@
-from peewee import ForeignKeyField
+import datetime
+from peewee import ForeignKeyField, DateTimeField, CompositeKey
 
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
@@ -17,6 +18,8 @@ class Bookmarks(BurritoBasicModel):
         field="ticket_id",
         on_delete="NO ACTION"
     )
+    created = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         depends_on = [Users, Tickets]
+        primary_key = CompositeKey('user_id', 'ticket_id')
