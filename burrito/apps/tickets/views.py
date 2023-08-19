@@ -60,7 +60,8 @@ from .utils import (
     check_permission,
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error,
-    make_ticket_detail_info
+    make_ticket_detail_info,
+    get_filtered_bookmarks
 )
 
 
@@ -606,7 +607,7 @@ async def tickets__get_bookmarked_tickets(
         q_not_deleted(token_payload.user_id),
         q_bookmarked(token_payload.user_id)
     ]
-    expression: list[Tickets] = get_filtered_tickets(
+    expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
@@ -659,13 +660,12 @@ async def tickets__get_followed_tickets(
         q_not_hidden(),
         q_followed(token_payload.user_id)
     ]
-    expression: list[Tickets] = get_filtered_tickets(
+    expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
     )
     response_list: list[TicketDetailInfoSchema] = []
-
 
     for ticket in expression:
         creator = None

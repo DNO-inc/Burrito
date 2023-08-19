@@ -73,7 +73,7 @@ class AuthTestCase(unittest.TestCase):
         result: tuple[int, dict] = do_auth()
 
         refresh_token = result[1].get("refresh_token")
-        print(refresh_token)
+
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/delete",
             headers={

@@ -1,3 +1,4 @@
+from typing import Any
 from functools import cache
 
 from burrito.utils.auth import get_auth_core
@@ -7,6 +8,7 @@ from burrito.utils.permissions_checker import check_permission
 
 from burrito.utils.logger import get_logger
 
+from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.queues_model import Queues
@@ -118,4 +120,32 @@ def make_ticket_detail_info(
         is_bookmarked=is_ticket_bookmarked(token_payload.user_id, ticket.ticket_id),
         date=str(ticket.created),
         history=get_ticket_actions(ticket.ticket_id) if show_history else []
+    )
+
+
+def get_filtered_bookmarks(
+    _filters: list[Any],
+    _desc: bool = True,
+    start_page: int = 1,
+    tickets_count: int = 10
+) -> list[Tickets]:
+    if _filters:
+        return Tickets.select().join(
+            Bookmarks,
+            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+        ).where(*_filters).paginate(
+            start_page,
+            tickets_count
+        ).order_by(
+            Bookmarks.created.desc() if _desc else Bookmarks.created
+        )
+
+    return Tickets.select().join(
+        Bookmarks,
+        on=(Tickets.ticket_id == Bookmarks.ticket_id)
+    ).paginate(
+        start_page,
+        tickets_count
+    ).order_by(
+        Bookmarks.created.desc() if _desc else Bookmarks.created
     )
