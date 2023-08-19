@@ -5,4 +5,4 @@ from burrito.models.basic_model import BurritoBasicModel
 
 class Groups(BurritoBasicModel):
     group_id = AutoField()
-    name = CharField(10)
+    name = CharField(20)
