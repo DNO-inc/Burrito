@@ -25,7 +25,6 @@ init_manager.run_cycle()
 
 if not init_manager.critical:
     import uvicorn
-    from prometheus_fastapi_instrumentator import Instrumentator, metrics
 
     from burrito.apps.registration.router import registration_router
     from burrito.apps.about.router import about_router
@@ -64,39 +63,6 @@ connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
 connect_app(app, "/notifications", notifications_router)
 
-# connect prometheus
-instrumentator = Instrumentator().instrument(app)
-instrumentator.add(
-    metrics.request_size(
-        metric_name="burrito_request_size_bytes",
-        should_include_handler=True,
-        should_include_method=False,
-        should_include_status=True,
-        metric_namespace="a",
-        metric_subsystem="b",
-    )
-).add(
-    metrics.response_size(
-        metric_name="burrito_response_size_bytes",
-        should_include_handler=True,
-        should_include_method=False,
-        should_include_status=True,
-        metric_namespace="namespace",
-        metric_subsystem="subsystem",
-    )
-).add(
-    metrics.combined_size(
-        metric_name="burrito_combined_size_bytes",
-        should_include_handler=True,
-        should_include_method=False,
-        should_include_status=True,
-        metric_namespace="namespace",
-        metric_subsystem="subsystem",
-    )
-)
-
-
-instrumentator.expose(app)
 
 if __name__ == "__main__":
 
