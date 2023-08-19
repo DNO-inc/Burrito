@@ -85,11 +85,10 @@ def is_ticket_followed(user_id: int, ticket_id: int) -> bool:
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
-            on=(
-                (Tickets.ticket_id == Bookmarks.ticket_id) &
-                (Tickets.creator != user_id)
-            )
+            on=(Tickets.ticket_id == Bookmarks.ticket_id)
         ).where(
+            Bookmarks.user_id == user_id,
+            Tickets.creator != user_id,
             Tickets.ticket_id == ticket_id
         ).get_or_none()
     )
@@ -99,11 +98,10 @@ def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
-            on=(
-                (Tickets.ticket_id == Bookmarks.ticket_id) &
-                (Tickets.creator == user_id)
-            )
+            on=(Tickets.ticket_id == Bookmarks.ticket_id)
         ).where(
+            Bookmarks.user_id == user_id,
+            Tickets.creator == user_id,
             Tickets.ticket_id == ticket_id
         ).get_or_none()
     )
