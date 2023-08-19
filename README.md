@@ -35,9 +35,12 @@ touch .env
     - `BURRITO_REDIS_HOST` - redis IP or domain
     - `BURRITO_REDIS_PORT` - redis port
     - `BURRITO_JWT_SECRET` - this key is used to encrypt/decrypt JWT tokens
-    - `BURRITO_JWT_TTL` - token's expiration time
+    - `BURRITO_JWT_ACCESS_TTL` - access token's expiration time
+    - `BURRITO_JWT_REFRESH_TTL` - refresh token's expiration time
     - `BURRITO_HOST` - specify `Burrito API` host
     - `BURRITO_PORT` - specify `Burrito API` port
+    - `BURRITO_MONGO_HOST` - mongo host
+    - `BURRITO_MONGO_PORT` - mongo port
   - `burrito_db` - contain MySQL database (you can find more information about MySql docker container and its environment variables [here](https://hub.docker.com/_/mysql)
     - `MYSQL_ROOT_PASSWORD`
     - `MYSQL_DATABASE`
