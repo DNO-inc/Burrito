@@ -3,7 +3,9 @@ from fastapi.responses import JSONResponse
 
 from burrito.schemas.auth_schema import (
     AuthResponseSchema,
-    UserPasswordLoginSchema
+    UserPasswordLoginSchema,
+    UserKeyLoginSchema,
+    KeyAuthResponseSchema
 )
 
 from burrito.models.user_model import Users
@@ -16,7 +18,11 @@ from burrito.utils.auth import (
 )
 
 from burrito.utils.users_util import (
-    get_user_by_id
+    get_user_by_id_or_none, get_user_by_id, create_user_with_cabinet
+)
+
+from burrito.utils.ssu import (
+    CabinetUser
 )
 
 from .utils import (
@@ -70,6 +76,102 @@ async def auth__password_login(
         status_code=status.HTTP_401_UNAUTHORIZED,
         content={"detail": "Login is not exist"}
     )
+
+
+async def auth__key_login(
+        user_login_data: UserKeyLoginSchema,
+        __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    """Authentication by key from SSU Cabinet"""
+
+    try:
+        cabinet_profile = CabinetUser(user_login_data.key, user_login_data.token)
+    except (KeyError, ValueError):
+        return JSONResponse(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            content={"detail": "Failed to get user data from SSU Cabinet"}
+        )
+
+    user: Users | None = get_user_by_id_or_none(cabinet_profile.user_id)
+
+    if user:
+        # if user login exist we just return auth schema
+
+        tokens = await __auth_obj.create_token_pare(
+            AuthTokenPayload(
+                user_id=user.user_id,
+                role=user.role.name
+            )
+        )
+
+        get_logger().info(
+            f"""
+                Key login:
+                    * user_id: {user.user_id}
+                    * name: {user.firstname} {user.lastname}
+                    * tokens: {tokens}
+
+            """
+        )
+
+        return KeyAuthResponseSchema(
+            user_id=user.user_id,
+            **tokens
+        )
+
+    if not user:
+
+        # So, this is the first login. Let's create a locale user record
+
+        new_user: Users | None = create_user_with_cabinet(
+            user_id=cabinet_profile.user_id,
+            firstname=cabinet_profile.firstname,
+            lastname=cabinet_profile.lastname,
+            faculty=cabinet_profile.faculty,
+            group=cabinet_profile.group,
+            email=cabinet_profile.email,
+        )
+
+        if new_user:
+            result = {"user_id": new_user.user_id} | (await __auth_obj.create_token_pare(
+                AuthTokenPayload(
+                    user_id=new_user.user_id,
+                    role=new_user.role.name
+                )
+            ))
+
+            return JSONResponse(
+                status_code=status.HTTP_200_OK,
+                content=result
+            )
+
+        if not new_user:
+            return JSONResponse(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                content={"detail": "Failed to create a new user"}
+            )
+
+        tokens = await __auth_obj.create_token_pare(
+            AuthTokenPayload(
+                user_id=user.user_id,
+                role=user.role.name
+            )
+        )
+
+        get_logger().info(
+            f"""
+                Key login:
+                    * user_id: {user.user_id}
+                    * name: {user.firstname} {user.lastname}
+                    * tokens: {tokens}
+
+            """
+        )
+
+        return KeyAuthResponseSchema(
+            user_id=user.user_id,
+            **tokens
+        )
 
 
 async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core())):

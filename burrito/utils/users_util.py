@@ -9,8 +9,8 @@ from burrito.models.faculty_model import Faculties
 
 
 def create_user_tmp_foo(
-    login: str, hashed_password: str,
-    group: Groups, faculty: Faculties
+        login: str, hashed_password: str,
+        group: Groups, faculty: Faculties
 ) -> Users | None:
     """_summary_
 
@@ -72,6 +72,34 @@ def create_user(login: str, hashed_password: str) -> int | None:
         get_logger().error(e)
 
 
+def create_user_with_cabinet(
+        user_id: int,
+        firstname: str,
+        lastname: str,
+        faculty: int,
+        group: int,
+        email: int,
+
+) -> Users | None:
+
+    role_object: Roles = Roles.get(Roles.name == "USER_ALL")
+
+    try:
+        user: Users = Users.create(
+            user_id=user_id,
+            firstname=firstname,
+            lastname=lastname,
+            faculty=faculty,
+            group=group,
+            email=email,
+            role=role_object
+        )
+        return user
+
+    except Exception as e:
+        get_logger().error(e)
+
+
 def get_user_by_login(login: str) -> Users | None:
     """_summary_
 
@@ -106,5 +134,22 @@ def get_user_by_id(user_id: int) -> Users | None:
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"User with ID ({user_id}) is not exist"
         )
+
+    return _current_user
+
+
+def get_user_by_id_or_none(user_id: int) -> Users | None:
+    """_summary_
+
+    Get user if exist or return None
+
+    Args:
+        user_id (int): user id
+
+    Returns:
+        Users | None: return None if user is not exist
+    """
+
+    _current_user = Users.get_or_none(Users.user_id == user_id)
 
     return _current_user
