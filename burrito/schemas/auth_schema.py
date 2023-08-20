@@ -28,8 +28,28 @@ class UserPasswordLoginSchema(BaseModel):
     password: str
 
 
+class UserKeyLoginSchema(BaseModel):
+    """_summary_
+
+    User need to transfer this data to get access to API
+
+    Args:
+        key (str): user key from SSU Cabinet
+        token (str): app token from SSU Cabinet
+    """
+
+    key: str
+    token: str
+
+
 class AuthResponseSchema(BaseModel):
     user_id: int
     login: str
+    access_token: str
+    refresh_token: str | None
+
+
+class KeyAuthResponseSchema(BaseModel):
+    user_id: int
     access_token: str
     refresh_token: str | None

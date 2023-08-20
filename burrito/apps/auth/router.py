@@ -1,7 +1,10 @@
 from fastapi import APIRouter
 
 from .views import (
-    auth__password_login, auth__token_refresh, auth__delete_tokens
+    auth__password_login,
+    auth__key_login,
+    auth__token_refresh,
+    auth__delete_tokens
 )
 
 
@@ -14,12 +17,20 @@ auth_router.add_api_route(
     methods=["POST"]
 )
 
+# key auth
+auth_router.add_api_route(
+    "/key/login",
+    auth__key_login,
+    methods=["POST"]
+)
+
 # token auth
 auth_router.add_api_route(
     "/token/refresh",
     auth__token_refresh,
     methods=["POST"]
 )
+
 auth_router.add_api_route(
     "/token/delete",
     auth__delete_tokens,

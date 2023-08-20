@@ -11,10 +11,12 @@
     "groups": [
         {"group_id": 1, "name": "IT-11"},
         {"group_id": 2, "name": "LOL-11"},
-        {"group_id": 3, "name": "LOL-12"}
+        {"group_id": 3, "name": "LOL-12"},
+        {"group_id": 1002512, "name": "KB-01"}
     ],
     "faculties": [
         {"faculty_id": 1, "name": "EliT"},
+        {"faculty_id": 414, "name": "ElIT"},
         {"faculty_id": 2, "name": "Biem"}
     ],
     "statuses": [
