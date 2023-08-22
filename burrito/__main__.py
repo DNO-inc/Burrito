@@ -18,7 +18,7 @@ init_manager = InitManager(
     error_attempt_delta=3
 )
 init_manager.add_task(CheckDBTask(attempt_count=100))
-init_manager.add_task(PreProcessorTask(attempt_count=100))
+#init_manager.add_task(PreProcessorTask(attempt_count=100))
 
 init_manager.run_cycle()
 

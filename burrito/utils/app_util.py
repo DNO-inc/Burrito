@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # from burrito.middlewares.user_agent import UserAgentMiddleware
 
+from burrito.preprocessor.core import preprocessor_task
+
 from .singleton_pattern import singleton
 from .task_manager import get_async_manager
 from .logger import get_logger
@@ -51,6 +53,8 @@ async def startup_event():
     """
 
     task_manager = get_async_manager()
+    task_manager.add_task(preprocessor_task())
+
 #    task_manager.add_task(get_pubsub_manager().run())
 
     def test1():

@@ -1,0 +1,109 @@
+import pymysql.cursors
+import requests
+
+
+from burrito.utils.config_reader import get_config
+from burrito.utils.logger import get_logger
+
+from burrito.preprocessor.conf import  MODEL_KEYS, DEFAULT_CONFIG
+
+
+SSU_KEY = get_config().BURRITO_SSU_KEY
+SSU_GROUPS_URL = get_config().BURRITO_SSU_GROUPS_URL
+SSU_FACULTIES_URL = get_config().BURRITO_SSU_FACULTIES_URL
+
+
+async def pull_faculties_from_ssu() -> list:
+    try:
+        raw_faculties_data = requests.get(
+            f"{SSU_FACULTIES_URL}?key={SSU_KEY}",
+            timeout=30
+        )
+        if raw_faculties_data.status_code != 200:
+            get_logger().warning(
+                f"{SSU_FACULTIES_URL}  status code is {raw_faculties_data.status_code}"
+            )
+        raw_faculties_data = raw_faculties_data.json()["result"]
+
+        return [
+            {
+                "faculty_id": raw_group["ID_DIV"],
+                "name": raw_group["ABBR_DIV"]
+            } for raw_group in raw_faculties_data if (
+                raw_group["ID_DIV"] and raw_group["ABBR_DIV"] and raw_group["KOD_TYPE"] in (7, 9)
+            )
+        ]
+    except Exception as e:
+        get_logger().error(e)
+
+    return []
+
+
+async def pull_groups_from_ssu() -> list:
+    try:
+        raw_groups_data = requests.get(
+            f"{SSU_GROUPS_URL}?key={SSU_KEY}",
+            timeout=30
+        )
+        if raw_groups_data.status_code != 200:
+            get_logger().warning(
+                f"{SSU_GROUPS_URL}  status code is {raw_groups_data.status_code}"
+            )
+        raw_groups_data = raw_groups_data.json()["result"]
+
+        return [
+            {
+                "group_id": raw_group["ID_GROUP"],
+                "name": raw_group["NAME_GROUP"]
+            } for raw_group in raw_groups_data if raw_group["ID_GROUP"] and raw_group["NAME_GROUP"]
+        ]
+    except Exception as e:
+        get_logger().error(e)
+
+    return []
+
+
+async def preprocessor_task():
+    get_logger().info("Preprocessor is started")
+
+    conn = pymysql.connect(
+        database=get_config().BURRITO_DB_NAME,
+        user=get_config().BURRITO_DB_USER,
+        password=get_config().BURRITO_DB_PASSWORD,
+        host=get_config().BURRITO_DB_HOST,
+        port=int(get_config().BURRITO_DB_PORT),
+        cursorclass=pymysql.cursors.DictCursor
+    )
+
+    with conn:
+        __sql_commands: dict = {}
+        __config_data: dict = {}
+        data: dict = DEFAULT_CONFIG
+
+        data["groups"] = await pull_groups_from_ssu()
+        data["faculties"] = await pull_faculties_from_ssu()
+
+        for key, value in data.items():
+            if not key.startswith("__"):
+                __config_data[key] = value
+                continue
+
+            if key == "__tables_option":
+                __sql_commands = value
+
+        for table, config_values in __config_data.items():
+            with conn.cursor() as cursor:
+                cursor.execute(__sql_commands[table])
+            conn.commit()
+
+            config_filtered_values: set = {tuple(i.values()) for i in config_values}
+            db_filtered_values: set = {tuple(i.values()) for i in cursor.fetchall()}
+
+            if config_filtered_values.difference(db_filtered_values):
+                for value in config_values:
+                    try:
+                        MODEL_KEYS[table].create(**value)
+                    except:
+                        ...
+
+    get_logger().info("Preprocessor is finished")
