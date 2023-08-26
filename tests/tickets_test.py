@@ -25,7 +25,7 @@ def create_ticket_get_id(subject: str) -> int:
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "queue": 1,
-            "faculty": 1,
+            "faculty": 414,
         },
         timeout=TIMEOUT
     ).json()["ticket_id"]
@@ -50,7 +50,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": True if random.randint(0, 9) % 2 == 0 else False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
 #                "queue": 1,
-                "faculty": 1,
+                "faculty": 414
             },
             timeout=TIMEOUT
         )
@@ -128,7 +128,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": 1,
-                "faculty": random.choice([1, 2]),
+                "faculty": random.choice([414, 1675]),
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]
@@ -190,7 +190,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
                 "queue": 1,
-                "faculty": random.choice([1, 2]),
+                "faculty": random.choice([414, 1675]),
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]
@@ -271,7 +271,7 @@ class TicketsTestCase(unittest.TestCase):
                 "hidden": False,
                 "anonymous": False,
                 "queue": 1,
-                "faculty": 1,
+                "faculty": 414
             },
             timeout=TIMEOUT
         ).json()["ticket_id"]

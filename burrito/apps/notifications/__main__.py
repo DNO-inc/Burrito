@@ -1,14 +1,10 @@
 import uvicorn
 
+from burrito.containers import get_current_app_name
+from burrito.apps.notifications.router import notifications_router
 from burrito.utils.config_reader import get_config
-from burrito.containers import prepare_app, get_current_app_name
 from burrito.utils.app_util import get_current_app, connect_app
 
-
-if prepare_app():
-    from burrito.apps.notifications.router import notifications_router
-else:
-    print("App preparation failed")
 
 _APP_NAME = get_current_app_name()
 

@@ -3,29 +3,16 @@
 
 """
 
-from threading import get_native_id
+from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 import asyncio
-import sys
+import inspect
 
 from burrito.utils.logger import get_logger
+from burrito.utils.singleton_pattern import singleton
 
 
-def thread_singleton(class_) -> Any:
-    class_instance: dict[int, _TaskManager] = {}
-
-    def get_class_instance(*args, **kwargs):
-        instance_key = (class_, get_native_id())
-
-        if not class_instance.get(instance_key):
-            class_instance[instance_key] = class_(*args, **kwargs)
-
-        return class_instance[instance_key]
-
-    return get_class_instance
-
-
-@thread_singleton
+@singleton
 class _TaskManager:
     def __init__(self) -> None:
         """_summary_
@@ -34,11 +21,15 @@ class _TaskManager:
 
         """
 
-        self.__loop = self.__get_running_loop()
+        self._thread_pool = ThreadPoolExecutor(max_workers=25)
+        self._loop = self._get_running_loop()
 
-        asyncio.set_event_loop(self.__loop)
+        asyncio.set_event_loop(self._loop)
 
-    def __get_running_loop(self) -> asyncio.AbstractEventLoop:
+    def __del__(self):
+        self._thread_pool.shutdown(wait=True)
+
+    def _get_running_loop(self) -> asyncio.AbstractEventLoop:
         """_summary_
 
         Create or return running event loop
@@ -55,8 +46,8 @@ class _TaskManager:
 
         except Exception as e:
             get_logger().critical(f"Unexpected error {e}")
-            get_logger().info("Exit program")
-            sys.exit(1)
+            get_logger().warning("Async loop is not running...")
+            return None
 
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
@@ -68,30 +59,37 @@ class _TaskManager:
             asyncio.AbstractEventLoop: event loop object
         """
 
-        return self.__loop
+        return self._loop
 
-    def add_task(self, coro) -> None:
+    @property
+    def pool(self) -> ThreadPoolExecutor:
+        return self._thread_pool
+
+    def add_task(self, task, *args, **kwargs) -> None:
         """_summary_
 
         Add task to execute in event loop
 
         Args:
-            coro (_type_): coroutine object
+            task (_type_): function/coroutine object
         """
 
-        self.__loop.create_task(coro)
+        if inspect.iscoroutine(task):
+            self._loop.create_task(task)
+        else:
+            self._thread_pool.submit(task, *args, **kwargs)
 
-    def add_multiply_task(self, coro_list: tuple[Any]) -> None:
+    def add_multiply_task(self, task_list: tuple[Any]) -> None:
         """_summary_
 
         Create few tasks using
 
         Args:
-            coro_list (tuple[Any]): coroutines tuple
+            task_list (tuple[Any]): function/coroutine tuple
         """
 
-        for coro in coro_list:
-            self.add_task(coro)
+        for task in task_list:
+            self.add_task(task)
 
     def run(self, *, forever: bool = True) -> None:
         """_summary_
@@ -103,15 +101,15 @@ class _TaskManager:
                 If this option is True cycle run forever else until complete. Defaults to True.
         """
 
-        if self.__loop.is_running():  # exit function if loop is running
+        if self._loop.is_running():  # exit function if loop is running
             return
 
         if forever:
-            self.__loop.run_forever()
+            self._loop.run_forever()
         else:
-            self.__loop.run_until_complete(
+            self._loop.run_until_complete(
                 asyncio.gather(
-                    *asyncio.all_tasks(self.__loop)  # unpack task list
+                    *asyncio.all_tasks(self._loop)  # unpack task list
                 )
             )
 
@@ -121,10 +119,10 @@ class _TaskManager:
         Stop running event loop
         """
 
-        self.__loop.stop()
+        self._loop.stop()
 
 
-def get_async_manager() -> _TaskManager:
+def get_task_manager() -> _TaskManager:
     """_summary_
 
     Interface to get access to AsyncManager

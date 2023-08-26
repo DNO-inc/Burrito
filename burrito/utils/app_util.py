@@ -1,13 +1,9 @@
 from fastapi import FastAPI, APIRouter
-
-# from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 
-# from burrito.middlewares.user_agent import UserAgentMiddleware
-
 from .singleton_pattern import singleton
-from .task_manager import get_async_manager
-from .logger import get_logger
+from burrito.utils.task_manager import get_task_manager
+from burrito.apps.scheduler.core import start_scheduler
 
 
 @singleton
@@ -50,21 +46,7 @@ async def startup_event():
     Setup task when when server is started
     """
 
-    task_manager = get_async_manager()
-#    task_manager.add_task(get_pubsub_manager().run())
-
-    def test1():
-        print("test1")
-
-    async def test2():
-        print("test2")
-
-#    get_pubsub_manager().add_callback("test1", test1)
-#    get_pubsub_manager().add_callback("test2", test2)
-
-    task_manager.run()
-
-    get_logger().info("All tasks was started")
+    get_task_manager().run()
 
 
 def connect_app(fast_api_object: FastAPI, prefix: str, router: APIRouter):

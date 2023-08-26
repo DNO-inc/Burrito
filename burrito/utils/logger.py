@@ -12,7 +12,7 @@ class BurritoFormatter(logging.Formatter):
     red = "\x1b[31;20m"
     magenta = "\u001b[35m"
     reset = "\x1b[0m"
-    _format = "[ %(asctime)s ] | %(name)s | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
+    _format = "[ %(asctime)s ] | %(name)s (%(process)d) | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
 
     # Defining formats
     FORMATS = {

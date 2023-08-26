@@ -1,4 +1,23 @@
-{
+from burrito.models.group_model import Groups
+from burrito.models.statuses_model import Statuses
+from burrito.models.faculty_model import Faculties
+from burrito.models.queues_model import Queues
+from burrito.models.permissions_model import Permissions
+from burrito.models.roles_model import Roles
+from burrito.models.role_permissions_model import RolePermissions
+
+
+MODEL_KEYS = {
+    "groups": Groups,
+    "faculties": Faculties,
+    "statuses": Statuses,
+    "queues": Queues,
+    "permissions": Permissions,
+    "roles": Roles,
+    "role_permissions": RolePermissions
+}
+
+DEFAULT_CONFIG = {
     "__tables_option": {
         "groups": "SELECT * FROM `groups`;",
         "faculties": "SELECT * FROM `faculties`;",
@@ -8,8 +27,8 @@
         "roles": "SELECT * FROM `roles`;",
         "role_permissions": "SELECT * FROM `role_permissions`;"
     },
-    "groups": [],
-    "faculties": [],
+    "groups": [],     # will be updated automatic
+    "faculties": [],  # will be updated automatic
     "statuses": [
         {"status_id": 1, "name": "NEW"},
         {"status_id": 2, "name": "ACCEPTED"},
@@ -19,16 +38,11 @@
         {"status_id": 6, "name": "CLOSE"}
     ],
     "queues": [
-        {"queue_id": 1, "name": "Lecturers", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 2, "name": "Food", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 3, "name": "Academic integrity", "faculty_id": 2, "scope": "Reports"},
-        {"queue_id": 4, "name": "Scholarship", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 5, "name": "Scholarship", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 6, "name": "Food", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 7, "name": "Dormitory", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 8, "name": "Dormitory", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 9, "name": "Dormitory", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 10, "name": "Dormitory", "faculty_id": 2, "scope": "Reports"}
+        {"queue_id": 1, "name": "Lecturers", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 2, "name": "Food", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 3, "name": "Scholarship", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 4, "name": "Dormitory", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 5, "name": "Dormitory", "faculty_id": 414, "scope": "Reports"},
     ],
     "permissions": [
         {"permission_id": 1, "name": "UPDATE_PROFILE"},

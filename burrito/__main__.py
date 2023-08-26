@@ -5,49 +5,27 @@ needed for Burrito functionality.
 
 """
 
+import uvicorn
+
+from burrito.apps.registration.router import registration_router
+from burrito.apps.about.router import about_router
+
+from burrito.apps.auth.router import auth_router
+from burrito.apps.profile.router import profile_router
+
+from burrito.apps.tickets.router import tickets_router
+from burrito.apps.admin.router import admin_router
+
+from burrito.apps.anon.router import anon_router
+from burrito.apps.meta.router import meta_router
+
+from burrito.apps.iofiles.router import iofiles_router
+from burrito.apps.comments.router import comments_router
+
+from burrito.apps.notifications.router import notifications_router
+
+from burrito.utils.app_util import connect_app, get_current_app
 from burrito.utils.config_reader import get_config
-
-from burrito.init.init_system import InitManager, get_logger
-from burrito.init.tasks.check_db_task import CheckDBTask
-from burrito.init.tasks.preprocessor_task import PreProcessorTask
-
-
-get_config()  # read configs
-
-init_manager = InitManager(
-    error_attempt_delta=3
-)
-init_manager.add_task(CheckDBTask(attempt_count=100))
-init_manager.add_task(PreProcessorTask(attempt_count=100))
-
-init_manager.run_cycle()
-
-
-if not init_manager.critical:
-    import uvicorn
-
-    from burrito.apps.registration.router import registration_router
-    from burrito.apps.about.router import about_router
-
-    from burrito.apps.auth.router import auth_router
-    from burrito.apps.profile.router import profile_router
-
-    from burrito.apps.tickets.router import tickets_router
-    from burrito.apps.admin.router import admin_router
-
-    from burrito.apps.anon.router import anon_router
-    from burrito.apps.meta.router import meta_router
-
-    from burrito.apps.iofiles.router import iofiles_router
-    from burrito.apps.comments.router import comments_router
-
-    from burrito.apps.notifications.router import notifications_router
-
-    from burrito.utils.app_util import connect_app, get_current_app
-else:
-    print()
-    get_logger().critical("Some critical error was ocurred before")
-    exit(1)
 
 
 app = get_current_app()
@@ -71,6 +49,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=int(get_config().BURRITO_PORT),
         proxy_headers=bool(get_config().BURRITO_PROXY_HEADERS),
-        reload=True,
-        reload_dirs="burrito"
     )

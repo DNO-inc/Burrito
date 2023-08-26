@@ -42,3 +42,6 @@ burrito_cluster_ps:
 
 changelog:
 	scripts/generate_changelog.sh
+
+prepare_db:
+	$(PYTHON) scripts/prepare_db.py

@@ -13,8 +13,8 @@ TIMEOUT = 5
 def make_user_registration(
     login: str = "".join(random.sample(string.ascii_letters, 5)),
     password: str = "".join(random.sample(string.ascii_letters, 8)),
-    group: int = random.choice([1, 2]),
-    faculty: int = random.choice([1, 2])
+    group: int = 1003254,
+    faculty: int = 414
 ):
     response = requests.post(
         f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/registration/",
@@ -60,7 +60,8 @@ class RegistrationTestCase(unittest.TestCase):
             {
                 "obj": user_data,
                 "cls": int
-            }
+            },
+            user_data
         )
 
         RegistrationTestCase.user_id = user_data

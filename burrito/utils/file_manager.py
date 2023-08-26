@@ -6,7 +6,7 @@ from fastapi.responses import FileResponse
 import aiofiles
 
 from burrito.utils.singleton_pattern import singleton
-from burrito.utils.task_manager import get_async_manager
+from burrito.utils.task_manager import get_task_manager
 
 
 @singleton
@@ -43,7 +43,7 @@ class _FileManager:
             await file.write("123")
 
     async def push_files(self, file_data_list: list[UploadFile]) -> None:
-        get_async_manager().add_multiply_task(
+        get_task_manager().add_multiply_task(
             [self.push_file(item) for item in file_data_list]
         )
 
