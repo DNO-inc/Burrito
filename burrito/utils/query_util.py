@@ -1,4 +1,3 @@
-from fastapi import HTTPException
 from peewee import Expression
 
 from burrito.models.bookmarks_model import Bookmarks
@@ -11,23 +10,15 @@ from burrito.models.liked_model import Liked
 from burrito.utils.converter import (
     StatusConverter,
     FacultyConverter,
-    QueueConverter
 )
 
 
-_PROTECTED_STATUSES: tuple[int] = (
-    StatusConverter.convert(1).status_id,
-)
+_PROTECTED_STATUSES: tuple[int] = (1,)
 
-ADMIN_ROLES: list[int] = [9]
+ADMIN_ROLES: list[int] = (9, 10)
 
-STATUSES_FOR_USER: list[int] = []
-STATUSES_FOR_ADMIN: list[int] = []
-
-for i in Statuses.select():
-    if i.status_id not in _PROTECTED_STATUSES:
-        STATUSES_FOR_USER.append(i.status_id)
-    STATUSES_FOR_ADMIN.append(i.status_id)
+STATUSES_FOR_USER: list[int] = [i.status_id for i in Statuses.select() if i.status_id not in _PROTECTED_STATUSES]
+STATUSES_FOR_ADMIN: list[int] = [i.status_id for i in Statuses.select()]
 
 
 def q_is_creator(value) -> Expression:

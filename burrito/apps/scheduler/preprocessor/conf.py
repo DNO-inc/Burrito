@@ -38,16 +38,11 @@ DEFAULT_CONFIG = {
         {"status_id": 6, "name": "CLOSE"}
     ],
     "queues": [
-        {"queue_id": 1, "name": "Lecturers", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 2, "name": "Food", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 3, "name": "Academic integrity", "faculty_id": 2, "scope": "Reports"},
-        {"queue_id": 4, "name": "Scholarship", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 5, "name": "Scholarship", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 6, "name": "Food", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 7, "name": "Dormitory", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 8, "name": "Dormitory", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 9, "name": "Dormitory", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 10, "name": "Dormitory", "faculty_id": 2, "scope": "Reports"}
+        {"queue_id": 1, "name": "Lecturers", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 2, "name": "Food", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 3, "name": "Scholarship", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 4, "name": "Dormitory", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 5, "name": "Dormitory", "faculty_id": 414, "scope": "Reports"},
     ],
     "permissions": [
         {"permission_id": 1, "name": "UPDATE_PROFILE"},

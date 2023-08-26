@@ -58,7 +58,7 @@ class MetaTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
             json={
-                "faculty": 1
+                "faculty": 414
             },
             timeout=TIMEOUT
         )

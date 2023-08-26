@@ -47,9 +47,13 @@ touch .env
     - `MYSQL_USER`
     - `MYSQL_PASSWORD`
   - `burrito_redis` - contains access/refresh tokens (no variables are needed)
+- Build Burrito API
+```bash
+docker build . -t burrito
+```
 - Launch Burrito API
 ```bash
-docker-compose up
+docker run --rm burrito
 ```
 - Run tests
 ```bash
@@ -85,9 +89,13 @@ touch .env
   - `burrito_db` - contain MySQL database (you can find more information about MySql docker container and its environment variables [here](https://hub.docker.com/_/mysql)
   - `burrito_nginx` - proxy-server and load balancer for `burrito cluster` (no variables are needed)
   - `burrito_redis` - contains access/refresh tokens (no variables are needed)
+- Launch needed databases (if you would not setup own) in docker-compose
+```bash
+docker-compose -f docker-compose-dbs.yml up 
+```
 - Launch Burrito API
 ```bash
-make burrito_cluster_run
+docker-compose -f docker-compose-separated.yml up 
 ```
 - Run tests
 ```bash

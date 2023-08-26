@@ -28,4 +28,4 @@ COPY ./burrito /burrito
 
 WORKDIR ./
 
-#CMD ["python", "-m", "burrito.apps.tickets"]
+CMD ["python", "-m", "burrito.apps.scheduler"]

@@ -39,9 +39,12 @@ def create_tables():
         Comments, Queues, Bookmarks
     ]
 
-    get_database_cursor().create_tables(all_models)
-
-    get_logger().info("All tables was created")
+    try:
+        get_database_cursor().create_tables(all_models)
+    except Exception as e:
+        get_logger().warning(f"{e}")
+    else:
+        get_logger().info("All tables was created")
 
 
 def drop_tables(use: bool = False):

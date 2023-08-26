@@ -1,11 +1,11 @@
-import pymysql.cursors
 import requests
+import pymysql.cursors
 
-
+from burrito.utils.task_manager import get_task_manager
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
-
-from burrito.preprocessor.conf import  MODEL_KEYS, DEFAULT_CONFIG
+from burrito.utils.db_cursor_object import get_database_cursor
+from .conf import MODEL_KEYS, DEFAULT_CONFIG
 
 
 SSU_KEY = get_config().BURRITO_SSU_KEY
@@ -13,7 +13,7 @@ SSU_GROUPS_URL = get_config().BURRITO_SSU_GROUPS_URL
 SSU_FACULTIES_URL = get_config().BURRITO_SSU_FACULTIES_URL
 
 
-async def pull_faculties_from_ssu() -> list:
+def pull_faculties_from_ssu() -> list:
     try:
         raw_faculties_data = requests.get(
             f"{SSU_FACULTIES_URL}?key={SSU_KEY}",
@@ -39,7 +39,7 @@ async def pull_faculties_from_ssu() -> list:
     return []
 
 
-async def pull_groups_from_ssu() -> list:
+def pull_groups_from_ssu() -> list:
     try:
         raw_groups_data = requests.get(
             f"{SSU_GROUPS_URL}?key={SSU_KEY}",
@@ -63,25 +63,31 @@ async def pull_groups_from_ssu() -> list:
     return []
 
 
-async def preprocessor_task():
+def preprocessor_task():
     get_logger().info("Preprocessor is started")
 
-    conn = pymysql.connect(
-        database=get_config().BURRITO_DB_NAME,
-        user=get_config().BURRITO_DB_USER,
-        password=get_config().BURRITO_DB_PASSWORD,
-        host=get_config().BURRITO_DB_HOST,
-        port=int(get_config().BURRITO_DB_PORT),
-        cursorclass=pymysql.cursors.DictCursor
-    )
+    conn = None
+
+    try:
+        conn = pymysql.connect(
+            database=get_config().BURRITO_DB_NAME,
+            user=get_config().BURRITO_DB_USER,
+            password=get_config().BURRITO_DB_PASSWORD,
+            host=get_config().BURRITO_DB_HOST,
+            port=int(get_config().BURRITO_DB_PORT),
+            cursorclass=pymysql.cursors.DictCursor
+        )
+    except Exception as e:
+        get_logger().warning(e)
+        return
 
     with conn:
         __sql_commands: dict = {}
         __config_data: dict = {}
-        data: dict = DEFAULT_CONFIG
 
-        data["groups"] = await pull_groups_from_ssu()
-        data["faculties"] = await pull_faculties_from_ssu()
+        data: dict = DEFAULT_CONFIG
+        data["groups"] = pull_groups_from_ssu()
+        data["faculties"] = pull_faculties_from_ssu()
 
         for key, value in data.items():
             if not key.startswith("__"):
@@ -102,8 +108,15 @@ async def preprocessor_task():
             if config_filtered_values.difference(db_filtered_values):
                 for value in config_values:
                     try:
-                        MODEL_KEYS[table].create(**value)
-                    except:
-                        ...
+                        if table in ("groups", "faculties"):
+                            get_task_manager().add_task(MODEL_KEYS[table].create, **value)
+                        else:
+                            if table == "queues":
+                                get_database_cursor().execute_sql("SET FOREIGN_KEY_CHECKS=0")
+                            MODEL_KEYS[table].create(**value)
+                            if table == "queues":
+                                get_database_cursor().execute_sql("SET FOREIGN_KEY_CHECKS=1")
+                    except Exception as e:
+                        get_logger().warning(f"Preprocessor error: {e}")
 
-    get_logger().info("Preprocessor is finished")
+    get_logger().info("Preprocessor sub-tasks pushed to task manager")
