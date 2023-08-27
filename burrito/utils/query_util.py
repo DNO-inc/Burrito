@@ -21,11 +21,15 @@ STATUSES_FOR_USER: list[int] = [i.status_id for i in Statuses.select() if i.stat
 STATUSES_FOR_ADMIN: list[int] = [i.status_id for i in Statuses.select()]
 
 
-def q_is_creator(value) -> Expression:
-    if not value:
-        return None
-
+def q_creator_is(value) -> Expression:
     return Tickets.creator == value
+
+
+def q_assignee_is(value) -> Expression:
+    if value == -1:
+        return Tickets.assignee.is_null()
+
+    return Tickets.assignee == value
 
 
 def q_is_anonymous(value: bool | int) -> Expression:

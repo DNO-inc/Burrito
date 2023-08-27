@@ -21,6 +21,8 @@ from burrito.utils.query_util import (
     q_is_valid_queue,
     q_is_valid_status_list,
     q_scope_is,
+    q_creator_is,
+    q_assignee_is,
     q_is_hidden,
 )
 from burrito.utils.users_util import get_user_by_id
@@ -155,6 +157,8 @@ async def admin__get_ticket_list_by_filter(
     check_permission(token_payload, {"ADMIN"})
 
     available_filters = {
+        "creator": q_creator_is(filters.creator),
+        "assignee": q_assignee_is(filters.assignee),
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
         "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
