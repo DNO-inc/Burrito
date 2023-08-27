@@ -33,7 +33,8 @@ from burrito.utils.query_util import (
     q_protected_statuses,
     q_not_hidden,
     q_is_hidden,
-    q_is_creator,
+    q_creator_is,
+    q_assignee_is,
     q_deleted,
     q_not_deleted,
     q_bookmarked,
@@ -348,7 +349,8 @@ async def tickets__show_tickets_list_by_filter(
     check_permission(token_payload, permission_list={"READ_TICKET"})
 
     available_filters = {
-        "creator": q_is_creator(filters.creator),
+        "creator": q_creator_is(filters.creator),
+        "assignee": q_assignee_is(filters.assignee),
         "hidden": q_is_hidden(filters.hidden),
         "anonymous": q_is_anonymous(filters.anonymous),
         "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
