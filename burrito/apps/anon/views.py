@@ -34,25 +34,24 @@ from burrito.utils.tickets_util import (
 
 async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
-        "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
-        "status": q_is_valid_status_list(filters.status),
-        "scope": q_scope_is(filters.scope) if filters.scope else None,
-        "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
+        "default": [
+            q_is_anonymous(filters.anonymous),
+            q_is_valid_faculty(filters.faculty),
+            q_is_valid_status_list(filters.status),
+            q_scope_is(filters.scope),
+            q_is_valid_queue(filters.queue),
+            q_not_hidden(),
+            q_protected_statuses()
+        ]
     }
-    final_filters = select_filters(available_filters, filters) + [
-        q_not_hidden(),
-        q_protected_statuses()
-    ]
-
-    response_list: list[AnonTicketDetailInfoSchema] = []
-
+    final_filters = select_filters("", available_filters)
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
         tickets_count=filters.items_count
     )
 
+    response_list: list[AnonTicketDetailInfoSchema] = []
     for ticket in expression:
         creator = None
         if not ticket.anonymous:

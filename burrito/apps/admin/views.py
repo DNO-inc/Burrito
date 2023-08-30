@@ -154,19 +154,24 @@ async def admin__get_ticket_list_by_filter(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
+    user_data = check_permission(token_payload, {"ADMIN"})
 
     available_filters = {
-        "creator": q_creator_is(filters.creator),
-        "assignee": q_assignee_is(filters.assignee),
-        "hidden": q_is_hidden(filters.hidden),
-        "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
-        "status": q_is_valid_status_list(filters.status),
-        "scope": q_scope_is(filters.scope) if filters.scope else None,
-        "queue": q_is_valid_queue(filters.queue) if filters.queue else None,
+        "ADMIN": [
+            q_creator_is(filters.creator),
+            q_assignee_is(filters.assignee),
+            q_is_hidden(filters.hidden),
+            q_is_anonymous(filters.anonymous),
+            q_is_valid_faculty(filters.faculty),
+            q_is_valid_status_list(filters.status),
+            q_scope_is(filters.scope),
+            q_is_valid_queue(filters.queue),
+        ],
+        "default": [
+            q_is_hidden(True)
+        ]
     }
-    final_filters = select_filters(available_filters, filters)
+    final_filters = select_filters(user_data.role_name, available_filters)
 
     response_list: list[AdminTicketDetailInfo] = []
 

@@ -116,13 +116,15 @@ def is_ticket_liked(user_id: int, ticket_id: int) -> bool:
     )
 
 
-def select_filters(available_filters: dict[str, Any], received_filters) -> list[Any]:
-    final_filters = []
-    for filter_name, value in received_filters.dict().items():
-        filter_candidate = available_filters.get(filter_name)
-        if filter_candidate is not None and value:
-            final_filters.append(filter_candidate)
-    return final_filters
+def select_filters(
+    role_name: str,
+    filter_package: dict[str, dict[str, object]],
+) -> list[object]:
+    filter_list = filter_package.get(role_name)
+    if not filter_list:
+        filter_list = filter_package.get("default")
+
+    return [value for value in filter_list if value]
 
 
 def get_filtered_tickets(

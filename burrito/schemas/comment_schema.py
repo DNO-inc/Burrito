@@ -13,7 +13,7 @@ class CommentCreationSchema(BaseModel):
 
 class CommentEditSchema(BaseModel):
     comment_id: int
-    body: str | None
+    body: str | None = ""
 
 
 class CommentDeletionSchema(BaseModel):
