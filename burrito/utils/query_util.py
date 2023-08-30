@@ -22,10 +22,16 @@ STATUSES_FOR_ADMIN: list[int] = [i.status_id for i in Statuses.select()]
 
 
 def q_creator_is(value) -> Expression:
+    if value is None:
+        return None
+
     return Tickets.creator == value
 
 
 def q_assignee_is(value) -> Expression:
+    if value is None:
+        return None
+
     if value == -1:
         return Tickets.assignee.is_null()
 
@@ -33,11 +39,32 @@ def q_assignee_is(value) -> Expression:
 
 
 def q_is_anonymous(value: bool | int) -> Expression:
+    if value is None:
+        return None
+
     return Tickets.anonymous == value
 
 
 def q_is_hidden(value: bool | int) -> Expression:
+    if value is None:
+        return None
+
     return Tickets.hidden == value
+
+
+def q_owned_or_not_hidden(_user_id: int, _hidden: bool) -> Expression:
+    if _user_id is None:
+        return None
+
+    if _hidden is None:
+        return (
+            (Tickets.creator == _user_id & q_not_deleted(_user_id))
+            | (q_not_hidden() & q_protected_statuses())
+        )
+    return (
+        (Tickets.creator == _user_id & Tickets.hidden == _hidden & q_not_deleted(_user_id))
+        | (q_not_hidden() & q_protected_statuses())
+    )
 
 
 def q_not_hidden() -> Expression:
@@ -49,24 +76,42 @@ def q_protected_statuses() -> Expression:
 
 
 def q_is_valid_faculty(value: int) -> Expression:
+    if value is None:
+        return None
+
     return Tickets.faculty == FacultyConverter.convert(value)
 
 
 def q_scope_is(scope: str) -> Expression:
+    if scope is None:
+        return None
+
     return Tickets.queue.in_(
         Queues.select(Queues.queue_id).where(Queues.scope == scope)
     )
 
 
 def q_is_valid_queue(queues: list[int]) -> Expression:
+    if queues is None:
+        return None
+
+    if not queues:
+        return None
+
     return Tickets.queue.in_(queues)
 
 
 def q_is_valid_status(value: int) -> Expression:
+    if value is None:
+        return None
+
     return Tickets.status == StatusConverter.convert(value)
 
 
 def q_is_valid_status_list(values: list[str]) -> Expression | None:
+    if values is None:
+        return None
+
     if not values:
         return None
 
@@ -78,18 +123,27 @@ def q_is_valid_status_list(values: list[str]) -> Expression | None:
 
 
 def q_deleted(_user_id: int) -> Expression:
+    if _user_id is None:
+        return None
+
     return Tickets.ticket_id.in_(
         Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
     )
 
 
 def q_not_deleted(_user_id: int) -> Expression:
+    if _user_id is None:
+        return None
+
     return Tickets.ticket_id.not_in(
         Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
     )
 
 
 def q_bookmarked(_user_id: int) -> Expression:
+    if _user_id is None:
+        return None
+
     return (
         Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
         & (Tickets.creator == _user_id)
@@ -97,6 +151,9 @@ def q_bookmarked(_user_id: int) -> Expression:
 
 
 def q_followed(_user_id: int) -> Expression:
+    if _user_id is None:
+        return None
+
     return (
         Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
         & (Tickets.creator != _user_id)
@@ -104,6 +161,9 @@ def q_followed(_user_id: int) -> Expression:
 
 
 def q_liked(_user_id: int) -> Expression:
+    if _user_id is None:
+        return None
+
     return Tickets.ticket_id.in_(
         Liked.select(Liked.ticket_id).where(Liked.user_id == _user_id)
     )

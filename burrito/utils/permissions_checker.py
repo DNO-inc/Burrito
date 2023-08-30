@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from pydantic import BaseModel
 
 from burrito.models.user_model import Users
 from burrito.models.role_permissions_model import RolePermissions
@@ -8,6 +9,11 @@ from burrito.utils.users_util import get_user_by_id
 
 class EndpointPermissionError(HTTPException):
     ...
+
+
+class PermissionMetaData(BaseModel):
+    user_id: int
+    role_name: str
 
 
 def check_permission(token_payload, permission_list: set[str] = set()):
@@ -34,3 +40,8 @@ def check_permission(token_payload, permission_list: set[str] = set()):
             status_code=403,
             detail="You have not permissions to interact with this resource"
         )
+
+    return PermissionMetaData(
+        user_id=current_user.user_id,
+        role_name=current_user.role.name
+    )

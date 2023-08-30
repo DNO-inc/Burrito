@@ -16,7 +16,6 @@ class AnonTicketUsersInfoSchema(BaseModel):
     lastname: str | None
     login: str | None
     faculty: FacultyResponseSchema
-#    role: str | None
 
 
 class AnonTicketDetailInfoSchema(BaseModel):

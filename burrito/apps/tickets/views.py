@@ -33,6 +33,7 @@ from burrito.utils.query_util import (
     q_protected_statuses,
     q_not_hidden,
     q_is_hidden,
+    q_owned_or_not_hidden,
     q_creator_is,
     q_assignee_is,
     q_deleted,
@@ -346,35 +347,28 @@ async def tickets__show_tickets_list_by_filter(
 ):
     """Show tickets"""
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, permission_list={"READ_TICKET"})
+    user_data = check_permission(token_payload, permission_list={"READ_TICKET"})
 
     available_filters = {
-        "creator": q_creator_is(filters.creator),
-        "assignee": q_assignee_is(filters.assignee),
-        "hidden": q_is_hidden(filters.hidden),
-        "anonymous": q_is_anonymous(filters.anonymous),
-        "faculty": q_is_valid_faculty(filters.faculty) if filters.faculty else None,
-        "status": q_is_valid_status_list(filters.status),
-        "scope": q_scope_is(filters.scope) if filters.scope else None,
-        "queue": q_is_valid_queue(filters.queue) if filters.queue else None
-    }
-    final_filters = select_filters(available_filters, filters) + (
-        [
-            q_not_deleted(token_payload.user_id)
-        ] if filters.creator == token_payload.user_id else [
-            q_not_hidden(),
-            q_protected_statuses()
+        "default": [
+            q_creator_is(filters.creator),
+            q_assignee_is(filters.assignee),
+            q_is_anonymous(filters.anonymous),
+            q_is_valid_faculty(filters.faculty),
+            q_is_valid_status_list(filters.status),
+            q_scope_is(filters.scope),
+            q_is_valid_queue(filters.queue),
+            q_owned_or_not_hidden(token_payload.user_id, filters.hidden)
         ]
-    )
-
-    response_list: list[TicketDetailInfoSchema] = []
-
+    }
+    final_filters = select_filters(user_data.role_name, available_filters)
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
         tickets_count=filters.items_count
     )
 
+    response_list: list[TicketDetailInfoSchema] = []
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
@@ -528,20 +522,20 @@ async def tickets__get_liked_tickets(
     """Get tickets which were liked by current user"""
 
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
+    user_data = check_permission(token_payload)
 
     available_filters = {
-        "hidden": q_is_hidden(_filters.hidden),
-        "anonymous": q_is_anonymous(_filters.anonymous),
-        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "status": q_is_valid_status_list(_filters.status),
-        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
+        "default": [
+            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_is_anonymous(_filters.anonymous),
+            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_status_list(_filters.status),
+            q_scope_is(_filters.scope),
+            q_is_valid_queue(_filters.queue),
+            q_liked(token_payload.user_id)
+        ]
     }
-    final_filters = select_filters(available_filters, _filters) + [
-        q_not_deleted(token_payload.user_id),
-        q_liked(token_payload.user_id)
-    ]
+    final_filters = select_filters(user_data.role_name, available_filters)
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
@@ -549,7 +543,6 @@ async def tickets__get_liked_tickets(
     )
 
     response_list: list[TicketDetailInfoSchema] = []
-
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
@@ -595,27 +588,27 @@ async def tickets__get_bookmarked_tickets(
     """Get tickets which were bookmarked by current user"""
 
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
+    user_data = check_permission(token_payload)
 
     available_filters = {
-        "anonymous": q_is_anonymous(_filters.anonymous),
-        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "status": q_is_valid_status_list(_filters.status),
-        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None,
-        "hidden": q_is_hidden(_filters.hidden)
+        "default": [
+            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_is_anonymous(_filters.anonymous),
+            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_status_list(_filters.status),
+            q_scope_is(_filters.scope),
+            q_is_valid_queue(_filters.queue),
+            q_bookmarked(token_payload.user_id)
+        ]
     }
-    final_filters = select_filters(available_filters, _filters) + [
-        q_not_deleted(token_payload.user_id),
-        q_bookmarked(token_payload.user_id)
-    ]
+    final_filters = select_filters(user_data.role_name, available_filters)
     expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
     )
-    response_list: list[TicketDetailInfoSchema] = []
 
+    response_list: list[TicketDetailInfoSchema] = []
     for ticket in expression:
         assignee = None
         if ticket.assignee:
@@ -649,26 +642,27 @@ async def tickets__get_followed_tickets(
     """Get tickets which were followed by current user"""
 
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
+    user_data = check_permission(token_payload)
 
     available_filters = {
-        "anonymous": q_is_anonymous(_filters.anonymous),
-        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "status": q_is_valid_status_list(_filters.status),
-        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
+        "default": [
+            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_is_anonymous(_filters.anonymous),
+            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_status_list(_filters.status),
+            q_scope_is(_filters.scope),
+            q_is_valid_queue(_filters.queue),
+            q_followed(token_payload.user_id)
+        ]
     }
-    final_filters = select_filters(available_filters, _filters) + [
-        q_not_hidden(),
-        q_followed(token_payload.user_id)
-    ]
+    final_filters = select_filters(user_data.role_name, available_filters)
     expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
         tickets_count=_filters.items_count
     )
-    response_list: list[TicketDetailInfoSchema] = []
 
+    response_list: list[TicketDetailInfoSchema] = []
     for ticket in expression:
         creator = None
         if not ticket.anonymous:
@@ -704,19 +698,21 @@ async def tickets__get_deleted_tickets(
         __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
+    user_data = check_permission(token_payload)
 
     available_filters = {
-        "hidden": q_is_hidden(_filters.hidden),
-        "anonymous": q_is_anonymous(_filters.anonymous),
-        "faculty": q_is_valid_faculty(_filters.faculty) if _filters.faculty else None,
-        "status": q_is_valid_status_list(_filters.status),
-        "scope": q_scope_is(_filters.scope) if _filters.scope else None,
-        "queue": q_is_valid_queue(_filters.queue) if _filters.queue else None
+        "default": [
+            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_is_anonymous(_filters.anonymous),
+            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_status_list(_filters.status),
+            q_scope_is(_filters.scope),
+            q_is_valid_queue(_filters.queue),
+            q_deleted(token_payload.user_id)
+        ]
     }
-    final_filters = select_filters(available_filters, _filters) + [
-        q_deleted(token_payload.user_id)
-    ]
+    final_filters = select_filters(user_data.role_name, available_filters)
+
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
