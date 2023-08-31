@@ -51,6 +51,7 @@ class BurritoLogger(logging.Logger):
         """
 
         super().__init__(name, level)
+        self.propagate = False
 
         # Creating console handler with a higher log level
         ch = logging.StreamHandler()
