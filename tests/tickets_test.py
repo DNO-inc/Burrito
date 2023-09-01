@@ -245,7 +245,9 @@ class TicketsTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "status": [6]
+                "queue": [-1],
+                "anonymous": True,
+                "items_count": 13
             },
             timeout=TIMEOUT
         )
