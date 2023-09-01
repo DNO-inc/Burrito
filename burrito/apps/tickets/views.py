@@ -592,7 +592,6 @@ async def tickets__get_bookmarked_tickets(
 
     available_filters = {
         "default": [
-            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
             q_is_anonymous(_filters.anonymous),
             q_is_valid_faculty(_filters.faculty),
             q_is_valid_status_list(_filters.status),
@@ -646,7 +645,7 @@ async def tickets__get_followed_tickets(
 
     available_filters = {
         "default": [
-            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_not_hidden(),
             q_is_anonymous(_filters.anonymous),
             q_is_valid_faculty(_filters.faculty),
             q_is_valid_status_list(_filters.status),
