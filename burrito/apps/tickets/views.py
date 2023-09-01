@@ -30,14 +30,10 @@ from burrito.utils.query_util import (
     q_is_valid_queue,
     q_scope_is,
     q_is_valid_status_list,
-    q_protected_statuses,
     q_not_hidden,
-    q_is_hidden,
     q_owned_or_not_hidden,
-    q_creator_is,
     q_assignee_is,
     q_deleted,
-    q_not_deleted,
     q_bookmarked,
     q_followed,
     q_liked
@@ -351,7 +347,6 @@ async def tickets__show_tickets_list_by_filter(
 
     available_filters = {
         "default": [
-            q_creator_is(filters.creator),
             q_assignee_is(filters.assignee),
             q_is_anonymous(filters.anonymous),
             q_is_valid_faculty(filters.faculty),

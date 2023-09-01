@@ -58,11 +58,11 @@ def q_owned_or_not_hidden(_user_id: int, _hidden: bool) -> Expression:
 
     if _hidden is None:
         return (
-            (Tickets.creator == _user_id & q_not_deleted(_user_id))
+            ((Tickets.creator == _user_id) & (q_not_deleted(_user_id)))
             | (q_not_hidden() & q_protected_statuses())
         )
     return (
-        (Tickets.creator == _user_id & Tickets.hidden == _hidden & q_not_deleted(_user_id))
+        ((Tickets.creator == _user_id) & (Tickets.hidden == _hidden) & (q_not_deleted(_user_id)))
         | (q_not_hidden() & q_protected_statuses())
     )
 
@@ -92,11 +92,15 @@ def q_scope_is(scope: str) -> Expression:
 
 
 def q_is_valid_queue(queues: list[int]) -> Expression:
-    if queues is None:
-        return None
-
     if not queues:
         return None
+
+    if -1 in queues:
+        new_list = list(filter(lambda x: x >= 0, queues))
+
+        if new_list:
+            return Tickets.queue.in_(new_list) | Tickets.queue.is_null()
+        return Tickets.queue.is_null()
 
     return Tickets.queue.in_(queues)
 
@@ -126,18 +130,14 @@ def q_deleted(_user_id: int) -> Expression:
     if _user_id is None:
         return None
 
-    return Tickets.ticket_id.in_(
-        Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
-    )
+    return Tickets.ticket_id.in_(Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id))
 
 
 def q_not_deleted(_user_id: int) -> Expression:
     if _user_id is None:
         return None
 
-    return Tickets.ticket_id.not_in(
-        Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id)
-    )
+    return Tickets.ticket_id.not_in(Deleted.select(Deleted.ticket_id).where(Deleted.user_id == _user_id))
 
 
 def q_bookmarked(_user_id: int) -> Expression:
@@ -164,6 +164,4 @@ def q_liked(_user_id: int) -> Expression:
     if _user_id is None:
         return None
 
-    return Tickets.ticket_id.in_(
-        Liked.select(Liked.ticket_id).where(Liked.user_id == _user_id)
-    )
+    return Tickets.ticket_id.in_(Liked.select(Liked.ticket_id).where(Liked.user_id == _user_id))
