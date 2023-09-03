@@ -9,8 +9,8 @@ from .conf import MODEL_KEYS, DEFAULT_CONFIG
 
 
 SSU_KEY = get_config().BURRITO_SSU_KEY
-SSU_GROUPS_URL = get_config().BURRITO_SSU_GROUPS_URL
-SSU_FACULTIES_URL = get_config().BURRITO_SSU_FACULTIES_URL
+SSU_GROUPS_URL = "https://iis.sumdu.edu.ua/api/getGroups"
+SSU_FACULTIES_URL = "https://iis.sumdu.edu.ua/api/getDivisions"
 
 
 def pull_faculties_from_ssu() -> list:

@@ -6,6 +6,7 @@ from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.filters_schema import BaseFilterSchema
+from burrito.schemas.pagination_schema import BurritoPagination
 
 
 class CreateTicketSchema(BaseModel):
@@ -76,3 +77,7 @@ class TicketDetailInfoSchema(BaseModel):
 class TicketListResponseSchema(BaseModel):
     ticket_list: list[TicketDetailInfoSchema]
     total_pages: int
+
+
+class RequestTicketHistorySchema(BurritoPagination):
+    ticket_id: int
