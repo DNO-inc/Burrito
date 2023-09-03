@@ -12,7 +12,8 @@ from burrito.schemas.tickets_schema import (
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
     TicketIDValuesListScheme,
-    BaseFilterSchema
+    BaseFilterSchema,
+    RequestTicketHistorySchema
 )
 
 from burrito.models.queues_model import Queues
@@ -45,7 +46,8 @@ from burrito.utils.tickets_util import (
     make_short_user_data,
     get_filtered_tickets,
     select_filters,
-    create_ticket_action
+    create_ticket_action,
+    get_ticket_actions
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -744,3 +746,13 @@ async def tickets__get_deleted_tickets(
             final_filters
         )).count()/_filters.items_count)
     )
+
+
+async def tickets__get_full_ticket_history(
+        _filters: RequestTicketHistorySchema,
+        __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
+    check_permission(token_payload)
+
+    is_ticket_exist(_filters.ticket_id)
