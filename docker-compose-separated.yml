@@ -1,5 +1,8 @@
 version: "3.0"
 
+networks:
+  burrito_party:
+    name: burrito_party
 
 services:
 # GENERAL SECTION
@@ -23,6 +26,8 @@ services:
       - burrito_profile
       - burrito_registration
       - burrito_tickets
+    networks:
+      - burrito_party
 
 # APPS SECTION
 # INFO: port forwarding is provided only for testing, this option will be deleted soon
@@ -34,6 +39,8 @@ services:
       dockerfile: burrito/apps/scheduler/Dockerfile
     env_file:
       - .env
+    networks:
+      - burrito_party
 
   burrito_about:
     container_name: burrito_about
@@ -44,6 +51,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_admin:
     container_name: burrito_admin
@@ -54,6 +63,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_anon:
     container_name: burrito_anon
@@ -64,6 +75,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_auth:
     container_name: burrito_auth
@@ -74,6 +87,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_comments:
     container_name: burrito_comments
@@ -84,6 +99,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_iofiles:
     container_name: burrito_iofiles
@@ -94,6 +111,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_meta:
     container_name: burrito_meta
@@ -104,6 +123,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_notifications:
     container_name: burrito_notifications
@@ -114,6 +135,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_profile:
     container_name: burrito_profile
@@ -124,6 +147,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_registration:
     container_name: burrito_registration
@@ -134,6 +159,8 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party
 
   burrito_tickets:
     container_name: burrito_tickets
@@ -144,3 +171,5 @@ services:
       - .env
     ports:
       - "$BURRITO_PORT"
+    networks:
+      - burrito_party

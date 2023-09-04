@@ -1,5 +1,9 @@
 version: "3.0"
 
+networks:
+  burrito_party:
+    name: burrito_party
+
 services:
   db:
     container_name: burrito_db
@@ -12,6 +16,8 @@ services:
       nofile:
         soft: 20000
         hard: 40000
+    networks:
+      - burrito_party
 
   redis:
     container_name: burrito_redis
@@ -20,9 +26,13 @@ services:
       - .env
     ports:
       - "6379:6379"
+    networks:
+      - burrito_party
 
   mongo:
     container_name: burrito_mongo
     image: mongo:4.4.6
     ports:
       - "27017:27017"
+    networks:
+      - burrito_party
