@@ -1,6 +1,5 @@
 import math
 
-import datetime
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
@@ -633,6 +632,8 @@ async def tickets__get_bookmarked_tickets(
             )
         )
 
+    get_logger().info(response_list)
+    get_logger().info(len(response_list))
     return TicketListResponseSchema(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
@@ -692,6 +693,8 @@ async def tickets__get_followed_tickets(
             )
         )
 
+    get_logger().info(response_list)
+    get_logger().info(len(response_list))
     return TicketListResponseSchema(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
