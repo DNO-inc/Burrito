@@ -40,7 +40,8 @@ from burrito.utils.query_util import (
     q_deleted,
     q_bookmarked,
     q_followed,
-    q_liked
+    q_liked,
+    q_creator_is
 )
 from burrito.utils.tickets_util import (
     make_short_user_data,
@@ -353,6 +354,7 @@ async def tickets__show_tickets_list_by_filter(
 
     available_filters = {
         "default": [
+            q_creator_is(filters.creator) if filters.creator else None,
             q_assignee_is(filters.assignee),
             q_is_hidden(filters.hidden),
             q_is_anonymous(filters.anonymous),
@@ -634,6 +636,7 @@ async def tickets__get_bookmarked_tickets(
 
     get_logger().info(response_list)
     get_logger().info(len(response_list))
+    get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
@@ -695,6 +698,7 @@ async def tickets__get_followed_tickets(
 
     get_logger().info(response_list)
     get_logger().info(len(response_list))
+    get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
         total_pages=math.ceil(Tickets.select().where(*(
