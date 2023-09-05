@@ -58,7 +58,7 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    faculty_object = FacultyConverter.convert(admin_updates.faculty)
+    faculty_object = FacultyConverter.convert(admin_updates.faculty) if admin_updates.faculty else None
     if faculty_object:  # faculty_id must be > 1
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
@@ -83,7 +83,7 @@ async def admin__update_ticket_data(
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_object = None
     if ticket.assignee == current_admin:
-        status_object = StatusConverter.convert(admin_updates.status)
+        status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
         if status_object:    # status_id must be > 1
             create_ticket_action(
                 ticket_id=admin_updates.ticket_id,
