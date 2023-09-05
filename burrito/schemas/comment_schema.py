@@ -1,8 +1,7 @@
 from pydantic import BaseModel
 
 from burrito.schemas.pagination_schema import BurritoPagination
-from burrito.schemas.group_schema import GroupResponseSchema
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 
 
 class CommentCreationSchema(BaseModel):
@@ -20,21 +19,13 @@ class CommentDeletionSchema(BaseModel):
     comment_id: int
 
 
-class CommentAuthorInfoSchema(BaseModel):
-    user_id: int | None
-    firstname: str | None
-    lastname: str | None
-    login: str | None
-    faculty: FacultyResponseSchema
-    group: GroupResponseSchema | None
-
-
 class CommentDetailInfoScheme(BaseModel):
     comment_id: int
-    author: CommentAuthorInfoSchema | None
+    author: TicketUsersInfoSchema | None
     body: str
 
-    comment_date: str
+    creation_date: str
+    type_: str = "comment"
 
 
 class RequestTicketsCommentSchema(BurritoPagination):

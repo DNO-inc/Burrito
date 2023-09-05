@@ -24,7 +24,7 @@ class Actions(BurritoBasicModel):
         on_delete="NO ACTION"
     )
 
-    action_date = DateTimeField(default=datetime.datetime.now)
+    creation_date = DateTimeField(default=datetime.datetime.now)
 
     field_name = CharField(max_length=255)
     old_value = CharField(max_length=255)

@@ -18,11 +18,11 @@ from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 
+from burrito.utils.tickets_util import make_short_user_data
 
 from .utils import (
     is_comment_exist_with_error,
-    is_allowed_to_interact,
-    make_short_comment_author_info
+    is_allowed_to_interact
 )
 
 
@@ -132,17 +132,17 @@ async def comments__get_related_comments(
         comment_list=[
             CommentDetailInfoScheme(
                 comment_id=comment.comment_id,
-                author=make_short_comment_author_info(
+                author=make_short_user_data(
                     comment.author,
-                    hide_user_id=ticket.anonymous and comment.author.user_id == ticket.creator.user_id
+                    hide_user_id=(ticket.anonymous and (comment.author.user_id == ticket.creator.user_id))
                 ),
                 body=comment.body,
-                comment_date=str(comment.comment_date)
+                creation_date=str(comment.creation_date)
             ) for comment in Comments.select().where(Comments.ticket == filters.ticket_id).paginate(
                 filters.start_page,
                 filters.items_count
             ).order_by(
-                Comments.comment_date.desc()
+                Comments.creation_date.desc()
             )
         ]
     )

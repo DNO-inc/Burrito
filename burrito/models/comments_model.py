@@ -33,7 +33,7 @@ class Comments(BurritoBasicModel):
         on_delete="NO ACTION"
     )
 
-    comment_date = DateTimeField(default=datetime.datetime.now)
+    creation_date = DateTimeField(default=datetime.datetime.now)
 
     body = TextField()
 

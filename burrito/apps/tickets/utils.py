@@ -82,8 +82,7 @@ def make_ticket_detail_info(
         creator: Users | None,
         assignee: Users | None,
         *,
-        crop_body: bool = True,
-        show_history: bool = False
+        crop_body: bool = True
 ) -> TicketDetailInfoSchema:
 
     queue: Queues | None = None
@@ -118,8 +117,7 @@ def make_ticket_detail_info(
         is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
         is_followed=is_ticket_followed(token_payload.user_id, ticket.ticket_id),
         is_bookmarked=is_ticket_bookmarked(token_payload.user_id, ticket.ticket_id),
-        date=str(ticket.created),
-        history=get_ticket_actions(ticket.ticket_id) if show_history else []
+        date=str(ticket.created)
     )
 
 

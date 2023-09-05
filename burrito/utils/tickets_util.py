@@ -12,10 +12,12 @@ from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 from burrito.models.actions_model import Actions
 from burrito.models.user_model import Users
+from burrito.models.comments_model import Comments
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.comment_schema import CommentDetailInfoScheme
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -199,15 +201,40 @@ def create_ticket_action(
         )
 
 
-def get_ticket_actions(ticket_id: int) -> list[Actions]:
+def get_ticket_actions(ticket: Tickets, *, start_page: int = 1, items_count: int = 10) -> list[Actions]:
     return [
         ActionSchema(
             action_id=action.action_id,
             ticket_id=action.ticket_id,
-            user_id=action.user_id,
-            action_date=str(action.action_date),
+            author=make_short_user_data(
+                action.user,
+                hide_user_id=(ticket.anonymous and (action.user.user_id == ticket.creator.user_id))
+            ),
+            creation_date=str(action.creation_date),
             field_name=action.field_name,
             old_value=action.old_value,
             new_value=action.new_value
-        ) for action in Actions.select().where(Actions.ticket == ticket_id)
+        ) for action in Actions.select().where(Actions.ticket == ticket.ticket_id).paginate(
+            start_page,
+            items_count
+        )
+    ]
+
+
+def get_ticket_comments(ticket: Tickets, *, start_page: int = 1, items_count: int = 10):
+    return [
+        CommentDetailInfoScheme(
+            comment_id=comment.comment_id,
+            author=make_short_user_data(
+                comment.author,
+                hide_user_id=(ticket.anonymous and (comment.author.user_id == ticket.creator.user_id))
+            ),
+            body=comment.body,
+            creation_date=str(comment.creation_date)
+        ) for comment in Comments.select().where(Comments.ticket == ticket.ticket_id).paginate(
+            start_page,
+            items_count
+        ).order_by(
+            Comments.creation_date.desc()
+        )
     ]

@@ -1,5 +1,6 @@
 import math
 
+import datetime
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
@@ -47,7 +48,8 @@ from burrito.utils.tickets_util import (
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions
+    get_ticket_actions,
+    get_ticket_comments
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -446,8 +448,7 @@ async def tickets__show_detail_ticket_info(
         token_payload,
         creator,
         assignee,
-        crop_body=False,
-        show_history=True
+        crop_body=False
     )
 
 
@@ -755,4 +756,26 @@ async def tickets__get_full_ticket_history(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
-    is_ticket_exist(_filters.ticket_id)
+    ticket = is_ticket_exist(_filters.ticket_id)
+
+    history = get_ticket_actions(
+        ticket,
+        start_page=_filters.start_page,
+        items_count=_filters.items_count
+    )
+    history += get_ticket_comments(
+        ticket,
+        start_page=_filters.start_page,
+        items_count=_filters.items_count
+    )
+    history.sort(key=lambda x: x.creation_date)
+
+    start_point = abs((_filters.start_page - 1) * _filters.items_count)
+    end_point = abs(_filters.start_page * _filters.items_count)
+
+    if start_point > end_point:
+        start_point, end_point = end_point, start_point
+
+    return {
+        "history": history[start_point: end_point]
+    }

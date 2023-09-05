@@ -451,3 +451,26 @@ class TicketsTestCase(unittest.TestCase):
             },
             response
         )
+
+    def test_016_get_full_ticket_history(self):
+        """Delete ticket"""
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/full_history",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "ticket_id": 7
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
