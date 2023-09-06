@@ -25,6 +25,7 @@ jobs:
           - profile
           - registration
           - tickets
+          - scheduler
     permissions:
       contents: read
       packages: write
