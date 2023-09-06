@@ -38,14 +38,16 @@ class AdminTicketDetailInfo(BaseModel):
     ticket_id: int
     subject: str
     body: str
+    hidden: bool
+    anonymous: bool
     faculty: FacultyResponseSchema
     queue: QueueResponseSchema | None
     status: StatusResponseSchema
     upvotes: int
     is_liked: bool
+    is_followed: bool
     is_bookmarked: bool
     date: str
-    history: list[ActionSchema] = []
 
 
 class AdminTicketListResponse(BaseModel):

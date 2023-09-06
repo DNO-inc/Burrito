@@ -8,7 +8,7 @@ from burrito.models.user_model import Users
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
-from burrito.schemas.tickets_schema import TicketDetailInfoSchema
+from burrito.schemas.admin_schema import AdminTicketDetailInfo
 
 from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import (
@@ -33,13 +33,13 @@ def make_ticket_detail_info(
         assignee: Users | None,
         *,
         crop_body: bool = True
-) -> TicketDetailInfoSchema:
+) -> AdminTicketDetailInfo:
 
     queue: Queues | None = None
     if ticket.queue:
         queue = Queues.get_or_none(Queues.queue_id == ticket.queue)
 
-    return TicketDetailInfoSchema(
+    return AdminTicketDetailInfo(
         creator=creator,
         assignee=assignee,
         ticket_id=ticket.ticket_id,
