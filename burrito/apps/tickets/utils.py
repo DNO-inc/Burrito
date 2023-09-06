@@ -128,22 +128,12 @@ def get_filtered_bookmarks(
     tickets_count: int = 10
 ) -> list[Tickets]:
     if _filters:
-        return Tickets.select().join(
-            Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket_id)
-        ).where(*_filters).paginate(
+        return Tickets.select().where(*_filters).paginate(
             start_page,
             tickets_count
-        ).order_by(
-            Bookmarks.created.desc() if _desc else Bookmarks.created
         )
 
-    return Tickets.select().join(
-        Bookmarks,
-        on=(Tickets.ticket_id == Bookmarks.ticket_id)
-    ).paginate(
+    return Tickets.select().paginate(
         start_page,
         tickets_count
-    ).order_by(
-        Bookmarks.created.desc() if _desc else Bookmarks.created
     )

@@ -635,7 +635,7 @@ async def tickets__get_bookmarked_tickets(
         )
 
     get_logger().info(response_list)
-    get_logger().info(len(response_list))
+    get_logger().info(_filters)
     get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
@@ -697,7 +697,7 @@ async def tickets__get_followed_tickets(
         )
 
     get_logger().info(response_list)
-    get_logger().info(len(response_list))
+    get_logger().info(_filters)
     get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
