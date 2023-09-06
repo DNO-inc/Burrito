@@ -144,9 +144,18 @@ def q_bookmarked(_user_id: int) -> Expression:
     if _user_id is None:
         return None
 
-    return (
-        Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
-        & (Tickets.creator == _user_id)
+    return Tickets.ticket_id.in_(
+        Tickets.select(
+            Tickets.ticket_id
+        ).join(
+            Bookmarks,
+            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+        ).where(
+            Bookmarks.user_id == _user_id,
+            Tickets.creator == _user_id
+        ).order_by(
+            Bookmarks.created.desc()
+        )
     )
 
 
@@ -154,9 +163,18 @@ def q_followed(_user_id: int) -> Expression:
     if _user_id is None:
         return None
 
-    return (
-        Tickets.ticket_id.in_(Bookmarks.select(Bookmarks.ticket_id).where(Bookmarks.user_id == _user_id))
-        & (Tickets.creator != _user_id)
+    return Tickets.ticket_id.in_(
+        Tickets.select(
+            Tickets.ticket_id
+        ).join(
+            Bookmarks,
+            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+        ).where(
+            Bookmarks.user_id == _user_id,
+            Tickets.creator != _user_id
+        ).order_by(
+            Bookmarks.created.desc()
+        )
     )
 
 
