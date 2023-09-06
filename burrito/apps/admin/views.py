@@ -194,8 +194,7 @@ async def admin__get_ticket_list_by_filter(
                     ticket.assignee,
                     hide_user_id=False
                 ) if ticket.assignee else None,
-                crop_body=True,
-                show_history=False
+                crop_body=True
             )
         )
 
