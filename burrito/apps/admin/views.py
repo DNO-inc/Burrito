@@ -230,8 +230,7 @@ async def admin__show_detail_ticket_info(
             ticket.assignee,
             hide_user_id=False
         ) if ticket.assignee else None,
-        crop_body=False,
-        show_history=True
+        crop_body=False
     )
 
 
