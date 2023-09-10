@@ -18,6 +18,8 @@ services:
         hard: 40000
     networks:
       - burrito_party
+    environment:
+      - LANG=C.UTF_8
 
   redis:
     container_name: burrito_redis
