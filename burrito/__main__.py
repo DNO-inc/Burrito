@@ -6,6 +6,7 @@ needed for Burrito functionality.
 """
 
 import uvicorn
+import threading
 
 from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router
@@ -27,6 +28,8 @@ from burrito.apps.notifications.router import notifications_router
 from burrito.utils.app_util import connect_app, get_current_app
 from burrito.utils.config_reader import get_config
 
+from burrito.apps.scheduler.core import start_scheduler
+
 
 app = get_current_app()
 connect_app(app, "/about", about_router)
@@ -40,6 +43,8 @@ connect_app(app, "/meta", meta_router)
 connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
 connect_app(app, "/notifications", notifications_router)
+
+threading.Thread(target=start_scheduler, daemon=True).start()
 
 
 if __name__ == "__main__":
