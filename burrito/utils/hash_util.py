@@ -1,5 +1,9 @@
-from hashlib import sha256
 from random import SystemRandom
+
+from argon2 import PasswordHasher
+
+
+_hasher = PasswordHasher()
 
 
 def get_hash(data: str) -> str:
@@ -14,7 +18,7 @@ def get_hash(data: str) -> str:
         str: hashed password
     """
 
-    return sha256(data.encode("utf-8")).hexdigest()
+    return _hasher.hash(data.encode("utf-8"))
 
 
 def compare_password(password: str, hashed_password: str) -> bool:
@@ -30,7 +34,10 @@ def compare_password(password: str, hashed_password: str) -> bool:
         bool: compare result
     """
 
-    return get_hash(password) == hashed_password
+    try:
+        return _hasher.verify(hashed_password, password)
+    except:
+        return False
 
 
 def get_verification_code() -> str:
