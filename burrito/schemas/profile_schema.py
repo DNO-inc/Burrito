@@ -55,3 +55,4 @@ class ResponseProfileSchema(BaseProfile):
 
 class RequestUpdateProfileSchema(BaseProfile):
     login: str | None
+    password: str | None

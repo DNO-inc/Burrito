@@ -9,10 +9,18 @@ from burrito.schemas.profile_schema import (
 )
 
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
-
 from burrito.utils.converter import (
     FacultyConverter,
     GroupConverter
+)
+from burrito.utils.hash_util import get_hash
+from burrito.utils.validators import (
+    is_valid_firstname,
+    is_valid_lastname,
+    is_valid_login,
+    is_valid_email,
+    is_valid_password,
+    is_valid_phone
 )
 
 from .utils import (
@@ -41,16 +49,19 @@ async def profile__update_my_profile(
 
     current_user: Users | None = get_user_by_id(token_payload.user_id)
 
-    if profile_updated_data.firstname:
+    if is_valid_firstname(profile_updated_data.firstname):
         current_user.firstname = profile_updated_data.firstname
 
-    if profile_updated_data.lastname:
+    if is_valid_lastname(profile_updated_data.lastname):
         current_user.lastname = profile_updated_data.lastname
 
-    if profile_updated_data.phone:
+    if is_valid_login(profile_updated_data.login):
+        current_user.login = profile_updated_data.login
+
+    if is_valid_phone(profile_updated_data.phone):
         current_user.phone = profile_updated_data.phone
 
-    if profile_updated_data.email:
+    if is_valid_email(profile_updated_data.email):
         current_user.email = profile_updated_data.email
 
     # check faculty
@@ -62,6 +73,9 @@ async def profile__update_my_profile(
     group_id = GroupConverter.convert(profile_updated_data.group)
     if group_id and profile_updated_data.group:
         current_user.group = group_id
+
+    if is_valid_password(profile_updated_data.password):
+        current_user.password = get_hash(profile_updated_data.password)
 
     current_user.save()
 
