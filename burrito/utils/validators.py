@@ -1,7 +1,7 @@
 import re
 
 
-def is_valid_login(login: str) -> str | None:
+def is_valid_login(login: str) -> bool:
     """_summary_
 
     Return user's login if login is valid or return nothing
@@ -10,19 +10,22 @@ def is_valid_login(login: str) -> str | None:
         login (str): users login
 
     Returns:
-        str | None: users login or None
+        bool: is valid value
     """
 
-    if len(login) < 3:
-        return
+    if not isinstance(login, str):
+        return False
+
+    if len(login) < 3 or len(login) > 20:
+        return False
 
     pattern = r"^[\w_]*$"
 
     if re.match(pattern, login):
-        return login
+        return True
 
 
-def is_valid_email(email: str) -> str | None:
+def is_valid_email(email: str) -> bool:
     """_summary_
 
     Return user's email if email is valid or return nothing
@@ -31,16 +34,19 @@ def is_valid_email(email: str) -> str | None:
         login (str): users email
 
     Returns:
-        str | None: users email or None
+        bool: is valid value
     """
+
+    if not isinstance(email, str):
+        return False
 
     pattern = r"^[\w\._]*@\w+\.[a-z]*$"
 
     if re.match(pattern, email):
-        return email
+        return True
 
 
-def is_valid_password(password: str) -> str | None:
+def is_valid_password(password: str) -> bool:
     """_summary_
 
     Validate password by rules
@@ -49,14 +55,47 @@ def is_valid_password(password: str) -> str | None:
         password (str): user password
 
     Returns:
-        str | None: password or nothing
+        bool: is valid value
     """
 
-    if len(password) < 8:
-        return
+    if not isinstance(password, str):
+        return False
 
-    return password
+    if len(password) < 8:
+        return False
+
+    return True
 #    pattern = ""
 
 #    if re.match(pattern, password):
 #        return password
+
+
+def is_valid_firstname(value: str) -> bool:
+    if not isinstance(value, str):
+        return False
+
+    if len(value) < 2:
+        return False
+
+    return True
+
+
+def is_valid_lastname(value: str) -> bool:
+    if not isinstance(value, str):
+        return False
+
+    if len(value) < 5:
+        return False
+
+    return True
+
+
+def is_valid_phone(value: str) -> bool:
+    if not isinstance(value, str):
+        return False
+
+    if len(value) < 5:
+        return False
+
+    return True
