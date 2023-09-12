@@ -5,8 +5,7 @@ from .views import (
     meta__get_groups_list,
     meta__faculties_list,
     meta__get_queues_list,
-    meta__get_admins,
-    meta__cabinet_meta_root
+    meta__get_admins
 )
 
 
@@ -40,9 +39,4 @@ meta_router.add_api_route(
     "/get_admins",
     meta__get_admins,
     methods=["POST"]
-)
-meta_router.add_api_route(
-    "/cabinet",
-    meta__cabinet_meta_root,
-    methods=["GET"]
 )
