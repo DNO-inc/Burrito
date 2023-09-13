@@ -17,7 +17,10 @@ from burrito.models.comments_model import Comments
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.comment_schema import CommentDetailInfoScheme
+from burrito.schemas.comment_schema import (
+    CommentBaseDetailInfoSchema,
+    CommentDetailInfoScheme
+)
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -224,7 +227,15 @@ def get_ticket_actions(ticket: Tickets, *, start_page: int = 1, items_count: int
 def get_ticket_comments(ticket: Tickets, *, start_page: int = 1, items_count: int = 10):
     return [
         CommentDetailInfoScheme(
-            reply_to=comment.reply_to.comment_id if comment.reply_to else None,
+            reply_to=CommentBaseDetailInfoSchema(
+                comment_id=comment.reply_to.comment_id,
+                author=make_short_user_data(
+                    comment.author,
+                    hide_user_id=(ticket.anonymous and (comment.author.user_id == ticket.creator.user_id))
+                ),
+                body=comment.reply_to.body,
+                creation_date=str(comment.reply_to.creation_date)
+            ) if comment.reply_to else None,
             comment_id=comment.comment_id,
             author=make_short_user_data(
                 comment.author,

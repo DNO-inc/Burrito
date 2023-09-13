@@ -777,12 +777,8 @@ async def tickets__get_full_ticket_history(
     )
     history.sort(key=lambda x: x.creation_date)
 
-    start_point = abs((_filters.start_page - 1) * _filters.items_count)
-    end_point = abs(_filters.start_page * _filters.items_count)
-
-    if start_point > end_point:
-        start_point, end_point = end_point, start_point
+    offset = (_filters.start_page - 1) * _filters.items_count
 
     return {
-        "history": history[start_point: end_point]
+        "history": history[offset: offset + _filters.items_count]
     }

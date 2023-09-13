@@ -19,14 +19,17 @@ class CommentDeletionSchema(BaseModel):
     comment_id: int
 
 
-class CommentDetailInfoScheme(BaseModel):
-    reply_to: int | None
+class CommentBaseDetailInfoSchema(BaseModel):
     comment_id: int
     author: TicketUsersInfoSchema | None
     body: str
 
     creation_date: str
     type_: str = "comment"
+
+
+class CommentDetailInfoScheme(CommentBaseDetailInfoSchema):
+    reply_to: CommentBaseDetailInfoSchema | None
 
 
 class RequestTicketsCommentSchema(BurritoPagination):
