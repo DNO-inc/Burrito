@@ -224,6 +224,7 @@ def get_ticket_actions(ticket: Tickets, *, start_page: int = 1, items_count: int
 def get_ticket_comments(ticket: Tickets, *, start_page: int = 1, items_count: int = 10):
     return [
         CommentDetailInfoScheme(
+            reply_to=comment.reply_to.comment_id if comment.reply_to else None,
             comment_id=comment.comment_id,
             author=make_short_user_data(
                 comment.author,

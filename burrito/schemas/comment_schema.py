@@ -20,6 +20,7 @@ class CommentDeletionSchema(BaseModel):
 
 
 class CommentDetailInfoScheme(BaseModel):
+    reply_to: int | None
     comment_id: int
     author: TicketUsersInfoSchema | None
     body: str
