@@ -87,7 +87,7 @@ async def admin__update_ticket_data(
             user_id=token_payload.user_id,
             field_name="queue",
             old_value=ticket.queue.name,
-            new_value=None
+            new_value="None"
         )
         ticket.queue = None
 
