@@ -70,16 +70,26 @@ async def admin__update_ticket_data(
         )
         ticket.faculty = faculty_object
 
-    queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
-    if queue_object and ticket.queue and ticket.queue.queue_id != queue_object.queue_id:
+    if admin_updates.queue != -1:
+        queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
+        if queue_object and ticket.queue and ticket.queue.queue_id != queue_object.queue_id:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="queue",
+                old_value=ticket.queue.name,
+                new_value=queue_object.name
+            )
+            ticket.queue = queue_object
+    else:
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
             user_id=token_payload.user_id,
             field_name="queue",
             old_value=ticket.queue.name,
-            new_value=queue_object.name
+            new_value=None
         )
-        ticket.queue = queue_object
+        ticket.queue = None
 
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_object = None
