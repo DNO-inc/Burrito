@@ -767,7 +767,7 @@ async def tickets__get_full_ticket_history(
 
     history = get_ticket_actions(ticket)
     history += get_ticket_comments(ticket)
-    history.sort(key=lambda x: x.creation_date)
+    history.sort(key=lambda x: x.creation_date, reverse=True)
 
     offset = (_filters.start_page - 1) * _filters.items_count
 
