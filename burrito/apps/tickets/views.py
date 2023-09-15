@@ -765,16 +765,8 @@ async def tickets__get_full_ticket_history(
 
     ticket = is_ticket_exist(_filters.ticket_id)
 
-    history = get_ticket_actions(
-        ticket,
-        start_page=_filters.start_page,
-        items_count=_filters.items_count
-    )
-    history += get_ticket_comments(
-        ticket,
-        start_page=_filters.start_page,
-        items_count=_filters.items_count
-    )
+    history = get_ticket_actions(ticket)
+    history += get_ticket_comments(ticket)
     history.sort(key=lambda x: x.creation_date)
 
     offset = (_filters.start_page - 1) * _filters.items_count

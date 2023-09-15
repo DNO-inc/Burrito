@@ -204,7 +204,7 @@ def create_ticket_action(
         )
 
 
-def get_ticket_actions(ticket: Tickets, *, start_page: int = 1, items_count: int = 10) -> list[Actions]:
+def get_ticket_actions(ticket: Tickets) -> list[Actions]:
     return [
         ActionSchema(
             action_id=action.action_id,
@@ -217,14 +217,11 @@ def get_ticket_actions(ticket: Tickets, *, start_page: int = 1, items_count: int
             field_name=action.field_name,
             old_value=action.old_value,
             new_value=action.new_value
-        ) for action in Actions.select().where(Actions.ticket == ticket.ticket_id).paginate(
-            start_page,
-            items_count
-        )
+        ) for action in Actions.select().where(Actions.ticket == ticket.ticket_id)
     ]
 
 
-def get_ticket_comments(ticket: Tickets, *, start_page: int = 1, items_count: int = 10):
+def get_ticket_comments(ticket: Tickets):
     return [
         CommentDetailInfoScheme(
             reply_to=CommentBaseDetailInfoSchema(
@@ -243,10 +240,7 @@ def get_ticket_comments(ticket: Tickets, *, start_page: int = 1, items_count: in
             ),
             body=comment.body,
             creation_date=str(comment.creation_date)
-        ) for comment in Comments.select().where(Comments.ticket == ticket.ticket_id).paginate(
-            start_page,
-            items_count
-        ).order_by(
+        ) for comment in Comments.select().where(Comments.ticket == ticket.ticket_id).order_by(
             Comments.creation_date.desc()
         )
     ]
