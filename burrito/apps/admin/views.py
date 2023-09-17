@@ -25,6 +25,7 @@ from burrito.utils.query_util import (
     q_creator_is,
     q_assignee_is,
     q_is_hidden,
+    queue_is_not_null,
     STATUS_OPEN
 )
 from burrito.utils.users_util import get_user_by_id
@@ -183,6 +184,7 @@ async def admin__get_ticket_list_by_filter(
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
+            queue_is_not_null()
         ],
         "default": [
             q_is_hidden(True)
