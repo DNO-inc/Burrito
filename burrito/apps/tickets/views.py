@@ -48,8 +48,7 @@ from burrito.utils.tickets_util import (
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_actions,
-    get_ticket_comments
+    get_ticket_history
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -765,12 +764,12 @@ async def tickets__get_full_ticket_history(
 
     ticket = is_ticket_exist(_filters.ticket_id)
 
-    history = get_ticket_actions(ticket)
-    history += get_ticket_comments(ticket)
-    history.sort(key=lambda x: x.creation_date, reverse=True)
-
-    offset = (_filters.start_page - 1) * _filters.items_count
+    history = get_ticket_history(
+        ticket,
+        start_page=_filters.start_page,
+        items_count=_filters.items_count
+    )
 
     return {
-        "history": history[offset: offset + _filters.items_count]
+        "history": history
     }

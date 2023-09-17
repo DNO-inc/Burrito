@@ -8,7 +8,6 @@ from burrito.utils.permissions_checker import check_permission
 
 from burrito.utils.logger import get_logger
 
-from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.queues_model import Queues
@@ -31,7 +30,6 @@ from burrito.utils.tickets_util import (
     is_ticket_followed,
     is_ticket_bookmarked,
     is_ticket_liked,
-    get_ticket_actions,
     hide_ticket_body
 )
 

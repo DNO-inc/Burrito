@@ -7,8 +7,6 @@ from burrito.models.group_model import Groups
 from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
 
-from burrito.models.comments_model import Comments
-from burrito.models.actions_model import Actions
 from burrito.models.participants_model import Participants
 from burrito.models.queues_model import Queues
 from burrito.models.subscriptions_model import Subscriptions
@@ -35,8 +33,7 @@ def create_tables():
         Users, Faculties, Groups,
         Statuses, Deleted, Liked,
         Tickets, Participants,
-        Subscriptions, Actions,
-        Comments, Queues, Bookmarks
+        Subscriptions, Queues, Bookmarks
     ]
 
     try:
@@ -67,8 +64,7 @@ def drop_tables(use: bool = False):
             Users, Faculties, Groups,
             Statuses, Deleted, Liked,
             Tickets, Participants,
-            Subscriptions, Actions,
-            Comments, Queues, Bookmarks
+            Subscriptions, Queues, Bookmarks
         )
     )
     get_logger().warning("All tables was dropped")

@@ -1,18 +1,19 @@
 from typing import Any
 
 from fastapi import HTTPException, status
-
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
-from burrito.utils.mongo_util import get_mongo_cursor
+from burrito.utils.users_util import get_user_by_id
+from burrito.utils.mongo_util import mongo_insert, mongo_select
 
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
-from burrito.models.actions_model import Actions
 from burrito.models.user_model import Users
-from burrito.models.comments_model import Comments
+
+from burrito.models.m_actions_model import Actions
+from burrito.models.m_notifications_model import Notifications
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
@@ -67,10 +68,13 @@ def hide_ticket_body(body: str, result_length: int = 500) -> str:
 
 
 def make_short_user_data(
-    user: Users,
+    user: Users | int,
     *,
     hide_user_id: bool = True
 ) -> TicketUsersInfoSchema:
+    if isinstance(user, int):
+        user = get_user_by_id(user)
+
     user_dict_data = model_to_dict(user)
     user_dict_data["faculty"] = FacultyResponseSchema(
         **model_to_dict(user.faculty)
@@ -175,14 +179,15 @@ def create_ticket_action(
 
         """
     )
-    Actions.create(
-        ticket=ticket_id,
-        user=user_id,
-        field_name=field_name,
-        old_value=old_value,
-        new_value=new_value
+    mongo_insert(
+        Actions(
+            ticket_id=ticket_id,
+            user_id=user_id,
+            field_name=field_name,
+            old_value=old_value,
+            new_value=new_value
+        )
     )
-
     if generate_notification:
         get_logger().info(
             f"""
@@ -195,52 +200,61 @@ def create_ticket_action(
             """
         )
 
-        get_mongo_cursor()["burrito"]["notifications"].insert_one(
-            {
-                "ticket_id": ticket_id,
-                "user_id": user_id,
-                "body": f"{user_id} changed the value '{field_name}' from ({old_value}) to ({new_value})"
-            }
+        mongo_insert(
+            Notifications(
+                ticket_id=ticket_id,
+                user_id=user_id,
+                body_ua=f"{user_id} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
+                body=f"{user_id} changed the value '{field_name}' from ({old_value}) to ({new_value})"
+            )
         )
 
 
-def get_ticket_actions(ticket: Tickets) -> list[Actions]:
-    return [
-        ActionSchema(
-            action_id=action.action_id,
-            ticket_id=action.ticket_id,
-            author=make_short_user_data(
-                action.user,
-                hide_user_id=(ticket.anonymous and (action.user.user_id == ticket.creator.user_id))
-            ),
-            creation_date=str(action.creation_date),
-            field_name=action.field_name,
-            old_value=action.old_value,
-            new_value=action.new_value
-        ) for action in Actions.select().where(Actions.ticket == ticket.ticket_id)
-    ]
+def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: int = 10):
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
 
+    result = []
 
-def get_ticket_comments(ticket: Tickets):
-    return [
-        CommentDetailInfoScheme(
-            reply_to=CommentBaseDetailInfoSchema(
-                comment_id=comment.reply_to.comment_id,
-                author=make_short_user_data(
-                    comment.author,
-                    hide_user_id=(ticket.anonymous and (comment.author.user_id == ticket.creator.user_id))
-                ),
-                body=comment.reply_to.body,
-                creation_date=str(comment.reply_to.creation_date)
-            ) if comment.reply_to else None,
-            comment_id=comment.comment_id,
-            author=make_short_user_data(
-                comment.author,
-                hide_user_id=(ticket.anonymous and (comment.author.user_id == ticket.creator.user_id))
-            ),
-            body=comment.body,
-            creation_date=str(comment.creation_date)
-        ) for comment in Comments.select().where(Comments.ticket == ticket.ticket_id).order_by(
-            Comments.creation_date.desc()
-        )
-    ]
+    for item in mongo_select(Actions, start_page, items_count, ticket_id=ticket.ticket_id):
+        if item["type_"] == "action":
+            result.append(
+                ActionSchema(
+                    ticket_id=item["ticket_id"],
+                    author=make_short_user_data(
+                        item["user_id"],
+                        hide_user_id=(ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                    ),
+                    creation_date=item["creation_date"],
+                    field_name=item["field_name"],
+                    old_value=item["old_value"],
+                    new_value=item["new_value"]
+                )
+            )
+        elif item["type_"] == "comment":
+            additional_data = mongo_select(Actions, _id=item["reply_to"]) if item["reply_to"] else None
+            if additional_data:
+                additional_data = additional_data[0]
+
+            result.append(
+                CommentDetailInfoScheme(
+                    reply_to=CommentBaseDetailInfoSchema(
+                        comment_id=str(additional_data["_id"]),
+                        author=make_short_user_data(
+                            additional_data["author_id"],
+                            hide_user_id=(ticket.anonymous and (additional_data["user_id"] == ticket.creator.user_id))
+                        ),
+                        body=additional_data["body"],
+                        creation_date=additional_data["creation_date"]
+                    ) if item["reply_to"] and additional_data else None,
+                    comment_id=str(item["_id"]),
+                    author=make_short_user_data(
+                        item["author_id"],
+                        hide_user_id=(ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                    ),
+                    body=item["body"],
+                    creation_date=item["creation_date"]
+                )
+            )
+
+    return result
