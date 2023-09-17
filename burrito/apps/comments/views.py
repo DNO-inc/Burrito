@@ -15,6 +15,8 @@ from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.query_util import STATUS_OPEN
+from burrito.utils.tickets_util import create_ticket_action
 
 from .utils import (
     is_comment_exist_with_error,
@@ -51,9 +53,15 @@ async def comments__create(
         )
     )
 
-    if ticket.status.status_id in ():
-        ...
-        # TODO: change status to OPEN
+    if ticket.status.status_id in (4, 6):
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=token_payload.user_id,
+            field_name="status",
+            old_value=ticket.status.name,
+            new_value=STATUS_OPEN.name
+        )
+        ticket.status = STATUS_OPEN
 
     return JSONResponse(
         status_code=200,

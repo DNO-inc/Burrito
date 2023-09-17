@@ -41,7 +41,8 @@ from burrito.utils.query_util import (
     q_bookmarked,
     q_followed,
     q_liked,
-    q_creator_is
+    q_creator_is,
+    STATUS_CLOSE
 )
 from burrito.utils.tickets_util import (
     make_short_user_data,
@@ -53,7 +54,6 @@ from burrito.utils.tickets_util import (
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
     FacultyConverter,
-    StatusConverter,
     QueueConverter
 )
 
@@ -494,26 +494,15 @@ async def tickets__close_own_ticket(
         token_payload.user_id
     )
 
-    status_id = 6
-    status_object = StatusConverter.convert(status_id)
-
-    if not status_object:
-        get_logger().critical(f"Status {status_id} is not exist in database")
-
-        return JSONResponse(
-            status_code=500,
-            content={"detail": "Ticket is not closed. Try latter."}
-        )
-
     create_ticket_action(
         ticket_id=data_to_close_ticket.ticket_id,
         user_id=token_payload.user_id,
         field_name="status",
         old_value=ticket.status.name,
-        new_value=status_object.name
+        new_value=STATUS_CLOSE.name
     )
 
-    ticket.status = status_object
+    ticket.status = STATUS_CLOSE
     ticket.save()
 
     return JSONResponse(
