@@ -108,7 +108,7 @@ async def admin__update_ticket_data(
 
     new_status: Statuses = None
     # changing assignee value
-    if admin_updates.assignee_id:  # cause user can give values less
+    if admin_updates.assignee_id and admin_updates.assignee_id >= 0:  # cause user can give values less
         provided_assignee: Users | None = get_user_by_id(admin_updates.assignee_id)
 
         # become assignee
@@ -146,6 +146,17 @@ async def admin__update_ticket_data(
                 new_value=provided_assignee.login
             )
             ticket.assignee = provided_assignee
+
+    elif admin_updates.assignee_id == -1:
+        if ticket.assignee is not None:
+            create_ticket_action(
+                ticket_id=admin_updates.ticket_id,
+                user_id=token_payload.user_id,
+                field_name="assignee",
+                old_value=ticket.assignee.login,
+                new_value="None"
+            )
+            ticket.assignee = None
 
     if any((faculty_object, queue_object, status_object, admin_updates.assignee_id)):
         ticket.save()

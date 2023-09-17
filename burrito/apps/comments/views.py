@@ -51,6 +51,10 @@ async def comments__create(
         )
     )
 
+    if ticket.status.status_id in ():
+        ...
+        # TODO: change status to OPEN
+
     return JSONResponse(
         status_code=200,
         content={
