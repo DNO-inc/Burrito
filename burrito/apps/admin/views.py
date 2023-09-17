@@ -25,6 +25,7 @@ from burrito.utils.query_util import (
     q_creator_is,
     q_assignee_is,
     q_is_hidden,
+    queue_is_not_null,
     STATUS_OPEN
 )
 from burrito.utils.users_util import get_user_by_id
@@ -71,33 +72,22 @@ async def admin__update_ticket_data(
         )
         ticket.faculty = faculty_object
 
-    queue_object = None
-    if admin_updates.queue != -1:
-        queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
-        if queue_object and ticket.queue and ticket.queue.queue_id != queue_object.queue_id:
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="queue",
-                old_value=ticket.queue.name,
-                new_value=queue_object.name
-            )
-            ticket.queue = queue_object
-    else:
+    queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
+    if queue_object and ticket.queue and ticket.queue.queue_id != queue_object.queue_id:
         create_ticket_action(
             ticket_id=admin_updates.ticket_id,
             user_id=token_payload.user_id,
             field_name="queue",
             old_value=ticket.queue.name,
-            new_value="None"
+            new_value=queue_object.name
         )
-        ticket.queue = None
+        ticket.queue = queue_object
 
     current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_object = None
     if ticket.assignee == current_admin:
         status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
-        if status_object and ticket.status.status_id != status_object.status_id:
+        if status_object and ticket.status.status_id != status_object.status_id and ticket.queue:
             create_ticket_action(
                 ticket_id=admin_updates.ticket_id,
                 user_id=token_payload.user_id,
@@ -183,6 +173,7 @@ async def admin__get_ticket_list_by_filter(
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
+            queue_is_not_null()
         ],
         "default": [
             q_is_hidden(True)
