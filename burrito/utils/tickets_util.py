@@ -216,7 +216,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
 
     result = []
 
-    for item in mongo_select(Actions, start_page, items_count, ticket_id=ticket.ticket_id):
+    for item in mongo_select(Actions, start_page, items_count, "creation_date", True, ticket_id=ticket.ticket_id):
         if item["type_"] == "action":
             result.append(
                 ActionSchema(
