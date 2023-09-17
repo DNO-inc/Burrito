@@ -4,6 +4,7 @@ from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
+from burrito.utils.query_util import ADMIN_ROLES
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.mongo_util import mongo_insert, mongo_select
 
@@ -258,3 +259,13 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
             )
 
     return result
+
+
+def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    return (
+        (ticket.creator.user_id == user_id)
+        or user_id in [admin.user_id for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))]
+    )

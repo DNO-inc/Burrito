@@ -16,7 +16,7 @@ from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import STATUS_OPEN
-from burrito.utils.tickets_util import create_ticket_action
+from burrito.utils.tickets_util import create_ticket_action, is_allowed_to_interact_with_history
 
 from .utils import (
     is_comment_exist_with_error,
@@ -32,17 +32,14 @@ async def comments__create(
     check_permission(token_payload, {"SEND_MESSAGE"})
 
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
-    if ticket.hidden:
-        creator_id = ticket.creator.user_id
-        assignee_id = ticket.assignee.user_id if ticket.assignee else None
 
-        if token_payload.user_id not in (creator_id, assignee_id):
-            return JSONResponse(
-                status_code=403,
-                content={
-                    "detail": "You have not permissions to create comment here"
-                }
-            )
+    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+        return JSONResponse(
+            status_code=403,
+            content={
+                "detail": "Permission denied"
+            }
+        )
 
     comment: str = mongo_insert(
         Comments(

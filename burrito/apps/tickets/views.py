@@ -50,7 +50,8 @@ from burrito.utils.tickets_util import (
     get_filtered_tickets,
     select_filters,
     create_ticket_action,
-    get_ticket_history
+    get_ticket_history,
+    is_allowed_to_interact_with_history
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
@@ -754,6 +755,14 @@ async def tickets__get_full_ticket_history(
     check_permission(token_payload)
 
     ticket = is_ticket_exist(_filters.ticket_id)
+
+    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+        return JSONResponse(
+            status_code=403,
+            content={
+                "detail": "Permission denied"
+            }
+        )
 
     history = get_ticket_history(
         ticket,
