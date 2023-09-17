@@ -30,7 +30,6 @@ class AnonTicketDetailInfoSchema(BaseModel):
     status: StatusResponseSchema
     upvotes: int
     date: str
-#    actions: list[object]
 
 
 class AnonTicketListResponseSchema(BaseModel):

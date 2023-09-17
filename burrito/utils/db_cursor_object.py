@@ -29,9 +29,3 @@ def get_database_cursor() -> BurritoDatabaseCursor:
         port=int(get_config().BURRITO_DB_PORT),
         charset="utf8mb4"
     )
-
-#    return BurritoDatabaseCursor(
-#        "burrito",
-#        user="burrito_user", password="Qwerty123",
-#        host="192.168.0.173", port=3306
-#    )

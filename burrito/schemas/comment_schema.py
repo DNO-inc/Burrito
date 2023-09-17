@@ -5,22 +5,22 @@ from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 
 
 class CommentCreationSchema(BaseModel):
-    reply_to: int | None = None
+    reply_to: str | None = None
     ticket_id: int
     body: str
 
 
 class CommentEditSchema(BaseModel):
-    comment_id: int
+    comment_id: str
     body: str | None = ""
 
 
 class CommentDeletionSchema(BaseModel):
-    comment_id: int
+    comment_id: str
 
 
 class CommentBaseDetailInfoSchema(BaseModel):
-    comment_id: int
+    comment_id: str
     author: TicketUsersInfoSchema | None
     body: str
 
@@ -34,8 +34,3 @@ class CommentDetailInfoScheme(CommentBaseDetailInfoSchema):
 
 class RequestTicketsCommentSchema(BurritoPagination):
     ticket_id: int
-
-
-class ResponseTicketsCommentSchema(BaseModel):
-    ticket_id: int
-    comment_list: list[CommentDetailInfoScheme]

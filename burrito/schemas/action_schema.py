@@ -4,7 +4,6 @@ from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 
 
 class ActionSchema(BaseModel):
-    action_id: int
     ticket_id: int
     author: TicketUsersInfoSchema | None
     creation_date: str
