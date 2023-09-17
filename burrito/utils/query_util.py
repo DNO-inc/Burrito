@@ -17,6 +17,12 @@ _PROTECTED_STATUSES: tuple[int] = (1,)
 
 ADMIN_ROLES: list[int] = (9, 10)
 
+STATUS_NEW = StatusConverter.convert(1)
+STATUS_ACCEPTED = StatusConverter.convert(2)
+STATUS_OPEN = StatusConverter.convert(3)
+STATUS_WAITING = StatusConverter.convert(4)
+STATUS_REJECTED = StatusConverter.convert(5)
+STATUS_CLOSE = StatusConverter.convert(6)
 STATUSES_FOR_USER: list[int] = [i.status_id for i in Statuses.select() if i.status_id not in _PROTECTED_STATUSES]
 STATUSES_FOR_ADMIN: list[int] = [i.status_id for i in Statuses.select()]
 

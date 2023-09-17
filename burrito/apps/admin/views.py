@@ -25,6 +25,7 @@ from burrito.utils.query_util import (
     q_creator_is,
     q_assignee_is,
     q_is_hidden,
+    STATUS_OPEN
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
@@ -106,7 +107,6 @@ async def admin__update_ticket_data(
             )
             ticket.status = status_object
 
-    new_status: Statuses = None
     # changing assignee value
     if admin_updates.assignee_id and admin_updates.assignee_id >= 0:  # cause user can give values less
         provided_assignee: Users | None = get_user_by_id(admin_updates.assignee_id)
@@ -122,15 +122,14 @@ async def admin__update_ticket_data(
             )
             ticket.assignee = provided_assignee
 
-            new_status = StatusConverter.convert(3)
             create_ticket_action(
                 ticket_id=admin_updates.ticket_id,
                 user_id=token_payload.user_id,
                 field_name="status",
                 old_value=ticket.status.name,
-                new_value=new_status.name
+                new_value=STATUS_OPEN.name
             )
-            ticket.status = new_status
+            ticket.status = STATUS_OPEN
 
         # forward ticket
         elif (
