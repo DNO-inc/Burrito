@@ -11,6 +11,9 @@ from burrito.utils.logger import get_logger
 from burrito.models.m_basic_model import MongoBaseModel
 
 
+__AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}'
+
+
 @singleton
 class MongoConnector(MongoClient):
     def __init__(self, host: str, port: int = 27017, **kwargs) -> None:
@@ -18,10 +21,7 @@ class MongoConnector(MongoClient):
 
 
 def get_mongo_cursor():
-    mongo_cursor = MongoConnector(
-        get_config().BURRITO_MONGO_HOST,
-        int(get_config().BURRITO_MONGO_PORT)
-    )
+    mongo_cursor = MongoConnector(__AUTH_STRING)
 
     try:
         mongo_cursor.admin.command("ping")
