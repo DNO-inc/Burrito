@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 
 from fastapi import HTTPException
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import ServerSelectionTimeoutError
 
 from burrito.utils.singleton_pattern import singleton
@@ -43,7 +43,24 @@ def mongo_insert(model: MongoBaseModel):
     return str(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].insert_one(model.dict()).inserted_id)
 
 
-def mongo_select(model: MongoBaseModel, start_page: int = 1, items_count: int = 10, **filters) -> list[object]:
+def mongo_select(
+        model: MongoBaseModel,
+        start_page: int = 1,
+        items_count: int = 10,
+        sort_by: str = "",
+        desc: bool = False,
+        **filters
+) -> list[object]:
+    if sort_by:
+        return list(
+            _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
+                (start_page - 1) * items_count
+            ).limit(items_count).sort(
+                sort_by,
+                DESCENDING if desc else ASCENDING
+            )
+        )
+
     return list(
         _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
             (start_page - 1) * items_count
