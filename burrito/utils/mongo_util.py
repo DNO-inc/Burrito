@@ -84,3 +84,11 @@ def mongo_update(model: MongoBaseModel, **filters) -> list[object]:
 
 def mongo_delete(model: MongoBaseModel, **filters) -> None:
     _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].delete_many(filters)
+
+
+def mongo_page_count(
+        model: MongoBaseModel,
+        items_count: int = 10,
+        **filters
+) -> int:
+    return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
