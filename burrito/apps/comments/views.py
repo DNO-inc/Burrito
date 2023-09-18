@@ -59,6 +59,7 @@ async def comments__create(
             new_value=STATUS_OPEN.name
         )
         ticket.status = STATUS_OPEN
+        ticket.save()
 
     return JSONResponse(
         status_code=200,
