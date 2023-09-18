@@ -243,7 +243,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                         comment_id=str(additional_data["_id"]),
                         author=make_short_user_data(
                             additional_data["author_id"],
-                            hide_user_id=(ticket.anonymous and (additional_data["user_id"] == ticket.creator.user_id))
+                            hide_user_id=(ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id))
                         ),
                         body=additional_data["body"],
                         creation_date=additional_data["creation_date"]
@@ -251,7 +251,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                     comment_id=str(item["_id"]),
                     author=make_short_user_data(
                         item["author_id"],
-                        hide_user_id=(ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                        hide_user_id=(ticket.anonymous and (item["author_id"] == ticket.creator.user_id))
                     ),
                     body=item["body"],
                     creation_date=item["creation_date"]
