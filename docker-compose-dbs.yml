@@ -34,6 +34,8 @@ services:
   mongo:
     container_name: burrito_mongo
     image: mongo:4.4.6
+    env_file:
+      - .env
     ports:
       - "27017:27017"
     networks:
