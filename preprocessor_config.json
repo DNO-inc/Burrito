@@ -9,7 +9,9 @@
         "role_permissions": "SELECT * FROM `role_permissions`;"
     },
     "groups": [],
-    "faculties": [],
+    "faculties": [
+        {"faculty_id": 1, "name": "global"}
+    ],
     "statuses": [
         {"status_id": 1, "name": "NEW"},
         {"status_id": 2, "name": "ACCEPTED"},
@@ -21,14 +23,66 @@
     "queues": [
         {"queue_id": 1, "name": "Lecturers", "faculty_id": 1, "scope": "Reports"},
         {"queue_id": 2, "name": "Food", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 3, "name": "Academic integrity", "faculty_id": 2, "scope": "Reports"},
-        {"queue_id": 4, "name": "Scholarship", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 5, "name": "Scholarship", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 6, "name": "Food", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 7, "name": "Dormitory", "faculty_id": 1, "scope": "Q/A"},
-        {"queue_id": 8, "name": "Dormitory", "faculty_id": 2, "scope": "Q/A"},
-        {"queue_id": 9, "name": "Dormitory", "faculty_id": 1, "scope": "Reports"},
-        {"queue_id": 10, "name": "Dormitory", "faculty_id": 2, "scope": "Reports"}
+        {"queue_id": 3, "name": "Scholarship", "faculty_id": 1, "scope": "Q/A"},
+        {"queue_id": 4, "name": "Dormitory", "faculty_id": 1, "scope": "Q/A"},
+        {"queue_id": 5, "name": "Dormitory", "faculty_id": 1, "scope": "Reports"},
+
+        {"queue_id": 100, "name": "Lecturers", "faculty_id": 335, "scope": "Reports"},
+        {"queue_id": 101, "name": "Food", "faculty_id": 335, "scope": "Reports"},
+        {"queue_id": 102, "name": "Scholarship", "faculty_id": 335, "scope": "Q/A"},
+        {"queue_id": 103, "name": "Dormitory", "faculty_id": 335, "scope": "Q/A"},
+        {"queue_id": 104, "name": "Dormitory", "faculty_id": 335, "scope": "Reports"},
+
+        {"queue_id": 200, "name": "Lecturers", "faculty_id": 341, "scope": "Reports"},
+        {"queue_id": 201, "name": "Food", "faculty_id": 341, "scope": "Reports"},
+        {"queue_id": 202, "name": "Scholarship", "faculty_id": 341, "scope": "Q/A"},
+        {"queue_id": 203, "name": "Dormitory", "faculty_id": 341, "scope": "Q/A"},
+        {"queue_id": 204, "name": "Dormitory", "faculty_id": 341, "scope": "Reports"},
+
+        {"queue_id": 300, "name": "Lecturers", "faculty_id": 345, "scope": "Reports"},
+        {"queue_id": 301, "name": "Food", "faculty_id": 345, "scope": "Reports"},
+        {"queue_id": 302, "name": "Scholarship", "faculty_id": 345, "scope": "Q/A"},
+        {"queue_id": 303, "name": "Dormitory", "faculty_id": 345, "scope": "Q/A"},
+        {"queue_id": 304, "name": "Dormitory", "faculty_id": 345, "scope": "Reports"},
+
+        {"queue_id": 400, "name": "Lecturers", "faculty_id": 382, "scope": "Reports"},
+        {"queue_id": 401, "name": "Food", "faculty_id": 382, "scope": "Reports"},
+        {"queue_id": 402, "name": "Scholarship", "faculty_id": 382, "scope": "Q/A"},
+        {"queue_id": 403, "name": "Dormitory", "faculty_id": 382, "scope": "Q/A"},
+        {"queue_id": 404, "name": "Dormitory", "faculty_id": 382, "scope": "Reports"},
+
+        {"queue_id": 500, "name": "Lecturers", "faculty_id": 383, "scope": "Reports"},
+        {"queue_id": 501, "name": "Food", "faculty_id": 383, "scope": "Reports"},
+        {"queue_id": 502, "name": "Scholarship", "faculty_id": 383, "scope": "Q/A"},
+        {"queue_id": 503, "name": "Dormitory", "faculty_id": 383, "scope": "Q/A"},
+        {"queue_id": 504, "name": "Dormitory", "faculty_id": 383, "scope": "Reports"},
+
+        {"queue_id": 600, "name": "Lecturers", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 601, "name": "Food", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 602, "name": "Scholarship", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 603, "name": "Dormitory", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 604, "name": "Dormitory", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 605, "name": "Development", "faculty_id": 414, "scope": "Reports"},
+        {"queue_id": 606, "name": "Development", "faculty_id": 414, "scope": "Q/A"},
+        {"queue_id": 607, "name": "Development", "faculty_id": 414, "scope": "Suggestion"},
+
+        {"queue_id": 700, "name": "Lecturers", "faculty_id": 1150, "scope": "Reports"},
+        {"queue_id": 701, "name": "Food", "faculty_id": 1150, "scope": "Reports"},
+        {"queue_id": 702, "name": "Scholarship", "faculty_id": 1150, "scope": "Q/A"},
+        {"queue_id": 703, "name": "Dormitory", "faculty_id": 1150, "scope": "Q/A"},
+        {"queue_id": 704, "name": "Dormitory", "faculty_id": 1150, "scope": "Reports"},
+
+        {"queue_id": 800, "name": "Lecturers", "faculty_id": 1571, "scope": "Reports"},
+        {"queue_id": 801, "name": "Food", "faculty_id": 1571, "scope": "Reports"},
+        {"queue_id": 802, "name": "Scholarship", "faculty_id": 1571, "scope": "Q/A"},
+        {"queue_id": 803, "name": "Dormitory", "faculty_id": 1571, "scope": "Q/A"},
+        {"queue_id": 804, "name": "Dormitory", "faculty_id": 1571, "scope": "Reports"},
+
+        {"queue_id": 900, "name": "Lecturers", "faculty_id": 1675, "scope": "Reports"},
+        {"queue_id": 901, "name": "Food", "faculty_id": 1675, "scope": "Reports"},
+        {"queue_id": 902, "name": "Scholarship", "faculty_id": 1675, "scope": "Q/A"},
+        {"queue_id": 903, "name": "Dormitory", "faculty_id": 1675, "scope": "Q/A"},
+        {"queue_id": 904, "name": "Dormitory", "faculty_id": 1675, "scope": "Reports"}
     ],
     "permissions": [
         {"permission_id": 1, "name": "UPDATE_PROFILE"},

@@ -15,7 +15,7 @@ class Deleted(BurritoBasicModel):
     ticket_id = ForeignKeyField(
         Tickets,
         field="ticket_id",
-        on_delete="NO ACTION"
+        on_delete="CASCADE"
     )
 
     class Meta:
