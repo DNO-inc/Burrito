@@ -87,7 +87,7 @@ def preprocessor_task():
 
         data: dict = DEFAULT_CONFIG
         data["groups"] = pull_groups_from_ssu()
-        data["faculties"] = pull_faculties_from_ssu()
+        data["faculties"] += pull_faculties_from_ssu()
 
         for key, value in data.items():
             if not key.startswith("__"):
