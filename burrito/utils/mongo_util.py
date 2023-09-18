@@ -51,6 +51,10 @@ def mongo_select(
         desc: bool = False,
         **filters
 ) -> list[object]:
+    item_id = filters.get("_id")
+    if item_id and isinstance(item_id, str):
+        filters["_id"] = ObjectId(item_id)
+
     if sort_by:
         return list(
             _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(

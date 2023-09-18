@@ -247,7 +247,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                         ),
                         body=additional_data["body"],
                         creation_date=additional_data["creation_date"]
-                    ) if item["reply_to"] and additional_data else None,
+                    ) if additional_data else None,
                     comment_id=str(item["_id"]),
                     author=make_short_user_data(
                         item["author_id"],
