@@ -268,4 +268,5 @@ def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
     return (
         (ticket.creator.user_id == user_id)
         or user_id in [admin.user_id for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))]
+        or ticket.hidden == 0
     )
