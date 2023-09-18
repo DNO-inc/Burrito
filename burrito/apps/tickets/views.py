@@ -21,6 +21,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
+from burrito.models.m_actions_model import Actions
 
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
@@ -53,6 +54,7 @@ from burrito.utils.tickets_util import (
     get_ticket_history,
     is_allowed_to_interact_with_history
 )
+from burrito.utils.mongo_util import mongo_page_count
 from burrito.utils.logger import get_logger
 from burrito.utils.converter import (
     FacultyConverter,
@@ -771,5 +773,6 @@ async def tickets__get_full_ticket_history(
     )
 
     return {
-        "history": history
+        "history": history,
+        "page_count": mongo_page_count(Actions, items_count=_filters.items_count, ticket_id=ticket.ticket_id)
     }
