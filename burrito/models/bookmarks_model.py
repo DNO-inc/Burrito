@@ -16,7 +16,7 @@ class Bookmarks(BurritoBasicModel):
     ticket_id = ForeignKeyField(
         Tickets,
         field="ticket_id",
-        on_delete="NO ACTION"
+        on_delete="CASCADE"
     )
     created = DateTimeField(default=datetime.datetime.now)
 
