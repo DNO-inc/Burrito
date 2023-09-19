@@ -5,7 +5,6 @@ from fastapi.responses import JSONResponse
 
 from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
-from burrito.models.statuses_model import Statuses
 
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
@@ -25,15 +24,17 @@ from burrito.utils.query_util import (
     q_creator_is,
     q_assignee_is,
     q_is_hidden,
-    queue_is_not_null,
-    STATUS_OPEN
+    queue_is_not_null
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
     make_short_user_data,
     get_filtered_tickets,
     select_filters,
-    create_ticket_action,
+    change_ticket_status,
+    change_ticket_faculty,
+    change_ticket_queue,
+    change_ticket_assignee
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.auth import get_auth_core
@@ -62,90 +63,25 @@ async def admin__update_ticket_data(
     )
 
     faculty_object = FacultyConverter.convert(admin_updates.faculty) if admin_updates.faculty else None
-    if faculty_object and ticket.faculty.faculty_id != faculty_object.faculty_id:
-        create_ticket_action(
-            ticket_id=admin_updates.ticket_id,
-            user_id=token_payload.user_id,
-            field_name="faculty",
-            old_value=ticket.faculty.name,
-            new_value=faculty_object.name
-        )
-        ticket.faculty = faculty_object
+    if faculty_object:
+        change_ticket_faculty(ticket, token_payload.user_id, faculty_object)
 
     queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
-    if queue_object and ticket.queue and ticket.queue.queue_id != queue_object.queue_id:
-        create_ticket_action(
-            ticket_id=admin_updates.ticket_id,
-            user_id=token_payload.user_id,
-            field_name="queue",
-            old_value=ticket.queue.name,
-            new_value=queue_object.name
-        )
-        ticket.queue = queue_object
+    if queue_object:
+        change_ticket_queue(ticket, token_payload.user_id, queue_object)
 
-    current_admin: Users | None = get_user_by_id(token_payload.user_id)
     status_object = None
-    if ticket.assignee == current_admin:
+    if ticket.assignee.user_id == token_payload.user_id:
         status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
-        if status_object and ticket.status.status_id != status_object.status_id and ticket.queue:
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="status",
-                old_value=ticket.status.name,
-                new_value=status_object.name
-            )
-            ticket.status = status_object
+        if status_object and ticket.queue:
+            change_ticket_status(ticket, token_payload.user_id, status_object)
 
-    # changing assignee value
-    if admin_updates.assignee_id and admin_updates.assignee_id >= 0:  # cause user can give values less
-        provided_assignee: Users | None = get_user_by_id(admin_updates.assignee_id)
-
-        # become assignee
-        if not ticket.assignee and token_payload.user_id == provided_assignee.user_id:
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="assignee",
-                old_value="None",
-                new_value=provided_assignee.login
-            )
-            ticket.assignee = provided_assignee
-
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="status",
-                old_value=ticket.status.name,
-                new_value=STATUS_OPEN.name
-            )
-            ticket.status = STATUS_OPEN
-
-        # forward ticket
-        elif (
-            ticket.assignee
-            and (ticket.assignee.user_id == token_payload.user_id)
-            and (ticket.assignee.user_id != provided_assignee.user_id)
-        ):
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="assignee",
-                old_value=ticket.assignee.login,
-                new_value=provided_assignee.login
-            )
-            ticket.assignee = provided_assignee
-
-    elif admin_updates.assignee_id == -1:
-        if ticket.assignee is not None:
-            create_ticket_action(
-                ticket_id=admin_updates.ticket_id,
-                user_id=token_payload.user_id,
-                field_name="assignee",
-                old_value=ticket.assignee.login,
-                new_value="None"
-            )
-            ticket.assignee = None
+    if admin_updates.assignee_id:
+        change_ticket_assignee(
+            ticket,
+            token_payload.user_id,
+            get_user_by_id(admin_updates.assignee_id) if admin_updates.assignee_id >= 0 else None
+        )
 
     if any((faculty_object, queue_object, status_object, admin_updates.assignee_id)):
         ticket.save()
