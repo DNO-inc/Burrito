@@ -101,13 +101,6 @@ def q_is_valid_queue(queues: list[int]) -> Expression:
     if not queues:
         return None
 
-    if -1 in queues:
-        new_list = list(filter(lambda x: x >= 0, queues))
-
-        if new_list:
-            return Tickets.queue.in_(new_list) | Tickets.queue.is_null()
-        return Tickets.queue.is_null()
-
     return Tickets.queue.in_(queues)
 
 
@@ -189,7 +182,3 @@ def q_liked(_user_id: int) -> Expression:
         return None
 
     return Tickets.ticket_id.in_(Liked.select(Liked.ticket_id).where(Liked.user_id == _user_id))
-
-
-def queue_is_not_null():
-    return Tickets.queue.is_null(False)

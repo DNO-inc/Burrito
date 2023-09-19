@@ -50,7 +50,7 @@ class Tickets(BurritoBasicModel):
         Queues,
         field="queue_id",
         on_delete="NO ACTION",
-        null=True
+        null=False
     )
 
     status = ForeignKeyField(

@@ -43,7 +43,6 @@ from burrito.utils.query_util import (
     q_followed,
     q_liked,
     q_creator_is,
-    queue_is_not_null,
     STATUS_CLOSE
 )
 from burrito.utils.tickets_util import (
@@ -370,8 +369,7 @@ async def tickets__show_tickets_list_by_filter(
             ] if filters.creator == token_payload.user_id else [
                 q_not_hidden(),
                 q_protected_statuses()
-            ]),
-            queue_is_not_null()
+            ])
         ]
     }
     final_filters = select_filters(user_data.role_name, available_filters)

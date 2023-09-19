@@ -22,8 +22,7 @@ from burrito.utils.query_util import (
     q_scope_is,
     q_is_valid_status_list,
     q_not_hidden,
-    q_protected_statuses,
-    queue_is_not_null
+    q_protected_statuses
 )
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -42,8 +41,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
             q_not_hidden(),
-            q_protected_statuses(),
-            queue_is_not_null()
+            q_protected_statuses()
         ]
     }
     final_filters = select_filters("", available_filters)
