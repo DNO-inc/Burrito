@@ -1,4 +1,4 @@
-from fastapi import Depends, status, HTTPException
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.auth_schema import (

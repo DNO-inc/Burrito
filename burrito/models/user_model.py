@@ -1,9 +1,9 @@
-import datetime
-
 from peewee import (
     CharField, TextField, AutoField,
     DateTimeField, ForeignKeyField
 )
+
+from burrito.utils.date import get_datetime_now
 
 from burrito.models.roles_model import Roles
 from burrito.models.faculty_model import Faculties
@@ -38,7 +38,7 @@ class Users(BurritoBasicModel):
     email = CharField(255, null=True)
     phone = CharField(15, null=True)
 
-    registration_date = DateTimeField(default=datetime.datetime.now)
+    registration_date = DateTimeField(default=get_datetime_now)
 
     role = ForeignKeyField(
         Roles,

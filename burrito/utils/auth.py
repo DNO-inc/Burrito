@@ -1,6 +1,5 @@
 from copy import deepcopy
 from typing import Any
-from datetime import datetime
 import secrets
 import jwt
 import uuid
@@ -8,6 +7,7 @@ import uuid
 from fastapi import HTTPException, Request, status
 from pydantic import BaseModel
 
+from burrito.utils.date import get_timestamp_now
 from burrito.utils.logger import get_logger
 from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
@@ -48,7 +48,7 @@ def _make_redis_key(data: AuthTokenPayload) -> str:
 
 
 def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) -> str:
-    token_creation_time = int(datetime.now().timestamp())
+    token_creation_time = get_timestamp_now()
 
     token_data.jti = jti
     token_data.token_type = token_type
