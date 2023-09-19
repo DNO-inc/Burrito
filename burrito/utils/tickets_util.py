@@ -214,9 +214,11 @@ def create_ticket_action(
         )
 
 
-def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: int = 10):
+def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
+
+    ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, user_id)
 
     result = []
 
@@ -227,7 +229,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                     ticket_id=item["ticket_id"],
                     author=make_short_user_data(
                         item["user_id"],
-                        hide_user_id=(ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                        hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
                     ),
                     creation_date=item["creation_date"],
                     field_name=item["field_name"],
@@ -246,7 +248,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                         comment_id=str(additional_data["_id"]),
                         author=make_short_user_data(
                             additional_data["author_id"],
-                            hide_user_id=(ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id))
+                            hide_user_id=False if ticket_owner else (ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id))
                         ),
                         body=additional_data["body"],
                         creation_date=additional_data["creation_date"]
@@ -254,7 +256,7 @@ def get_ticket_history(ticket: Tickets | int, start_page: int = 1, items_count: 
                     comment_id=str(item["_id"]),
                     author=make_short_user_data(
                         item["author_id"],
-                        hide_user_id=(ticket.anonymous and (item["author_id"] == ticket.creator.user_id))
+                        hide_user_id=False if ticket_owner else (ticket.anonymous and (item["author_id"] == ticket.creator.user_id))
                     ),
                     body=item["body"],
                     creation_date=item["creation_date"]

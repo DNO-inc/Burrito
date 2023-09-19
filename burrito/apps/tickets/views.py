@@ -766,6 +766,7 @@ async def tickets__get_full_ticket_history(
 
     history = get_ticket_history(
         ticket,
+        token_payload.user_id,
         start_page=_filters.start_page,
         items_count=_filters.items_count
     )
