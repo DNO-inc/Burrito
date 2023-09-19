@@ -1,11 +1,11 @@
-import datetime
-
 from peewee import (
     AutoField,
     IntegerField, TextField,
     DateTimeField, BooleanField,
     CharField, ForeignKeyField
 )
+
+from burrito.utils.date import get_datetime_now
 
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
@@ -38,7 +38,7 @@ class Tickets(BurritoBasicModel):
 
     upvotes = IntegerField(default=0)
 
-    created = DateTimeField(default=datetime.datetime.now)
+    created = DateTimeField(default=get_datetime_now)
 
     faculty = ForeignKeyField(
         Faculties,
