@@ -1,4 +1,4 @@
-import ujson as json
+import orjson as json
 
 from burrito.models.group_model import Groups
 from burrito.models.statuses_model import Statuses
