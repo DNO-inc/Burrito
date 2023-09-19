@@ -4,10 +4,13 @@ from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
-from burrito.utils.query_util import ADMIN_ROLES
+from burrito.utils.query_util import ADMIN_ROLES, STATUS_ACCEPTED
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.mongo_util import mongo_insert, mongo_select
 
+from burrito.models.statuses_model import Statuses
+from burrito.models.queues_model import Queues
+from burrito.models.faculty_model import Faculties
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
@@ -270,3 +273,95 @@ def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
         or user_id in [admin.user_id for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))]
         or ticket.hidden == 0
     )
+
+
+def change_ticket_status(ticket: Tickets | int, user_id: int, new_status: Statuses) -> None:
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    if ticket.status.status_id != new_status.status_id:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="status",
+            old_value=ticket.status.name,
+            new_value=new_status.name
+        )
+        ticket.status = new_status
+
+
+def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) -> None:
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    if ticket.queue is None:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="queue",
+            old_value="None",
+            new_value=new_queue.name
+        )
+        ticket.queue = new_queue
+
+    elif ticket.queue.queue_id != new_queue.queue_id:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="queue",
+            old_value=ticket.queue.name,
+            new_value=new_queue.name
+        )
+        ticket.queue = new_queue
+
+
+def change_ticket_faculty(ticket: Tickets | int, user_id: int, new_faculty: Faculties) -> None:
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    if ticket.faculty.faculty_id != new_faculty.faculty_id:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="faculty",
+            old_value=ticket.faculty.name,
+            new_value=new_faculty.name
+        )
+        ticket.faculty = new_faculty
+
+
+def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Users | None) -> None:
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    if new_assignee and (not ticket.assignee):
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="assignee",
+            old_value="None",
+            new_value=new_assignee.login
+        )
+        ticket.assignee = new_assignee
+
+        change_ticket_status(ticket, user_id, STATUS_ACCEPTED)
+
+    elif new_assignee and ticket.assignee.user_id == user_id and ticket.assignee.user_id != new_assignee.user_id:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="assignee",
+            old_value=ticket.assignee.login,
+            new_value=new_assignee.login
+        )
+        ticket.assignee = new_assignee
+
+    elif new_assignee is None and ticket.assignee and ticket.assignee.user_id == user_id:
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=user_id,
+            field_name="assignee",
+            old_value=ticket.assignee.login,
+            new_value="None"
+        )
+        ticket.assignee = None
