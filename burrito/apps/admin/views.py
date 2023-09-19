@@ -71,7 +71,7 @@ async def admin__update_ticket_data(
         change_ticket_queue(ticket, token_payload.user_id, queue_object)
 
     status_object = None
-    if ticket.assignee.user_id == token_payload.user_id:
+    if ticket.assignee and ticket.assignee.user_id == token_payload.user_id:
         status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
         if status_object and ticket.queue:
             change_ticket_status(ticket, token_payload.user_id, status_object)
