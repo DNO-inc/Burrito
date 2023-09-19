@@ -1,6 +1,7 @@
 from fastapi import HTTPException, status
 
 from burrito.utils.logger import get_logger
+from burrito.utils.transliteration import transliterate
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
@@ -79,7 +80,6 @@ def create_user_with_cabinet(
         faculty: int,
         group: int,
         email: int,
-
 ) -> Users | None:
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
@@ -89,6 +89,7 @@ def create_user_with_cabinet(
             user_id=user_id,
             firstname=firstname,
             lastname=lastname,
+            login=transliterate(f"{lastname} {firstname}"),
             faculty=faculty,
             group=group,
             email=email,
