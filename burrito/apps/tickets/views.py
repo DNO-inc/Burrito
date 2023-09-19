@@ -90,8 +90,8 @@ async def tickets__create_new_ticket(
 
     ticket: Tickets = Tickets.create(
         creator=token_payload.user_id,
-        subject=ticket_creation_data.subject,
-        body=ticket_creation_data.body,
+        subject=ticket_creation_data.subject.strip(),
+        body=ticket_creation_data.body.strip(),
         hidden=ticket_creation_data.hidden,
         anonymous=ticket_creation_data.anonymous,
         queue=queue,
