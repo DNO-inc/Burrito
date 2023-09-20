@@ -65,14 +65,16 @@ async def profile__update_my_profile(
         current_user.email = profile_updated_data.email
 
     # check faculty
-    faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
-    if faculty_id and profile_updated_data.faculty:
-        current_user.faculty = faculty_id
+    if profile_updated_data.faculty:
+        faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
+        if faculty_id and profile_updated_data.faculty:
+            current_user.faculty = faculty_id
 
     # check group
-    group_id = GroupConverter.convert(profile_updated_data.group)
-    if group_id and profile_updated_data.group:
-        current_user.group = group_id
+    if profile_updated_data.group:
+        group_id = GroupConverter.convert(profile_updated_data.group)
+        if group_id and profile_updated_data.group:
+            current_user.group = group_id
 
     if is_valid_password(profile_updated_data.password):
         current_user.password = get_hash(profile_updated_data.password)
