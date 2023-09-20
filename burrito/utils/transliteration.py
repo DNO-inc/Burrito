@@ -44,8 +44,13 @@ def transliterate(initial_sentence: str):
         new_word = ""
         word = word.lower()
         for i, letter in enumerate(word):
+            if letter.isdigit():
+                new_word += letter
+                continue
+
             if not alphabet.get(letter):
                 continue
+
             new_word += alphabet[letter][(0 if i == 0 else 1) if letter in different_values else 0]
 
         result.append(new_word)
