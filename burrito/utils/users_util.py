@@ -1,3 +1,5 @@
+from random import randint
+
 from fastapi import HTTPException, status
 
 from burrito.utils.logger import get_logger
@@ -84,12 +86,16 @@ def create_user_with_cabinet(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
+    tmp_user_login = transliterate(f"{lastname} {firstname}")
+    while get_user_by_login(tmp_user_login):
+        tmp_user_login = transliterate(f"{lastname} {firstname} {randint(1, 1000)}")
+
     try:
         user: Users = Users.create(
             user_id=user_id,
             firstname=firstname,
             lastname=lastname,
-            login=transliterate(f"{lastname} {firstname}"),
+            login=tmp_user_login,
             faculty=faculty,
             group=group,
             email=email,
