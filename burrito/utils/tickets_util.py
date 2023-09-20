@@ -5,7 +5,7 @@ from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import ADMIN_ROLES, STATUS_ACCEPTED
-from burrito.utils.users_util import get_user_by_id
+from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.mongo_util import mongo_insert, mongo_select
 
 from burrito.models.statuses_model import Statuses
@@ -224,6 +224,16 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
 
     for item in mongo_select(Actions, start_page, items_count, "creation_date", True, ticket_id=ticket.ticket_id):
         if item["type_"] == "action":
+            old_value = item["old_value"]
+            new_value = item["new_value"]
+
+            if item["field_name"] == "assignee":
+                old_assignee = get_user_by_id_or_none(item["old_value"])
+                new_assignee = get_user_by_id_or_none(item["new_value"])
+
+                old_value = old_assignee.login if old_assignee else item["old_value"]
+                new_value = new_assignee.login if new_assignee else item["new_value"]
+
             result.append(
                 ActionSchema(
                     ticket_id=item["ticket_id"],
@@ -233,8 +243,8 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
                     ),
                     creation_date=item["creation_date"],
                     field_name=item["field_name"],
-                    old_value=item["old_value"],
-                    new_value=item["new_value"]
+                    old_value=old_value,
+                    new_value=new_value
                 )
             )
         elif item["type_"] == "comment":
@@ -342,7 +352,7 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             user_id=user_id,
             field_name="assignee",
             old_value="None",
-            new_value=new_assignee.login
+            new_value=new_assignee.user_id
         )
         ticket.assignee = new_assignee
 
@@ -353,8 +363,8 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="assignee",
-            old_value=ticket.assignee.login,
-            new_value=new_assignee.login
+            old_value=ticket.assignee.user_id,
+            new_value=new_assignee.user_id
         )
         ticket.assignee = new_assignee
 
@@ -363,7 +373,7 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="assignee",
-            old_value=ticket.assignee.login,
+            old_value=ticket.assignee.user_id,
             new_value="None"
         )
         ticket.assignee = None
