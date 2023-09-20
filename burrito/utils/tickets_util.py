@@ -312,7 +312,7 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             user_id=user_id,
             field_name="queue",
             old_value="None",
-            new_value=new_queue.name
+            new_value=f"{ticket.faculty.name}/{new_queue.scope}/{new_queue.name}"
         )
         ticket.queue = new_queue
 
@@ -321,8 +321,8 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="queue",
-            old_value=ticket.queue.name,
-            new_value=new_queue.name
+            old_value=f"{ticket.faculty.name}/{ticket.queue.scope}/{ticket.queue.name}",
+            new_value=f"{ticket.faculty.name}/{new_queue.scope}/{new_queue.name}"
         )
         ticket.queue = new_queue
 
