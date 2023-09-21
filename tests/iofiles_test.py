@@ -24,7 +24,25 @@ class IOFilesTestCase(unittest.TestCase):
             ],
             timeout=0.5
         )
-        print(response.json())
+
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+    def test_get_file(self):
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/get_files",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            data={
+                "ticket_id": 1
+            },
+            timeout=0.5
+        )
+
         self.assertEqual(
             response.status_code,
             200
