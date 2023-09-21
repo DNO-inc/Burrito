@@ -3,12 +3,14 @@ from bson.objectid import ObjectId
 from fastapi import HTTPException
 from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import ServerSelectionTimeoutError
+import gridfs
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 
 from burrito.models.m_basic_model import MongoBaseModel
+from burrito.models.m_ticket_files import TicketFiles
 
 
 __AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}'
@@ -37,6 +39,7 @@ def get_mongo_cursor():
 
 _MONGO_CURSOR = get_mongo_cursor()
 _MONGO_DB_NAME = get_config().BURRITO_MONGO_DB
+_MONGO_GRIDFS: gridfs.GridFS = gridfs.GridFS(getattr(_MONGO_CURSOR, _MONGO_DB_NAME))
 
 
 def mongo_insert(model: MongoBaseModel):
@@ -92,3 +95,25 @@ def mongo_page_count(
         **filters
 ) -> int:
     return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
+
+
+def mongo_save_file(ticket_id: int, file: bytes) -> str:
+    return str(
+        mongo_insert(
+            TicketFiles(
+                ticket_id=ticket_id,
+                file_id=str(_MONGO_GRIDFS.put(file))
+            )
+        )
+    )
+
+
+def mongo_get_files(ticket_id: int) -> list[bytes]:
+    files_ids: list[str] = mongo_select(
+        TicketFiles,
+        start_page=1,
+        items_count=100,
+        ticket_id=ticket_id
+    )
+
+    return [_MONGO_GRIDFS.get(ObjectId(file["file_id"])).read() for file in files_ids]

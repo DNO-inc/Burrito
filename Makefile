@@ -25,6 +25,9 @@ tests_:
 rmi:
 	scripts/docker_rm_all_images.sh
 
+dbs:
+	docker compose -f docker-compose-dbs.yml up
+
 db_conn:
 	scripts/connect_to_db.sh
 
