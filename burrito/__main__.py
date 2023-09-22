@@ -8,6 +8,8 @@ needed for Burrito functionality.
 import uvicorn
 import threading
 
+from fastapi import FastAPI
+
 from burrito.apps.registration.router import registration_router
 from burrito.apps.about.router import about_router
 
@@ -23,15 +25,15 @@ from burrito.apps.meta.router import meta_router
 from burrito.apps.iofiles.router import iofiles_router
 from burrito.apps.comments.router import comments_router
 
+from burrito.apps.scheduler.core import start_scheduler
 from burrito.apps.notifications.router import notifications_router
+from burrito.apps.ws.router import ws_router
 
 from burrito.utils.app_util import connect_app, get_current_app
 from burrito.utils.config_reader import get_config
 
-from burrito.apps.scheduler.core import start_scheduler
 
-
-app = get_current_app()
+app: FastAPI = get_current_app()
 connect_app(app, "/about", about_router)
 connect_app(app, "/registration", registration_router)
 connect_app(app, "/profile", profile_router)
@@ -43,6 +45,7 @@ connect_app(app, "/meta", meta_router)
 connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
 connect_app(app, "/notifications", notifications_router)
+connect_app(app, "/ws", ws_router)
 
 threading.Thread(target=start_scheduler, daemon=True).start()
 

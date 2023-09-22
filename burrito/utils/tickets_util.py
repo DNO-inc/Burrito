@@ -1,5 +1,6 @@
 from typing import Any
 
+from redis import Redis
 from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
 
@@ -7,6 +8,8 @@ from burrito.utils.logger import get_logger
 from burrito.utils.query_util import ADMIN_ROLES, STATUS_ACCEPTED
 from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.mongo_util import mongo_insert, mongo_select
+from burrito.utils.redis_utils import get_redis_connector
+from burrito.utils.websockets import make_websocket_message
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.queues_model import Queues
@@ -204,14 +207,36 @@ def create_ticket_action(
             """
         )
 
-        mongo_insert(
-            Notifications(
-                ticket_id=ticket_id,
-                user_id=user_id,
-                body_ua=f"{user_id} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
-                body=f"{user_id} changed the value '{field_name}' from ({old_value}) to ({new_value})"
+        ticket: Tickets = is_ticket_exist(ticket_id)
+
+        ids = [item.user_id for item in Bookmarks.select().where(Bookmarks.ticket_id == ticket_id)]
+        ids += [ticket.creator.user_id]
+        ids += ([ticket.assignee.user_id] if ticket.assignee else [])
+        ids = set(ids)
+
+        pubsub: Redis = get_redis_connector()
+        action_author: Users = get_user_by_id(user_id)
+
+        if field_name == "assignee":
+            old_assignee = get_user_by_id_or_none(old_value)
+            new_assignee = get_user_by_id_or_none(new_value)
+
+            old_value = old_assignee.login if old_assignee else old_value
+            new_value = new_assignee.login if new_assignee else new_value
+
+        for id_ in ids:
+            pubsub.publish(
+                f"user_{id_}",
+                make_websocket_message(
+                    type_="notification",
+                    obj=Notifications(
+                        ticket_id=ticket_id,
+                        user_id=user_id,
+                        body_ua=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
+                        body=f"{action_author.login} changed the value '{field_name}' from ({old_value}) to ({new_value})"
+                    )
+                )
             )
-        )
 
 
 def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10):
@@ -321,7 +346,7 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="queue",
-            old_value=f"{ticket.queue.name}/{ticket.queue.scope}/{ticket.queue.name}",
+            old_value=f"{ticket.queue.faculty.name}/{ticket.queue.scope}/{ticket.queue.name}",
             new_value=f"{new_queue.faculty.name}/{new_queue.scope}/{new_queue.name}"
         )
         ticket.queue = new_queue
