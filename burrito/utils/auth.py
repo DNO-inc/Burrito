@@ -134,25 +134,7 @@ class BurritoJWT:
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
-        token_payload = _read_token_payload(self.__token)
-
-        if (
-            token_payload.token_type != "access" or
-            get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != self.__token
-        ):
-            get_logger().error(
-                f"""
-                    access token is invalid or expired:
-                        * payload:  {token_payload.dict()}
-
-                """
-            )
-            raise AuthTokenError(
-                detail="Authorization error: access token is invalid or expired",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        return token_payload
+        return await check_jwt_token(self.__token)
 
     async def require_refresh_token(self) -> AuthTokenPayload:
         if not self.__token:
@@ -198,6 +180,28 @@ class BurritoJWT:
 
         get_redis_connector().delete(_make_redis_key(refresh_token_payload))
         get_redis_connector().delete(_make_redis_key(access_token_payload))
+
+
+async def check_jwt_token(token: str):
+    token_payload = _read_token_payload(token)
+
+    if (
+        token_payload.token_type != "access" or
+        get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != token
+    ):
+        get_logger().error(
+            f"""
+                access token is invalid or expired:
+                    * payload:  {token_payload.dict()}
+
+            """
+        )
+        raise AuthTokenError(
+            detail="Authorization error: access token is invalid or expired",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )
+
+    return token_payload
 
 
 def get_auth_core() -> BurritoJWT:
