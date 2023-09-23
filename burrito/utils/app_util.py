@@ -1,9 +1,12 @@
+import os
+import time
+
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 
 from .singleton_pattern import singleton
 from burrito.utils.task_manager import get_task_manager
-from burrito.apps.scheduler.core import start_scheduler
+from burrito import CURRENT_TIME_ZONE
 
 
 @singleton
@@ -36,6 +39,9 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    os.environ['TZ'] = str(CURRENT_TIME_ZONE)
+    time.tzset()
 
     return app
 
