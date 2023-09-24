@@ -26,6 +26,7 @@ jobs:
           - registration
           - tickets
           - scheduler
+          - ws
     permissions:
       contents: read
       packages: write
