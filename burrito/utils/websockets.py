@@ -2,11 +2,11 @@ import orjson as json
 from starlette.websockets import WebSocket
 
 from burrito.utils.singleton_pattern import singleton
-from burrito.models.ws_message import WebSocketMessage
 from burrito.utils.auth import check_jwt_token
 
+from burrito.models.ws_message import WebSocketMessage
 from burrito.models.m_notifications_model import Notifications
-from burrito.models.m_comments_model import Comments
+from burrito.schemas.comment_schema import CommentDetailInfoScheme
 
 
 @singleton
@@ -45,7 +45,7 @@ def get_websocket_manager():
 _WEBSOCKET_MANAGER: WebsocketManager = get_websocket_manager()
 
 
-def make_websocket_message(type_: str, obj: Comments | Notifications) -> bytes:
+def make_websocket_message(type_: str, obj: CommentDetailInfoScheme | Notifications) -> bytes:
     return json.dumps(
         WebSocketMessage(
             type_=type_,

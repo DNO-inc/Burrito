@@ -7,14 +7,14 @@ from burrito.schemas.comment_schema import (
     CommentDeletionSchema
 )
 
+from burrito.models.m_notifications_model import Notifications
 from burrito.models.m_comments_model import Comments
 from burrito.models.tickets_model import Tickets
 
 from burrito.utils.mongo_util import mongo_insert, mongo_update, mongo_delete
-from burrito.utils.tickets_util import is_ticket_exist
+from burrito.utils.tickets_util import is_ticket_exist, am_i_own_this_ticket, send_notification
 from burrito.utils.permissions_checker import check_permission
-from burrito.utils.auth import get_auth_core
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import get_auth_core, AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import STATUS_OPEN
 from burrito.utils.tickets_util import create_ticket_action, is_allowed_to_interact_with_history
 
@@ -50,7 +50,17 @@ async def comments__create(
         )
     )
 
-    if ticket.status.status_id in (4, 6):
+    send_notification(
+        ticket,
+        Notifications(
+            ticket_id=ticket.ticket_id,
+            user_id=token_payload.user_id,
+            body_ua=f"Хтось створив новий коментарій в тікеті {ticket.ticket_id}",
+            body=f"Someone has created a new comment in ticket {ticket.ticket_id}"
+        )
+    )
+
+    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
         create_ticket_action(
             ticket_id=ticket.ticket_id,
             user_id=token_payload.user_id,

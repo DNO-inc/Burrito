@@ -1,9 +1,9 @@
 from pydantic import BaseModel
 
 from burrito.models.m_notifications_model import Notifications
-from burrito.models.m_comments_model import Comments
+from burrito.schemas.comment_schema import CommentDetailInfoScheme
 
 
 class WebSocketMessage(BaseModel):
     type_: str
-    data: Notifications | Comments
+    data: Notifications | CommentDetailInfoScheme
