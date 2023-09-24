@@ -25,6 +25,7 @@ from burrito.models.m_notifications_model import Notifications, CommentUpdate
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.comment_schema import CommentDetailInfoScheme, CommentBaseDetailInfoSchema
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
