@@ -10,3 +10,11 @@ class Notifications(MongoBaseModel):
 
     class Meta:
         table_name: str = "notifications"
+
+
+class CommentUpdate(MongoBaseModel):
+    ticket_id: int
+    comment_id: str
+
+    class Meta:
+        table_name: str = "notifications"

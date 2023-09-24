@@ -20,15 +20,11 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
 from burrito.models.m_actions_model import Actions
-from burrito.models.m_notifications_model import Notifications
+from burrito.models.m_notifications_model import Notifications, CommentUpdate
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.comment_schema import (
-    CommentBaseDetailInfoSchema,
-    CommentDetailInfoScheme
-)
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -209,12 +205,6 @@ def create_ticket_action(
 
         ticket: Tickets = is_ticket_exist(ticket_id)
 
-        ids = [item.user_id for item in Bookmarks.select().where(Bookmarks.ticket_id == ticket_id)]
-        ids += [ticket.creator.user_id]
-        ids += ([ticket.assignee.user_id] if ticket.assignee else [])
-        ids = set(ids)
-
-        pubsub: Redis = get_redis_connector()
         action_author: Users = get_user_by_id(user_id)
 
         if field_name == "assignee":
@@ -224,19 +214,15 @@ def create_ticket_action(
             old_value = old_assignee.login if old_assignee else old_value
             new_value = new_assignee.login if new_assignee else new_value
 
-        for id_ in ids:
-            pubsub.publish(
-                f"user_{id_}",
-                make_websocket_message(
-                    type_="notification",
-                    obj=Notifications(
-                        ticket_id=ticket_id,
-                        user_id=user_id,
-                        body_ua=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
-                        body=f"{action_author.login} changed the value '{field_name}' from ({old_value}) to ({new_value})"
-                    )
-                )
+        send_notification(
+            ticket,
+            Notifications(
+                ticket_id=ticket_id,
+                user_id=user_id,
+                body_ua=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
+                body=f"{action_author.login} changed the value '{field_name}' from ({old_value}) to ({new_value})"
             )
+        )
 
 
 def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10):
@@ -402,3 +388,46 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             new_value="None"
         )
         ticket.assignee = None
+
+
+def get_notification_receivers(ticket: Tickets | int):
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    ids = [item.user_id for item in Bookmarks.select().where(Bookmarks.ticket_id == ticket.ticket_id)]
+    ids += [ticket.creator.user_id]
+    ids += ([ticket.assignee.user_id] if ticket.assignee else [])
+
+    return set(ids)
+
+
+def send_notification(ticket: Tickets | int, notification: Notifications):
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    pubsub: Redis = get_redis_connector()
+
+    for id_ in get_notification_receivers(ticket):
+        pubsub.publish(
+            f"user_{id_}",
+            make_websocket_message(
+                type_="notification",
+                obj=notification
+            )
+        )
+
+
+def send_comment_update(ticket: Tickets | int, comment: CommentUpdate):
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    pubsub: Redis = get_redis_connector()
+
+    for id_ in get_notification_receivers(ticket):
+        pubsub.publish(
+            f"user_{id_}",
+            make_websocket_message(
+                type_="comment",
+                obj=comment
+            )
+        )

@@ -15,7 +15,7 @@ class CommentEditSchema(BaseModel):
     body: str | None = ""
 
 
-class CommentDeletionSchema(BaseModel):
+class CommentIDSchema(BaseModel):
     comment_id: str
 
 

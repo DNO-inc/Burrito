@@ -103,3 +103,24 @@ class CommentsTestCase(unittest.TestCase):
                 },
                 response
             )
+
+    def test_005_comments_get_comment(self):
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/get_comment_by_id",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "comment_id": "6510472875f64c4f7bf6aba9"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
