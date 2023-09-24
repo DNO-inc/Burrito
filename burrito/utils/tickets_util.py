@@ -20,15 +20,11 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
 from burrito.models.m_actions_model import Actions
-from burrito.models.m_notifications_model import Notifications
+from burrito.models.m_notifications_model import Notifications, CommentUpdate
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.comment_schema import (
-    CommentBaseDetailInfoSchema,
-    CommentDetailInfoScheme
-)
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -421,7 +417,7 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
         )
 
 
-def send_comment_update(ticket: Tickets | int, comment: CommentDetailInfoScheme):
+def send_comment_update(ticket: Tickets | int, comment: CommentUpdate):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 

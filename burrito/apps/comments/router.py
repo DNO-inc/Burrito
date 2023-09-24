@@ -3,7 +3,8 @@ from fastapi import APIRouter
 from .views import (
     comments__create,
     comments__edit,
-    comments__delete
+    comments__delete,
+    comments__get_comment_by_id
 )
 
 
@@ -23,4 +24,9 @@ comments_router.add_api_route(
     "/delete",
     comments__delete,
     methods=["DELETE"]
+)
+comments_router.add_api_route(
+    "/get_comment_by_id",
+    comments__get_comment_by_id,
+    methods=["POST"]
 )

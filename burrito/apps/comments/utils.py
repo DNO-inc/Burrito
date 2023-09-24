@@ -10,6 +10,18 @@ def is_comment_exist_with_error(comment_id: str) -> Comments | None:
     if comment:
         comment = comment[0]
 
+    if not comment.get("type_"):
+        raise HTTPException(
+            status_code=404,
+            detail=f"Comment with comment_id {comment_id} is not exists"
+        )
+
+    if comment["type_"] != "comment":
+        raise HTTPException(
+            status_code=404,
+            detail=f"Comment with comment_id {comment_id} is not exists"
+        )
+
     if not comment:
         raise HTTPException(
             status_code=404,
