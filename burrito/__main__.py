@@ -7,7 +7,6 @@ needed for Burrito functionality.
 
 import uvicorn
 import threading
-import multiprocessing
 
 from fastapi import FastAPI
 
@@ -49,7 +48,7 @@ connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
 connect_app(app, "/notifications", notifications_router)
 
-multiprocessing.Process(target=run_websocket_server).start()
+threading.Thread(target=run_websocket_server, daemon=True).start()
 threading.Thread(target=start_scheduler, daemon=True).start()
 
 
