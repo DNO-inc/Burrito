@@ -182,7 +182,6 @@ services:
     env_file:
       - .env
     ports:
-      - "$BURRITO_PORT"
+      - "$BURRITO_WEBSOCKET_PORT"
     networks:
       - burrito_party
-

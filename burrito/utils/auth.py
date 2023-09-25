@@ -134,7 +134,7 @@ class BurritoJWT:
                 status_code=status.HTTP_401_UNAUTHORIZED
             )
 
-        return await check_jwt_token(self.__token)
+        return check_jwt_token(self.__token)
 
     async def require_refresh_token(self) -> AuthTokenPayload:
         if not self.__token:
@@ -182,7 +182,7 @@ class BurritoJWT:
         get_redis_connector().delete(_make_redis_key(access_token_payload))
 
 
-async def check_jwt_token(token: str):
+def check_jwt_token(token: str):
     token_payload = _read_token_payload(token)
 
     if (
