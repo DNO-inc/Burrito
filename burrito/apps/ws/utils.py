@@ -34,13 +34,16 @@ def close_conn(websocket: WebSocketServerProtocol) -> None:
 
 def main_handler(websocket: WebSocketServerProtocol):
     raw_data = recv_data(websocket)
-    token_payload: AuthTokenPayload = raw_data.decode("utf-8") if raw_data else None
 
-    if not token_payload:
+    if isinstance(raw_data, bytes):
+        raw_data = raw_data.decode("utf-8")
+
+    if not raw_data:
         send_data(websocket, b"Auth fail")
 
+    token_payload: AuthTokenPayload = None
     try:
-        token_payload = check_jwt_token(token_payload)
+        token_payload = check_jwt_token(raw_data)
 
     except:
         send_data(websocket, b"Auth fail")
@@ -70,11 +73,16 @@ def main_handler(websocket: WebSocketServerProtocol):
 
 def run_websocket_server():
     try:
+        server_host = get_config().BURRITO_WEBSOCKET_HOST
+        server_port = int(get_config().BURRITO_WEBSOCKET_PORT)
         with serve(
             main_handler,
-            get_config().BURRITO_WEBSOCKET_HOST,
-            int(get_config().BURRITO_WEBSOCKET_PORT)
+            server_host,
+            server_port,
+            logger=get_logger()
         ) as server:
+            get_logger().info(f"websocket server running on {server_host}:{server_port}")
             server.serve_forever()
-    except:
-        ...
+
+    except Exception as exc:
+        get_logger().critical(f"{exc}")
