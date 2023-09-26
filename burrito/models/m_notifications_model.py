@@ -18,3 +18,11 @@ class CommentUpdate(MongoBaseModel):
 
     class Meta:
         table_name: str = "notifications"
+
+
+class NotificationMetaData(MongoBaseModel):
+    user_id: int
+    notification_id: str
+
+    class Meta:
+        table_name = "notification_meta_data"

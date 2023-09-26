@@ -86,6 +86,10 @@ def mongo_update(model: MongoBaseModel, **filters) -> list[object]:
 
 
 def mongo_delete(model: MongoBaseModel, **filters) -> None:
+    item_id = filters.get("_id")
+    if item_id and isinstance(item_id, str):
+        filters["_id"] = ObjectId(item_id)
+
     _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].delete_many(filters)
 
 
@@ -94,7 +98,19 @@ def mongo_page_count(
         items_count: int = 10,
         **filters
 ) -> int:
+    item_id = filters.get("_id")
+    if item_id and isinstance(item_id, str):
+        filters["_id"] = ObjectId(item_id)
+
     return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
+
+
+def mongo_items_count(model: MongoBaseModel, **filters) -> int:
+    item_id = filters.get("_id")
+    if item_id and isinstance(item_id, str):
+        filters["_id"] = ObjectId(item_id)
+
+    return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
 
 
 def mongo_save_file(ticket_id: int, file: bytes) -> str:
