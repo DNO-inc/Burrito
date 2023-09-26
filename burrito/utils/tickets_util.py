@@ -7,7 +7,7 @@ from playhouse.shortcuts import model_to_dict
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import ADMIN_ROLES, STATUS_ACCEPTED
 from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
-from burrito.utils.mongo_util import mongo_insert, mongo_select
+from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
 
@@ -20,7 +20,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
 from burrito.models.m_actions_model import Actions
-from burrito.models.m_notifications_model import Notifications, CommentUpdate
+from burrito.models.m_notifications_model import Notifications, CommentUpdate, NotificationMetaData
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
@@ -408,14 +408,29 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
 
     pubsub: Redis = get_redis_connector()
 
-    for id_ in get_notification_receivers(ticket):
-        pubsub.publish(
+    target_ids = get_notification_receivers(ticket)
+    notification_id = mongo_insert(notification)
+
+    for id_ in target_ids:
+        meta_data_id = mongo_insert(
+            NotificationMetaData(
+                user_id=id_,
+                notification_id=notification_id
+            )
+        )
+        subscribers_count = pubsub.publish(
             f"user_{id_}",
             make_websocket_message(
                 type_="notification",
                 obj=notification
             )
         )
+
+        if subscribers_count > 0:
+            mongo_delete(NotificationMetaData, _id=meta_data_id)
+
+    if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
+        mongo_delete(Notifications, _id=notification_id)
 
 
 def send_comment_update(ticket: Tickets | int, comment: CommentUpdate):
