@@ -1,4 +1,5 @@
 import time
+import threading
 
 from redis.client import PubSub
 from websockets.sync.server import serve
@@ -12,27 +13,43 @@ from burrito.utils.auth import AuthTokenPayload
 
 
 def recv_data(websocket: WebSocketServerProtocol) -> bytes:
-    try:
-        return websocket.recv()
-    except:
-        ...
+    return websocket.recv()
 
 
 def send_data(websocket: WebSocketServerProtocol, data: bytes) -> None:
-    try:
-        websocket.send(data)
-    except:
-        ...
+    websocket.send(data)
 
 
 def close_conn(websocket: WebSocketServerProtocol) -> None:
-    try:
-        return websocket.close()
-    except:
-        ...
+    websocket.close()
+
+
+def recv_ping(websocket: WebSocketServerProtocol) -> None:
+    thread_id = threading.get_native_id()
+    get_logger().info(f"New pinging thread started: {thread_id}")
+    while True:
+        try:
+            raw_data = recv_data(websocket)
+
+            if isinstance(raw_data, bytes):
+                raw_data = raw_data.decode("utf-8")
+
+            if raw_data == "PING":
+                send_data(websocket, b"PONG")
+                get_logger().info("PING/PONG")
+
+        except Exception as exc:
+            get_logger().warning(f"PING/PONG {exc}")
+            break
+
+        time.sleep(5)
+    get_logger().info(f"Pinging thread is finished {thread_id}")
 
 
 def main_handler(websocket: WebSocketServerProtocol):
+    thread_id = threading.get_native_id()
+    get_logger().info(f"New thread started: {thread_id}")
+
     raw_data = recv_data(websocket)
 
     if isinstance(raw_data, bytes):
@@ -55,8 +72,14 @@ def main_handler(websocket: WebSocketServerProtocol):
     pubsub: PubSub = get_redis_connector().pubsub()
     pubsub.subscribe(f"user_{token_payload.user_id}")
 
+    pinging_thread = threading.Thread(target=recv_ping, args=(websocket,), daemon=True)
+    pinging_thread.start()
+
     try:
         while True:
+            if not pinging_thread.is_alive():
+                break
+
             message = pubsub.get_message()
 
             if message:
@@ -70,6 +93,8 @@ def main_handler(websocket: WebSocketServerProtocol):
     except Exception as exc:
         get_logger().warning(f"{exc}")
 
+    get_logger().info(f"Thread {thread_id} is finished")
+
 
 def run_websocket_server():
     try:
@@ -78,8 +103,7 @@ def run_websocket_server():
         with serve(
             main_handler,
             server_host,
-            server_port,
-            logger=get_logger()
+            server_port
         ) as server:
             get_logger().info(f"websocket server running on {server_host}:{server_port}")
             server.serve_forever()
