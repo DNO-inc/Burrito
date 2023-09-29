@@ -3,7 +3,6 @@ from bson.objectid import ObjectId
 
 from burrito.models.m_notifications_model import NotificationMetaData, Notifications
 
-from burrito.utils.logger import get_logger
 from burrito.utils.mongo_util import mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.auth import BurritoJWT, get_auth_core, AuthTokenPayload
 
@@ -23,8 +22,6 @@ async def notifications__get_notifications(__auth_obj: BurritoJWT = Depends(get_
         ) == 0:
             mongo_delete(Notifications, _id=item["notification_id"])
 
-    get_logger().info(output)
-
     return {
-        "notifications": [Notifications(**i) for i in output]
+        "notifications": [Notifications(**i) for i in output if i.get("body") and i.get("body_ua")]
     }
