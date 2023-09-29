@@ -42,8 +42,15 @@ async def iofiles__get_file(
 ):
     await __auth_obj.require_access_token()
 
+    file_name = None
+    try:
+        file_name = mongo_select(TicketFiles, file_id=file_id)[0]["file_name"]
+    except:
+        file_name = "file"
+
     return StreamingResponse(
-        content=(chunk for chunk in chunks(1024, mongo_get_file(file_id)))
+        content=(chunk for chunk in chunks(1024, mongo_get_file(file_id))),
+        headers={"Content-Disposition": f"attachment; filename={file_name}"}
     )
 
 
