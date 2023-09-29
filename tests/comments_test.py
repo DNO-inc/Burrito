@@ -111,7 +111,7 @@ class CommentsTestCase(unittest.TestCase):
                 "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "comment_id": "6510472875f64c4f7bf6aba9"
+                "comment_id": self.test_001_comments_create()
             },
             timeout=TIMEOUT
         )

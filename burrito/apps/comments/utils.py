@@ -9,6 +9,11 @@ def is_comment_exist_with_error(comment_id: str) -> Comments | None:
     comment: Comments | None = mongo_select(Comments, _id=ObjectId(comment_id))
     if comment:
         comment = comment[0]
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Comment with comment_id {comment_id} is not exists"
+        )
 
     if not comment.get("type_"):
         raise HTTPException(
@@ -17,12 +22,6 @@ def is_comment_exist_with_error(comment_id: str) -> Comments | None:
         )
 
     if comment["type_"] != "comment":
-        raise HTTPException(
-            status_code=404,
-            detail=f"Comment with comment_id {comment_id} is not exists"
-        )
-
-    if not comment:
         raise HTTPException(
             status_code=404,
             detail=f"Comment with comment_id {comment_id} is not exists"
