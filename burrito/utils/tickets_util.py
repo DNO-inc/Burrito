@@ -20,7 +20,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
 from burrito.models.m_actions_model import Actions
-from burrito.models.m_notifications_model import Notifications, CommentUpdate, NotificationMetaData
+from burrito.models.m_notifications_model import Notifications, NotificationMetaData
 
 from burrito.schemas.action_schema import ActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
@@ -431,19 +431,3 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
 
     if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
         mongo_delete(Notifications, _id=notification_id)
-
-
-def send_comment_update(ticket: Tickets | int, comment: CommentUpdate):
-    if isinstance(ticket, int):
-        ticket = is_ticket_exist(ticket)
-
-    pubsub: Redis = get_redis_connector()
-
-    for id_ in get_notification_receivers(ticket):
-        pubsub.publish(
-            f"user_{id_}",
-            make_websocket_message(
-                type_="comment",
-                obj=comment
-            )
-        )
