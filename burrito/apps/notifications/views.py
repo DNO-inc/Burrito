@@ -10,8 +10,18 @@ from burrito.utils.auth import BurritoJWT, get_auth_core, AuthTokenPayload
 async def notifications__get_notifications(__auth_obj: BurritoJWT = Depends(get_auth_core())):
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
 
-    notification_list = mongo_select(NotificationMetaData, user_id=token_payload.user_id)
-    output = mongo_select(Notifications, _id={"$in": [ObjectId(i["notification_id"]) for i in notification_list]})
+    notification_list = mongo_select(
+        NotificationMetaData,
+        start_page=1,
+        items_count=500,
+        user_id=token_payload.user_id
+    )
+    output = mongo_select(
+        Notifications,
+        start_page=1,
+        items_count=500,
+        _id={"$in": [ObjectId(i["notification_id"]) for i in notification_list]}
+    )
 
     for item in notification_list:
         mongo_delete(NotificationMetaData, _id=item["_id"])
@@ -23,5 +33,5 @@ async def notifications__get_notifications(__auth_obj: BurritoJWT = Depends(get_
             mongo_delete(Notifications, _id=item["notification_id"])
 
     return {
-        "notifications": [Notifications(**i) for i in output if i.get("body") and i.get("body_ua")]
+        "notifications": [Notifications(**i) for i in output]
     }

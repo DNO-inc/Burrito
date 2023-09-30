@@ -113,14 +113,20 @@ def mongo_items_count(model: MongoBaseModel, **filters) -> int:
     return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
 
 
-def mongo_save_file(ticket_id: int, file_name: str, file: bytes) -> str:
+def mongo_save_file(ticket_id: int, file_owner_id: int, file_name: str, file: bytes, content_type: str | None) -> str:
     file_id = str(_MONGO_GRIDFS.put(file))
+
+    # do something else
+    if content_type is None:
+        content_type = ""
 
     mongo_insert(
         TicketFiles(
             ticket_id=ticket_id,
-            file_id=str(_MONGO_GRIDFS.put(file)),
-            file_name=file_name
+            owner_id=file_owner_id,
+            file_id=file_id,
+            file_name=file_name,
+            content_type=content_type
         )
     )
 
@@ -130,6 +136,16 @@ def mongo_save_file(ticket_id: int, file_name: str, file: bytes) -> str:
 def mongo_get_file(file_id: str) -> bytes:
     try:
         return _MONGO_GRIDFS.get(ObjectId(file_id)).read()
+    except Exception as exc:
+        raise HTTPException(
+            status_code=403,
+            detail=f"File with file_id {file_id} is not exists"
+        ) from exc
+
+
+def mongo_delete_file(file_id: str) -> None:
+    try:
+        _MONGO_GRIDFS.delete(ObjectId(file_id))
     except Exception as exc:
         raise HTTPException(
             status_code=403,

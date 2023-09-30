@@ -9,7 +9,7 @@ from burrito.schemas.comment_schema import (
     CommentDetailInfoScheme
 )
 
-from burrito.models.m_notifications_model import Notifications, CommentUpdate
+from burrito.models.m_notifications_model import Notifications
 from burrito.models.m_comments_model import Comments
 from burrito.models.tickets_model import Tickets
 
@@ -59,13 +59,6 @@ async def comments__create(
             user_id=token_payload.user_id,
             body_ua=f"Хтось створив новий коментарій в тікеті {ticket.ticket_id}",
             body=f"Someone has created a new comment in ticket {ticket.ticket_id}"
-        )
-    )
-    send_notification(
-        ticket,
-        CommentUpdate(
-            ticket_id=ticket.ticket_id,
-            comment_id=comment_id
         )
     )
 

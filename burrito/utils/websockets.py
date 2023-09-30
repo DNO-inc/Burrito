@@ -5,7 +5,7 @@ from burrito.utils.singleton_pattern import singleton
 from burrito.utils.auth import check_jwt_token
 
 from burrito.models.ws_message import WebSocketMessage
-from burrito.models.m_notifications_model import Notifications, CommentUpdate
+from burrito.models.m_notifications_model import Notifications
 
 
 @singleton
@@ -44,7 +44,7 @@ def get_websocket_manager():
 _WEBSOCKET_MANAGER: WebsocketManager = get_websocket_manager()
 
 
-def make_websocket_message(type_: str, obj: CommentUpdate | Notifications) -> bytes:
+def make_websocket_message(type_: str, obj: Notifications) -> bytes:
     return json.dumps(
         WebSocketMessage(
             type_=type_,
