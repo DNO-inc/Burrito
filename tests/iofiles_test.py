@@ -3,6 +3,7 @@ import unittest
 import requests
 
 from auth_test import AuthTestCase
+from tickets_test import create_ticket_get_id
 
 from burrito.utils.config_reader import get_config
 
@@ -11,8 +12,10 @@ class IOFilesTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.file_id: None | str = None
+        cls.ticket_id: None | int = None
 
     def test_001_upload_file(self):
+        IOFilesTestCase.ticket_id = create_ticket_get_id("lol")
 
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/upload_file",
@@ -20,7 +23,7 @@ class IOFilesTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             data={
-                "ticket_id": 1
+                "ticket_id": IOFilesTestCase.ticket_id
             },
             files=[
                 ('file_list', ('file2.txt', open("shadow/image.jpg", "rb"), 'image/png')),
@@ -44,7 +47,7 @@ class IOFilesTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             data={
-                "ticket_id": 1
+                "ticket_id": IOFilesTestCase.ticket_id
             },
             timeout=0.5
         )
@@ -65,7 +68,25 @@ class IOFilesTestCase(unittest.TestCase):
                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             data={
-                "ticket_id": 1
+                "ticket_id": IOFilesTestCase.ticket_id
+            },
+            timeout=0.5
+        )
+
+        self.assertEqual(
+            response.status_code,
+            200
+        )
+
+    def test_004_delete_file(self):
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/delete_file",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            data={
+                "file_id": IOFilesTestCase.file_id
             },
             timeout=0.5
         )
