@@ -1,6 +1,8 @@
 import unittest
 import requests
 
+from auth_test import AuthTestCase
+
 from burrito.utils.config_reader import get_config
 from utils.exceptions_tool import check_error
 
@@ -27,6 +29,9 @@ class MetaTestCase(unittest.TestCase):
     def test_groups_list(self):
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_groups",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
             timeout=TIMEOUT
         )
 
@@ -93,6 +98,9 @@ class MetaTestCase(unittest.TestCase):
     def test_get_admin_list(self):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_admins",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
             timeout=TIMEOUT
         )
 

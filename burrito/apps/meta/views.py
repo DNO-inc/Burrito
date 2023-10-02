@@ -1,5 +1,6 @@
-from typing import Any
 from playhouse.shortcuts import model_to_dict
+
+from fastapi import Depends
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.group_model import Groups
@@ -23,6 +24,7 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
 from burrito.utils.query_util import ADMIN_ROLES
+from burrito.utils.auth import BurritoJWT, get_auth_core
 
 
 async def meta__get_statuses_list():
@@ -33,7 +35,9 @@ async def meta__get_statuses_list():
     )
 
 
-async def meta__get_groups_list():
+async def meta__get_groups_list(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+    await __auth_obj.require_access_token()
+
     return ResponseGroupsListSchema(
         groups_list=[
             GroupResponseSchema(
@@ -72,7 +76,9 @@ async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
     return ResponseQueueListSchema(queues_list=response_list)
 
 
-async def meta__get_admins():
+async def meta__get_admins(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+    await __auth_obj.require_access_token()
+
     return ResponseAdminListSchema(
         admin_list=[
             make_short_user_data(
