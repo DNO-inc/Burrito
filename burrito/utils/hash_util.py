@@ -36,17 +36,5 @@ def compare_password(password: str, hashed_password: str) -> bool:
 
     try:
         return _hasher.verify(hashed_password, password)
-    except:
+    except Exception:
         return False
-
-
-def get_verification_code() -> str:
-    """_summary_
-
-    Generate and return email verification code
-
-    Returns:
-        str: verification code
-    """
-
-    return "".join((str(SystemRandom().randint(0, 9)) for i in range(6)))
