@@ -431,3 +431,7 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
 
     if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
         mongo_delete(Notifications, _id=notification_id)
+
+
+def send_comment_update(ticket_id: int, comment_id: str) -> None:
+    get_redis_connector().publish(f"chat_{ticket_id}", comment_id.encode("utf-8"))

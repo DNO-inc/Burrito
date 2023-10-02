@@ -1,6 +1,5 @@
 import socket
 
-import requests
 from dotenv import dotenv_values, find_dotenv
 import rich
 
@@ -26,7 +25,7 @@ def _ping(data):
     try:
         sock.connect(("localhost", int(data[1])))
         rich.print(f"\t[green][+] Host is OK: {data}")
-    except:
+    except Exception:
         rich.print(f"\t[red][-] No connection to host: {data}")
     finally:
         sock.close()

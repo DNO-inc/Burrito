@@ -14,7 +14,13 @@ from burrito.models.m_comments_model import Comments
 from burrito.models.tickets_model import Tickets
 
 from burrito.utils.mongo_util import mongo_insert, mongo_update, mongo_delete
-from burrito.utils.tickets_util import is_ticket_exist, am_i_own_this_ticket, send_notification, make_short_user_data
+from burrito.utils.tickets_util import (
+    is_ticket_exist,
+    am_i_own_this_ticket,
+    send_notification,
+    make_short_user_data,
+    send_comment_update
+)
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core, AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import STATUS_OPEN
@@ -61,6 +67,7 @@ async def comments__create(
             body=f"Someone has created a new comment in ticket {ticket.ticket_id}"
         )
     )
+    send_comment_update(ticket.ticket_id, comment_id)
 
     if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
         create_ticket_action(
