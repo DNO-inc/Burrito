@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Literal
 
 from redis import Redis
 from fastapi import HTTPException, status
@@ -19,13 +19,25 @@ from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
-from burrito.models.m_actions_model import Actions
+from burrito.models.m_actions_model import Actions, FileActions
 from burrito.models.m_notifications_model import Notifications, NotificationMetaData
 
-from burrito.schemas.action_schema import ActionSchema
+from burrito.schemas.action_schema import ActionSchema, FileActionSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.comment_schema import CommentDetailInfoScheme, CommentBaseDetailInfoSchema
+
+
+__FILE_NOTIFICATION_LIST = {
+    "upload": {
+        "en": "{} has uploaded a file {}",
+        "ua": "{} завантажив файл {}"
+    },
+    "delete": {
+        "en": "{} has deleted the file {}",
+        "ua": "{} видалив файл {}"
+    },
+}
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -226,6 +238,58 @@ def create_ticket_action(
         )
 
 
+def create_ticket_file_action(
+    *,
+    ticket_id: int,
+    user_id: int,
+    value: str,
+    file_meta_action: Literal["upload", "delete"],
+    generate_notification: bool = True
+) -> None:
+    get_logger().info(
+        f"""
+        New fila action (
+            ticket={ticket_id},
+            user={user_id},
+            value={value}
+        )
+
+        """
+    )
+    mongo_insert(
+        FileActions(
+            ticket_id=ticket_id,
+            user_id=user_id,
+            value=value
+        )
+    )
+    if generate_notification:
+        get_logger().info(
+            f"""
+            New notification (
+                ticket={ticket_id},
+                user={user_id},
+                body={value}
+            )
+
+            """
+        )
+
+        ticket: Tickets = is_ticket_exist(ticket_id)
+        action_author: Users = get_user_by_id(user_id)
+
+        notification_text = __FILE_NOTIFICATION_LIST[file_meta_action]
+        send_notification(
+            ticket,
+            Notifications(
+                ticket_id=ticket_id,
+                user_id=user_id,
+                body_ua=notification_text["ua"].format(action_author.login, value),
+                body=notification_text["en"].format(action_author.login, value)
+            )
+        )
+
+
 def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
@@ -236,29 +300,45 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
 
     for item in mongo_select(Actions, start_page, items_count, "creation_date", True, ticket_id=ticket.ticket_id):
         if item["type_"] == "action":
-            old_value = item["old_value"]
-            new_value = item["new_value"]
-
-            if item["field_name"] == "assignee":
-                old_assignee = get_user_by_id_or_none(item["old_value"])
-                new_assignee = get_user_by_id_or_none(item["new_value"])
-
-                old_value = old_assignee.login if old_assignee else item["old_value"]
-                new_value = new_assignee.login if new_assignee else item["new_value"]
-
-            result.append(
-                ActionSchema(
-                    ticket_id=item["ticket_id"],
-                    author=make_short_user_data(
-                        item["user_id"],
-                        hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
-                    ),
-                    creation_date=item["creation_date"],
-                    field_name=item["field_name"],
-                    old_value=old_value,
-                    new_value=new_value
+            if item["field_name"] == "file":
+                result.append(
+                    FileActionSchema(
+                        ticket_id=item["ticket_id"],
+                        author=make_short_user_data(
+                            item["user_id"],
+                            hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                        ),
+                        creation_date=item["creation_date"],
+                        field_name=item["field_name"],
+                        value=item["value"]
+                    )
                 )
-            )
+
+            else:
+                old_value = item["old_value"]
+                new_value = item["new_value"]
+
+                if item["field_name"] == "assignee":
+                    old_assignee = get_user_by_id_or_none(item["old_value"])
+                    new_assignee = get_user_by_id_or_none(item["new_value"])
+
+                    old_value = old_assignee.login if old_assignee else item["old_value"]
+                    new_value = new_assignee.login if new_assignee else item["new_value"]
+
+                result.append(
+                    ActionSchema(
+                        ticket_id=item["ticket_id"],
+                        author=make_short_user_data(
+                            item["user_id"],
+                            hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
+                        ),
+                        creation_date=item["creation_date"],
+                        field_name=item["field_name"],
+                        old_value=old_value,
+                        new_value=new_value
+                    )
+                )
+
         elif item["type_"] == "comment":
             additional_data = mongo_select(Actions, _id=item["reply_to"]) if item["reply_to"] else None
             if additional_data:
