@@ -1,5 +1,6 @@
 from typing import Annotated
 
+from bson.objectid import ObjectId
 from funcy import chunks
 
 from fastapi import Depends, Form, UploadFile, HTTPException
@@ -7,10 +8,9 @@ from fastapi.responses import StreamingResponse
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.m_ticket_files import TicketFiles
-from burrito.models.m_notifications_model import Notifications
 
 from burrito.utils.auth import get_auth_core, BurritoJWT
-from burrito.utils.tickets_util import is_ticket_exist, create_ticket_action, send_notification
+from burrito.utils.tickets_util import is_ticket_exist, create_ticket_file_action
 from burrito.utils.mongo_util import mongo_save_file, mongo_get_file, mongo_select, mongo_delete_file
 from burrito.utils.logger import get_logger
 
@@ -43,24 +43,12 @@ async def iofiles__upload_file_for_ticket(
            f"User {token_payload.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
         )
         file_ids.append(current_file_id)
-        create_ticket_action(
+        create_ticket_file_action(
             ticket_id=ticket.ticket_id,
             user_id=token_payload.user_id,
-            field_name="file",
-            old_value="",
-            new_value=file_item.filename,
-            generate_notification=False
+            value=file_item.filename,
+            file_meta_action="upload"
         )
-
-    send_notification(
-        ticket,
-        Notifications(
-            ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
-            body_ua=f"Нові файли було прикріплено до тікета {ticket.ticket_id}",
-            body=f"A new files was attached to the ticket {ticket.ticket_id}"
-        )
-    )
 
     return {
         "file_id": file_ids
@@ -136,6 +124,19 @@ async def iofiles__delete_file(
         (ticket.assignee and token_payload.user_id == ticket.assignee.user_id)
         or (token_payload.user_id == ticket.creator.user_id and token_payload.user_id == file_data.owner_id)
     ):
+        file_data = mongo_select(
+            TicketFiles,
+            file_id=ObjectId(file_id)
+        )
+        if file_data:
+            file_data = file_data[0]
+
+        create_ticket_file_action(
+            ticket_id=ticket.ticket_id,
+            user_id=token_payload.user_id,
+            value=file_data["file_name"] if file_data else "file",
+            file_meta_action="delete"
+        )
         mongo_delete_file(file_id)
         return
 
