@@ -676,8 +676,8 @@ def get_notification_receivers(ticket: Tickets | int):
 
 def send_notification(ticket: Tickets | int, notification: Notifications):
     """
-    Send notification to subscribers. 
-    
+    Send notification to subscribers.
+
     Args:
         ticket: ticket ID or ticket object
         notification: notification to be sent to subscribers
@@ -690,31 +690,39 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
     target_ids = get_notification_receivers(ticket)
     notification_id = mongo_insert(notification)
 
-    for id_ in target_ids:
-        # save notification meta data in case if user is offline
-        # when user became online he can received notifications via `/notifications/` endpoint
-        meta_data_id = mongo_insert(
-            NotificationMetaData(
-                user_id=id_,
-                notification_id=notification_id
+    try:
+        for id_ in target_ids:
+            # save notification meta data in case if user is offline
+            # when user became online he can received notifications via `/notifications/` endpoint
+            meta_data_id = mongo_insert(
+                NotificationMetaData(
+                    user_id=id_,
+                    notification_id=notification_id
+                )
             )
-        )
-        # Publishes a notification to users chanel
-        subscribers_count = pubsub.publish(
-            f"user_{id_}",
-            make_websocket_message(
-                type_="notification",
-                obj=notification
+            # Publishes a notification to users chanel
+            subscribers_count = pubsub.publish(
+                f"user_{id_}",
+                make_websocket_message(
+                    type_="notification",
+                    obj=notification
+                )
             )
+
+            # Delete the notification meta data if user is online and received notification via websocket connection
+            if subscribers_count > 0:
+                mongo_delete(NotificationMetaData, _id=meta_data_id)
+
+        # Delete notifications from the database if all users was online and received notification via websocket connection
+        if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
+            mongo_delete(Notifications, _id=notification_id)
+
+    except Exception:
+        get_logger().error(
+            f"""
+                target_ids: {target_ids}
+            """
         )
-
-        # Delete the notification meta data if user is online and received notification via websocket connection
-        if subscribers_count > 0:
-            mongo_delete(NotificationMetaData, _id=meta_data_id)
-
-    # Delete notifications from the database if all users was online and received notification via websocket connection
-    if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
-        mongo_delete(Notifications, _id=notification_id)
 
 
 def send_comment_update(ticket_id: int, comment_id: str) -> None:
