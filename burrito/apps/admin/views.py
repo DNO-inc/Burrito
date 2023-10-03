@@ -3,7 +3,6 @@ import math
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
-from burrito.models.user_model import Users
 from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.admin_schema import (
