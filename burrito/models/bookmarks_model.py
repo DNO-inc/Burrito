@@ -7,6 +7,8 @@ from burrito.models.basic_model import BurritoBasicModel
 
 
 class Bookmarks(BurritoBasicModel):
+    # TODO: replace user_id with user and ticket_id with ticket
+
     user_id = ForeignKeyField(
         Users,
         field="user_id",

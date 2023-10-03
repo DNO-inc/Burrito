@@ -667,7 +667,8 @@ def get_notification_receivers(ticket: Tickets | int):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
-    ids = [item.user_id for item in Bookmarks.select().where(Bookmarks.ticket_id == ticket.ticket_id)]
+    # TODO: replace user_id with user and ticket_id with ticket
+    ids = [item.user_id.user_id for item in Bookmarks.select(Bookmarks.user_id).where(Bookmarks.ticket_id == ticket.ticket_id)]
     ids += [ticket.creator.user_id]
     ids += ([ticket.assignee.user_id] if ticket.assignee else [])
 
