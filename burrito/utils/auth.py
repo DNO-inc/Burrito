@@ -100,6 +100,7 @@ def _read_token_payload(token: str) -> AuthTokenPayload | None:
         ) from exc
 
     except Exception as exc:
+        get_logger().warning("Failed to read token: {token}")
         raise AuthTokenError(
             detail="Authorization token payload is invalid",
             status_code=status.HTTP_401_UNAUTHORIZED
