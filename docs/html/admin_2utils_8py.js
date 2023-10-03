@@ -1,4 +1,4 @@
 var admin_2utils_8py =
 [
-    [ "__all__", "admin_2utils_8py.html#aa4a022e6ddacd362b83964da5cc5d044", null ]
+    [ "make_ticket_detail_info", "admin_2utils_8py.html#af70f4401a95116f004d0d0f1ddcbac5f", null ]
 ];

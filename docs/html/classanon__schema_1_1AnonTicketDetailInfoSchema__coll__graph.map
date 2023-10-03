@@ -1,4 +1,8 @@
 <map id="AnonTicketDetailInfoSchema" name="AnonTicketDetailInfoSchema">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="63,5,158,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="568,99,760,124"/>
+<area shape="rect" id="node2" title=" " alt="" coords="48,5,135,31"/>
+<area shape="rect" id="node3" href="$classanon__schema_1_1AnonTicketUsersInfoSchema.html" title=" " alt="" coords="269,47,463,72"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,69,177,95"/>
+<area shape="rect" id="node5" title=" " alt="" coords="283,160,449,185"/>
+<area shape="rect" id="node6" title=" " alt="" coords="283,209,449,235"/>
 </map>

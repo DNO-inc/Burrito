@@ -1,6 +1,6 @@
 <map id="BaseProfile" name="BaseProfile">
-<area shape="rect" id="node1" title=" " alt="" coords="176,80,271,107"/>
-<area shape="rect" id="node3" href="$classprofile__schema_1_1RequestUpdateProfileSchema.html" title=" " alt="" coords="5,155,220,181"/>
-<area shape="rect" id="node4" href="$classprofile__schema_1_1ResponseProfileSchema.html" title=" " alt="" coords="245,155,423,181"/>
-<area shape="rect" id="node2" title=" " alt="" coords="176,5,271,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="163,79,252,104"/>
+<area shape="rect" id="node3" href="$classprofile__schema_1_1RequestUpdateProfileSchema.html" title=" " alt="" coords="5,152,204,177"/>
+<area shape="rect" id="node4" href="$classprofile__schema_1_1ResponseProfileSchema.html" title=" " alt="" coords="228,152,395,177"/>
+<area shape="rect" id="node2" title=" " alt="" coords="164,5,251,31"/>
 </map>

@@ -1,49 +1,18 @@
 var dir_66c3ad2435c02db441f0b27a3adc2617 =
 [
-    [ "admin_schema.py", "admin__schema_8py.html", [
-      [ "AdminUpdateTicketSchema", "classadmin__schema_1_1AdminUpdateTicketSchema.html", null ],
-      [ "AdminTicketAuthorInfo", "classadmin__schema_1_1AdminTicketAuthorInfo.html", null ],
-      [ "AdminGetTicketListSchema", "classadmin__schema_1_1AdminGetTicketListSchema.html", null ],
-      [ "AdminTicketDetailInfo", "classadmin__schema_1_1AdminTicketDetailInfo.html", null ],
-      [ "AdminTicketListResponse", "classadmin__schema_1_1AdminTicketListResponse.html", null ],
-      [ "AdminTicketIdSchema", "classadmin__schema_1_1AdminTicketIdSchema.html", null ],
-      [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ]
-    ] ],
-    [ "anon_schema.py", "anon__schema_8py.html", [
-      [ "AnonTicketListRequestSchema", "classanon__schema_1_1AnonTicketListRequestSchema.html", null ],
-      [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ],
-      [ "AnonTicketDetailInfoSchema", "classanon__schema_1_1AnonTicketDetailInfoSchema.html", null ],
-      [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ]
-    ] ],
-    [ "auth_schema.py", "auth__schema_8py.html", [
-      [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ]
-    ] ],
-    [ "meta_schema.py", "meta__schema_8py.html", [
-      [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ],
-      [ "ResponseGroupsListSchema", "classmeta__schema_1_1ResponseGroupsListSchema.html", null ],
-      [ "ResponseFacultiesListSchema", "classmeta__schema_1_1ResponseFacultiesListSchema.html", null ],
-      [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
-      [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ]
-    ] ],
-    [ "profile_schema.py", "profile__schema_8py.html", [
-      [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
-      [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
-      [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ],
-      [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ]
-    ] ],
-    [ "registration_schema.py", "registration__schema_8py.html", [
-      [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ]
-    ] ],
-    [ "tickets_schema.py", "tickets__schema_8py.html", [
-      [ "CreateTicketSchema", "classtickets__schema_1_1CreateTicketSchema.html", null ],
-      [ "UpdateTicketSchema", "classtickets__schema_1_1UpdateTicketSchema.html", null ],
-      [ "TicketListRequestSchema", "classtickets__schema_1_1TicketListRequestSchema.html", null ],
-      [ "TicketIDValueSchema", "classtickets__schema_1_1TicketIDValueSchema.html", null ],
-      [ "TicketUsersInfoSchema", "classtickets__schema_1_1TicketUsersInfoSchema.html", null ],
-      [ "TicketDetailInfoSchema", "classtickets__schema_1_1TicketDetailInfoSchema.html", null ],
-      [ "TicketListResponseSchema", "classtickets__schema_1_1TicketListResponseSchema.html", null ]
-    ] ],
-    [ "user_schema.py", "user__schema_8py.html", [
-      [ "UserPasswordLoginSchema", "classuser__schema_1_1UserPasswordLoginSchema.html", null ]
-    ] ]
+    [ "action_schema.py", "action__schema_8py.html", "action__schema_8py" ],
+    [ "admin_schema.py", "admin__schema_8py.html", "admin__schema_8py" ],
+    [ "anon_schema.py", "anon__schema_8py.html", "anon__schema_8py" ],
+    [ "auth_schema.py", "auth__schema_8py.html", "auth__schema_8py" ],
+    [ "comment_schema.py", "comment__schema_8py.html", "comment__schema_8py" ],
+    [ "faculty_schema.py", "faculty__schema_8py.html", "faculty__schema_8py" ],
+    [ "filters_schema.py", "filters__schema_8py.html", "filters__schema_8py" ],
+    [ "group_schema.py", "group__schema_8py.html", "group__schema_8py" ],
+    [ "meta_schema.py", "meta__schema_8py.html", "meta__schema_8py" ],
+    [ "pagination_schema.py", "pagination__schema_8py.html", "pagination__schema_8py" ],
+    [ "profile_schema.py", "profile__schema_8py.html", "profile__schema_8py" ],
+    [ "queue_schema.py", "queue__schema_8py.html", "queue__schema_8py" ],
+    [ "registration_schema.py", "registration__schema_8py.html", "registration__schema_8py" ],
+    [ "status_schema.py", "status__schema_8py.html", "status__schema_8py" ],
+    [ "tickets_schema.py", "tickets__schema_8py.html", "tickets__schema_8py" ]
 ];

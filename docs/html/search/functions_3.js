@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['dispatch_541',['dispatch',['../classuser__agent_1_1UserAgentMiddleware.html#ad075ad559a5765d5148a7d8932a15dc9',1,'user_agent::UserAgentMiddleware']]],
-  ['drop_5ftables_542',['drop_tables',['../namespaceburrito_1_1utils_1_1db__utils.html#a9edfad6d3e5b70a741e8ccc2becf9cd9',1,'burrito::utils::db_utils']]]
+  ['change_5fticket_5fassignee_0',['change_ticket_assignee',['../namespaceburrito_1_1utils_1_1tickets__util.html#a4bd8d3aea99eb87fa9e50570d01235d2',1,'burrito::utils::tickets_util']]],
+  ['change_5fticket_5ffaculty_1',['change_ticket_faculty',['../namespaceburrito_1_1utils_1_1tickets__util.html#a8e154c59c122cced14e83cd7ea52d0f5',1,'burrito::utils::tickets_util']]],
+  ['change_5fticket_5fqueue_2',['change_ticket_queue',['../namespaceburrito_1_1utils_1_1tickets__util.html#adda46141b84a35a93e3c4922c3adfb45',1,'burrito::utils::tickets_util']]],
+  ['change_5fticket_5fstatus_3',['change_ticket_status',['../namespaceburrito_1_1utils_1_1tickets__util.html#abe11ad61498dcd6beda385c2c92f2c5e',1,'burrito::utils::tickets_util']]],
+  ['chat_5fcycle_4',['chat_cycle',['../namespacews_1_1utils.html#ad28e784ccac786d2b1d53a491fdac609',1,'ws::utils']]],
+  ['check_5fjwt_5ftoken_5',['check_jwt_token',['../namespaceburrito_1_1utils_1_1auth.html#a88498d84194b96f9cf5eba9b2a543db1',1,'burrito::utils::auth']]],
+  ['check_5fpermission_6',['check_permission',['../namespaceburrito_1_1utils_1_1permissions__checker.html#a75383b6463bcf5da1fac75661f524d06',1,'burrito::utils::permissions_checker']]],
+  ['close_5fconn_7',['close_conn',['../namespacews_1_1utils.html#a86a3e1631ec7daacd85510787ce9032a',1,'ws::utils']]],
+  ['comments_5f_5fcreate_8',['comments__create',['../namespacecomments_1_1views.html#a639bcccb4e716430b8b564fc719b03aa',1,'comments::views']]],
+  ['comments_5f_5fdelete_9',['comments__delete',['../namespacecomments_1_1views.html#acf2ab015b6579afcdd0754d8da17a83d',1,'comments::views']]],
+  ['comments_5f_5fedit_10',['comments__edit',['../namespacecomments_1_1views.html#a92184b2b49135491a661d4e0f96ccd27',1,'comments::views']]],
+  ['comments_5f_5fget_5fcomment_5fby_5fid_11',['comments__get_comment_by_id',['../namespacecomments_1_1views.html#a1ebd38f5807410a6acceb3b42668d425',1,'comments::views']]],
+  ['compare_5fpassword_12',['compare_password',['../namespaceburrito_1_1utils_1_1hash__util.html#a5c500359344ca575c581f0fec3cee357',1,'burrito::utils::hash_util']]],
+  ['config_13',['config',['../classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html#a1681fc67362bef08c1e2436b2d937327',1,'burrito::utils::config_reader::EnvConfigReader']]],
+  ['connect_5fapp_14',['connect_app',['../namespaceburrito_1_1utils_1_1app__util.html#aaf57d8c066c80ca6bcd1791f742fadf5',1,'burrito::utils::app_util']]],
+  ['convert_15',['convert',['../classburrito_1_1utils_1_1converter_1_1Converter.html#ac219d83660f883389043bb442db9e238',1,'burrito.utils.converter.Converter.convert()'],['../classburrito_1_1utils_1_1converter_1_1StatusConverter.html#a8bc7b1a6487ddd742a7725e47ffbc54d',1,'burrito.utils.converter.StatusConverter.convert()'],['../classburrito_1_1utils_1_1converter_1_1QueueConverter.html#aca659039437a904b246c06dff6a1325e',1,'burrito.utils.converter.QueueConverter.convert()'],['../classburrito_1_1utils_1_1converter_1_1FacultyConverter.html#ac72011efc8adeda75dffaacc746bdac5',1,'burrito.utils.converter.FacultyConverter.convert()'],['../classburrito_1_1utils_1_1converter_1_1GroupConverter.html#a9df2843e5ddf474aa58af43b37f8a505',1,'burrito.utils.converter.GroupConverter.convert()']]],
+  ['create_5ftables_16',['create_tables',['../namespaceburrito_1_1utils_1_1db__utils.html#a4af4d67d74aaac5762df83bfa84d1fbb',1,'burrito::utils::db_utils']]],
+  ['create_5fticket_5faction_17',['create_ticket_action',['../namespaceburrito_1_1utils_1_1tickets__util.html#ad744bd105730c5fba6c42e1af3fa2d10',1,'burrito::utils::tickets_util']]],
+  ['create_5fticket_5ffile_5faction_18',['create_ticket_file_action',['../namespaceburrito_1_1utils_1_1tickets__util.html#a60f01e3c26aed61aff05205f0159e266',1,'burrito::utils::tickets_util']]],
+  ['create_5ftoken_5fpare_19',['create_token_pare',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a0c58e7a36cc094d9dbfc3601fe0d9788',1,'burrito::utils::auth::BurritoJWT']]],
+  ['create_5fuser_20',['create_user',['../namespaceburrito_1_1utils_1_1users__util.html#afa5fba75bbb37fe552630c590eb971c8',1,'burrito::utils::users_util']]],
+  ['create_5fuser_5ftmp_5ffoo_21',['create_user_tmp_foo',['../namespaceburrito_1_1utils_1_1users__util.html#ab5fea89670945078da07dd1ba89c6381',1,'burrito::utils::users_util']]],
+  ['create_5fuser_5fwith_5fcabinet_22',['create_user_with_cabinet',['../namespaceburrito_1_1utils_1_1users__util.html#a33fc6bf02da5a5af858071489c278f7a',1,'burrito::utils::users_util']]]
 ];

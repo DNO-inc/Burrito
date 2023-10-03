@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['queues_371',['Queues',['../classqueues__model_1_1Queues.html',1,'queues_model']]],
-  ['queuestrtoint_372',['QueueStrToModel',['../classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html',1,'burrito::utils::converter']]]
+  ['participants_0',['Participants',['../classparticipants__model_1_1Participants.html',1,'participants_model']]],
+  ['permissionmetadata_1',['PermissionMetaData',['../classburrito_1_1utils_1_1permissions__checker_1_1PermissionMetaData.html',1,'burrito::utils::permissions_checker']]],
+  ['permissions_2',['Permissions',['../classpermissions__model_1_1Permissions.html',1,'permissions_model']]]
 ];

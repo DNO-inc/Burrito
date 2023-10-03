@@ -1,9 +1,7 @@
 var searchData=
 [
-  ['ticketdetailinfoschema_388',['TicketDetailInfoSchema',['../classtickets__schema_1_1TicketDetailInfoSchema.html',1,'tickets_schema']]],
-  ['ticketidvalueschema_389',['TicketIDValueSchema',['../classtickets__schema_1_1TicketIDValueSchema.html',1,'tickets_schema']]],
-  ['ticketlistrequestschema_390',['TicketListRequestSchema',['../classtickets__schema_1_1TicketListRequestSchema.html',1,'tickets_schema']]],
-  ['ticketlistresponseschema_391',['TicketListResponseSchema',['../classtickets__schema_1_1TicketListResponseSchema.html',1,'tickets_schema']]],
-  ['tickets_392',['Tickets',['../classtickets__model_1_1Tickets.html',1,'tickets_model']]],
-  ['ticketusersinfoschema_393',['TicketUsersInfoSchema',['../classtickets__schema_1_1TicketUsersInfoSchema.html',1,'tickets_schema']]]
+  ['statusconverter_0',['StatusConverter',['../classburrito_1_1utils_1_1converter_1_1StatusConverter.html',1,'burrito::utils::converter']]],
+  ['statuses_1',['Statuses',['../classstatuses__model_1_1Statuses.html',1,'statuses_model']]],
+  ['statusresponseschema_2',['StatusResponseSchema',['../classstatus__schema_1_1StatusResponseSchema.html',1,'status_schema']]],
+  ['subscriptions_3',['Subscriptions',['../classsubscriptions__model_1_1Subscriptions.html',1,'subscriptions_model']]]
 ];

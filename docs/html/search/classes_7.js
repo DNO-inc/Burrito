@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['groups_363',['Groups',['../classgroup__model_1_1Groups.html',1,'group_model']]],
-  ['groupstrtoint_364',['GroupStrToModel',['../classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html',1,'burrito::utils::converter']]]
+  ['groupconverter_0',['GroupConverter',['../classburrito_1_1utils_1_1converter_1_1GroupConverter.html',1,'burrito::utils::converter']]],
+  ['groupresponseschema_1',['GroupResponseSchema',['../classgroup__schema_1_1GroupResponseSchema.html',1,'group_schema']]],
+  ['groups_2',['Groups',['../classgroup__model_1_1Groups.html',1,'group_model']]]
 ];

@@ -1,4 +1,9 @@
 <map id="TicketDetailInfoSchema" name="TicketDetailInfoSchema">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,183,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="47,5,141,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="541,147,704,172"/>
+<area shape="rect" id="node2" title=" " alt="" coords="48,132,135,157"/>
+<area shape="rect" id="node3" href="$classtickets__schema_1_1TicketUsersInfoSchema.html" title=" " alt="" coords="271,77,434,103"/>
+<area shape="rect" id="node4" title=" " alt="" coords="5,5,177,31"/>
+<area shape="rect" id="node5" title=" " alt="" coords="9,69,173,95"/>
+<area shape="rect" id="node6" title=" " alt="" coords="269,197,436,223"/>
+<area shape="rect" id="node7" title=" " alt="" coords="269,247,436,272"/>
 </map>
