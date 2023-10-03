@@ -10,7 +10,7 @@ var tickets__util_8py =
     [ "create_ticket_file_action", "tickets__util_8py.html#a60f01e3c26aed61aff05205f0159e266", null ],
     [ "get_filtered_tickets", "tickets__util_8py.html#af8745c0966c467c2e5aeb077898e2746", null ],
     [ "get_notification_receivers", "tickets__util_8py.html#af6ca9c5821da4e36c82731eaaa96ec60", null ],
-    [ "get_ticket_history", "tickets__util_8py.html#a43abe7d36cb3b5233193aafc7f14e11f", null ],
+    [ "get_ticket_history", "tickets__util_8py.html#a4ba76d16fbae3b74612fef37b33f2ae3", null ],
     [ "hide_ticket_body", "tickets__util_8py.html#a82790b1f6ed1da84874cd5a5a2f265d3", null ],
     [ "is_allowed_to_interact_with_history", "tickets__util_8py.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5", null ],
     [ "is_ticket_bookmarked", "tickets__util_8py.html#aead61e3c358d2f0b5d84a87e825b1bd4", null ],

@@ -78,7 +78,7 @@ var NAVTREEINDEX3 =
 "namespaceburrito_1_1utils_1_1tickets__util.html#a07b72421c4711c16e9e34a171d8107d4":[1,0,10,2,17,15],
 "namespaceburrito_1_1utils_1_1tickets__util.html#a32d1a10d1e89f9df81e51f7996227d7a":[1,0,10,2,17,14],
 "namespaceburrito_1_1utils_1_1tickets__util.html#a33669dfc85179e3b2e47bb9362d7333a":[1,0,10,2,17,17],
-"namespaceburrito_1_1utils_1_1tickets__util.html#a43abe7d36cb3b5233193aafc7f14e11f":[1,0,10,2,17,10],
+"namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3":[1,0,10,2,17,10],
 "namespaceburrito_1_1utils_1_1tickets__util.html#a4bd8d3aea99eb87fa9e50570d01235d2":[1,0,10,2,17,2],
 "namespaceburrito_1_1utils_1_1tickets__util.html#a60f01e3c26aed61aff05205f0159e266":[1,0,10,2,17,7],
 "namespaceburrito_1_1utils_1_1tickets__util.html#a82790b1f6ed1da84874cd5a5a2f265d3":[1,0,10,2,17,11],

@@ -153,8 +153,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad744bd105730c5fba6c42e1af3fa2d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60f01e3c26aed61aff05205f0159e266"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a60f01e3c26aed61aff05205f0159e266">create_ticket_file_action</a> (*int ticket_id, int user_id, str value, Literal[&quot;upload&quot;, &quot;delete&quot;] file_meta_action, bool generate_notification=True)</td></tr>
 <tr class="separator:a60f01e3c26aed61aff05205f0159e266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43abe7d36cb3b5233193aafc7f14e11f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a43abe7d36cb3b5233193aafc7f14e11f">get_ticket_history</a> (Tickets|int ticket, int user_id, int start_page=1, int items_count=10)</td></tr>
-<tr class="separator:a43abe7d36cb3b5233193aafc7f14e11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba76d16fbae3b74612fef37b33f2ae3"><td class="memItemLeft" align="right" valign="top">list[object]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3">get_ticket_history</a> (Tickets|int ticket, int user_id, int start_page=1, int items_count=10)</td></tr>
+<tr class="separator:a4ba76d16fbae3b74612fef37b33f2ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed9bab6c3a5d2fa849f2a4ec328c5ab5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5">is_allowed_to_interact_with_history</a> (Tickets|int ticket, int user_id)</td></tr>
 <tr class="separator:aed9bab6c3a5d2fa849f2a4ec328c5ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe11ad61498dcd6beda385c2c92f2c5e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#abe11ad61498dcd6beda385c2c92f2c5e">change_ticket_status</a> (Tickets|int ticket, int user_id, Statuses new_status)</td></tr>
@@ -198,7 +198,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Checks if the user is the creator of the ticket. This is used to ensure that a ticket is owned by user
 
+Args:
+    ticket_creator_id: ID of the user who created the ticket
+    user_id: ID of the user who might be creator of the ticket
+
+Returns: 
+    True if the user is the ticket creator else False
+</pre> 
 </div>
 </div>
 <a id="ae4243a34921e192127180d38b354e9bf" name="ae4243a34921e192127180d38b354e9bf"></a>
@@ -227,7 +235,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if the user is allowed to interact with this ticket.
+This is a wrapper around am_i_own_this_ticket that raises HTTPException in case of permission denied.
 
+Args:
+    ticket_creator_id: ID of the ticket creator
+    user_id: ID of the user to check permissions for
+
+Returns:
+    True if the user is allowed to interact with this
+</pre> 
 </div>
 </div>
 <a id="a4bd8d3aea99eb87fa9e50570d01235d2" name="a4bd8d3aea99eb87fa9e50570d01235d2"></a>
@@ -261,7 +278,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Change assignee of ticket.
 
+Args:
+    ticket: ticket to change assignee of
+    user_id: ID of user who is changing assignee
+    new_assignee: new assignee of ticket
+</pre> 
 </div>
 </div>
 <a id="a8e154c59c122cced14e83cd7ea52d0f5" name="a8e154c59c122cced14e83cd7ea52d0f5"></a>
@@ -295,7 +318,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Change the faculty of a ticket.
 
+Args:
+    ticket: Ticket to change the faculty of.
+    user_id: User who made the change.
+    new_faculty: New faculty to set.
+</pre> 
 </div>
 </div>
 <a id="adda46141b84a35a93e3c4922c3adfb45" name="adda46141b84a35a93e3c4922c3adfb45"></a>
@@ -329,7 +358,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Change the queue of a ticket.
 
+Args:
+    ticket: Ticket to change queue of
+    user_id: User who made the change.
+    new_queue: New queue to change
+
+Returns:
+    None on success Exception on failure Raises an exception on
+</pre> 
 </div>
 </div>
 <a id="abe11ad61498dcd6beda385c2c92f2c5e" name="abe11ad61498dcd6beda385c2c92f2c5e"></a>
@@ -363,7 +401,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Change ticket status. This function is used to change status of ticket.
+The ticket will not changed if previous status the same as new.
 
+Args:
+    ticket: Ticket to change status of.
+    user_id: User who made the change.
+    new_status: New status of ticket.
+</pre> 
 </div>
 </div>
 <a id="ad744bd105730c5fba6c42e1af3fa2d10" name="ad744bd105730c5fba6c42e1af3fa2d10"></a>
@@ -415,7 +460,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Create a new action. This will be used when something changed in a ticket
 
+Args:
+    ticket_id: The ID of the ticket
+    user_id: The ID of the user who made the change
+    field_name: The name of the field that was changed
+    old_value: The old value of the field that was changed
+    new_value: The new value of the field that was changed
+    generate_notification: Whether or not to generate notifications for the change
+</pre> 
 </div>
 </div>
 <a id="a60f01e3c26aed61aff05205f0159e266" name="a60f01e3c26aed61aff05205f0159e266"></a>
@@ -461,7 +515,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Create file action and notify about it.
 
+Args:
+    ticket_id: ID of the ticket
+    user_id: ID of the user who made the change
+    value: file name
+    file_meta_action: determine what happened with file (uploaded or deleted)
+    generate_notification: flag to generate notification
+</pre> 
 </div>
 </div>
 <a id="af8745c0966c467c2e5aeb077898e2746" name="af8745c0966c467c2e5aeb077898e2746"></a>
@@ -501,7 +563,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Get tickets filtered by given filters.
 
+Args:
+    _filters: a list of filters to apply to the query
+    _desc: whether to sort the results in descending or ascending
+    start_page: the page to start with
+    tickets_count: the number of tickets to return
+
+Returns:
+    a list of tickets ordered by creation date
+</pre> 
 </div>
 </div>
 <a id="af6ca9c5821da4e36c82731eaaa96ec60" name="af6ca9c5821da4e36c82731eaaa96ec60"></a>
@@ -519,17 +591,27 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Get notification receivers for ticket.
+This is used to determine who should receive notification
 
+Creator, assignee and users who followed this ticket can receive notifications related to `ticket`
+
+Args:
+    ticket: ticket ID
+
+Returns:
+    Set of user_ids who receive notification's
+</pre> 
 </div>
 </div>
-<a id="a43abe7d36cb3b5233193aafc7f14e11f" name="a43abe7d36cb3b5233193aafc7f14e11f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43abe7d36cb3b5233193aafc7f14e11f">&#9670;&#160;</a></span>get_ticket_history()</h2>
+<a id="a4ba76d16fbae3b74612fef37b33f2ae3" name="a4ba76d16fbae3b74612fef37b33f2ae3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ba76d16fbae3b74612fef37b33f2ae3">&#9670;&#160;</a></span>get_ticket_history()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def get_ticket_history </td>
+          <td class="memname"> list[object] get_ticket_history </td>
           <td>(</td>
           <td class="paramtype">Tickets | int&#160;</td>
           <td class="paramname"><em>ticket</em>, </td>
@@ -559,7 +641,17 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Get ticket history. This function is used to get a list of actions that have been created by user.
 
+Args:
+    ticket: Ticket to get history for.
+    user_id: ID of the user who requested ticket history.
+    start_page: Page number to start from.
+    items_count: Number of items to get.
+
+Returns:
+    List of actions
+</pre> 
 </div>
 </div>
 <a id="a82790b1f6ed1da84874cd5a5a2f265d3" name="a82790b1f6ed1da84874cd5a5a2f265d3"></a>
@@ -587,7 +679,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Hide ticket body. This is used to cut ticket body.
 
+Args:
+    body: The body of the ticket.
+    result_length: The length of the ticket body that will be returned for user.
+
+Returns: 
+    The ticket body truncated to `result_length` characters
+</pre> 
 </div>
 </div>
 <a id="aed9bab6c3a5d2fa849f2a4ec328c5ab5" name="aed9bab6c3a5d2fa849f2a4ec328c5ab5"></a>
@@ -615,7 +715,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Checks if user can interact with ticket.
 
+Args:
+    ticket: Ticket to check if allowed to interact `user_id`
+    user_id: ID of user who wants to interact with ticket
+
+Returns:
+    True if user can interact with ticket else False
+</pre> 
 </div>
 </div>
 <a id="aead61e3c358d2f0b5d84a87e825b1bd4" name="aead61e3c358d2f0b5d84a87e825b1bd4"></a>
@@ -643,7 +751,15 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if a ticket is bookmarked by a user.
 
+Args:
+    user_id: ID of the user to check
+    ticket_id: ID of the ticket to check if it is bookmarked
+
+Returns:
+    True if the ticket is bookmarked else False
+</pre> 
 </div>
 </div>
 <a id="a32d1a10d1e89f9df81e51f7996227d7a" name="a32d1a10d1e89f9df81e51f7996227d7a"></a>
@@ -696,7 +812,15 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Checks if a user is following a ticket.
 
+Args:
+    user_id: ID of the user to check.
+    ticket_id: ID of the ticket to check.
+
+Returns:
+    True if the user is following the ticket False otherwise
+</pre> 
 </div>
 </div>
 <a id="aa6a7a373787b20a73955ebde3f5a4b5d" name="aa6a7a373787b20a73955ebde3f5a4b5d"></a>
@@ -724,7 +848,15 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if a user likes a ticket. This is used to prevent spamming the user's ticket when they're in the middle of a ticket.
 
+Args:
+    user_id: ID of the user. It's the user ID
+    ticket_id: ID of the ticket. It's the ticket ID
+
+Returns:
+    True if the user likes the ticket False otherwise
+</pre> 
 </div>
 </div>
 <a id="a33669dfc85179e3b2e47bb9362d7333a" name="a33669dfc85179e3b2e47bb9362d7333a"></a>
@@ -752,7 +884,15 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Make a TicketUsersInfoSchema object that can be used to create a short user.
 
+Args:
+    user: The user whose data need to verify or hide
+    hide_user_id: Used if you need to hide user data, for example when ticket is anonymous.
+
+Returns:
+    An object that describes user
+</pre> 
 </div>
 </div>
 <a id="afabb18265503916fa1bd8e557a4d1a55" name="afabb18265503916fa1bd8e557a4d1a55"></a>
@@ -780,7 +920,15 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Select filters to apply to a role.
 
+Args:
+    role_name: The name of the role.
+    filter_package: The package of filters.
+
+Returns:
+    A list of filter names that should be applied when selecting tickets
+</pre> 
 </div>
 </div>
 <a id="ab1e6dec3dd6e1240888e17c1505889bc" name="ab1e6dec3dd6e1240888e17c1505889bc"></a>
@@ -808,7 +956,13 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Sends a comment update to the chat (Redis pub/sub chanel).
+Than that data will be used by websocket data
 
+Args:
+    ticket_id: The ID of the ticket
+    comment_id: The ID of the comment
+</pre> 
 </div>
 </div>
 <a id="ab29a80d4d09fb869d968d166e2266970" name="ab29a80d4d09fb869d968d166e2266970"></a>
@@ -836,7 +990,12 @@ Returns:
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Send notification to subscribers. 
 
+Args:
+    ticket: ticket ID or ticket object
+    notification: notification to be sent to subscribers
+</pre> 
 </div>
 </div>
 </div><!-- contents -->

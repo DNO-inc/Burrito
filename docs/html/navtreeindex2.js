@@ -244,7 +244,7 @@ var NAVTREEINDEX2 =
 "namespaceburrito_1_1utils_1_1app__util.html#adc4e1ed899a8e7930f16cc1e42bb0e9a":[1,0,10,2,0,2],
 "namespaceburrito_1_1utils_1_1auth.html":[1,0,10,2,1],
 "namespaceburrito_1_1utils_1_1auth.html#a1a555ccd151cd2c3ef159c9cc2862689":[1,0,10,2,1,9],
-"namespaceburrito_1_1utils_1_1auth.html#a88498d84194b96f9cf5eba9b2a543db1":[1,0,10,2,1,6],
+"namespaceburrito_1_1utils_1_1auth.html#a4f37b06c182649f3c61c895e6c1f89b9":[1,0,10,2,1,6],
 "namespaceburrito_1_1utils_1_1auth.html#a90d0a9c443de58de1b9d54ff1a46a299":[1,0,10,2,1,7],
 "namespaceburrito_1_1utils_1_1auth.html#a978c0696025d0471d9c91171076ac05e":[1,0,10,2,1,4],
 "namespaceburrito_1_1utils_1_1auth.html#a9de8c643b7e2f078eae241455649d885":[1,0,10,2,1,10],

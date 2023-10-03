@@ -146,8 +146,8 @@ Functions</h2></td></tr>
 <tr class="separator:a978c0696025d0471d9c91171076ac05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4effd73da80bc35f3da55e3d72b180a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ad4effd73da80bc35f3da55e3d72b180a">_read_token_payload</a> (str token)</td></tr>
 <tr class="separator:ad4effd73da80bc35f3da55e3d72b180a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88498d84194b96f9cf5eba9b2a543db1"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a88498d84194b96f9cf5eba9b2a543db1">check_jwt_token</a> (str token)</td></tr>
-<tr class="separator:a88498d84194b96f9cf5eba9b2a543db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f37b06c182649f3c61c895e6c1f89b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a4f37b06c182649f3c61c895e6c1f89b9">check_jwt_token</a> (str token)</td></tr>
+<tr class="separator:a4f37b06c182649f3c61c895e6c1f89b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90d0a9c443de58de1b9d54ff1a46a299"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a90d0a9c443de58de1b9d54ff1a46a299">get_auth_core</a> ()</td></tr>
 <tr class="separator:a90d0a9c443de58de1b9d54ff1a46a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -188,7 +188,14 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">This function gets some information from the AuthTokenPayload object and returns the key used to get tokens from redis
 
+Args:
+    data (AuthTokenPayload): token payload
+
+Returns:
+    str: redis key to get access/refresh token
+</pre> 
 </div>
 </div>
 <a id="a978c0696025d0471d9c91171076ac05e" name="a978c0696025d0471d9c91171076ac05e"></a>
@@ -230,7 +237,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">Generate tokens
 
+Args:
+    token_data (AuthTokenPayload): _description_
+    token_type (str): type of token, might be access or refresh
+    jti (str): token ID, both of tokens have the same jti
+
+Returns:
+    str: access or refresh token
+</pre> 
 </div>
 </div>
 <a id="ad4effd73da80bc35f3da55e3d72b180a" name="ad4effd73da80bc35f3da55e3d72b180a"></a>
@@ -256,17 +272,24 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">Read the token payload.
 
+Args:
+    token: The token to be read. This should be a JSON Web Token ( JWT )
+
+Returns:
+    The payload or None if the token is invalid or expired
+</pre> 
 </div>
 </div>
-<a id="a88498d84194b96f9cf5eba9b2a543db1" name="a88498d84194b96f9cf5eba9b2a543db1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88498d84194b96f9cf5eba9b2a543db1">&#9670;&#160;</a></span>check_jwt_token()</h2>
+<a id="a4f37b06c182649f3c61c895e6c1f89b9" name="a4f37b06c182649f3c61c895e6c1f89b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f37b06c182649f3c61c895e6c1f89b9">&#9670;&#160;</a></span>check_jwt_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def check_jwt_token </td>
+          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> | None check_jwt_token </td>
           <td>(</td>
           <td class="paramtype">str&#160;</td>
           <td class="paramname"><em>token</em></td><td>)</td>
@@ -274,7 +297,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if token is valid and not expired. This is a helper function to check the validity of a JWT token
 
+Args:
+    token: Token received from token endpoint
+
+Returns:
+    Token payload if valid or None if not valid or expired
+</pre> 
 </div>
 </div>
 <a id="a90d0a9c443de58de1b9d54ff1a46a299" name="a90d0a9c443de58de1b9d54ff1a46a299"></a>
@@ -291,7 +321,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<pre class="fragment">Provides access to Burrito's auth system. It is used to authenticate a user and get the token that is associated with that user.
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>

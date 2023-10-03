@@ -1,5 +1,5 @@
 from copy import deepcopy
-from typing import Any
+from typing import Any, Literal
 import secrets
 import jwt
 import uuid
@@ -40,6 +40,15 @@ class AuthTokenPayload(BaseModel):
 
 
 def _make_redis_key(data: AuthTokenPayload) -> str:
+    """This function gets some information from the AuthTokenPayload object and returns the key used to get tokens from redis
+
+    Args:
+        data (AuthTokenPayload): token payload
+
+    Returns:
+        str: redis key to get access/refresh token
+    """
+
     return _KEY_TEMPLATE.format(
         data.jti,
         data.token_type,
@@ -48,6 +57,17 @@ def _make_redis_key(data: AuthTokenPayload) -> str:
 
 
 def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) -> str:
+    """Generate tokens
+
+    Args:
+        token_data (AuthTokenPayload): _description_
+        token_type (str): type of token, might be access or refresh
+        jti (str): token ID, both of tokens have the same jti
+
+    Returns:
+        str: access or refresh token
+    """
+
     token_creation_time = get_timestamp_now()
 
     token_data.jti = jti
@@ -60,6 +80,16 @@ def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) ->
 
 
 def _read_token_payload(token: str) -> AuthTokenPayload | None:
+    """
+    Read the token payload.
+
+    Args:
+        token: The token to be read. This should be a JSON Web Token ( JWT )
+
+    Returns:
+        The payload or None if the token is invalid or expired
+    """
+
     try:
         return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
 
@@ -78,6 +108,13 @@ def _read_token_payload(token: str) -> AuthTokenPayload | None:
 
 class BurritoJWT:
     def __init__(self, request: Request = None) -> None:
+        """
+        Initialize the object.
+
+        Args:
+            request: The request object that will be used to extract token from authorization header
+        """
+
         self.__req = request
         self.__token = self._get_clear_token()
 
@@ -85,6 +122,13 @@ class BurritoJWT:
         pass
 
     def _get_clear_token(self) -> str:
+        """
+        Get clear token from authorization header.
+
+        Returns:
+            Clear token or None if not present in the header
+        """
+
         raw_token = self.__req.headers.get("authorization")
 
         if not raw_token:
@@ -96,7 +140,20 @@ class BurritoJWT:
     def request(self) -> Request:
         return self.__req
 
-    async def push_token(self, token_data: AuthTokenPayload, token_type: str, _jti: str) -> str:
+    async def push_token(self, token_data: AuthTokenPayload, token_type: Literal["access", "refresh"], _jti: str) -> str:
+        """
+        Store token in Redis. This method is used to store token in Redis.
+
+        Args:
+            token_data: AuthTokenPayload with token data.
+            token_type: Type of token ( access or refresh )
+            _jti: JTI that is used to sign the token
+
+        Returns:
+            A token that can be used for authentication with other methods in this API.
+        """
+
+        # Raises an AuthTokenError if the token type is not one of the token types.
         if token_type not in _TOKEN_TYPES:
             raise AuthTokenError(
                 detail=f"Invalid token type: available token types is {_TOKEN_TYPES}, received {token_type}",
@@ -120,6 +177,15 @@ class BurritoJWT:
         return _token
 
     async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
+        """
+        Create a tokens pare (access and refresh)
+
+        Args:
+            token_data: The payload of the token
+
+        Returns:
+            A dictionary containing the access and refresh tokens
+        """
         jti = uuid.uuid4().hex
 
         return {
@@ -128,6 +194,14 @@ class BurritoJWT:
         }
 
     async def require_access_token(self) -> AuthTokenPayload:
+        """
+        Check if access token is valid.
+
+        Returns:
+            An auth token payload or None if token is invalid.
+        """
+
+        # Raise an AuthTokenError if the token is not valid.
         if not self.__token:
             raise AuthTokenError(
                 detail="Missing authorization header",
@@ -137,6 +211,14 @@ class BurritoJWT:
         return check_jwt_token(self.__token)
 
     async def require_refresh_token(self) -> AuthTokenPayload:
+        """
+        Check if refresh token is valid.
+
+        Returns:
+            An auth token payload or None if token is invalid.
+        """
+
+        # Raise an AuthTokenError if the token is not valid.
         if not self.__token:
             raise AuthTokenError(
                 detail="Missing authorization header",
@@ -145,6 +227,7 @@ class BurritoJWT:
 
         token_payload = _read_token_payload(self.__token)
 
+        # If the refresh token is invalid or expired raise an AuthTokenError.
         if (
             token_payload.token_type != "refresh" or
             get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != self.__token
@@ -164,6 +247,13 @@ class BurritoJWT:
         return token_payload
 
     async def refresh_access_token(self) -> str:
+        """
+        Refreshes the access token.
+
+        Returns:
+            The new access token.
+        """
+
         refresh_token_payload = await self.require_refresh_token()
 
         access_token_old_payload: AuthTokenPayload = deepcopy(refresh_token_payload)
@@ -173,6 +263,10 @@ class BurritoJWT:
         return await self.push_token(refresh_token_payload, "access", refresh_token_payload.jti)
 
     async def delete_token_pare(self):
+        """
+        Delete token pare. This is used to clean up after a user logs out of the application and the token is no longer valid
+        """
+
         refresh_token_payload = await self.require_refresh_token()
 
         access_token_payload: AuthTokenPayload = deepcopy(refresh_token_payload)
@@ -182,9 +276,20 @@ class BurritoJWT:
         get_redis_connector().delete(_make_redis_key(access_token_payload))
 
 
-def check_jwt_token(token: str):
+def check_jwt_token(token: str) -> AuthTokenPayload | None:
+    """
+    Check if token is valid and not expired. This is a helper function to check the validity of a JWT token
+
+    Args:
+        token: Token received from token endpoint
+
+    Returns:
+        Token payload if valid or None if not valid or expired
+    """
+
     token_payload = _read_token_payload(token)
 
+    # Check if the token is valid or expired.
     if (
         token_payload.token_type != "access" or
         get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != token
@@ -205,4 +310,8 @@ def check_jwt_token(token: str):
 
 
 def get_auth_core() -> BurritoJWT:
+    """
+    Provides access to Burrito's auth system. It is used to authenticate a user and get the token that is associated with that user.
+    """
+
     return BurritoJWT

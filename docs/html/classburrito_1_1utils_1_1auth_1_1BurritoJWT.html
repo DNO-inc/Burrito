@@ -137,8 +137,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aef84b0a9a04c9441ddf5aa7fe6c95d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11accc241c3a4699d87044a08784ddc8"><td class="memItemLeft" align="right" valign="top">Request&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a11accc241c3a4699d87044a08784ddc8">request</a> (self)</td></tr>
 <tr class="separator:a11accc241c3a4699d87044a08784ddc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fb2301c6c488ba28f71e020f05ee317"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a2fb2301c6c488ba28f71e020f05ee317">push_token</a> (self, <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data, str token_type, str _jti)</td></tr>
-<tr class="separator:a2fb2301c6c488ba28f71e020f05ee317"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a3f1c1dfe4390684494fecb8b0e3792"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a5a3f1c1dfe4390684494fecb8b0e3792">push_token</a> (self, <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data, Literal[&quot;access&quot;, &quot;refresh&quot;] token_type, str _jti)</td></tr>
+<tr class="separator:a5a3f1c1dfe4390684494fecb8b0e3792"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c58e7a36cc094d9dbfc3601fe0d9788"><td class="memItemLeft" align="right" valign="top">dict[str, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a0c58e7a36cc094d9dbfc3601fe0d9788">create_token_pare</a> (self, <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data)</td></tr>
 <tr class="separator:a0c58e7a36cc094d9dbfc3601fe0d9788"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2198a37cb02dbbd38b2f45042e776559"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a2198a37cb02dbbd38b2f45042e776559">require_access_token</a> (self)</td></tr>
@@ -181,7 +181,11 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Initialize the object.
 
+Args:
+    request: The request object that will be used to extract token from authorization header
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -226,7 +230,11 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<pre class="fragment">Get clear token from authorization header.
 
+Returns:
+    Clear token or None if not present in the header
+</pre> 
 </div>
 </div>
 <a id="a0c58e7a36cc094d9dbfc3601fe0d9788" name="a0c58e7a36cc094d9dbfc3601fe0d9788"></a>
@@ -254,7 +262,14 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Create a tokens pare (access and refresh)
 
+Args:
+    token_data: The payload of the token
+
+Returns:
+    A dictionary containing the access and refresh tokens
+</pre> 
 </div>
 </div>
 <a id="a5a0039e4658f81a046c6dc8a30765aaf" name="a5a0039e4658f81a046c6dc8a30765aaf"></a>
@@ -272,11 +287,12 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<pre class="fragment">Delete token pare. This is used to clean up after a user logs out of the application and the token is no longer valid
+</pre> 
 </div>
 </div>
-<a id="a2fb2301c6c488ba28f71e020f05ee317" name="a2fb2301c6c488ba28f71e020f05ee317"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fb2301c6c488ba28f71e020f05ee317">&#9670;&#160;</a></span>push_token()</h2>
+<a id="a5a3f1c1dfe4390684494fecb8b0e3792" name="a5a3f1c1dfe4390684494fecb8b0e3792"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a3f1c1dfe4390684494fecb8b0e3792">&#9670;&#160;</a></span>push_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,7 +312,7 @@ Protected Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">str&#160;</td>
+          <td class="paramtype">Literal[&quot;access&quot;, &quot;refresh&quot;]&#160;</td>
           <td class="paramname"><em>token_type</em>, </td>
         </tr>
         <tr>
@@ -312,7 +328,16 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Store token in Redis. This method is used to store token in Redis.
 
+Args:
+    token_data: AuthTokenPayload with token data.
+    token_type: Type of token ( access or refresh )
+    _jti: JTI that is used to sign the token
+
+Returns:
+    A token that can be used for authentication with other methods in this API.
+</pre> 
 </div>
 </div>
 <a id="aebd0a419b35599aa41c3f9f674181100" name="aebd0a419b35599aa41c3f9f674181100"></a>
@@ -330,7 +355,11 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Refreshes the access token.
 
+Returns:
+    The new access token.
+</pre> 
 </div>
 </div>
 <a id="a11accc241c3a4699d87044a08784ddc8" name="a11accc241c3a4699d87044a08784ddc8"></a>
@@ -366,7 +395,11 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if access token is valid.
 
+Returns:
+    An auth token payload or None if token is invalid.
+</pre> 
 </div>
 </div>
 <a id="a99badc3e5328d6a1a638ab169e005f48" name="a99badc3e5328d6a1a638ab169e005f48"></a>
@@ -384,7 +417,11 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Check if refresh token is valid.
 
+Returns:
+    An auth token payload or None if token is invalid.
+</pre> 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

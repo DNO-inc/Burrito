@@ -6,7 +6,7 @@ var namespaceburrito_1_1utils_1_1auth =
     [ "_make_redis_key", "namespaceburrito_1_1utils_1_1auth.html#ad2868ae85459f91de0c84f42e031af6a", null ],
     [ "_make_token_body", "namespaceburrito_1_1utils_1_1auth.html#a978c0696025d0471d9c91171076ac05e", null ],
     [ "_read_token_payload", "namespaceburrito_1_1utils_1_1auth.html#ad4effd73da80bc35f3da55e3d72b180a", null ],
-    [ "check_jwt_token", "namespaceburrito_1_1utils_1_1auth.html#a88498d84194b96f9cf5eba9b2a543db1", null ],
+    [ "check_jwt_token", "namespaceburrito_1_1utils_1_1auth.html#a4f37b06c182649f3c61c895e6c1f89b9", null ],
     [ "get_auth_core", "namespaceburrito_1_1utils_1_1auth.html#a90d0a9c443de58de1b9d54ff1a46a299", null ],
     [ "_JWT_ACCESS_TTL", "namespaceburrito_1_1utils_1_1auth.html#accbc45b0b9673a233e21b188eaa317a8", null ],
     [ "_JWT_REFRESH_TTL", "namespaceburrito_1_1utils_1_1auth.html#a1a555ccd151cd2c3ef159c9cc2862689", null ],

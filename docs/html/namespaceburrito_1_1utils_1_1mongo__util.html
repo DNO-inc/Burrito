@@ -181,7 +181,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<pre class="fragment">Get a cursor to the database.
+</pre> 
 </div>
 </div>
 <a id="a74399538a91b63a079fefa74b096c14a" name="a74399538a91b63a079fefa74b096c14a"></a>
@@ -209,7 +210,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Delete documents matching the filters.
 
+Args:
+    model: The model to delete from. Must inherit from MongoBaseModel.
+</pre> 
 </div>
 </div>
 <a id="a5d250fe7a38b7302d417e3d64e85a730" name="a5d250fe7a38b7302d417e3d64e85a730"></a>
@@ -227,7 +232,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Delete file from mongo.
 
+Args:
+    file_id: id of file to delete
+</pre> 
 </div>
 </div>
 <a id="a6d5d08b8ef2d258d9148a01672ffc13b" name="a6d5d08b8ef2d258d9148a01672ffc13b"></a>
@@ -245,7 +254,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Get file from mongo.
 
+Args:
+    file_id: id of file to get
+
+Returns:
+    bytes of file or raise HTTPException with status code 403 if file doesn't exist in mongo or any problems appear
+</pre> 
 </div>
 </div>
 <a id="a5e298f3ab7b275f145c379d465f92696" name="a5e298f3ab7b275f145c379d465f92696"></a>
@@ -263,7 +279,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Insert a model into mongo. This is a wrapper around the insert_one method.
 
+Args:
+    model: The model to insert. Must have a table_name and a dict with keys corresponding to the model's fields.
+
+Returns:
+    The id of the newly inserted record
+</pre> 
 </div>
 </div>
 <a id="ac0fe33726e8df24d5f4cfd511ebff2f1" name="ac0fe33726e8df24d5f4cfd511ebff2f1"></a>
@@ -291,7 +314,14 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Count of items matching the filters.
 
+Args:
+    model: This must be a subclass of MongoBaseModel.
+
+Returns:
+    The number of items matching the filters
+</pre> 
 </div>
 </div>
 <a id="a90aec3795b494fe238065f4a4a5fc0b3" name="a90aec3795b494fe238065f4a4a5fc0b3"></a>
@@ -325,7 +355,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">    Get the number of pages in the collection that match the filters. This is useful for pagination.
+    The default is 10 pages but you can override this with a more efficient implementation.
 
+    Args:
+        model: The model to query. Must be a MongoBaseModel
+        items_count: The number of items to return.
+
+    Returns:
+        The number of pages in the collection that match the filters.
+</pre> 
 </div>
 </div>
 <a id="ac9635c35ff13bc4641c3e0be1614b88b" name="ac9635c35ff13bc4641c3e0be1614b88b"></a>
@@ -371,7 +410,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Save a file to mongo.
 
+Args:
+    ticket_id: ID of the ticket to save the file to.
+    file_owner_id: Owner of the file.
+    file_name: Name of the file.
+    file: Bytes of the file.
+    content_type
+</pre> 
 </div>
 </div>
 <a id="a6bb8d206674fed92098e4235710f8934" name="a6bb8d206674fed92098e4235710f8934"></a>
@@ -423,7 +470,18 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">    Selects items from mongo based on filters. This is a wrapper around mongo's find () method
 
+    Args:
+        model: MongoBaseModel to use for query. Must be a subclass of MongoBaseModel
+        start_page: int page number to start from.
+        items_count: int number of items to return.
+        sort_by: str sort by field. 
+        desc: bool sort descending.
+
+    Returns:
+        list [ object ] - a list of objects that match the filters and are ordered by sort_by
+</pre> 
 </div>
 </div>
 <a id="aad522b4f0d61eedbaff2020f7b50e94d" name="aad522b4f0d61eedbaff2020f7b50e94d"></a>
@@ -451,7 +509,11 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Update one or more documents in the database. Must have a '_id' field that is the ID of the document to update.
 
+Args:
+    model: The model to update
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>

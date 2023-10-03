@@ -18,7 +18,7 @@ var searchData=
   ['get_5fredis_5fconnector_15',['get_redis_connector',['../namespaceburrito_1_1utils_1_1redis__utils.html#ae1ff3638c810d2400cb349ab985d4d95',1,'burrito::utils::redis_utils']]],
   ['get_5fstatus_5fclose_5fid_16',['get_status_close_id',['../namespacetickets_1_1utils.html#a5063c6b01bb57b212212b7a82486c67d',1,'tickets::utils']]],
   ['get_5ftask_5fmanager_17',['get_task_manager',['../namespaceburrito_1_1utils_1_1task__manager.html#a10ac527bfd48cff1a266fe9677dd8203',1,'burrito::utils::task_manager']]],
-  ['get_5fticket_5fhistory_18',['get_ticket_history',['../namespaceburrito_1_1utils_1_1tickets__util.html#a43abe7d36cb3b5233193aafc7f14e11f',1,'burrito::utils::tickets_util']]],
+  ['get_5fticket_5fhistory_18',['get_ticket_history',['../namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3',1,'burrito::utils::tickets_util']]],
   ['get_5ftimestamp_5fnow_19',['get_timestamp_now',['../namespaceburrito_1_1utils_1_1date.html#afc0e0727dff686a27883dd7b2eb73e1b',1,'burrito::utils::date']]],
   ['get_5fuser_5fby_5fid_20',['get_user_by_id',['../namespaceburrito_1_1utils_1_1users__util.html#a30596b183896f68833b8dc449a02053b',1,'burrito::utils::users_util']]],
   ['get_5fuser_5fby_5fid_5for_5fnone_21',['get_user_by_id_or_none',['../namespaceburrito_1_1utils_1_1users__util.html#ac3194dd974051c74376a5a864261f387',1,'burrito::utils::users_util']]],

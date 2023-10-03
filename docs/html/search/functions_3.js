@@ -5,7 +5,7 @@ var searchData=
   ['change_5fticket_5fqueue_2',['change_ticket_queue',['../namespaceburrito_1_1utils_1_1tickets__util.html#adda46141b84a35a93e3c4922c3adfb45',1,'burrito::utils::tickets_util']]],
   ['change_5fticket_5fstatus_3',['change_ticket_status',['../namespaceburrito_1_1utils_1_1tickets__util.html#abe11ad61498dcd6beda385c2c92f2c5e',1,'burrito::utils::tickets_util']]],
   ['chat_5fcycle_4',['chat_cycle',['../namespacews_1_1utils.html#ad28e784ccac786d2b1d53a491fdac609',1,'ws::utils']]],
-  ['check_5fjwt_5ftoken_5',['check_jwt_token',['../namespaceburrito_1_1utils_1_1auth.html#a88498d84194b96f9cf5eba9b2a543db1',1,'burrito::utils::auth']]],
+  ['check_5fjwt_5ftoken_5',['check_jwt_token',['../namespaceburrito_1_1utils_1_1auth.html#a4f37b06c182649f3c61c895e6c1f89b9',1,'burrito::utils::auth']]],
   ['check_5fpermission_6',['check_permission',['../namespaceburrito_1_1utils_1_1permissions__checker.html#a75383b6463bcf5da1fac75661f524d06',1,'burrito::utils::permissions_checker']]],
   ['close_5fconn_7',['close_conn',['../namespacews_1_1utils.html#a86a3e1631ec7daacd85510787ce9032a',1,'ws::utils']]],
   ['comments_5f_5fcreate_8',['comments__create',['../namespacecomments_1_1views.html#a639bcccb4e716430b8b564fc719b03aa',1,'comments::views']]],
