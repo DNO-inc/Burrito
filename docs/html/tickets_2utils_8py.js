@@ -1,6 +1,7 @@
 var tickets_2utils_8py =
 [
-    [ "get_status_close_id", "tickets_2utils_8py.html#abfd60447429133b7f7cc9447c647aef7", null ],
-    [ "update_ticket_info", "tickets_2utils_8py.html#af8f38a4555e623bfeaab81bb005c9f97", null ],
-    [ "__all__", "tickets_2utils_8py.html#aa1af190c799555c7ee1ec2c9524edd1a", null ]
+    [ "get_filtered_bookmarks", "tickets_2utils_8py.html#a93b9d20cae84c42ec266484d5c218474", null ],
+    [ "get_status_close_id", "tickets_2utils_8py.html#a5063c6b01bb57b212212b7a82486c67d", null ],
+    [ "make_ticket_detail_info", "tickets_2utils_8py.html#a9ff0c74c14ef2e640a9e43ef140f2aba", null ],
+    [ "update_ticket_info", "tickets_2utils_8py.html#a91e93fc611d0b84b5429a83726746708", null ]
 ];

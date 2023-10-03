@@ -1,17 +1,24 @@
 var namespaceabout =
 [
+    [ "__main__", "namespaceabout_1_1____main____.html", [
+      [ "_APP_NAME", "namespaceabout_1_1____main____.html#aaf2b5c6254ef871886972554f88694de", null ],
+      [ "app", "namespaceabout_1_1____main____.html#a102fd8205348e76f4401650dd34aff45", null ],
+      [ "host", "namespaceabout_1_1____main____.html#a832ddc04754e8a43d4f3c6165b1294a7", null ],
+      [ "port", "namespaceabout_1_1____main____.html#af8fb0f45ee0195c7422a49e6a8d72369", null ],
+      [ "proxy_headers", "namespaceabout_1_1____main____.html#aa9bf75724c1fb250f1bb7be7b48eba5e", null ]
+    ] ],
     [ "router", "namespaceabout_1_1router.html", [
-      [ "about_router", "namespaceabout_1_1router.html#abb8d923991e651598f392bb0b7d70dc4", null ],
+      [ "about_router", "namespaceabout_1_1router.html#af78025fd512f67c5ef45b23766d6882d", null ],
       [ "methods", "namespaceabout_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619", null ]
     ] ],
     [ "utils", "namespaceabout_1_1utils.html", [
-      [ "get_changelog", "namespaceabout_1_1utils.html#ac817ff49467c3c6b1ad58b226635ddfa", null ],
-      [ "get_contributors", "namespaceabout_1_1utils.html#a6458d5baef657058e3071c32f76b07ef", null ],
-      [ "read_file", "namespaceabout_1_1utils.html#a8b99559406e1753d4957c96a1711e392", null ]
+      [ "get_changelog", "namespaceabout_1_1utils.html#a93be638a46253c7104278aa94857fb8d", null ],
+      [ "get_contributors", "namespaceabout_1_1utils.html#a5608309cd72112764b160f887824d102", null ],
+      [ "read_file", "namespaceabout_1_1utils.html#aba03c5b080ab8cbcde7e52ed3619d224", null ]
     ] ],
     [ "views", "namespaceabout_1_1views.html", [
-      [ "about__get_changelog_info", "namespaceabout_1_1views.html#ad3b564c1c7a7c4316da0ad00d88515f0", null ],
-      [ "about__get_current_version", "namespaceabout_1_1views.html#aa31ed6da8bcce7e84c4dda6ab48122da", null ],
-      [ "about__get_info_about_team", "namespaceabout_1_1views.html#adeafe78cc84431ada97d275b792d9062", null ]
+      [ "about__get_changelog_info", "namespaceabout_1_1views.html#a587143a3ea944880080715b3413f4548", null ],
+      [ "about__get_current_version", "namespaceabout_1_1views.html#a6e6b2cfefde463a8ac02fecb48566e07", null ],
+      [ "about__get_info_about_team", "namespaceabout_1_1views.html#af82c00947fca8be65d2a8818e80d9d96", null ]
     ] ]
 ];

@@ -1,7 +1,7 @@
 <map id="Converter" name="Converter">
-<area shape="rect" id="node1" title=" " alt="" coords="227,5,314,32"/>
-<area shape="rect" id="node2" href="$classburrito_1_1utils_1_1converter_1_1FacultyStrToInt.html" title=" " alt="" coords="5,80,123,107"/>
-<area shape="rect" id="node3" href="$classburrito_1_1utils_1_1converter_1_1GroupStrToInt.html" title=" " alt="" coords="147,80,258,107"/>
-<area shape="rect" id="node4" href="$classburrito_1_1utils_1_1converter_1_1QueueStrToInt.html" title=" " alt="" coords="282,80,395,107"/>
-<area shape="rect" id="node5" href="$classburrito_1_1utils_1_1converter_1_1StatusStrToInt.html" title=" " alt="" coords="420,80,532,107"/>
+<area shape="rect" id="node1" title=" " alt="" coords="239,5,318,31"/>
+<area shape="rect" id="node2" href="$classburrito_1_1utils_1_1converter_1_1FacultyConverter.html" title=" " alt="" coords="5,79,128,104"/>
+<area shape="rect" id="node3" href="$classburrito_1_1utils_1_1converter_1_1GroupConverter.html" title=" " alt="" coords="152,79,267,104"/>
+<area shape="rect" id="node4" href="$classburrito_1_1utils_1_1converter_1_1QueueConverter.html" title=" " alt="" coords="291,79,408,104"/>
+<area shape="rect" id="node5" href="$classburrito_1_1utils_1_1converter_1_1StatusConverter.html" title=" " alt="" coords="432,79,549,104"/>
 </map>

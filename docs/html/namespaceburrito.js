@@ -1,13 +1,18 @@
 var namespaceburrito =
 [
     [ "__main__", "namespaceburrito_1_1____main____.html", [
-      [ "app", "namespaceburrito_1_1____main____.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-      [ "host", "namespaceburrito_1_1____main____.html#a832ddc04754e8a43d4f3c6165b1294a7", null ],
-      [ "port", "namespaceburrito_1_1____main____.html#af8fb0f45ee0195c7422a49e6a8d72369", null ],
-      [ "proxy_headers", "namespaceburrito_1_1____main____.html#aa9bf75724c1fb250f1bb7be7b48eba5e", null ],
-      [ "reload", "namespaceburrito_1_1____main____.html#ac5c05266f4f3b5937cefb6a818fc6675", null ],
-      [ "reload_dirs", "namespaceburrito_1_1____main____.html#ae52daaf6e507546f2beee3b3fecfbf08", null ]
+      [ "app", "namespaceburrito_1_1____main____.html#ac1ac93ab1adf001effca106fc029ef8b", null ],
+      [ "config", "namespaceburrito_1_1____main____.html#af8768eff20b4628e145396b178d418dc", null ],
+      [ "daemon", "namespaceburrito_1_1____main____.html#a56336262068f0a007b1dec71901be1ff", null ],
+      [ "forever", "namespaceburrito_1_1____main____.html#adfe555f98c9c98380866103b9e46d1e8", null ],
+      [ "run_websocket_server", "namespaceburrito_1_1____main____.html#a2af6187f830c31417bbe9e418348bbd1", null ],
+      [ "start_scheduler", "namespaceburrito_1_1____main____.html#a5023e0fa21c36a70328ac508abbe6380", null ],
+      [ "target", "namespaceburrito_1_1____main____.html#a5d2c023108742a1ce78ba9823c06ea35", null ],
+      [ "uvicorn_server", "namespaceburrito_1_1____main____.html#ac2d6eaf67b0a80d7ce116431a5ff843f", null ]
+    ] ],
+    [ "containers", "namespaceburrito_1_1containers.html", [
+      [ "get_current_app_name", "namespaceburrito_1_1containers.html#a23fd9c324ab5b5b4a82711af742c72ed", null ]
     ] ],
     [ "utils", "namespaceburrito_1_1utils.html", "namespaceburrito_1_1utils" ],
-    [ "__version__", "namespaceburrito.html#a4ab58d4bcf214e227cb35538617e6add", null ]
+    [ "CURRENT_TIME_ZONE", "namespaceburrito.html#aecb9ceeedd022aeb6b9f6cb3b5cc0e43", null ]
 ];

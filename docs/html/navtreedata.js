@@ -25,13 +25,11 @@
 var NAVTREE =
 [
   [ "Burrito", "index.html", [
-    [ "Burrito API", "index.html", [
-      [ "Setup", "index.html#autotoc_md1", null ]
-    ] ],
+    [ "Burrito API", "index.html", "index" ],
     [ "Packages", "namespaces.html", [
-      [ "Packages", "namespaces.html", "namespaces_dup" ],
-      [ "Package Functions", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
+      [ "Package List", "namespaces.html", "namespaces_dup" ],
+      [ "Package Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
         [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ]
       ] ]
@@ -41,9 +39,9 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ]
+        [ "Variables", "functions_vars.html", "functions_vars" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -55,7 +53,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"namespaceabout_1_1views.html#adeafe78cc84431ada97d275b792d9062"
+"classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html",
+"config__reader_8py.html",
+"namespaceburrito_1_1utils_1_1auth.html#ad4effd73da80bc35f3da55e3d72b180a",
+"namespaceregistration__schema.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

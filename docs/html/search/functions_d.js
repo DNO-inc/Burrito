@@ -1,14 +1,20 @@
 var searchData=
 [
-  ['thread_5fsingleton_580',['thread_singleton',['../namespaceburrito_1_1utils_1_1task__manager.html#a8279bf2061b308ec29d3544ce3ecf77d',1,'burrito::utils::task_manager']]],
-  ['tickets_5f_5fbookmark_5fticket_581',['tickets__bookmark_ticket',['../namespacetickets_1_1views.html#ab35a054553289b4d2175b4d3219047cd',1,'tickets::views']]],
-  ['tickets_5f_5fclose_5fown_5fticket_582',['tickets__close_own_ticket',['../namespacetickets_1_1views.html#a05712dff4e05fad979182b8f30e88aee',1,'tickets::views']]],
-  ['tickets_5f_5fcreate_5fnew_5fticket_583',['tickets__create_new_ticket',['../namespacetickets_1_1views.html#aed8f2376c79c4ff1657e7503b6126ddb',1,'tickets::views']]],
-  ['tickets_5f_5fdelete_5fticket_5ffor_5fme_584',['tickets__delete_ticket_for_me',['../namespacetickets_1_1views.html#a1ad3a6227bb3e0c04328c677887cb465',1,'tickets::views']]],
-  ['tickets_5f_5flike_5fticket_585',['tickets__like_ticket',['../namespacetickets_1_1views.html#a96a1c46f00747b19011d5bc5769cb109',1,'tickets::views']]],
-  ['tickets_5f_5fshow_5fdetail_5fticket_5finfo_586',['tickets__show_detail_ticket_info',['../namespacetickets_1_1views.html#a326388c22ce4120435ad73e048f11032',1,'tickets::views']]],
-  ['tickets_5f_5fshow_5ftickets_5flist_5fby_5ffilter_587',['tickets__show_tickets_list_by_filter',['../namespacetickets_1_1views.html#a4011919f8f2873c194820d5abc5b3c78',1,'tickets::views']]],
-  ['tickets_5f_5funbookmark_5fticket_588',['tickets__unbookmark_ticket',['../namespacetickets_1_1views.html#ae48b406ca350b607cfb8d4f2d8684f92',1,'tickets::views']]],
-  ['tickets_5f_5funlike_5fticket_589',['tickets__unlike_ticket',['../namespacetickets_1_1views.html#aaa0741a7323b89339972f7e74906dfe0',1,'tickets::views']]],
-  ['tickets_5f_5fupdate_5fown_5fticket_5fdata_590',['tickets__update_own_ticket_data',['../namespacetickets_1_1views.html#ac46a32e09b7ba5938a04e243e2213612',1,'tickets::views']]]
+  ['q_5fassignee_5fis_0',['q_assignee_is',['../namespaceburrito_1_1utils_1_1query__util.html#a6462e475908ff831f9238e7c71bc6af6',1,'burrito::utils::query_util']]],
+  ['q_5fbookmarked_1',['q_bookmarked',['../namespaceburrito_1_1utils_1_1query__util.html#a946e2c3d985b4eb3eada777d26cc54c5',1,'burrito::utils::query_util']]],
+  ['q_5fcreator_5fis_2',['q_creator_is',['../namespaceburrito_1_1utils_1_1query__util.html#a945da9ad0df3e177b48edf81024573b8',1,'burrito::utils::query_util']]],
+  ['q_5fdeleted_3',['q_deleted',['../namespaceburrito_1_1utils_1_1query__util.html#a72b04c1157842034b1fdd2d34d853973',1,'burrito::utils::query_util']]],
+  ['q_5ffollowed_4',['q_followed',['../namespaceburrito_1_1utils_1_1query__util.html#a1512c3f80b5c6ecd83a83bf926eb6ae4',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fanonymous_5',['q_is_anonymous',['../namespaceburrito_1_1utils_1_1query__util.html#a30b5bc0e4fb4bf924e73d52253b09cdc',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fhidden_6',['q_is_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#aa4999ab2520084e25a05ac5b2c20d3de',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5ffaculty_7',['q_is_valid_faculty',['../namespaceburrito_1_1utils_1_1query__util.html#a241a8688380946f7eb10d34b78f2e9d5',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fqueue_8',['q_is_valid_queue',['../namespaceburrito_1_1utils_1_1query__util.html#a08cc1446cc635037c5db58ccb0c8dd15',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fstatus_9',['q_is_valid_status',['../namespaceburrito_1_1utils_1_1query__util.html#a528aea165b237924dc624ae639eaab57',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fstatus_5flist_10',['q_is_valid_status_list',['../namespaceburrito_1_1utils_1_1query__util.html#a22db7ad2fcdb79b55eb32220cca31bf4',1,'burrito::utils::query_util']]],
+  ['q_5fliked_11',['q_liked',['../namespaceburrito_1_1utils_1_1query__util.html#a5c60e158024cc72adf3c48516940160f',1,'burrito::utils::query_util']]],
+  ['q_5fnot_5fdeleted_12',['q_not_deleted',['../namespaceburrito_1_1utils_1_1query__util.html#a1a993ecb1ded739fd7cbf3f3702a2542',1,'burrito::utils::query_util']]],
+  ['q_5fnot_5fhidden_13',['q_not_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#a36baad1e481f05f1d24a5ab4b357190a',1,'burrito::utils::query_util']]],
+  ['q_5fowned_5for_5fnot_5fhidden_14',['q_owned_or_not_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#aee0579d197b941cd0d815eabb002845c',1,'burrito::utils::query_util']]],
+  ['q_5fprotected_5fstatuses_15',['q_protected_statuses',['../namespaceburrito_1_1utils_1_1query__util.html#af03b6529f8dff55a433c377610f4b685',1,'burrito::utils::query_util']]],
+  ['q_5fscope_5fis_16',['q_scope_is',['../namespaceburrito_1_1utils_1_1query__util.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1',1,'burrito::utils::query_util']]]
 ];

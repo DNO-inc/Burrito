@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['status_651',['status',['../classtickets__model_1_1Tickets.html#a015eb90e0de9f16e87bd149d4b9ce959',1,'tickets_model::Tickets']]],
-  ['status_5fid_652',['status_id',['../classstatuses__model_1_1Statuses.html#a87dacbd67ea013e45eef1cb97a599dd6',1,'statuses_model::Statuses']]],
-  ['str_653',['str',['../classauth__schema_1_1AuthSettingsModel.html#a4b99ff73a8a869319570237b5c57ab03',1,'auth_schema::AuthSettingsModel']]],
-  ['subject_654',['subject',['../classtickets__model_1_1Tickets.html#a2c1430033f657c907d71f995985d6ef6',1,'tickets_model::Tickets']]]
+  ['old_5fvalue_0',['old_value',['../classm__actions__model_1_1Actions.html#acfde0eb531fe56d2d08a6f56880e00c0',1,'m_actions_model.Actions.old_value()'],['../classaction__schema_1_1ActionSchema.html#acfde0eb531fe56d2d08a6f56880e00c0',1,'action_schema.ActionSchema.old_value()']]],
+  ['owner_5fid_1',['owner_id',['../classm__ticket__files_1_1TicketFiles.html#ae610f1424c0cbbd49db9c7b1f3d41035',1,'m_ticket_files::TicketFiles']]]
 ];

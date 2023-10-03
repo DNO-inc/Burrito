@@ -1,9 +1,11 @@
 var ____main_____8py =
 [
-    [ "app", "____main_____8py.html#afe63fea7be31b0200b496d08bc6b517d", null ],
-    [ "host", "____main_____8py.html#a832ddc04754e8a43d4f3c6165b1294a7", null ],
-    [ "port", "____main_____8py.html#af8fb0f45ee0195c7422a49e6a8d72369", null ],
-    [ "proxy_headers", "____main_____8py.html#aa9bf75724c1fb250f1bb7be7b48eba5e", null ],
-    [ "reload", "____main_____8py.html#ac5c05266f4f3b5937cefb6a818fc6675", null ],
-    [ "reload_dirs", "____main_____8py.html#ae52daaf6e507546f2beee3b3fecfbf08", null ]
+    [ "app", "____main_____8py.html#ac1ac93ab1adf001effca106fc029ef8b", null ],
+    [ "config", "____main_____8py.html#af8768eff20b4628e145396b178d418dc", null ],
+    [ "daemon", "____main_____8py.html#a56336262068f0a007b1dec71901be1ff", null ],
+    [ "forever", "____main_____8py.html#adfe555f98c9c98380866103b9e46d1e8", null ],
+    [ "run_websocket_server", "____main_____8py.html#a2af6187f830c31417bbe9e418348bbd1", null ],
+    [ "start_scheduler", "____main_____8py.html#a5023e0fa21c36a70328ac508abbe6380", null ],
+    [ "target", "____main_____8py.html#a5d2c023108742a1ce78ba9823c06ea35", null ],
+    [ "uvicorn_server", "____main_____8py.html#ac2d6eaf67b0a80d7ce116431a5ff843f", null ]
 ];

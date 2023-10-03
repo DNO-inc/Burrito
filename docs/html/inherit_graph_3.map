@@ -1,33 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,689,100,716"/>
-<area shape="rect" id="node2" href="$classadmin__schema_1_1AdminChangePermissionSchema.html" title=" " alt="" coords="148,5,385,32"/>
-<area shape="rect" id="node3" href="$classadmin__schema_1_1AdminGetTicketListSchema.html" title=" " alt="" coords="166,56,367,83"/>
-<area shape="rect" id="node4" href="$classadmin__schema_1_1AdminTicketAuthorInfo.html" title=" " alt="" coords="181,107,352,133"/>
-<area shape="rect" id="node5" href="$classadmin__schema_1_1AdminTicketDetailInfo.html" title=" " alt="" coords="183,157,350,184"/>
-<area shape="rect" id="node6" href="$classadmin__schema_1_1AdminTicketIdSchema.html" title=" " alt="" coords="183,208,350,235"/>
-<area shape="rect" id="node7" href="$classadmin__schema_1_1AdminTicketListResponse.html" title=" " alt="" coords="172,259,361,285"/>
-<area shape="rect" id="node8" href="$classadmin__schema_1_1AdminUpdateTicketSchema.html" title=" " alt="" coords="165,309,368,336"/>
-<area shape="rect" id="node9" href="$classanon__schema_1_1AnonTicketDetailInfoSchema.html" title=" " alt="" coords="161,360,372,387"/>
-<area shape="rect" id="node10" href="$classanon__schema_1_1AnonTicketListRequestSchema.html" title=" " alt="" coords="155,411,378,437"/>
-<area shape="rect" id="node11" href="$classanon__schema_1_1AnonTicketListResponseSchema.html" title=" " alt="" coords="151,461,383,488"/>
-<area shape="rect" id="node12" href="$classanon__schema_1_1AnonTicketUsersInfoSchema.html" title=" " alt="" coords="163,512,371,539"/>
-<area shape="rect" id="node13" href="$classauth__schema_1_1AuthSettingsModel.html" title=" " alt="" coords="194,563,339,589"/>
-<area shape="rect" id="node14" href="$classmeta__schema_1_1RequestQueueListSchema.html" title=" " alt="" coords="171,613,363,640"/>
-<area shape="rect" id="node15" href="$classmeta__schema_1_1ResponseFacultiesListSchema.html" title=" " alt="" coords="158,664,375,691"/>
-<area shape="rect" id="node16" href="$classmeta__schema_1_1ResponseGroupsListSchema.html" title=" " alt="" coords="163,715,370,741"/>
-<area shape="rect" id="node17" href="$classmeta__schema_1_1ResponseQueueListSchema.html" title=" " alt="" coords="165,765,368,792"/>
-<area shape="rect" id="node18" href="$classmeta__schema_1_1ResponseStatusesListSchema.html" title=" " alt="" coords="159,816,375,843"/>
-<area shape="rect" id="node19" href="$classprofile__schema_1_1BaseProfile.html" title=" " alt="" coords="219,867,314,893"/>
-<area shape="rect" id="node22" href="$classprofile__schema_1_1CheckProfileSchema.html" title=" " alt="" coords="189,917,344,944"/>
-<area shape="rect" id="node23" href="$classregistration__schema_1_1RegistrationSchema.html" title=" " alt="" coords="190,968,343,995"/>
-<area shape="rect" id="node24" href="$classtickets__schema_1_1CreateTicketSchema.html" title=" " alt="" coords="189,1019,345,1045"/>
-<area shape="rect" id="node25" href="$classtickets__schema_1_1TicketDetailInfoSchema.html" title=" " alt="" coords="178,1069,355,1096"/>
-<area shape="rect" id="node26" href="$classtickets__schema_1_1TicketIDValueSchema.html" title=" " alt="" coords="185,1120,348,1147"/>
-<area shape="rect" id="node27" href="$classtickets__schema_1_1TicketListRequestSchema.html" title=" " alt="" coords="172,1171,361,1197"/>
-<area shape="rect" id="node28" href="$classtickets__schema_1_1TicketListResponseSchema.html" title=" " alt="" coords="167,1221,366,1248"/>
-<area shape="rect" id="node29" href="$classtickets__schema_1_1TicketUsersInfoSchema.html" title=" " alt="" coords="179,1272,354,1299"/>
-<area shape="rect" id="node30" href="$classtickets__schema_1_1UpdateTicketSchema.html" title=" " alt="" coords="187,1323,347,1349"/>
-<area shape="rect" id="node31" href="$classuser__schema_1_1UserPasswordLoginSchema.html" title=" " alt="" coords="167,1373,367,1400"/>
-<area shape="rect" id="node20" href="$classprofile__schema_1_1RequestUpdateProfileSchema.html" title=" " alt="" coords="433,841,648,868"/>
-<area shape="rect" id="node21" href="$classprofile__schema_1_1ResponseProfileSchema.html" title=" " alt="" coords="451,892,630,919"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,80,135,105"/>
+<area shape="rect" id="node2" href="$classadmin__schema_1_1AdminGetTicketListSchema.html" title=" " alt="" coords="193,5,379,31"/>
+<area shape="rect" id="node3" href="$classanon__schema_1_1AnonTicketListRequestSchema.html" title=" " alt="" coords="183,55,389,80"/>
+<area shape="rect" id="node4" href="$classtickets__schema_1_1TicketListRequestSchema.html" title=" " alt="" coords="198,104,374,129"/>
+<area shape="rect" id="node5" href="$classtickets__schema_1_1TicketsBasicFilterSchema.html" title=" " alt="" coords="199,153,373,179"/>
 </map>

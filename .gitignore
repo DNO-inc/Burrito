@@ -10,3 +10,4 @@ grafana_data/*
 grafana/*
 shadow
 .vagrant
+.poetry.lock

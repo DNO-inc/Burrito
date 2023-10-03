@@ -1,4 +1,9 @@
 <map id="Users" name="Users">
-<area shape="rect" id="node1" title=" " alt="" coords="7,80,66,107"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,68,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="330,152,387,177"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,133,31"/>
+<area shape="rect" id="node3" title=" " alt="" coords="157,5,235,31"/>
+<area shape="rect" id="node4" title=" " alt="" coords="259,5,338,31"/>
+<area shape="rect" id="node5" title=" " alt="" coords="362,5,478,31"/>
+<area shape="rect" id="node6" title=" " alt="" coords="503,5,577,31"/>
+<area shape="rect" id="node7" title=" " alt="" coords="601,5,708,31"/>
 </map>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['participants_369',['Participants',['../classparticipants__model_1_1Participants.html',1,'participants_model']]],
-  ['permissions_370',['Permissions',['../classpermissions__model_1_1Permissions.html',1,'permissions_model']]]
+  ['notificationmetadata_0',['NotificationMetaData',['../classm__notifications__model_1_1NotificationMetaData.html',1,'m_notifications_model']]],
+  ['notifications_1',['Notifications',['../classm__notifications__model_1_1Notifications.html',1,'m_notifications_model']]]
 ];

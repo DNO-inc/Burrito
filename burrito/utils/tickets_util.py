@@ -64,12 +64,34 @@ def is_ticket_exist(ticket_id: int) -> Tickets | None:
 
 
 def am_i_own_this_ticket(ticket_creator_id: int, user_id: int) -> bool:
+    """
+    Checks if the user is the creator of the ticket. This is used to ensure that a ticket is owned by user
+
+    Args:
+        ticket_creator_id: ID of the user who created the ticket
+        user_id: ID of the user who might be creator of the ticket
+
+    Returns: 
+        True if the user is the ticket creator else False
+    """
     return ticket_creator_id == user_id
 
 
 def am_i_own_this_ticket_with_error(
     ticket_creator_id: int, user_id: int
 ) -> bool | None:
+    """
+    Check if the user is allowed to interact with this ticket.
+    This is a wrapper around am_i_own_this_ticket that raises HTTPException in case of permission denied.
+
+    Args:
+        ticket_creator_id: ID of the ticket creator
+        user_id: ID of the user to check permissions for
+
+    Returns:
+        True if the user is allowed to interact with this
+    """
+
     if not am_i_own_this_ticket(ticket_creator_id, user_id):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -80,6 +102,16 @@ def am_i_own_this_ticket_with_error(
 
 
 def hide_ticket_body(body: str, result_length: int = 500) -> str:
+    """
+    Hide ticket body. This is used to cut ticket body.
+    
+    Args:
+        body: The body of the ticket.
+        result_length: The length of the ticket body that will be returned for user.
+
+    Returns: 
+        The ticket body truncated to `result_length` characters
+    """
     return body[:result_length] + ("..." if len(body) >= result_length else "")
 
 
@@ -88,6 +120,17 @@ def make_short_user_data(
     *,
     hide_user_id: bool = True
 ) -> TicketUsersInfoSchema:
+    """
+    Make a TicketUsersInfoSchema object that can be used to create a short user.
+
+    Args:
+        user: The user whose data need to verify or hide
+        hide_user_id: Used if you need to hide user data, for example when ticket is anonymous.
+
+    Returns:
+        An object that describes user
+    """
+
     if isinstance(user, int):
         user = get_user_by_id(user)
 
@@ -107,6 +150,16 @@ def make_short_user_data(
 
 
 def is_ticket_followed(user_id: int, ticket_id: int) -> bool:
+    """
+    Checks if a user is following a ticket.
+
+    Args:
+        user_id: ID of the user to check.
+        ticket_id: ID of the ticket to check.
+
+    Returns:
+        True if the user is following the ticket False otherwise
+    """
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
@@ -120,6 +173,16 @@ def is_ticket_followed(user_id: int, ticket_id: int) -> bool:
 
 
 def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
+    """
+    Check if a ticket is bookmarked by a user.
+
+    Args:
+        user_id: ID of the user to check
+        ticket_id: ID of the ticket to check if it is bookmarked
+
+    Returns:
+        True if the ticket is bookmarked else False
+    """
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
@@ -133,6 +196,16 @@ def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
 
 
 def is_ticket_liked(user_id: int, ticket_id: int) -> bool:
+    """
+    Check if a user likes a ticket. This is used to prevent spamming the user's ticket when they're in the middle of a ticket.
+
+    Args:
+        user_id: ID of the user. It's the user ID
+        ticket_id: ID of the ticket. It's the ticket ID
+
+    Returns:
+        True if the user likes the ticket False otherwise
+    """
     return bool(
         Liked.get_or_none(
             Liked.user_id == user_id,
@@ -145,6 +218,17 @@ def select_filters(
     role_name: str,
     filter_package: dict[str, dict[str, object]],
 ) -> list[object]:
+    """
+    Select filters to apply to a role.
+
+    Args:
+        role_name: The name of the role.
+        filter_package: The package of filters.
+
+    Returns:
+        A list of filter names that should be applied when selecting tickets
+    """
+
     filter_list = filter_package.get(role_name)
     if not filter_list:
         filter_list = filter_package.get("default")
@@ -158,6 +242,19 @@ def get_filtered_tickets(
     start_page: int = 1,
     tickets_count: int = 10
 ) -> list[Tickets]:
+    """
+    Get tickets filtered by given filters.
+
+    Args:
+        _filters: a list of filters to apply to the query
+        _desc: whether to sort the results in descending or ascending
+        start_page: the page to start with
+        tickets_count: the number of tickets to return
+
+    Returns:
+        a list of tickets ordered by creation date
+    """
+
     if _filters:
         return Tickets.select().where(*_filters).paginate(
             start_page,
@@ -183,6 +280,18 @@ def create_ticket_action(
     new_value: str,
     generate_notification: bool = True
 ) -> None:
+    """
+    Create a new action. This will be used when something changed in a ticket
+
+    Args:
+        ticket_id: The ID of the ticket
+        user_id: The ID of the user who made the change
+        field_name: The name of the field that was changed
+        old_value: The old value of the field that was changed
+        new_value: The new value of the field that was changed
+        generate_notification: Whether or not to generate notifications for the change
+    """
+
     get_logger().info(
         f"""
         New action (
@@ -246,6 +355,17 @@ def create_ticket_file_action(
     file_meta_action: Literal["upload", "delete"],
     generate_notification: bool = True
 ) -> None:
+    """
+    Create file action and notify about it.
+
+    Args:
+        ticket_id: ID of the ticket
+        user_id: ID of the user who made the change
+        value: file name
+        file_meta_action: determine what happened with file (uploaded or deleted)
+        generate_notification: flag to generate notification
+    """
+
     get_logger().info(
         f"""
         New fila action (
@@ -290,7 +410,19 @@ def create_ticket_file_action(
         )
 
 
-def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10):
+def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10) -> list[object]:
+    """
+    Get ticket history. This function is used to get a list of actions that have been created by user.
+
+    Args:
+        ticket: Ticket to get history for.
+        user_id: ID of the user who requested ticket history.
+        start_page: Page number to start from.
+        items_count: Number of items to get.
+
+    Returns:
+        List of actions
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -369,6 +501,16 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
 
 
 def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
+    """
+    Checks if user can interact with ticket.
+
+    Args:
+        ticket: Ticket to check if allowed to interact `user_id`
+        user_id: ID of user who wants to interact with ticket
+
+    Returns:
+        True if user can interact with ticket else False
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -380,6 +522,15 @@ def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
 
 
 def change_ticket_status(ticket: Tickets | int, user_id: int, new_status: Statuses) -> None:
+    """
+    Change ticket status. This function is used to change status of ticket.
+    The ticket will not changed if previous status the same as new.
+
+    Args:
+        ticket: Ticket to change status of.
+        user_id: User who made the change.
+        new_status: New status of ticket.
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -395,9 +546,21 @@ def change_ticket_status(ticket: Tickets | int, user_id: int, new_status: Status
 
 
 def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) -> None:
+    """
+    Change the queue of a ticket.
+
+    Args:
+        ticket: Ticket to change queue of
+        user_id: User who made the change.
+        new_queue: New queue to change
+
+    Returns:
+        None on success Exception on failure Raises an exception on
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
+    # Set the queue if not already set.
     if ticket.queue is None:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -420,9 +583,18 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
 
 
 def change_ticket_faculty(ticket: Tickets | int, user_id: int, new_faculty: Faculties) -> None:
+    """
+    Change the faculty of a ticket.
+
+    Args:
+        ticket: Ticket to change the faculty of.
+        user_id: User who made the change.
+        new_faculty: New faculty to set.
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
+    # creates a ticket action if the ticket's faculty is different than the new one.
     if ticket.faculty.faculty_id != new_faculty.faculty_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -435,6 +607,14 @@ def change_ticket_faculty(ticket: Tickets | int, user_id: int, new_faculty: Facu
 
 
 def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Users | None) -> None:
+    """
+    Change assignee of ticket.
+
+    Args:
+        ticket: ticket to change assignee of
+        user_id: ID of user who is changing assignee
+        new_assignee: new assignee of ticket
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -472,6 +652,18 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
 
 
 def get_notification_receivers(ticket: Tickets | int):
+    """
+    Get notification receivers for ticket.
+    This is used to determine who should receive notification
+
+    Creator, assignee and users who followed this ticket can receive notifications related to `ticket`
+
+    Args:
+        ticket: ticket ID
+
+    Returns:
+        Set of user_ids who receive notification's
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -483,6 +675,13 @@ def get_notification_receivers(ticket: Tickets | int):
 
 
 def send_notification(ticket: Tickets | int, notification: Notifications):
+    """
+    Send notification to subscribers. 
+    
+    Args:
+        ticket: ticket ID or ticket object
+        notification: notification to be sent to subscribers
+    """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
@@ -492,12 +691,15 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
     notification_id = mongo_insert(notification)
 
     for id_ in target_ids:
+        # save notification meta data in case if user is offline
+        # when user became online he can received notifications via `/notifications/` endpoint
         meta_data_id = mongo_insert(
             NotificationMetaData(
                 user_id=id_,
                 notification_id=notification_id
             )
         )
+        # Publishes a notification to users chanel
         subscribers_count = pubsub.publish(
             f"user_{id_}",
             make_websocket_message(
@@ -506,12 +708,22 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
             )
         )
 
+        # Delete the notification meta data if user is online and received notification via websocket connection
         if subscribers_count > 0:
             mongo_delete(NotificationMetaData, _id=meta_data_id)
 
+    # Delete notifications from the database if all users was online and received notification via websocket connection
     if mongo_items_count(NotificationMetaData, notification_id=notification_id) == 0:
         mongo_delete(Notifications, _id=notification_id)
 
 
 def send_comment_update(ticket_id: int, comment_id: str) -> None:
+    """
+    Sends a comment update to the chat (Redis pub/sub chanel).
+    Than that data will be used by websocket data
+
+    Args:
+        ticket_id: The ID of the ticket
+        comment_id: The ID of the comment
+    """
     get_redis_connector().publish(f"chat_{ticket_id}", comment_id.encode("utf-8"))

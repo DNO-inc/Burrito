@@ -1,4 +1,4 @@
 var ____init_____8py =
 [
-    [ "__version__", "____init_____8py.html#a4ab58d4bcf214e227cb35538617e6add", null ]
+    [ "CURRENT_TIME_ZONE", "____init_____8py.html#aecb9ceeedd022aeb6b9f6cb3b5cc0e43", null ]
 ];

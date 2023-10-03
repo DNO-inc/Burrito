@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['queue_639',['queue',['../classtickets__model_1_1Tickets.html#af8ceabb22d9297bd28382151f35a2252',1,'tickets_model::Tickets']]],
-  ['queue_5fid_640',['queue_id',['../classqueues__model_1_1Queues.html#a14ab259c02d09c45ba2fe2d7b87d767f',1,'queues_model::Queues']]]
+  ['magenta_0',['magenta',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html#adc85718d8fbb78216e164443950bb287',1,'burrito::utils::logger::BurritoFormatter']]],
+  ['meta_5frouter_1',['meta_router',['../namespacemeta_1_1router.html#a4f734c3587bd8c0db9fcfa22789d7a46',1,'meta::router']]],
+  ['methods_2',['methods',['../namespaceabout_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'about.router.methods()'],['../namespaceadmin_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'admin.router.methods()'],['../namespaceanon_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'anon.router.methods()'],['../namespaceauth_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'auth.router.methods()'],['../namespacecomments_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'comments.router.methods()'],['../namespaceiofiles_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'iofiles.router.methods()'],['../namespacemeta_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'meta.router.methods()'],['../namespacenotifications_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'notifications.router.methods()'],['../namespaceprofile_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'profile.router.methods()'],['../namespaceregistration_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'registration.router.methods()'],['../namespacetickets_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619',1,'tickets.router.methods()']]],
+  ['model_5fkeys_3',['MODEL_KEYS',['../namespacescheduler_1_1preprocessor_1_1conf.html#a220059a8069765b8bced295648f51bea',1,'scheduler::preprocessor::conf']]]
 ];
