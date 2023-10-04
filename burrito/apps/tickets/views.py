@@ -211,8 +211,8 @@ async def tickets__bookmark_ticket(
         )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user_id == token_payload.user_id,
-        Bookmarks.ticket_id == ticket.ticket_id
+        Bookmarks.user == token_payload.user_id,
+        Bookmarks.ticket == ticket.ticket_id
     )
 
     try:
@@ -249,8 +249,8 @@ async def tickets__unbookmark_ticket(
     )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user_id == token_payload.user_id,
-        Bookmarks.ticket_id == ticket.ticket_id
+        Bookmarks.user == token_payload.user_id,
+        Bookmarks.ticket == ticket.ticket_id
     )
 
     if bookmark:
