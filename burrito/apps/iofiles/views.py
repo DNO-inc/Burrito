@@ -71,7 +71,7 @@ async def iofiles__get_file(
 
     ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
 
-    if token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1):
+    if ticket.anonymous and token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -93,7 +93,7 @@ async def iofiles__get_file_ids(
 
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
-    if token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1):
+    if ticket.anonymous and token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"

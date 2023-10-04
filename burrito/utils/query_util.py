@@ -148,9 +148,9 @@ def q_bookmarked(_user_id: int) -> Expression:
             Tickets.ticket_id
         ).join(
             Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+            on=(Tickets.ticket_id == Bookmarks.ticket)
         ).where(
-            Bookmarks.user_id == _user_id,
+            Bookmarks.user == _user_id,
             Tickets.creator == _user_id
         ).order_by(
             Bookmarks.created.desc()
@@ -167,9 +167,9 @@ def q_followed(_user_id: int) -> Expression:
             Tickets.ticket_id
         ).join(
             Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+            on=(Tickets.ticket_id == Bookmarks.ticket)
         ).where(
-            Bookmarks.user_id == _user_id,
+            Bookmarks.user == _user_id,
             Tickets.creator != _user_id
         ).order_by(
             Bookmarks.created.desc()

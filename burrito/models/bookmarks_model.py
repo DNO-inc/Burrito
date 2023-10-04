@@ -7,15 +7,13 @@ from burrito.models.basic_model import BurritoBasicModel
 
 
 class Bookmarks(BurritoBasicModel):
-    # TODO: replace user_id with user and ticket_id with ticket
-
-    user_id = ForeignKeyField(
+    user = ForeignKeyField(
         Users,
         field="user_id",
         on_delete="NO ACTION"
     )
 
-    ticket_id = ForeignKeyField(
+    ticket = ForeignKeyField(
         Tickets,
         field="ticket_id",
         on_delete="CASCADE"
@@ -24,4 +22,4 @@ class Bookmarks(BurritoBasicModel):
 
     class Meta:
         depends_on = [Users, Tickets]
-        primary_key = CompositeKey('user_id', 'ticket_id')
+        primary_key = CompositeKey('user', 'ticket')

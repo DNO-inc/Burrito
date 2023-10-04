@@ -1,4 +1,5 @@
 from typing import Any, Literal
+import orjson
 
 from redis import Redis
 from fastapi import HTTPException, status
@@ -163,9 +164,9 @@ def is_ticket_followed(user_id: int, ticket_id: int) -> bool:
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+            on=(Tickets.ticket_id == Bookmarks.ticket)
         ).where(
-            Bookmarks.user_id == user_id,
+            Bookmarks.user == user_id,
             Tickets.creator != user_id,
             Tickets.ticket_id == ticket_id
         ).get_or_none()
@@ -186,9 +187,9 @@ def is_ticket_bookmarked(user_id: int, ticket_id: int) -> bool:
     return bool(
         Tickets.select(Tickets.ticket_id).join(
             Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket_id)
+            on=(Tickets.ticket_id == Bookmarks.ticket)
         ).where(
-            Bookmarks.user_id == user_id,
+            Bookmarks.user == user_id,
             Tickets.creator == user_id,
             Tickets.ticket_id == ticket_id
         ).get_or_none()
@@ -667,8 +668,7 @@ def get_notification_receivers(ticket: Tickets | int):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
-    # TODO: replace user_id with user and ticket_id with ticket
-    ids = [item.user_id.user_id for item in Bookmarks.select(Bookmarks.user_id).where(Bookmarks.ticket_id == ticket.ticket_id)]
+    ids = [item.user.user_id for item in Bookmarks.select(Bookmarks.user).where(Bookmarks.ticket == ticket.ticket_id)]
     ids += [ticket.creator.user_id]
     ids += ([ticket.assignee.user_id] if ticket.assignee else [])
 
@@ -735,4 +735,11 @@ def send_comment_update(ticket_id: int, comment_id: str) -> None:
         ticket_id: The ID of the ticket
         comment_id: The ID of the comment
     """
-    get_redis_connector().publish(f"chat_{ticket_id}", comment_id.encode("utf-8"))
+    get_redis_connector().publish(
+        f"chat_{ticket_id}",
+        orjson.dumps(
+            {
+                "comment_id": comment_id
+            }
+        )
+    )
