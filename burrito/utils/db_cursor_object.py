@@ -10,6 +10,7 @@ class BurritoDatabaseCursor(ReconnectMixin, MySQLDatabase):
     def __init__(self, database, **kwargs) -> None:
         super().__init__(database, **kwargs)
         self.execute_sql("SET NAMES utf8mb4;")
+        self.execute_sql(f"CREATE DATABASE IF NOT EXISTS {get_config().BURRITO_DB_NAME};")
 
 
 def get_database_cursor() -> BurritoDatabaseCursor:

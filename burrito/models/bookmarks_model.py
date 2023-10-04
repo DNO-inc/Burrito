@@ -22,4 +22,4 @@ class Bookmarks(BurritoBasicModel):
 
     class Meta:
         depends_on = [Users, Tickets]
-        primary_key = CompositeKey('user_id', 'ticket_id')
+        primary_key = CompositeKey('user', 'ticket')
