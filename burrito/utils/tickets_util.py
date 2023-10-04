@@ -1,4 +1,5 @@
 from typing import Any, Literal
+import orjson
 
 from redis import Redis
 from fastapi import HTTPException, status
@@ -734,4 +735,11 @@ def send_comment_update(ticket_id: int, comment_id: str) -> None:
         ticket_id: The ID of the ticket
         comment_id: The ID of the comment
     """
-    get_redis_connector().publish(f"chat_{ticket_id}", comment_id.encode("utf-8"))
+    get_redis_connector().publish(
+        f"chat_{ticket_id}",
+        orjson.dumps(
+            {
+                "comment_id": comment_id
+            }
+        )
+    )
