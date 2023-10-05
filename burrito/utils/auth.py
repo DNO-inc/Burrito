@@ -76,7 +76,7 @@ def _make_token_body(token_data: AuthTokenPayload, token_type: str, jti: str) ->
     token_data.iat = token_creation_time
     token_data.burrito_salt = secrets.token_hex(64)
 
-    return jwt.encode(token_data.dict(), _JWT_SECRET).decode("utf-8")
+    return jwt.encode(token_data.dict(), _JWT_SECRET)
 
 
 def _read_token_payload(token: str) -> AuthTokenPayload | None:
@@ -91,7 +91,7 @@ def _read_token_payload(token: str) -> AuthTokenPayload | None:
     """
 
     try:
-        return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET))
+        return AuthTokenPayload(**jwt.decode(token, _JWT_SECRET, algorithms="HS256"))
 
     except jwt.exceptions.ExpiredSignatureError as exc:
         raise AuthTokenError(
@@ -100,7 +100,7 @@ def _read_token_payload(token: str) -> AuthTokenPayload | None:
         ) from exc
 
     except Exception as exc:
-        get_logger().warning("Failed to read token: {token}")
+        get_logger().warning("Failed to read token: {token}", exc_info=True)
         raise AuthTokenError(
             detail="Authorization token payload is invalid",
             status_code=status.HTTP_401_UNAUTHORIZED

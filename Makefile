@@ -34,9 +34,6 @@ db_conn:
 redis_conn:
 	scripts/connect_to_redis.sh
 
-burrito_cluster_ping:
-	$(PYTHON) scripts/burrito_cluster_ping.py
-
 burrito_cluster_run:
 	scripts/burrito_cluster_run.sh
 
