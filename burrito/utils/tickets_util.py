@@ -633,7 +633,7 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
 
         change_ticket_status(ticket, user_id, STATUS_ACCEPTED)
 
-    elif new_assignee and ticket.assignee.user_id == user_id and ticket.assignee.user_id != new_assignee.user_id:
+    elif new_assignee and ticket.assignee and ticket.assignee.user_id != new_assignee.user_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
             user_id=user_id,
