@@ -320,7 +320,9 @@ def create_ticket_action(
             New notification (
                 ticket={ticket_id},
                 user={user_id},
-                body={new_value}
+                field_name={field_name},
+                old_value={old_value},
+                new_value={new_value}
             )
 
             """

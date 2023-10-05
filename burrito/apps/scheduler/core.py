@@ -1,9 +1,8 @@
 import schedule
 import time
 
-#from burrito import CURRENT_TIME_ZONE
 from burrito.utils.config_reader import get_config
-#from burrito.utils.tasks.preprocessor import preprocessor_task
+from burrito.utils.tasks.preprocessor import preprocessor_task
 from burrito.utils.tasks.ping import burrito_ping
 
 
@@ -16,11 +15,11 @@ __HOST_TO_PING = (
 
 
 def start_scheduler():
-#    schedule.every().day.at("00:30").do(preprocessor_task)
+    schedule.every().day.at("00:30").do(preprocessor_task)
 
     for i in __HOST_TO_PING:
         schedule.every().hours.do(burrito_ping, *i)
 
     while True:
         schedule.run_pending()
-        time.sleep(1)
+        time.sleep(5)

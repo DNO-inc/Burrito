@@ -3,6 +3,7 @@
 
 """
 
+from threading import Thread
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 import asyncio
@@ -65,7 +66,7 @@ class _TaskManager:
     def pool(self) -> ThreadPoolExecutor:
         return self._thread_pool
 
-    def add_task(self, task, *args, **kwargs) -> None:
+    def add_task(self, task, *args, daemon=False, **kwargs) -> None:
         """_summary_
 
         Add task to execute in event loop
@@ -77,7 +78,10 @@ class _TaskManager:
         if inspect.iscoroutine(task):
             self._loop.create_task(task)
         else:
-            self._thread_pool.submit(task, *args, **kwargs)
+            if daemon:
+                Thread(target=task, args=args, kwargs=kwargs, daemon=True).start()
+            else:
+                self._thread_pool.submit(task, *args, **kwargs)
 
     def add_multiply_task(self, task_list: tuple[Any]) -> None:
         """_summary_

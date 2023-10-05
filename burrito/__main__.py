@@ -6,7 +6,6 @@ needed for Burrito functionality.
 """
 
 import uvicorn
-import threading
 
 from fastapi import FastAPI
 
@@ -48,9 +47,6 @@ connect_app(app, "/iofiles", iofiles_router)
 connect_app(app, "/comments", comments_router)
 connect_app(app, "/notifications", notifications_router)
 
-threading.Thread(target=run_websocket_server, daemon=True).start()
-threading.Thread(target=start_scheduler, daemon=True).start()
-
 
 if __name__ == "__main__":
     config = uvicorn.Config(
@@ -61,5 +57,9 @@ if __name__ == "__main__":
     )
     uvicorn_server = uvicorn.Server(config)
 
-    get_task_manager().add_task(uvicorn_server.serve())
-    get_task_manager().run(forever=False)
+    task_manager = get_task_manager()
+
+    task_manager.add_task(run_websocket_server, daemon=True)
+    task_manager.add_task(start_scheduler, daemon=True)
+    task_manager.add_task(uvicorn_server.serve())
+    task_manager.run(forever=False)
