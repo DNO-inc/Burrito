@@ -77,10 +77,11 @@ async def iofiles__get_file(
             detail="Is not allowed to attach files to this ticket"
         )
 
+    clear_filename = file_data.file_name.replace("\"", "")
     return StreamingResponse(
         content=(chunk for chunk in chunks(1024, mongo_get_file(file_id))),
         headers={
-            "Content-Disposition": f"attachment; filename={file_data.file_name}",
+            "Content-Disposition": f'attachment; filename="{clear_filename}"',
         } | ({"Content-Type": file_data.content_type} if file_data.content_type else {})
     )
 
