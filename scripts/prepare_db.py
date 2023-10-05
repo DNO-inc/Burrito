@@ -1,5 +1,5 @@
 from burrito.utils.db_utils import create_tables
-from burrito.apps.scheduler.preprocessor.core import preprocessor_task
+from burrito.utils.tasks.preprocessor import preprocessor_task
 
 
 create_tables()

@@ -1,14 +1,37 @@
 import requests
 import pymysql.cursors
+import orjson as json
 
 from burrito.utils.task_manager import get_task_manager
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 from burrito.utils.db_cursor_object import get_database_cursor
-from .conf import MODEL_KEYS, DEFAULT_CONFIG
+
+from burrito.models.group_model import Groups
+from burrito.models.statuses_model import Statuses
+from burrito.models.faculty_model import Faculties
+from burrito.models.queues_model import Queues
+from burrito.models.permissions_model import Permissions
+from burrito.models.roles_model import Roles
+from burrito.models.role_permissions_model import RolePermissions
 
 
-SSU_KEY = get_config().BURRITO_SSU_KEY
+MODEL_KEYS = {
+    "groups": Groups,
+    "faculties": Faculties,
+    "statuses": Statuses,
+    "queues": Queues,
+    "permissions": Permissions,
+    "roles": Roles,
+    "role_permissions": RolePermissions
+}
+
+DEFAULT_CONFIG = ""
+
+with open("preprocessor_config.json", "r", encoding="utf-8") as file:
+    DEFAULT_CONFIG = json.loads(file.read())
+
+
 SSU_GROUPS_URL = "https://iis.sumdu.edu.ua/api/getGroups"
 SSU_FACULTIES_URL = "https://iis.sumdu.edu.ua/api/getDivisions"
 
@@ -16,7 +39,7 @@ SSU_FACULTIES_URL = "https://iis.sumdu.edu.ua/api/getDivisions"
 def pull_faculties_from_ssu() -> list:
     try:
         raw_faculties_data = requests.get(
-            f"{SSU_FACULTIES_URL}?key={SSU_KEY}",
+            f"{SSU_FACULTIES_URL}?key={get_config().BURRITO_SSU_KEY}",
             timeout=30
         )
         if raw_faculties_data.status_code != 200:
@@ -42,7 +65,7 @@ def pull_faculties_from_ssu() -> list:
 def pull_groups_from_ssu() -> list:
     try:
         raw_groups_data = requests.get(
-            f"{SSU_GROUPS_URL}?key={SSU_KEY}",
+            f"{SSU_GROUPS_URL}?key={get_config().BURRITO_SSU_KEY}",
             timeout=30
         )
         if raw_groups_data.status_code != 200:
