@@ -346,7 +346,8 @@ def create_ticket_action(
                 user_id=user_id,
                 body_ua=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
                 body=f"{action_author.login} changed the value '{field_name}' from ({old_value}) to ({new_value})"
-            )
+            ),
+            author_id=user_id
         )
 
 
@@ -409,7 +410,8 @@ def create_ticket_file_action(
                 user_id=user_id,
                 body_ua=notification_text["ua"].format(action_author.login, value),
                 body=notification_text["en"].format(action_author.login, value)
-            )
+            ),
+            author_id=user_id
         )
 
 
@@ -654,7 +656,7 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
         ticket.assignee = None
 
 
-def get_notification_receivers(ticket: Tickets | int):
+def get_notification_receivers(ticket: Tickets | int, exclude_id: int | None = None) -> set[int]:
     """
     Get notification receivers for ticket.
     This is used to determine who should receive notification
@@ -670,14 +672,19 @@ def get_notification_receivers(ticket: Tickets | int):
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
-    ids = [item.user.user_id for item in Bookmarks.select(Bookmarks.user).where(Bookmarks.ticket == ticket.ticket_id)]
-    ids += [ticket.creator.user_id]
-    ids += ([ticket.assignee.user_id] if ticket.assignee else [])
+    # TODO: change this solution
+    ids = {item.user.user_id for item in Bookmarks.select(Bookmarks.user).where(Bookmarks.ticket == ticket.ticket_id)}
+    ids.add(ticket.creator.user_id)
+    if ticket.assignee:
+        ids.add(ticket.assignee.user_id)
 
-    return set(ids)
+    if exclude_id and exclude_id in ids:
+        ids.remove(exclude_id)
+
+    return ids
 
 
-def send_notification(ticket: Tickets | int, notification: Notifications):
+def send_notification(ticket: Tickets | int, notification: Notifications, author_id: int):
     """
     Send notification to subscribers.
 
@@ -690,7 +697,7 @@ def send_notification(ticket: Tickets | int, notification: Notifications):
 
     pubsub: Redis = get_redis_connector()
 
-    target_ids = get_notification_receivers(ticket)
+    target_ids = get_notification_receivers(ticket, exclude_id=author_id)
     notification_id = mongo_insert(notification)
 
     try:
