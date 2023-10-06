@@ -61,9 +61,8 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     msg.set_content(content)
     msg["Subject"] = subject
     msg["From"] = _BURRITO_EMAIL_LOGIN
-    msg["To"] = receivers_email[0]
-    if len(receivers_email) > 1:
-        msg["Bcc"] = ", ".join(receivers_email[1:])
+    msg["To"] = _BURRITO_EMAIL_LOGIN
+    msg["Bcc"] = ", ".join(receivers_email)
 
     try:
         get_burrito_email().send_message(msg)
