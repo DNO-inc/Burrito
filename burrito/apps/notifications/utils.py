@@ -22,12 +22,9 @@ def email_loop():
             if isinstance(raw_data, (str, bytes)):
                 data = orjson.loads(raw_data)
 
-                for id_ in data["receivers"]:
-                    get_task_manager().add_task(
-                        send_email,
-                        to=id_,
-                        subject=data["subject"],
-                        content=data["content"]
-                    )
+                get_task_manager().add_task(
+                    send_email,
+                    **data
+                )
 
         time.sleep(1)

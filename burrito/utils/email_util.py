@@ -29,38 +29,46 @@ class BurritoEmail(smtplib.SMTP_SSL):
 
         self.login(login, password)
 
-    def send_email(self, message: EmailMessage) -> None:
-        self.send_message(message)
-
 
 _BURRITO_EMAIL_LOGIN = get_config().BURRITO_EMAIL_LOGIN
-_BURRITO_EMAIL: smtplib.SMTP_SSL = BurritoEmail(
-    get_config().BURRITO_SMTP_SERVER,
-    _BURRITO_EMAIL_LOGIN,
-    get_config().BURRITO_EMAIL_PASSWORD
-)
 
 
-def send_email(to: int, subject: str, content: str) -> None:
-    current_user: Users = get_user_by_id_or_none(to)
+def get_burrito_email() -> BurritoEmail:
+    return BurritoEmail(
+        get_config().BURRITO_SMTP_SERVER,
+        _BURRITO_EMAIL_LOGIN,
+        get_config().BURRITO_EMAIL_PASSWORD
+    )
 
-    if current_user is None:
+
+def send_email(receivers: list[int], subject: str, content: str) -> None:
+    if not receivers:
         return
 
-    if not current_user.email:
-        return
+    receivers_email: list[str] = []
+
+    for id_ in receivers:
+        current_user: Users = get_user_by_id_or_none(id_)
+
+        if current_user is None:
+            continue
+        if not current_user.email:
+            continue
+
+        receivers_email.append(current_user.email)
+
+    receivers_email = ", ".join(receivers_email)
 
     msg = EmailMessage()
     msg.set_content(content)
     msg["Subject"] = subject
     msg["From"] = _BURRITO_EMAIL_LOGIN
-    msg["To"] = current_user.email
 
     try:
-        _BURRITO_EMAIL.send_email(msg)
-        get_logger().info(f"Email successfully sent to {to} ({current_user.email})")
+        get_burrito_email().sendmail(_BURRITO_EMAIL_LOGIN, receivers_email, msg.as_string())
+        get_logger().info(f"Email successfully sent to ({receivers_email})")
     except Exception:
-        get_logger().warning(f"Failed to send email to user {to} ({current_user.email})")
+        get_logger().warning(f"Failed to send email to ({receivers_email})", exc_info=True)
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
