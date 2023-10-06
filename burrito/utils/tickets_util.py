@@ -11,6 +11,7 @@ from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
+from burrito.utils.email_util import publish_email, EMAIL_NOTIFICATION_TEMPLATE
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.queues_model import Queues
@@ -348,6 +349,13 @@ def create_ticket_action(
                 body=f"{action_author.login} changed the value '{field_name}' from ({old_value}) to ({new_value})"
             ),
             author_id=user_id
+        )
+        publish_email(
+            get_notification_receivers(ticket, exclude_id=user_id),
+            "TreS notification",
+            EMAIL_NOTIFICATION_TEMPLATE.format(
+                f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
+            )
         )
 
 
