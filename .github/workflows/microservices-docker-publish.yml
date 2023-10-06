@@ -22,6 +22,7 @@ jobs:
           - comments
           - iofiles
           - meta
+          - notifications
           - profile
           - registration
           - tickets
