@@ -42,9 +42,6 @@ def get_burrito_email() -> BurritoEmail:
 
 
 def send_email(receivers: list[int], subject: str, content: str) -> None:
-    if not receivers:
-        return
-
     receivers_email: list[str] = []
 
     for id_ in receivers:
@@ -57,18 +54,22 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
 
         receivers_email.append(current_user.email)
 
-    receivers_email = ", ".join(receivers_email)
+    if not receivers_email:
+        return
 
     msg = EmailMessage()
     msg.set_content(content)
     msg["Subject"] = subject
     msg["From"] = _BURRITO_EMAIL_LOGIN
+    msg["To"] = receivers_email[0]
+    if len(receivers_email) > 1:
+        msg["Bcc"] = ", ".join(receivers_email[1:])
 
     try:
-        get_burrito_email().sendmail(_BURRITO_EMAIL_LOGIN, receivers_email, msg.as_string())
-        get_logger().info(f"Email successfully sent to ({receivers_email})")
+        get_burrito_email().send_message(msg)
+        get_logger().info(f"Email successfully sent to {receivers_email}")
     except Exception:
-        get_logger().warning(f"Failed to send email to ({receivers_email})", exc_info=True)
+        get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
