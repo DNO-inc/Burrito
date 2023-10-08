@@ -19,3 +19,7 @@ class ActionSchema(BaseActionSchems):
 class FileActionSchema(BaseActionSchems):
     field_name: str = "file"
     value: str
+
+
+class RequestActionSchema(BaseModel):
+    action_id: str
