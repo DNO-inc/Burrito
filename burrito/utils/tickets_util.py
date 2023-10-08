@@ -743,7 +743,7 @@ def send_notification(ticket: Tickets | int, notification: Notifications, author
         )
 
 
-def send_comment_update(ticket_id: int, comment_id: str) -> None:
+def send_comment_update(ticket_id: int, comment_id: str, msg_type: Literal["MSG_CREATE", "MSG_EDIT", "MSG_DELETE"]) -> None:
     """
     Sends a comment update to the chat (Redis pub/sub chanel).
     Than that data will be used by websocket data
@@ -756,7 +756,8 @@ def send_comment_update(ticket_id: int, comment_id: str) -> None:
         f"chat_{ticket_id}",
         orjson.dumps(
             {
-                "comment_id": comment_id
+                "comment_id": comment_id,
+                "msg_type": msg_type
             }
         )
     )

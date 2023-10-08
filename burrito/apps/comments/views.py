@@ -68,7 +68,7 @@ async def comments__create(
         ),
         author_id=token_payload.user_id
     )
-    send_comment_update(ticket.ticket_id, comment_id)
+    send_comment_update(ticket.ticket_id, comment_id, msg_type="MSG_CREATE")
 
     if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
         create_ticket_action(
@@ -109,6 +109,10 @@ async def comments__edit(
             _id=comment_id
         )
 
+    ticket: Tickets | None = is_ticket_exist(comment["ticket_id"])
+
+    send_comment_update(ticket.ticket_id, str(comment["_id"]), msg_type="MSG_EDIT")
+
     return JSONResponse(
         status_code=200,
         content={
@@ -128,6 +132,10 @@ async def comments__delete(
     is_allowed_to_interact(comment, token_payload.user_id)
 
     mongo_delete(Comments, _id=comment["_id"])
+
+    ticket: Tickets | None = is_ticket_exist(comment["ticket_id"])
+
+    send_comment_update(ticket.ticket_id, str(comment["_id"]), msg_type="MSG_DELETE")
 
     return JSONResponse(
         status_code=200,
