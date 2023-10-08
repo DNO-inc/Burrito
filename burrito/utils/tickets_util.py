@@ -49,7 +49,7 @@ def is_ticket_exist(ticket_id: int) -> Tickets | None:
         ticket_id (int): ticket ID
 
     Returns:
-        Tickets | None: return ticket object if exist else return None
+        Tickets | None: return ticket object if exist else raise an error
     """
 
     _ticket = Tickets.get_or_none(
@@ -306,7 +306,7 @@ def create_ticket_action(
 
         """
     )
-    mongo_insert(
+    action_id = mongo_insert(
         Actions(
             ticket_id=ticket_id,
             user_id=user_id,
@@ -357,6 +357,15 @@ def create_ticket_action(
                 f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
             )
         )
+        get_redis_connector().publish(
+            f"chat_{ticket_id}",
+            orjson.dumps(
+                {
+                    "action_id": action_id,
+                    "msg_type": "MSG_ACTION"
+                }
+            )
+        )
 
 
 def create_ticket_file_action(
@@ -388,7 +397,7 @@ def create_ticket_file_action(
 
         """
     )
-    mongo_insert(
+    action_id = mongo_insert(
         FileActions(
             ticket_id=ticket_id,
             user_id=user_id,
@@ -420,6 +429,15 @@ def create_ticket_file_action(
                 body=notification_text["en"].format(action_author.login, value)
             ),
             author_id=user_id
+        )
+        get_redis_connector().publish(
+            f"chat_{ticket_id}",
+            orjson.dumps(
+                {
+                    "action_id": action_id,
+                    "msg_type": "MSG_FILE_ACTION"
+                }
+            )
         )
 
 

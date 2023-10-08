@@ -461,7 +461,31 @@ class TicketsTestCase(unittest.TestCase):
                 "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
-                "ticket_id": 7
+                "ticket_id": TicketsTestCase.first_ticket
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    @unittest.skip
+    def test_017_get_action_by_id(self):
+        """Delete ticket"""
+
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/get_action",
+            headers={
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            json={
+                "action_id": "6522d1207bf20629548622f6"
             },
             timeout=TIMEOUT
         )

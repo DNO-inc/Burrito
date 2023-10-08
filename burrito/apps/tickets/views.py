@@ -1,6 +1,6 @@
 import math
 
-from fastapi import Depends, status
+from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
@@ -15,6 +15,7 @@ from burrito.schemas.tickets_schema import (
     BaseFilterSchema,
     RequestTicketHistorySchema
 )
+from burrito.schemas.action_schema import RequestActionSchema, ActionSchema, FileActionSchema
 
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
@@ -22,10 +23,11 @@ from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
 from burrito.models.m_actions_model import Actions
+from burrito.models.m_actions_model import BaseAction
 
-from burrito.utils.users_util import get_user_by_id
+from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
-
+from burrito.utils.mongo_util import mongo_select
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -775,3 +777,76 @@ async def tickets__get_full_ticket_history(
         "history": history,
         "page_count": mongo_page_count(Actions, items_count=_filters.items_count, ticket_id=ticket.ticket_id)
     }
+
+
+async def tickets__get_action_by_id(
+        action_data: RequestActionSchema,
+        __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
+    check_permission(token_payload)
+
+    action = mongo_select(BaseAction, _id=action_data.action_id)
+
+    if action:
+        action = action[0]
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Action with action_id {action_data.action_id} is not exists"
+        )
+
+    if not action.get("type_"):
+        raise HTTPException(
+            status_code=404,
+            detail=f"Action with action_id {action_data.action_id} is not exists"
+        )
+
+    if action["type_"] != "action":
+        raise HTTPException(
+            status_code=404,
+            detail=f"Action with action_id {action_data.action_id} is not exists"
+        )
+
+    ticket: Tickets = is_ticket_exist(action["ticket_id"])
+    ticket_owner = am_i_own_this_ticket(ticket.ticket_id, token_payload.user_id)
+    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+        raise HTTPException(
+            status_code=403,
+            detail="Forbidden to interact with this ticket"
+        )
+
+    if action["field_name"] == "file":
+        return FileActionSchema(
+            ticket_id=action["ticket_id"],
+            author=make_short_user_data(
+                action["user_id"],
+                hide_user_id=False if ticket_owner else (ticket.anonymous and (action["user_id"] == ticket.creator.user_id))
+            ),
+            creation_date=action["creation_date"],
+            field_name=action["field_name"],
+            value=action["value"]
+        )
+
+    # if it's regular action
+    old_value = action["old_value"]
+    new_value = action["new_value"]
+
+    if action["field_name"] == "assignee":
+        old_assignee = get_user_by_id_or_none(action["old_value"])
+        new_assignee = get_user_by_id_or_none(action["new_value"])
+
+        old_value = old_assignee.login if old_assignee else action["old_value"]
+        new_value = new_assignee.login if new_assignee else action["new_value"]
+
+    return ActionSchema(
+        ticket_id=action["ticket_id"],
+        author=make_short_user_data(
+            action["user_id"],
+            hide_user_id=False if ticket_owner else (ticket.anonymous and (action["user_id"] == ticket.creator.user_id))
+        ),
+        creation_date=action["creation_date"],
+        field_name=action["field_name"],
+        old_value=old_value,
+        new_value=new_value
+    )

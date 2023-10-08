@@ -16,7 +16,8 @@ from burrito.apps.tickets.views import (
     tickets__get_deleted_tickets,
     tickets__undelete_ticket,
     tickets__get_followed_tickets,
-    tickets__get_full_ticket_history
+    tickets__get_full_ticket_history,
+    tickets__get_action_by_id
 )
 
 
@@ -104,5 +105,10 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/full_history",
     tickets__get_full_ticket_history,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/get_action",
+    tickets__get_action_by_id,
     methods=["POST"]
 )
