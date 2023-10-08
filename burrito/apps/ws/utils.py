@@ -149,6 +149,7 @@ def main_handler(websocket: WebSocketServerProtocol):
 
     if not raw_data:
         send_data(websocket, b"Auth fail")
+        close_conn(websocket)
 
     token_payload: AuthTokenPayload = None
     try:
@@ -166,6 +167,7 @@ def main_handler(websocket: WebSocketServerProtocol):
         connection_mode = connection_mode.decode("utf-8")
     if not connection_mode:
         send_data(websocket, b"Connection mode is invalid")
+        close_conn(websocket)
 
     connection_handler = __CONNECTION_MODES.get(connection_mode)
     if connection_handler:
@@ -173,6 +175,7 @@ def main_handler(websocket: WebSocketServerProtocol):
         connection_handler(websocket, token_payload)
     else:
         send_data(websocket, b"Connection mode is invalid")
+        close_conn(websocket)
         get_logger().warning(f"User {token_payload.user_id} has selected wrong connection mode '{connection_mode}'")
 
     get_logger().info(f"Thread {thread_id} is finished")
