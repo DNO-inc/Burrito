@@ -16,7 +16,7 @@ EMAIL_NOTIFICATION_TEMPLATE = """
 
 Ми хочемо вас проінформувати, що були внесені важливі зміни до тікетів на платформі TreS. Нижче наведено деталізація цих змін:
 
-{} в тікеті {} "{}"
+{}
 
 Дякуємо за увагу!
 """
@@ -69,6 +69,7 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
         get_logger().info(f"Email successfully sent to {receivers_email}")
     except Exception:
         get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
+        get_logger().info(f"Email backup \n{msg.as_string()}\n")
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
