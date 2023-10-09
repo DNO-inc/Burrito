@@ -33,7 +33,10 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.task_manager import get_task_manager
 from burrito.apps.ws.utils import run_websocket_server
 from burrito.apps.notifications.utils import email_loop
+from burrito.plugins.loader import PluginLoader
 
+
+PluginLoader.load()
 
 app: FastAPI = get_current_app()
 connect_app(app, "/about", about_router)
