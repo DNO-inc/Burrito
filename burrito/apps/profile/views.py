@@ -1,4 +1,4 @@
-from fastapi import Depends, status
+from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.models.user_model import Users
@@ -13,6 +13,7 @@ from burrito.utils.converter import (
     FacultyConverter,
     GroupConverter
 )
+from burrito.utils.users_util import get_user_by_login
 from burrito.utils.hash_util import get_hash
 from burrito.utils.validators import (
     is_valid_firstname,
@@ -56,6 +57,12 @@ async def profile__update_my_profile(
         current_user.lastname = profile_updated_data.lastname
 
     if is_valid_login(profile_updated_data.login):
+        if get_user_by_login(profile_updated_data.login):
+            raise HTTPException(
+                status_code=403,
+                detail="User with the same login exist"
+            )
+
         current_user.login = profile_updated_data.login
 
     if is_valid_phone(profile_updated_data.phone):
@@ -67,13 +74,13 @@ async def profile__update_my_profile(
     # check faculty
     if profile_updated_data.faculty:
         faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
-        if faculty_id and profile_updated_data.faculty:
+        if faculty_id:
             current_user.faculty = faculty_id
 
     # check group
     if profile_updated_data.group:
         group_id = GroupConverter.convert(profile_updated_data.group)
-        if group_id and profile_updated_data.group:
+        if group_id:
             current_user.group = group_id
 
     if is_valid_password(profile_updated_data.password):
