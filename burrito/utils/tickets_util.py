@@ -352,11 +352,9 @@ def create_ticket_action(
         )
         publish_email(
             get_notification_receivers(ticket, exclude_id=user_id),
-            "TreS notification",
+            f"TreS #{ticket.ticket_id} \"{ticket.subject}\"",
             EMAIL_NOTIFICATION_TEMPLATE.format(
-                f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})",
-                ticket.ticket_id,
-                ticket.subject
+                f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
             )
         )
         get_redis_connector().publish(
