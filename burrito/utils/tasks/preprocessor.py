@@ -1,4 +1,3 @@
-import requests
 import pymysql.cursors
 import orjson as json
 
@@ -15,6 +14,8 @@ from burrito.models.permissions_model import Permissions
 from burrito.models.roles_model import Roles
 from burrito.models.role_permissions_model import RolePermissions
 
+from burrito.plugins.loader import PluginLoader
+
 
 MODEL_KEYS = {
     "groups": Groups,
@@ -30,60 +31,6 @@ DEFAULT_CONFIG = ""
 
 with open("preprocessor_config.json", "r", encoding="utf-8") as file:
     DEFAULT_CONFIG = json.loads(file.read())
-
-
-SSU_GROUPS_URL = "https://iis.sumdu.edu.ua/api/getGroups"
-SSU_FACULTIES_URL = "https://iis.sumdu.edu.ua/api/getDivisions"
-
-
-def pull_faculties_from_ssu() -> list:
-    try:
-        raw_faculties_data = requests.get(
-            f"{SSU_FACULTIES_URL}?key={get_config().BURRITO_SSU_KEY}",
-            timeout=30
-        )
-        if raw_faculties_data.status_code != 200:
-            get_logger().warning(
-                f"{SSU_FACULTIES_URL}  status code is {raw_faculties_data.status_code}"
-            )
-        raw_faculties_data = raw_faculties_data.json()["result"]
-
-        return [
-            {
-                "faculty_id": raw_group["ID_DIV"],
-                "name": raw_group["ABBR_DIV"]
-            } for raw_group in raw_faculties_data if (
-                raw_group["ID_DIV"] and raw_group["ABBR_DIV"] and raw_group["KOD_TYPE"] in (7, 9)
-            )
-        ]
-    except Exception as e:
-        get_logger().error(e)
-
-    return []
-
-
-def pull_groups_from_ssu() -> list:
-    try:
-        raw_groups_data = requests.get(
-            f"{SSU_GROUPS_URL}?key={get_config().BURRITO_SSU_KEY}",
-            timeout=30
-        )
-        if raw_groups_data.status_code != 200:
-            get_logger().warning(
-                f"{SSU_GROUPS_URL}  status code is {raw_groups_data.status_code}"
-            )
-        raw_groups_data = raw_groups_data.json()["result"]
-
-        return [
-            {
-                "group_id": raw_group["ID_GROUP"],
-                "name": raw_group["NAME_GROUP"]
-            } for raw_group in raw_groups_data if raw_group["ID_GROUP"] and raw_group["NAME_GROUP"]
-        ]
-    except Exception as e:
-        get_logger().error(e)
-
-    return []
 
 
 def preprocessor_task():
@@ -109,8 +56,8 @@ def preprocessor_task():
         __config_data: dict = {}
 
         data: dict = DEFAULT_CONFIG
-        data["groups"] = pull_groups_from_ssu()
-        data["faculties"] += pull_faculties_from_ssu()
+        data["groups"] = PluginLoader.execute_plugin("group_updates")
+        data["faculties"] += PluginLoader.execute_plugin("faculty_updates")
 
         for key, value in data.items():
             if not key.startswith("__"):
