@@ -12,6 +12,14 @@ __HOST_TO_PING = (
     (get_config().BURRITO_REDIS_HOST, get_config().BURRITO_REDIS_PORT),
     (get_config().BURRITO_MONGO_HOST, get_config().BURRITO_MONGO_PORT),
     ("iis.sumdu.edu.ua", 80),
+
+    # email services
+    (get_config().BURRITO_SMTP_SERVER, 25),
+    (get_config().BURRITO_SMTP_SERVER, 110),
+    (get_config().BURRITO_SMTP_SERVER, 143),
+    (get_config().BURRITO_SMTP_SERVER, 465),
+    (get_config().BURRITO_SMTP_SERVER, 993),
+    (get_config().BURRITO_SMTP_SERVER, 995)
 )
 
 

@@ -1,4 +1,4 @@
-from fastapi import Depends, status, HTTPException
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.models.user_model import Users
@@ -58,9 +58,12 @@ async def profile__update_my_profile(
 
     if is_valid_login(profile_updated_data.login):
         if get_user_by_login(profile_updated_data.login):
-            raise HTTPException(
+            return JSONResponse(
                 status_code=403,
-                detail="User with the same login exist"
+                content={
+                    "field": "login",
+                    "detail": "User with the same login exists"
+                }
             )
 
         current_user.login = profile_updated_data.login
