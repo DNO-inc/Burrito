@@ -1,6 +1,7 @@
 import schedule
 import time
 
+from burrito import CURRENT_TIME_ZONE
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 from burrito.utils.tasks.preprocessor import preprocessor_task
@@ -26,7 +27,7 @@ __HOST_TO_PING = (
 def start_scheduler():
     get_logger().info("scheduler is started")
 
-    schedule.every().day.at("00:30").do(preprocessor_task)
+    schedule.every().day.at("00:30", CURRENT_TIME_ZONE.zone).do(preprocessor_task)
 
     for i in __HOST_TO_PING:
         schedule.every().hours.do(burrito_ping, *i)
