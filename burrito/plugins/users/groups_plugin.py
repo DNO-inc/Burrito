@@ -14,7 +14,7 @@ class GroupsPlugin(BurritoBasePlugin):
     plugin_name: str = "group_updates"
 
     @staticmethod
-    def execute():
+    def execute(*args, **kwargs):
         try:
             raw_groups_data = requests.get(
                 f"{SSU_GROUPS_URL}?key={get_config().BURRITO_SSU_KEY}",

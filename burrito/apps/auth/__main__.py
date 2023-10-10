@@ -5,6 +5,10 @@ from burrito.apps.auth.router import auth_router
 from burrito.utils.config_reader import get_config
 from burrito.utils.app_util import get_current_app, connect_app
 
+from burrito.plugins.loader import PluginLoader
+
+
+PluginLoader.load()
 
 _APP_NAME = get_current_app_name()
 
