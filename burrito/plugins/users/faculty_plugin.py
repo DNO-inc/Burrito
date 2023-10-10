@@ -14,7 +14,7 @@ class FacultyPlugin(BurritoBasePlugin):
     plugin_name: str = "faculty_updates"
 
     @staticmethod
-    def execute():
+    def execute(*args, **kwargs):
         try:
             raw_faculties_data = requests.get(
                 f"{SSU_FACULTIES_URL}?key={get_config().BURRITO_SSU_KEY}",

@@ -114,11 +114,11 @@ class PluginLoader:
                     get_logger().info(f"Loaded plugin {target_plugin_dict}")
 
     @classmethod
-    def execute_plugin(cls, name: str):
+    def execute_plugin(cls, name: str, *args, **kwargs):
         plugin = cls.plugins.get(name)
 
         if not plugin:
             get_logger().critical(f"Failed to execute plugin {name}. Plugin is not found")
             return
 
-        return plugin.execute()
+        return plugin.execute(*args, **kwargs)

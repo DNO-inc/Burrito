@@ -16,14 +16,12 @@ from burrito.utils.auth import (
     AuthTokenPayload,
     BurritoJWT
 )
-
 from burrito.utils.users_util import (
     get_user_by_id_or_none, get_user_by_id, create_user_with_cabinet
 )
 
-from burrito.utils.ssu import (
-    CabinetUser
-)
+from burrito.plugins.loader import PluginLoader
+
 
 from .utils import (
     get_auth_core,
@@ -85,14 +83,18 @@ async def auth__key_login(
     """Authentication by key from SSU Cabinet"""
 
     try:
-        cabinet_profile = CabinetUser(user_login_data.key, user_login_data.token)
+        cabinet_profile = PluginLoader.execute_plugin(
+            "third_party_auth",
+            key=user_login_data.key,
+            token=user_login_data.token
+        )
     except (KeyError, ValueError):
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"detail": "Failed to get user data from SSU Cabinet"}
         )
 
-    user: Users | None = get_user_by_id_or_none(cabinet_profile.user_id)
+    user: Users | None = get_user_by_id_or_none(cabinet_profile["user_id"])
 
     if user:
         # if user login exist we just return auth schema
@@ -124,12 +126,12 @@ async def auth__key_login(
         # So, this is the first login. Let's create a locale user record
 
         new_user: Users | None = create_user_with_cabinet(
-            user_id=cabinet_profile.user_id,
-            firstname=cabinet_profile.firstname,
-            lastname=cabinet_profile.lastname,
-            faculty=cabinet_profile.faculty,
-            group=cabinet_profile.group,
-            email=cabinet_profile.email,
+            user_id=cabinet_profile["user_id"],
+            firstname=cabinet_profile["firstname"],
+            lastname=cabinet_profile["lastname"],
+            faculty=cabinet_profile["faculty"],
+            group=cabinet_profile["group"],
+            email=cabinet_profile["email"],
         )
 
         if new_user:
