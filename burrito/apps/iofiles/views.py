@@ -10,7 +10,13 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.m_ticket_files import TicketFiles
 
 from burrito.utils.auth import get_auth_core, BurritoJWT
-from burrito.utils.tickets_util import is_ticket_exist, create_ticket_file_action
+from burrito.utils.tickets_util import (
+    is_ticket_exist,
+    create_ticket_file_action,
+    am_i_own_this_ticket,
+    create_ticket_action
+)
+from burrito.utils.query_util import STATUS_OPEN
 from burrito.utils.mongo_util import mongo_save_file, mongo_get_file, mongo_select, mongo_delete_file
 from burrito.utils.logger import get_logger
 
@@ -50,6 +56,17 @@ async def iofiles__upload_file_for_ticket(
             file_meta_action="upload"
         )
 
+    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
+        create_ticket_action(
+            ticket_id=ticket.ticket_id,
+            user_id=token_payload.user_id,
+            field_name="status",
+            old_value=ticket.status.name,
+            new_value=STATUS_OPEN.name
+        )
+        ticket.status = STATUS_OPEN
+        ticket.save()
+
     return {
         "file_id": file_ids
     }
@@ -81,7 +98,7 @@ async def iofiles__get_file(
     return StreamingResponse(
         content=(chunk for chunk in chunks(1024, mongo_get_file(file_id))),
         headers={
-            "Content-Disposition": f'attachment; filename="{clear_filename}"',
+            "Content-Disposition": f'attachment; filename="{clear_filename.encode()}"',
         } | ({"Content-Type": file_data.content_type} if file_data.content_type else {})
     )
 
