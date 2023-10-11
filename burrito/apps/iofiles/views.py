@@ -98,7 +98,7 @@ async def iofiles__get_file(
     return StreamingResponse(
         content=(chunk for chunk in chunks(1024, mongo_get_file(file_id))),
         headers={
-            "Content-Disposition": f'attachment; filename="{clear_filename}"',
+            "Content-Disposition": f'attachment; filename="{clear_filename.encode()}"',
         } | ({"Content-Type": file_data.content_type} if file_data.content_type else {})
     )
 
