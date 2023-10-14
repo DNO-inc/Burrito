@@ -6,6 +6,7 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 from burrito.utils.tasks.preprocessor import preprocessor_task
 from burrito.utils.tasks.ping import burrito_ping
+from burrito.utils.tasks.new_tickets import check_for_new_tickets
 
 
 __HOST_TO_PING = (
@@ -27,6 +28,7 @@ __HOST_TO_PING = (
 def start_scheduler():
     get_logger().info("scheduler is started")
 
+    schedule.every().day.at("00:05", CURRENT_TIME_ZONE.zone).do(check_for_new_tickets)
     schedule.every().day.at("00:30", CURRENT_TIME_ZONE.zone).do(preprocessor_task)
 
     for i in __HOST_TO_PING:
