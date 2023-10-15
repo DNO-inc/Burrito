@@ -7,9 +7,10 @@ from burrito.plugins.loader import PluginLoader
 from .core import start_scheduler
 
 
-PluginLoader.load()
+if __name__ == "__main__":
+    PluginLoader.load()
 
-os.environ['TZ'] = str(CURRENT_TIME_ZONE)
-time.tzset()
+    os.environ['TZ'] = str(CURRENT_TIME_ZONE)
+    time.tzset()
 
-start_scheduler()
+    start_scheduler()
