@@ -25,15 +25,36 @@ EMAIL_NOTIFICATION_TEMPLATE = """
 @singleton
 class BurritoEmail(smtplib.SMTP_SSL):
     def __init__(self, host: str, login: str, password: str):
+        """
+        Initialize the connection to SMTP server.
+
+        Args:
+            host: The host to connect to.
+            login: The login to use.
+            password: The password to use.
+        """
         super().__init__(host)
 
-        self.login(login, password)
+        self._host = host
+        self._login = login
+        self._password = password
+
+        self.new_login()
+
+    def new_login(self) -> None:
+        """
+        Login/re-login to the server.
+        """
+        self.login(self._login, self._password)
 
 
 _BURRITO_EMAIL_LOGIN = get_config().BURRITO_EMAIL_LOGIN
 
 
 def get_burrito_email() -> BurritoEmail:
+    """
+    Get BurritoEmail instance
+    """
     return BurritoEmail(
         get_config().BURRITO_SMTP_SERVER,
         _BURRITO_EMAIL_LOGIN,
@@ -42,13 +63,23 @@ def get_burrito_email() -> BurritoEmail:
 
 
 def send_email(receivers: list[int], subject: str, content: str) -> None:
+    """
+    Send email to receivers. This will try to resend email if sending fails.
+
+    Args:
+        receivers: List of receivers to send email to
+        subject: Subject of the email to send
+        content: Content of the email to send
+    """
     receivers_email: list[str] = []
 
     for id_ in receivers:
         current_user: Users = get_user_by_id_or_none(id_)
 
+        # if current_user is not exist
         if current_user is None:
             continue
+        # skip user if email is empty
         if not current_user.email:
             continue
 
@@ -64,20 +95,32 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     msg["To"] = _BURRITO_EMAIL_LOGIN
     msg["Bcc"] = ", ".join(receivers_email)
 
-    try:
-        get_burrito_email().send_message(msg)
-        get_logger().info(f"Email successfully sent to {receivers_email}")
-    except Exception:
-        get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
-        get_logger().info(f"Email backup \n{msg.as_string()}\n")
+    # try to resend email if sending is failed
+    for i in range(3):
+        try:
+            get_burrito_email().send_message(msg)
+            get_logger().info(f"Email successfully sent to {receivers_email}")
+            break
+        except Exception:
+            get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
+            get_logger().info("Try to re-login")
+            get_burrito_email().new_login()
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
+    """
+    Publish an email to Redis pubsub.
+
+    Args:
+        receivers: A list of receivers to send email
+        subject: The subject of the email
+        content: The content of the email
+    """
     get_redis_connector().publish(
         "email",
         orjson.dumps(
             {
-                "receivers": list(receivers),
+                "receivers": list(set(receivers)),
                 "subject": subject,
                 "content": content
             }
