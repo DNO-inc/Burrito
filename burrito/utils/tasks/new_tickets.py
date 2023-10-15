@@ -41,7 +41,6 @@ def check_for_new_tickets():
                 f"""
                 #{ticket_item.ticket_id} "{ticket_item.subject}":
                     Дата створення: {ticket_item.created}
-
                 """
             )
 
