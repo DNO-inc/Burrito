@@ -40,6 +40,7 @@ __FILE_NOTIFICATION_LIST = {
         "ua": "{} видалив файл {}"
     },
 }
+__Q_SEP = " > "  # separator for queue actions
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
@@ -598,7 +599,7 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             user_id=user_id,
             field_name="queue",
             old_value="None",
-            new_value=f"{new_queue.faculty.name}/{new_queue.scope}/{new_queue.name}"
+            new_value=f"{new_queue.faculty.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
         )
         ticket.queue = new_queue
 
@@ -607,8 +608,8 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="queue",
-            old_value=f"{ticket.queue.faculty.name}/{ticket.queue.scope}/{ticket.queue.name}",
-            new_value=f"{new_queue.faculty.name}/{new_queue.scope}/{new_queue.name}"
+            old_value=f"{ticket.queue.faculty.name}{__Q_SEP}{ticket.queue.scope}{__Q_SEP}{ticket.queue.name}",
+            new_value=f"{new_queue.faculty.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
         )
         ticket.queue = new_queue
 
