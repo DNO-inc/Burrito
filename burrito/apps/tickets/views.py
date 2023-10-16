@@ -204,7 +204,13 @@ async def tickets__bookmark_ticket(
         bookmark_ticket_data.ticket_id
     )
 
-    if ticket.hidden:
+    if (
+        ticket.hidden
+        and token_payload.user_id not in (
+            ticket.creator.user_id,
+            ticket.assignee.user_id if ticket.assignee else -1
+        )
+    ):
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
             content={
