@@ -70,7 +70,8 @@ from .utils import (
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error,
     make_ticket_detail_info,
-    get_filtered_bookmarks
+    get_filtered_bookmarks,
+    get_filtered_bookmarks_count
 )
 
 
@@ -633,14 +634,15 @@ async def tickets__get_bookmarked_tickets(
             )
         )
 
-    get_logger().info(response_list)
-    get_logger().info(_filters)
-    get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=math.ceil(Tickets.select().where(*(
-            final_filters
-        )).count()/_filters.items_count) if final_filters else math.ceil(Tickets.select().count()/_filters.items_count)
+        total_pages=math.ceil(
+            get_filtered_bookmarks_count(
+                final_filters,
+                start_page=_filters.start_page,
+                tickets_count=_filters.items_count
+            ) / _filters.items_count
+        )
     )
 
 
@@ -695,14 +697,15 @@ async def tickets__get_followed_tickets(
             )
         )
 
-    get_logger().info(response_list)
-    get_logger().info(_filters)
-    get_logger().info(expression)
     return TicketListResponseSchema(
         ticket_list=response_list,
-        total_pages=math.ceil(Tickets.select().where(*(
-            final_filters
-        )).count()/_filters.items_count) if final_filters else math.ceil(Tickets.select().count()/_filters.items_count)
+        total_pages=math.ceil(
+            get_filtered_bookmarks_count(
+                final_filters,
+                start_page=_filters.start_page,
+                tickets_count=_filters.items_count
+            ) / _filters.items_count
+        )
     )
 
 
