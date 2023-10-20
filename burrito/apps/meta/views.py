@@ -36,8 +36,6 @@ async def meta__get_statuses_list():
 
 
 async def meta__get_groups_list(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    await __auth_obj.require_access_token()
-
     return ResponseGroupsListSchema(
         groups_list=[
             GroupResponseSchema(

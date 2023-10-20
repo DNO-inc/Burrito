@@ -1,20 +1,19 @@
-from random import randint
-
 from fastapi import HTTPException, status
 
 from burrito.utils.logger import get_logger
 from burrito.utils.transliteration import transliterate
+from burrito.utils.converter import GroupConverter, FacultyConverter
+from burrito.utils.hash_util import get_hash
+
+from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
-from burrito.models.group_model import Groups
-from burrito.models.faculty_model import Faculties
 
 
-def create_user_tmp_foo(
-        login: str, hashed_password: str,
-        group: Groups, faculty: Faculties
-) -> Users | None:
+def create_user(
+    user_data: RegistrationSchema
+) -> Users:
     """_summary_
 
     Create user with default fields: (login, hashed_password)
@@ -29,11 +28,20 @@ def create_user_tmp_foo(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
+    # check if provided group/faculty is exist
+    GroupConverter.convert(user_data.group)
+    FacultyConverter.convert(user_data.faculty)
+
     try:
         user: Users = Users.create(
-            login=login, password=hashed_password,
-            group=group,
-            faculty=faculty,
+            firstname=user_data.firstname,
+            lastname=user_data.lastname,
+            login=user_data.login,
+            password=get_hash(user_data.password),
+            group=user_data.group,
+            faculty=user_data.faculty,
+            phone=user_data.phone,
+            email=user_data.email,
             role=role_object
         )
         return user
@@ -41,38 +49,14 @@ def create_user_tmp_foo(
     except Exception as e:  # pylint: disable=broad-except, invalid-name
         get_logger().info(
             f"""
-                login: {login}
-                group: {group.name}
-                faculty: {faculty.name}
+                login: {user_data.login}
+                group: {user_data.group}
+                faculty: {user_data.faculty}
                 role: {role_object.name}
 
             """
         )
-        get_logger().error(e)
-
-
-# TODO: delete this function
-def create_user(login: str, hashed_password: str) -> int | None:
-    """_summary_
-
-    Create user with default fields: (login, hashed_password)
-
-    Args:
-        login (str): user login
-        hashed_password (str): user hashed password
-
-    Returns:
-        bool: status creating new user
-    """
-
-    try:
-        user: Users = Users.create(
-            login=login, password=hashed_password
-        )
-        return user.user_id
-
-    except Exception as e:  # pylint: disable=broad-except, invalid-name
-        get_logger().error(e)
+        get_logger().error(e, exc_info=True)
 
 
 def create_user_with_cabinet(
@@ -86,9 +70,7 @@ def create_user_with_cabinet(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
-    tmp_user_login = transliterate(f"{lastname} {firstname}")
-    while get_user_by_login(tmp_user_login):
-        tmp_user_login = transliterate(f"{lastname} {firstname} {randint(1, 1000)}")
+    tmp_user_login = transliterate(f"{firstname} {lastname} {user_id}")
 
     try:
         user: Users = Users.create(
