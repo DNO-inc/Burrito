@@ -7,6 +7,8 @@ from burrito.models.group_model import Groups
 from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
 from burrito.models.user_model import Users
+from burrito.models.roles_model import Roles
+from burrito.models.role_permissions_model import RolePermissions
 
 from burrito.schemas.meta_schema import (
     ResponseStatusesListSchema,
@@ -25,6 +27,8 @@ from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
 from burrito.utils.query_util import ADMIN_ROLES
 from burrito.utils.auth import BurritoJWT, get_auth_core
+
+from burrito.apps.meta.utils import RolesResponse, RolePermissionResponse
 
 
 async def meta__get_statuses_list():
@@ -85,3 +89,25 @@ async def meta__get_admins(__auth_obj: BurritoJWT = Depends(get_auth_core())):
             ) for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))
         ]
     )
+
+
+async def meta__get_roles(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+    await __auth_obj.require_access_token()
+
+    return {
+        "roles": [
+            RolesResponse(**model_to_dict(role)) for role in Roles.select()
+        ]
+    }
+
+
+async def meta__get_role_permissions(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+    await __auth_obj.require_access_token()
+
+    return {
+        "role_permissions": [
+            RolePermissionResponse(
+                **model_to_dict(role)
+            ) for role in RolePermissions.select()
+        ]
+    }

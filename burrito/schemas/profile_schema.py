@@ -54,5 +54,7 @@ class ResponseProfileSchema(BaseProfile):
 
 
 class RequestUpdateProfileSchema(BaseProfile):
+    user_id: int | None
+    role_id: int | None
     login: str | None
     password: str | None

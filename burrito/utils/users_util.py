@@ -4,6 +4,7 @@ from burrito.utils.logger import get_logger
 from burrito.utils.transliteration import transliterate
 from burrito.utils.converter import GroupConverter, FacultyConverter
 from burrito.utils.hash_util import get_hash
+from burrito.utils.query_util import ADMIN_ROLES
 
 from burrito.schemas.registration_schema import RegistrationSchema
 
@@ -142,3 +143,7 @@ def get_user_by_id_or_none(user_id: int) -> Users | None:
     _current_user = Users.get_or_none(Users.user_id == user_id)
 
     return _current_user
+
+
+def is_admin(user_id: int) -> bool:
+    return get_user_by_id(user_id).role.role_id in ADMIN_ROLES
