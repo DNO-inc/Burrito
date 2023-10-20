@@ -11,6 +11,42 @@ TIMEOUT = 5
 
 
 class MetaTestCase(unittest.TestCase):
+    def test_001_roles(self):
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_roles",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
+    def test_002_role_permissions(self):
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_role_permissions",
+            headers={
+               "Authorization": f"Bearer {AuthTestCase.access_token}"
+            },
+            timeout=TIMEOUT
+        )
+
+        check_error(
+            self.assertEqual,
+            {
+                "first": response.status_code,
+                "second": 200
+            },
+            response
+        )
+
     def test_get_statuses_list(self):
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_statuses",

@@ -2,6 +2,7 @@ from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.models.user_model import Users
+from burrito.models.roles_model import Roles
 
 from burrito.schemas.profile_schema import (
     ResponseProfileSchema,
@@ -13,7 +14,7 @@ from burrito.utils.converter import (
     FacultyConverter,
     GroupConverter
 )
-from burrito.utils.users_util import get_user_by_login
+from burrito.utils.users_util import get_user_by_login, is_admin
 from burrito.utils.hash_util import get_hash
 from burrito.utils.validators import (
     is_valid_firstname,
@@ -48,7 +49,19 @@ async def profile__update_my_profile(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, permission_list={"UPDATE_PROFILE"})
 
-    current_user: Users | None = get_user_by_id(token_payload.user_id)
+    target_user_id = -1
+    # if token owner is admin we can allow to change profiles of other users
+    # otherwise the profile of the token owner will be changed
+    if (
+        profile_updated_data.user_id
+        and profile_updated_data.user_id != token_payload.user_id
+        and is_admin(token_payload.user_id)
+    ):
+        target_user_id = profile_updated_data.user_id
+    else:
+        target_user_id = token_payload.user_id
+
+    current_user: Users | None = get_user_by_id(target_user_id)
 
     if is_valid_firstname(profile_updated_data.firstname):
         current_user.firstname = profile_updated_data.firstname
@@ -88,6 +101,9 @@ async def profile__update_my_profile(
 
     if is_valid_password(profile_updated_data.password):
         current_user.password = get_hash(profile_updated_data.password)
+
+    if profile_updated_data.role_id and Roles.get_or_none(Roles.role_id == profile_updated_data.role_id):
+        current_user.role = profile_updated_data.role_id
 
     current_user.save()
 
