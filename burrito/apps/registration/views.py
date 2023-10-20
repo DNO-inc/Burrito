@@ -5,13 +5,10 @@ from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.user_model import Users
 
-from burrito.utils.converter import GroupConverter, FacultyConverter
-
 from burrito.utils.auth import get_auth_core, BurritoJWT, AuthTokenPayload
 
 from .utils import (
-    get_hash,
-    create_user_tmp_foo, get_user_by_login,
+    create_user, get_user_by_login,
     is_valid_login, is_valid_password
 )
 
@@ -40,12 +37,7 @@ async def registration__user_registration(
             content={"detail": "User with the same login exist"}
         )
 
-    current_user: Users | None = create_user_tmp_foo(
-        user_data.login,
-        get_hash(user_data.password),
-        GroupConverter.convert(user_data.group),
-        FacultyConverter.convert(user_data.faculty)
-    )
+    current_user: Users | None = create_user(user_data)
 
     if current_user:
         result = (await __auth_obj.create_token_pare(

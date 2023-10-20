@@ -19,6 +19,8 @@ def make_user_registration(
     response = requests.post(
         f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/registration/",
         json={
+            "firstname": "firstname",
+            "lastname": "lastname",
             "login": login,
             "password": password,
             "group": group,
