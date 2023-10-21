@@ -35,20 +35,7 @@ class BurritoEmail(smtplib.SMTP_SSL):
         """
         super().__init__(host)
 
-        self._host = host
-        self._login = login
-        self._password = password
-
-        self.new_login()
-
-    def new_login(self) -> None:
-        """
-        Login/re-login to the server.
-        """
-        self.login(self._login, self._password)
-
-
-_BURRITO_EMAIL_LOGIN = get_config().BURRITO_EMAIL_LOGIN
+        self.login(login, password)
 
 
 def get_burrito_email() -> BurritoEmail:
@@ -57,7 +44,7 @@ def get_burrito_email() -> BurritoEmail:
     """
     return BurritoEmail(
         get_config().BURRITO_SMTP_SERVER,
-        _BURRITO_EMAIL_LOGIN,
+        get_config().BURRITO_EMAIL_LOGIN,
         get_config().BURRITO_EMAIL_PASSWORD
     )
 
@@ -88,11 +75,12 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     if not receivers_email:
         return
 
+    sender = get_config().BURRITO_EMAIL_LOGIN
     msg = EmailMessage()
     msg.set_content(content)
     msg["Subject"] = subject
-    msg["From"] = _BURRITO_EMAIL_LOGIN
-    msg["To"] = _BURRITO_EMAIL_LOGIN
+    msg["From"] = sender
+    msg["To"] = sender
     msg["Bcc"] = ", ".join(receivers_email)
 
     # try to resend email if sending is failed
@@ -104,7 +92,6 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
         except Exception:
             get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
             get_logger().info("Try to re-login")
-            get_burrito_email().new_login()
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
