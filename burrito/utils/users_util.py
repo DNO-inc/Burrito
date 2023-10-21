@@ -30,7 +30,8 @@ def create_user(
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
     # check if provided group/faculty is exist
-    GroupConverter.convert(user_data.group)
+    if user_data.group is not None:
+        GroupConverter.convert(user_data.group)
     FacultyConverter.convert(user_data.faculty)
 
     try:

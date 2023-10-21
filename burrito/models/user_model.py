@@ -14,22 +14,21 @@ from burrito.models.basic_model import BurritoBasicModel
 class Users(BurritoBasicModel):
     user_id = AutoField()
 
-    firstname = CharField(60, null=True)
-    lastname = CharField(60, null=True)
+    firstname = CharField(60)
+    lastname = CharField(60)
 
     login = CharField(25, unique=True)
 
     faculty = ForeignKeyField(
         Faculties,
         field="faculty_id",
-        on_delete="NO ACTION",
-        null=True
+        on_delete="NO ACTION"
     )
 
     group = ForeignKeyField(
         Groups,
         field="group_id",
-        on_delete="NO ACTION",
+        on_delete="SET NULL",
         null=True
     )
 
@@ -43,8 +42,7 @@ class Users(BurritoBasicModel):
     role = ForeignKeyField(
         Roles,
         field="role_id",
-        on_delete="NO ACTION",
-        null=True
+        on_delete="NO ACTION"
     )
 
     class Meta:
