@@ -1,4 +1,4 @@
-from random import SystemRandom
+import os
 
 from argon2 import PasswordHasher
 
@@ -6,7 +6,7 @@ from argon2 import PasswordHasher
 _hasher = PasswordHasher()
 
 
-def get_hash(data: str) -> str:
+def get_hash(data: str, salt: bytes | None = None) -> str:
     """_summary_
 
     Return hash of the password
@@ -18,7 +18,7 @@ def get_hash(data: str) -> str:
         str: hashed password
     """
 
-    return _hasher.hash(data.encode("utf-8"))
+    return _hasher.hash(data.encode("utf-8"), salt=salt)
 
 
 def compare_password(password: str, hashed_password: str) -> bool:
@@ -38,3 +38,14 @@ def compare_password(password: str, hashed_password: str) -> bool:
         return _hasher.verify(hashed_password, password)
     except Exception:
         return False
+
+
+def generate_email_code() -> str:
+    """
+    Generate a random email code using /dev/urandom (Linux).
+    The code is used to verify user's email.
+
+    Returns:
+        The generated email code as a string of 3 numbers
+    """
+    return " ".join(map(str, os.urandom(4)))

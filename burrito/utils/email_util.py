@@ -3,7 +3,6 @@ import smtplib
 from email.message import EmailMessage
 
 from burrito.utils.config_reader import get_config
-from burrito.utils.singleton_pattern import singleton
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.users_util import get_user_by_id_or_none
 from burrito.utils.logger import get_logger
@@ -22,9 +21,8 @@ EMAIL_NOTIFICATION_TEMPLATE = """
 """
 
 
-@singleton
 class BurritoEmail(smtplib.SMTP_SSL):
-    def __init__(self, host: str, login: str, password: str):
+    def __init__(self, host: str):
         """
         Initialize the connection to SMTP server.
 
@@ -35,18 +33,12 @@ class BurritoEmail(smtplib.SMTP_SSL):
         """
         super().__init__(host)
 
-        self.login(login, password)
-
 
 def get_burrito_email() -> BurritoEmail:
     """
     Get BurritoEmail instance
     """
-    return BurritoEmail(
-        get_config().BURRITO_SMTP_SERVER,
-        get_config().BURRITO_EMAIL_LOGIN,
-        get_config().BURRITO_EMAIL_PASSWORD
-    )
+    return BurritoEmail(get_config().BURRITO_SMTP_SERVER)
 
 
 def send_email(receivers: list[int], subject: str, content: str) -> None:
@@ -83,15 +75,46 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     msg["To"] = sender
     msg["Bcc"] = ", ".join(receivers_email)
 
-    # try to resend email if sending is failed
-    for i in range(3):
-        try:
-            get_burrito_email().send_message(msg)
-            get_logger().info(f"Email successfully sent to {receivers_email}")
-            break
-        except Exception:
-            get_logger().warning(f"Failed to send email to {receivers_email}", exc_info=True)
-            get_logger().info("Try to re-login")
+    try:
+        with get_burrito_email() as smtp_client:
+            smtp_client.connect(get_config().BURRITO_SMTP_SERVER)
+            smtp_client.noop()
+            smtp_client.login(
+                get_config().BURRITO_EMAIL_LOGIN,
+                get_config().BURRITO_EMAIL_PASSWORD
+            )
+            smtp_client.send_message(msg)
+
+        get_logger().info(f"Email successfully sent to {receivers_email}")
+
+    except Exception as exc:
+        get_logger().warning(f"{exc} Failed to send email to {receivers_email}")
+
+
+# TODO: delete this function after public tests
+def tmp_send_email(to: str, subject: str, content: str) -> None:
+    sender = get_config().BURRITO_EMAIL_LOGIN
+    msg = EmailMessage()
+    msg.set_content(content)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = sender
+    msg["Bcc"] = to
+
+    try:
+        with get_burrito_email() as smtp_client:
+            smtp_client.connect(get_config().BURRITO_SMTP_SERVER)
+            smtp_client.noop()
+            smtp_client.login(
+                get_config().BURRITO_EMAIL_LOGIN,
+                get_config().BURRITO_EMAIL_PASSWORD
+            )
+            smtp_client.send_message(msg)
+
+        get_logger().info(f"Email successfully sent to {to}")
+
+    except Exception as exc:
+        get_logger().warning(f"{exc} Failed to send email to {to}")
 
 
 def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
