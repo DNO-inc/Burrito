@@ -70,7 +70,8 @@ async def profile__update_my_profile(
         current_user.lastname = profile_updated_data.lastname
 
     if is_valid_login(profile_updated_data.login):
-        if get_user_by_login(profile_updated_data.login):
+        # user can provide their own login, so we should not raise en error
+        if current_user.login != profile_updated_data.login and get_user_by_login(profile_updated_data.login):
             return JSONResponse(
                 status_code=403,
                 content={
