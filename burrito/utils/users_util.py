@@ -39,7 +39,7 @@ def create_user(
             firstname=user_data.firstname,
             lastname=user_data.lastname,
             login=user_data.login,
-            password=get_hash(user_data.password),
+            password=user_data.password,  # password already hashed by argon2
             group=user_data.group,
             faculty=user_data.faculty,
             phone=user_data.phone,
