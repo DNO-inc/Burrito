@@ -4,8 +4,7 @@ from .views import (
     admin__update_ticket_data,
     admin__get_ticket_list_by_filter,
     admin__show_detail_ticket_info,
-    admin__delete_ticket,
-    admin__change_user_permissions
+    admin__delete_ticket
 )
 
 admin_router = APIRouter()
@@ -28,10 +27,5 @@ admin_router.add_api_route(
 admin_router.add_api_route(
     "/tickets/delete",
     admin__delete_ticket,
-    methods=["DELETE"]
-)
-admin_router.add_api_route(
-    "/users/change_permissions",
-    admin__change_user_permissions,
     methods=["DELETE"]
 )

@@ -200,7 +200,3 @@ async def admin__delete_ticket(
         status_code=200,
         content={"detail": "Ticket was deleted successfully"}
     )
-
-
-async def admin__change_user_permissions():
-    return {"1": 1}
