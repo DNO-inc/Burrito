@@ -1,3 +1,5 @@
+import math
+
 from bson.objectid import ObjectId
 
 from fastapi import HTTPException
@@ -176,7 +178,7 @@ def mongo_items_count(model: MongoBaseModel, **filters) -> int:
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
+    return math.ceil(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
 
 
 def mongo_save_file(ticket_id: int, file_owner_id: int, file_name: str, file: bytes, content_type: str | None) -> str:
