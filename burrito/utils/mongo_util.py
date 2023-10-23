@@ -161,7 +161,7 @@ def mongo_page_count(
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    return int(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
+    return math.ceil(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
 
 
 def mongo_items_count(model: MongoBaseModel, **filters) -> int:
