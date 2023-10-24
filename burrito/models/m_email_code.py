@@ -12,8 +12,8 @@ class EmailVerificationCode(MongoBaseModel):
     group: int | None = None
     faculty: int
 
-    phone: str | None
-    email: str | None
+    phone: str | None = None
+    email: str
 
     class Meta:
         table_name: str = "email_verification_codes"

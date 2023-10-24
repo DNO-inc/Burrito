@@ -112,13 +112,14 @@ async def registration__verify_email(
         hashed_code=get_hash(
             verification_data.email_code,
             b"super_mega_long_salt_(it will be removed in soon)"
-        )
+        ),
+        email=verification_data.email
     )
 
     if not email_code:
         raise HTTPException(
             status_code=403,
-            detail="Invalid code received"
+            detail="Invalid code or email received"
         )
     email_code = email_code[0]
 
