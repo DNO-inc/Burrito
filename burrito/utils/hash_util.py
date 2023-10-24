@@ -1,4 +1,4 @@
-import os
+from random import SystemRandom
 
 from argon2 import PasswordHasher
 
@@ -48,4 +48,4 @@ def generate_email_code() -> str:
     Returns:
         The generated email code as a string of 3 numbers
     """
-    return " ".join(map(str, os.urandom(4)))
+    return str(SystemRandom().randint(1000, 9999))
