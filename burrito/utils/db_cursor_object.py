@@ -1,6 +1,8 @@
 from peewee import MySQLDatabase
 from playhouse.shortcuts import ReconnectMixin
 
+from pymysql import connect as pymysql_conn
+
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
 
@@ -8,9 +10,12 @@ from burrito.utils.config_reader import get_config
 @singleton
 class BurritoDatabaseCursor(ReconnectMixin, MySQLDatabase):
     def __init__(self, database, **kwargs) -> None:
+        temp_conn = pymysql_conn(**kwargs)
+        temp_conn.cursor().execute(f"CREATE DATABASE IF NOT EXISTS {get_config().BURRITO_DB_NAME};")
+        temp_conn.close()
+
         super().__init__(database, **kwargs)
         self.execute_sql("SET NAMES utf8mb4;")
-        self.execute_sql(f"CREATE DATABASE IF NOT EXISTS {get_config().BURRITO_DB_NAME};")
 
 
 def get_database_cursor() -> BurritoDatabaseCursor:
