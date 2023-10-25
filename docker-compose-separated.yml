@@ -1,4 +1,4 @@
-version: "4.0"
+version: "5.0"
 
 networks:
   burrito_party:
@@ -28,6 +28,13 @@ services:
       - burrito_tickets
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
 # APPS SECTION
 # INFO: port forwarding is provided only for testing, this option will be deleted soon
@@ -41,6 +48,13 @@ services:
       - .env
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_about:
     container_name: burrito_about
@@ -53,6 +67,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_admin:
     container_name: burrito_admin
@@ -65,6 +86,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_anon:
     container_name: burrito_anon
@@ -77,6 +105,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_auth:
     container_name: burrito_auth
@@ -89,6 +124,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_comments:
     container_name: burrito_comments
@@ -101,6 +143,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_iofiles:
     container_name: burrito_iofiles
@@ -113,6 +162,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_meta:
     container_name: burrito_meta
@@ -125,6 +181,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_notifications:
     container_name: burrito_notifications
@@ -137,6 +200,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_profile:
     container_name: burrito_profile
@@ -149,6 +219,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_registration:
     container_name: burrito_registration
@@ -161,6 +238,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_tickets:
     container_name: burrito_tickets
@@ -173,6 +257,13 @@ services:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
 
   burrito_ws:
     container_name: burrito_ws
@@ -185,3 +276,9 @@ services:
       - "$BURRITO_WEBSOCKET_PORT"
     networks:
       - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
