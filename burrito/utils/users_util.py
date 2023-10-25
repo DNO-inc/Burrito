@@ -3,7 +3,6 @@ from fastapi import HTTPException, status
 from burrito.utils.logger import get_logger
 from burrito.utils.transliteration import transliterate
 from burrito.utils.converter import GroupConverter, FacultyConverter
-from burrito.utils.hash_util import get_hash
 from burrito.utils.query_util import ADMIN_ROLES
 
 from burrito.schemas.registration_schema import RegistrationSchema
@@ -104,6 +103,20 @@ def get_user_by_login(login: str) -> Users | None:
     """
 
     return Users.get_or_none(Users.login == login)
+
+
+def get_user_by_email_or_none(email: str) -> Users | None:
+    """
+    Get user if exist or return None
+
+    Args:
+        email (str): user email
+
+    Returns:
+        Users | None: return None if user is not exist
+    """
+
+    return Users.get_or_none(Users.email == email)
 
 
 def get_user_by_id(user_id: int) -> Users | None:

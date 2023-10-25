@@ -34,7 +34,7 @@ class Users(BurritoBasicModel):
 
     password = TextField()
 
-    email = CharField(255, null=True)
+    email = CharField(255, null=False, unique=True)
     phone = CharField(15, null=True)
 
     registration_date = DateTimeField(default=get_datetime_now)

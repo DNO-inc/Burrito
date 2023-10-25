@@ -13,6 +13,7 @@ from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.email_util import tmp_send_email
 from burrito.utils.auth import get_auth_core, BurritoJWT, AuthTokenPayload
+from burrito.utils.users_util import get_user_by_email_or_none
 
 from .utils import (
     create_user, get_user_by_login,
@@ -59,6 +60,12 @@ async def registration__user_registration(
         return JSONResponse(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             content={"detail": "User with the same login exist"}
+        )
+
+    if get_user_by_email_or_none(user_data.email):
+        return JSONResponse(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            content={"detail": "User with the same email exist"}
         )
 
     if mongo_select(
