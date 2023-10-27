@@ -15,6 +15,7 @@ var searchData=
   ['anonticketusersinfoschema_12',['AnonTicketUsersInfoSchema',['../classanon__schema_1_1AnonTicketUsersInfoSchema.html',1,'anon_schema']]],
   ['authresponseschema_13',['AuthResponseSchema',['../classauth__schema_1_1AuthResponseSchema.html',1,'auth_schema']]],
   ['authsettingsmodel_14',['AuthSettingsModel',['../classauth__schema_1_1AuthSettingsModel.html',1,'auth_schema']]],
-  ['authtokenerror_15',['AuthTokenError',['../classburrito_1_1utils_1_1auth_1_1AuthTokenError.html',1,'burrito::utils::auth']]],
-  ['authtokenpayload_16',['AuthTokenPayload',['../classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html',1,'burrito::utils::auth']]]
+  ['authssuplugin_15',['AuthSSUPlugin',['../classauth__plugin_1_1AuthSSUPlugin.html',1,'auth_plugin']]],
+  ['authtokenerror_16',['AuthTokenError',['../classburrito_1_1utils_1_1auth_1_1AuthTokenError.html',1,'burrito::utils::auth']]],
+  ['authtokenpayload_17',['AuthTokenPayload',['../classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html',1,'burrito::utils::auth']]]
 ];

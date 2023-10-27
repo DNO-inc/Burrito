@@ -1,5 +1,6 @@
 var dir_0f1b12bd8124b9873bd36aa4ae04368b =
 [
+    [ "tasks", "dir_1c500304dd61f28c951e513d7fc44c76.html", "dir_1c500304dd61f28c951e513d7fc44c76" ],
     [ "__init__.py", "utils_2____init_____8py.html", null ],
     [ "app_util.py", "app__util_8py.html", "app__util_8py" ],
     [ "auth.py", "auth_8py.html", "auth_8py" ],
@@ -8,6 +9,7 @@ var dir_0f1b12bd8124b9873bd36aa4ae04368b =
     [ "date.py", "date_8py.html", "date_8py" ],
     [ "db_cursor_object.py", "db__cursor__object_8py.html", "db__cursor__object_8py" ],
     [ "db_utils.py", "db__utils_8py.html", "db__utils_8py" ],
+    [ "email_util.py", "email__util_8py.html", "email__util_8py" ],
     [ "file_manager.py", "file__manager_8py.html", "file__manager_8py" ],
     [ "hash_util.py", "hash__util_8py.html", "hash__util_8py" ],
     [ "logger.py", "logger_8py.html", "logger_8py" ],
@@ -16,7 +18,6 @@ var dir_0f1b12bd8124b9873bd36aa4ae04368b =
     [ "query_util.py", "query__util_8py.html", "query__util_8py" ],
     [ "redis_utils.py", "redis__utils_8py.html", "redis__utils_8py" ],
     [ "singleton_pattern.py", "singleton__pattern_8py.html", "singleton__pattern_8py" ],
-    [ "ssu.py", "ssu_8py.html", "ssu_8py" ],
     [ "task_manager.py", "task__manager_8py.html", "task__manager_8py" ],
     [ "tickets_util.py", "tickets__util_8py.html", "tickets__util_8py" ],
     [ "transliteration.py", "transliteration_8py.html", "transliteration_8py" ],

@@ -165,12 +165,12 @@ Functions</h2></td></tr>
 <tr class="separator:a8e154c59c122cced14e83cd7ea52d0f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4bd8d3aea99eb87fa9e50570d01235d2"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a4bd8d3aea99eb87fa9e50570d01235d2">change_ticket_assignee</a> (Tickets|int ticket, int user_id, Users|None new_assignee)</td></tr>
 <tr class="separator:a4bd8d3aea99eb87fa9e50570d01235d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6ca9c5821da4e36c82731eaaa96ec60"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#af6ca9c5821da4e36c82731eaaa96ec60">get_notification_receivers</a> (Tickets|int ticket)</td></tr>
-<tr class="separator:af6ca9c5821da4e36c82731eaaa96ec60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab29a80d4d09fb869d968d166e2266970"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#ab29a80d4d09fb869d968d166e2266970">send_notification</a> (Tickets|int ticket, Notifications notification)</td></tr>
-<tr class="separator:ab29a80d4d09fb869d968d166e2266970"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1e6dec3dd6e1240888e17c1505889bc"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#ab1e6dec3dd6e1240888e17c1505889bc">send_comment_update</a> (int ticket_id, str comment_id)</td></tr>
-<tr class="separator:ab1e6dec3dd6e1240888e17c1505889bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2ff9577f04adaab590d028c4dd5b3b9"><td class="memItemLeft" align="right" valign="top">set[int]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#ae2ff9577f04adaab590d028c4dd5b3b9">get_notification_receivers</a> (Tickets|int ticket, int|None exclude_id=None)</td></tr>
+<tr class="separator:ae2ff9577f04adaab590d028c4dd5b3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8726d084052ff3ae3cee8b25cbdc61a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#ad8726d084052ff3ae3cee8b25cbdc61a">send_notification</a> (Tickets|int ticket, Notifications notification, int author_id)</td></tr>
+<tr class="separator:ad8726d084052ff3ae3cee8b25cbdc61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29bec6d94d2b7a1557c41de2da62032a"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a29bec6d94d2b7a1557c41de2da62032a">send_comment_update</a> (int ticket_id, str comment_id, Literal[&quot;MSG_CREATE&quot;, &quot;MSG_EDIT&quot;, &quot;MSG_DELETE&quot;] msg_type)</td></tr>
+<tr class="separator:a29bec6d94d2b7a1557c41de2da62032a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae62ef81992c9fe39dcf3ea7d2639478a" name="ae62ef81992c9fe39dcf3ea7d2639478a"></a>
@@ -576,18 +576,28 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="af6ca9c5821da4e36c82731eaaa96ec60" name="af6ca9c5821da4e36c82731eaaa96ec60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6ca9c5821da4e36c82731eaaa96ec60">&#9670;&#160;</a></span>get_notification_receivers()</h2>
+<a id="ae2ff9577f04adaab590d028c4dd5b3b9" name="ae2ff9577f04adaab590d028c4dd5b3b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2ff9577f04adaab590d028c4dd5b3b9">&#9670;&#160;</a></span>get_notification_receivers()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def get_notification_receivers </td>
+          <td class="memname"> set[int] get_notification_receivers </td>
           <td>(</td>
           <td class="paramtype">Tickets | int&#160;</td>
-          <td class="paramname"><em>ticket</em></td><td>)</td>
+          <td class="paramname"><em>ticket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int | None &#160;</td>
+          <td class="paramname"><em>exclude_id</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -783,7 +793,7 @@ Args:
     ticket_id (int): ticket ID
 
 Returns:
-    Tickets | None: return ticket object if exist else return None
+    Tickets | None: return ticket object if exist else raise an error
 </pre> 
 </div>
 </div>
@@ -931,8 +941,8 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="ab1e6dec3dd6e1240888e17c1505889bc" name="ab1e6dec3dd6e1240888e17c1505889bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1e6dec3dd6e1240888e17c1505889bc">&#9670;&#160;</a></span>send_comment_update()</h2>
+<a id="a29bec6d94d2b7a1557c41de2da62032a" name="a29bec6d94d2b7a1557c41de2da62032a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29bec6d94d2b7a1557c41de2da62032a">&#9670;&#160;</a></span>send_comment_update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -947,7 +957,13 @@ Returns:
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>comment_id</em>&#160;</td>
+          <td class="paramname"><em>comment_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Literal[&quot;MSG_CREATE&quot;, &quot;MSG_EDIT&quot;, &quot;MSG_DELETE&quot;]&#160;</td>
+          <td class="paramname"><em>msg_type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -965,8 +981,8 @@ Args:
 </pre> 
 </div>
 </div>
-<a id="ab29a80d4d09fb869d968d166e2266970" name="ab29a80d4d09fb869d968d166e2266970"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab29a80d4d09fb869d968d166e2266970">&#9670;&#160;</a></span>send_notification()</h2>
+<a id="ad8726d084052ff3ae3cee8b25cbdc61a" name="ad8726d084052ff3ae3cee8b25cbdc61a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8726d084052ff3ae3cee8b25cbdc61a">&#9670;&#160;</a></span>send_notification()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -981,7 +997,13 @@ Args:
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Notifications&#160;</td>
-          <td class="paramname"><em>notification</em>&#160;</td>
+          <td class="paramname"><em>notification</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>author_id</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -990,7 +1012,7 @@ Args:
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Send notification to subscribers. 
+<pre class="fragment">Send notification to subscribers.
 
 Args:
     ticket: ticket ID or ticket object

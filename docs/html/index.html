@@ -144,29 +144,40 @@ Setup test environment</h2>
 <li>First of all, you need to prepare environment variables. You can create .env file in the same directory as the <code>burrito</code> folder, this file contains environment variables to configure our app, tests, and database.</li>
 </ul>
 <blockquote class="doxtable">
-<p>&zwj;<b>Note:</b> Firstly, Burrito API reads config from the local <code>.env</code> file, then it can be overwritten by variables prepared from the console. </p>
+<p>&zwj;<b>Note:</b> Firstly Burrito API reads config from the local <code>.env</code> file, then it can be overwritten by environment variables prepared from the console. </p>
 </blockquote>
 <div class="fragment"><div class="line">touch .env</div>
 </div><!-- fragment --><ul>
 <li>Necessary variables for containers<ul>
-<li><code>burrito_app</code> - contain main logic<ul>
+<li><code>burrito_api</code> - contain main logic<ul>
 <li><code>BURRITO_DB_NAME</code> - database name</li>
 <li><code>BURRITO_DB_USER</code> - username allowed to interact with the database</li>
 <li><code>BURRITO_DB_PASSWORD</code> - user password</li>
 <li><code>BURRITO_DB_HOST</code> - database IP or domain</li>
 <li><code>BURRITO_DB_PORT</code> - database port</li>
+<li><code>BURRITO_HOST</code> - specify <code>Burrito API</code> host</li>
+<li><code>BURRITO_PORT</code> - specify <code>Burrito API</code> port</li>
 <li><code>BURRITO_REDIS_HOST</code> - redis IP or domain</li>
 <li><code>BURRITO_REDIS_PORT</code> - redis port</li>
+<li><code>BURRITO_REDIS_USER</code> - user for authorization</li>
+<li><code>BURRITO_REDIS_PASSWORD</code> - user password</li>
 <li><code>BURRITO_JWT_SECRET</code> - this key is used to encrypt/decrypt JWT tokens</li>
 <li><code>BURRITO_JWT_ACCESS_TTL</code> - access token's expiration time</li>
 <li><code>BURRITO_JWT_REFRESH_TTL</code> - refresh token's expiration time</li>
-<li><code>BURRITO_HOST</code> - specify <code>Burrito API</code> host</li>
-<li><code>BURRITO_PORT</code> - specify <code>Burrito API</code> port</li>
 <li><code>BURRITO_MONGO_HOST</code> - mongo host</li>
 <li><code>BURRITO_MONGO_PORT</code> - mongo port</li>
+<li><code>BURRITO_MONGO_DB</code> - database name to store date in mongo</li>
+<li><code>BURRITO_MONGO_USER</code> - mongo user</li>
+<li><code>BURRITO_MONGO_PASSWORD</code> - password for authorization</li>
+<li><code>BURRITO_SSU_KEY</code> - used for authorization via SSU cabinet (only for students of this university however you can write your own auth plugin)</li>
+<li><code>BURRITO_WEBSOCKET_HOST</code></li>
+<li><code>BURRITO_WEBSOCKET_PORT</code></li>
+<li><code>BURRITO_SMTP_SERVER</code> - SMTP server IP or domain</li>
+<li><code>BURRITO_EMAIL_LOGIN</code> - login for Burrito email</li>
+<li><code>BURRITO_EMAIL_PASSWORD</code> - password for Burrito email</li>
 </ul>
 </li>
-<li><code>burrito_db</code> - contain MySQL database (you can find more information about MySql docker container and its environment variables <a href="https://hub.docker.com/_/mysql">here</a><ul>
+<li><code>burrito_db</code> - contain MySQL database (you can find more information about <code>MySql</code> docker container and its environment variables <a href="https://hub.docker.com/_/mysql">here</a><ul>
 <li><code>MYSQL_ROOT_PASSWORD</code></li>
 <li><code>MYSQL_DATABASE</code></li>
 <li><code>MYSQL_USER</code></li>
@@ -174,13 +185,18 @@ Setup test environment</h2>
 </ul>
 </li>
 <li><code>burrito_redis</code> - contains access/refresh tokens (no variables are needed)</li>
+<li><code>burrito_mongo</code> - contains comments, ticket changelog (full history), notifications data and files using GridFS. (you can find more information about <code>mongo</code> docker container and its environment variables <a href="https://hub.docker.com/_/mongo">here</a><ul>
+<li><code>MONGO_INITDB_ROOT_USERNAME</code></li>
+<li><code>MONGO_INITDB_ROOT_PASSWORD</code></li>
 </ul>
 </li>
-<li>Build Burrito API <div class="fragment"><div class="line">docker build . -t burrito</div>
+</ul>
+</li>
+<li>Build Burrito API <div class="fragment"><div class="line">docker build -t burrito_api .</div>
 </div><!-- fragment --></li>
-<li>Launch Burrito API <div class="fragment"><div class="line">docker run --rm burrito</div>
+<li>Launch needed databases <div class="fragment"><div class="line">make dbs</div>
 </div><!-- fragment --></li>
-<li>Run tests <div class="fragment"><div class="line">make tests_</div>
+<li>Launch Burrito API <div class="fragment"><div class="line">docker run --rm -p8080:8080 --env-file .env --name burrito_api --network burrito_party burrito_api</div>
 </div><!-- fragment --></li>
 </ul>
 <h1><a class="anchor" id="autotoc_md5"></a>
@@ -192,9 +208,6 @@ Introduction</h2>
 Setup test environment</h2>
 <ul>
 <li>The environment variables are necessary as well as in the <code>burrito standalone</code> mode. All rules related to environment variables are the same as in the mentioned mode.</li>
-</ul>
-<div class="fragment"><div class="line">touch .env</div>
-</div><!-- fragment --><ul>
 <li>Available containers<ul>
 <li><code>burrito_about</code> - container to provide information about development teams</li>
 <li><code>burrito_admin</code> - contain logic for admins</li>
@@ -206,17 +219,16 @@ Setup test environment</h2>
 <li><code>burrito_notifications</code> - send/receive notifications</li>
 <li><code>burrito_profile</code> - allow to manipulate with own profile and view other</li>
 <li><code>burrito_registration</code> - user registration (will be deleted soon from this branch, this ability will be available on the <code>burrito_base</code> branch)</li>
+<li><code>burrito_scheduler</code> - contain scheduled tasks and it's able to setup database if it was not already done</li>
 <li><code>burrito_tickets</code> - provides the ability to manipulate users with their tickets, view other tickets ...</li>
-<li><code>burrito_db</code> - contain MySQL database (you can find more information about MySql docker container and its environment variables <a href="https://hub.docker.com/_/mysql">here</a></li>
+<li><code>burrito_db</code> - contain MySQL database</li>
 <li><code>burrito_nginx</code> - proxy-server and load balancer for <code>burrito cluster</code> (no variables are needed)</li>
 <li><code>burrito_redis</code> - contains access/refresh tokens (no variables are needed)</li>
 </ul>
 </li>
-<li>Launch needed databases (if you would not setup own) in docker-compose <div class="fragment"><div class="line">docker-compose -f docker-compose-dbs.yml up </div>
+<li>Launch needed databases (if you would not setup own) in docker compose <div class="fragment"><div class="line">make dbs</div>
 </div><!-- fragment --></li>
-<li>Launch Burrito API <div class="fragment"><div class="line">docker-compose -f docker-compose-separated.yml up </div>
-</div><!-- fragment --></li>
-<li>Run tests <div class="fragment"><div class="line">make tests_</div>
+<li>Launch Burrito API (as you run first time the containers will fail to start, but they will be restarting while setuping database by container <code>burrito_scheduler</code>) <div class="fragment"><div class="line">docker-compose -f docker-compose-separated.yml up </div>
 </div><!-- fragment --> </li>
 </ul>
 </div></div><!-- PageDoc -->

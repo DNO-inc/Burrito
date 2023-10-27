@@ -9,6 +9,7 @@ var dir_2f2dbb0f3a53bb845f6917dd80520007 =
     [ "m_actions_model.py", "m__actions__model_8py.html", "m__actions__model_8py" ],
     [ "m_basic_model.py", "m__basic__model_8py.html", "m__basic__model_8py" ],
     [ "m_comments_model.py", "m__comments__model_8py.html", "m__comments__model_8py" ],
+    [ "m_email_code.py", "m__email__code_8py.html", "m__email__code_8py" ],
     [ "m_notifications_model.py", "m__notifications__model_8py.html", "m__notifications__model_8py" ],
     [ "m_ticket_files.py", "m__ticket__files_8py.html", "m__ticket__files_8py" ],
     [ "participants_model.py", "participants__model_8py.html", "participants__model_8py" ],

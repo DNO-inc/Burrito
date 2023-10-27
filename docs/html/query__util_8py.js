@@ -19,6 +19,7 @@ var query__util_8py =
     [ "q_scope_is", "query__util_8py.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1", null ],
     [ "_PROTECTED_STATUSES", "query__util_8py.html#a71b51c235a3102808c4f9b91dc2860a6", null ],
     [ "ADMIN_ROLES", "query__util_8py.html#a63c63e4b021f099c6389684c04593448", null ],
+    [ "CHIEF_ADMIN_ROLES", "query__util_8py.html#ae64d666539a130adcb89053c77785690", null ],
     [ "STATUS_ACCEPTED", "query__util_8py.html#af21e0ec5a37d34a74b4d13b69abc575c", null ],
     [ "STATUS_CLOSE", "query__util_8py.html#a7adc33eb41e026cfe715d174dfab5eaf", null ],
     [ "STATUS_NEW", "query__util_8py.html#acb51ebdd4d5f6ce9db2cf5c7e0d347a1", null ],

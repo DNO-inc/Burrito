@@ -13,10 +13,11 @@ var namespaceprofile =
       [ "response_model", "namespaceprofile_1_1router.html#a731b733fef9a4a8f1036d56f79844307", null ]
     ] ],
     [ "utils", "namespaceprofile_1_1utils.html", [
+      [ "update_profile_data", "namespaceprofile_1_1utils.html#a353b63fa1131cc2530126a88b9627305", null ],
       [ "view_profile_by_user_id", "namespaceprofile_1_1utils.html#ab0f7c953c2bac6e0c6b4615fa4a77be8", null ]
     ] ],
     [ "views", "namespaceprofile_1_1views.html", [
-      [ "profile__check_by_id", "namespaceprofile_1_1views.html#a0381b9e021546582aeebb5bed792684b", null ],
+      [ "profile__check_by_id", "namespaceprofile_1_1views.html#a809bdef68f836f9b1f8a91a7e9ebb7b8", null ],
       [ "profile__update_my_profile", "namespaceprofile_1_1views.html#a1ac421dab73bd5b310ab27e2ee6376de", null ]
     ] ]
 ];

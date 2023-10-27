@@ -5,6 +5,7 @@ var dir_66c3ad2435c02db441f0b27a3adc2617 =
     [ "anon_schema.py", "anon__schema_8py.html", "anon__schema_8py" ],
     [ "auth_schema.py", "auth__schema_8py.html", "auth__schema_8py" ],
     [ "comment_schema.py", "comment__schema_8py.html", "comment__schema_8py" ],
+    [ "email_code.py", "email__code_8py.html", "email__code_8py" ],
     [ "faculty_schema.py", "faculty__schema_8py.html", "faculty__schema_8py" ],
     [ "filters_schema.py", "filters__schema_8py.html", "filters__schema_8py" ],
     [ "group_schema.py", "group__schema_8py.html", "group__schema_8py" ],
