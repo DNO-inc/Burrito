@@ -1,7 +1,12 @@
+from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.auth import get_auth_core
-from burrito.utils.users_util import get_user_by_id
+from burrito.utils.users_util import (
+    get_user_by_id,
+    get_user_by_login,
+    get_user_by_email_or_none
+)
 
 from burrito.utils.permissions_checker import check_permission
 
@@ -9,10 +14,29 @@ from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 from burrito.models.role_permissions_model import RolePermissions
+from burrito.models.roles_model import Roles
 
-from burrito.schemas.profile_schema import ResponseProfileSchema, ResponseRoleSchema
+from burrito.schemas.profile_schema import (
+    ResponseProfileSchema,
+    ResponseRoleSchema,
+    RequestUpdateProfileSchema
+)
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
+
+from burrito.utils.converter import (
+    FacultyConverter,
+    GroupConverter
+)
+from burrito.utils.hash_util import get_hash
+from burrito.utils.validators import (
+    is_valid_firstname,
+    is_valid_lastname,
+    is_valid_login,
+    is_valid_email,
+    is_valid_password,
+    is_valid_phone
+)
 
 
 __all__ = (
@@ -50,3 +74,58 @@ async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
         ),
         registration_date=str(current_user.registration_date)
     )
+
+
+async def update_profile_data(
+    user_id: int,
+    profile_updated_data: RequestUpdateProfileSchema | None = RequestUpdateProfileSchema()
+) -> None:
+    current_user: Users | None = get_user_by_id(user_id)
+
+    if is_valid_firstname(profile_updated_data.firstname):
+        current_user.firstname = profile_updated_data.firstname
+
+    if is_valid_lastname(profile_updated_data.lastname):
+        current_user.lastname = profile_updated_data.lastname
+
+    if is_valid_login(profile_updated_data.login):
+        # user can provide their own login, so we should not raise en error
+        if current_user.login != profile_updated_data.login and get_user_by_login(profile_updated_data.login):
+            raise HTTPException(
+                status_code=403,
+                detail="User with the same login exists"
+            )
+
+        current_user.login = profile_updated_data.login
+
+    if is_valid_phone(profile_updated_data.phone):
+        current_user.phone = profile_updated_data.phone
+
+    if is_valid_email(profile_updated_data.email):
+        if current_user.email != profile_updated_data.email and get_user_by_email_or_none(profile_updated_data.email):
+            raise HTTPException(
+                status_code=403,
+                detail="User with the same email exists"
+            )
+
+        current_user.email = profile_updated_data.email
+
+    # check faculty
+    if profile_updated_data.faculty:
+        faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
+        if faculty_id:
+            current_user.faculty = faculty_id
+
+    # check group
+    if profile_updated_data.group:
+        group_id = GroupConverter.convert(profile_updated_data.group)
+        if group_id:
+            current_user.group = group_id
+
+    if is_valid_password(profile_updated_data.password):
+        current_user.password = get_hash(profile_updated_data.password)
+
+    if profile_updated_data.role_id and Roles.get_or_none(Roles.role_id == profile_updated_data.role_id):
+        current_user.role = profile_updated_data.role_id
+
+    current_user.save()
