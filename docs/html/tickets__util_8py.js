@@ -9,7 +9,7 @@ var tickets__util_8py =
     [ "create_ticket_action", "tickets__util_8py.html#ad744bd105730c5fba6c42e1af3fa2d10", null ],
     [ "create_ticket_file_action", "tickets__util_8py.html#a60f01e3c26aed61aff05205f0159e266", null ],
     [ "get_filtered_tickets", "tickets__util_8py.html#af8745c0966c467c2e5aeb077898e2746", null ],
-    [ "get_notification_receivers", "tickets__util_8py.html#af6ca9c5821da4e36c82731eaaa96ec60", null ],
+    [ "get_notification_receivers", "tickets__util_8py.html#ae2ff9577f04adaab590d028c4dd5b3b9", null ],
     [ "get_ticket_history", "tickets__util_8py.html#a4ba76d16fbae3b74612fef37b33f2ae3", null ],
     [ "hide_ticket_body", "tickets__util_8py.html#a82790b1f6ed1da84874cd5a5a2f265d3", null ],
     [ "is_allowed_to_interact_with_history", "tickets__util_8py.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5", null ],
@@ -19,6 +19,6 @@ var tickets__util_8py =
     [ "is_ticket_liked", "tickets__util_8py.html#aa6a7a373787b20a73955ebde3f5a4b5d", null ],
     [ "make_short_user_data", "tickets__util_8py.html#a33669dfc85179e3b2e47bb9362d7333a", null ],
     [ "select_filters", "tickets__util_8py.html#afabb18265503916fa1bd8e557a4d1a55", null ],
-    [ "send_comment_update", "tickets__util_8py.html#ab1e6dec3dd6e1240888e17c1505889bc", null ],
-    [ "send_notification", "tickets__util_8py.html#ab29a80d4d09fb869d968d166e2266970", null ]
+    [ "send_comment_update", "tickets__util_8py.html#a29bec6d94d2b7a1557c41de2da62032a", null ],
+    [ "send_notification", "tickets__util_8py.html#ad8726d084052ff3ae3cee8b25cbdc61a", null ]
 ];

@@ -40,6 +40,7 @@ class RegistrationTestCase(unittest.TestCase):
         This case, test what will be happened if user trying
         to register with existent login.
     """
+    user_id = 1
 
     @classmethod
     def setUpClass(cls):

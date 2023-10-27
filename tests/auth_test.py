@@ -11,8 +11,8 @@ def do_auth():
     response = requests.post(
         f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/password/login",
         json={
-            "login": RegistrationTestCase.random_login,
-            "password": RegistrationTestCase.random_password
+            "login": "super_admin",
+            "password": "string123"
         },
         timeout=5
     )

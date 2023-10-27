@@ -1,4 +1,24 @@
 var searchData=
 [
-  ['loop_0',['loop',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#ab44a412def45fef65905cf2f18607b29',1,'burrito::utils::task_manager::_TaskManager']]]
+  ['iofiles_5f_5fdelete_5ffile_0',['iofiles__delete_file',['../namespaceiofiles_1_1views.html#ad12f84ba0b89b93c403106f993dc9c3c',1,'iofiles::views']]],
+  ['iofiles_5f_5fget_5ffile_1',['iofiles__get_file',['../namespaceiofiles_1_1views.html#af188f7d25a1cbaaa7ddbf6bf165dff2f',1,'iofiles::views']]],
+  ['iofiles_5f_5fget_5ffile_5fids_2',['iofiles__get_file_ids',['../namespaceiofiles_1_1views.html#a55d326d43942f3719f0648405d848e53',1,'iofiles::views']]],
+  ['iofiles_5f_5fupload_5ffile_5ffor_5fticket_3',['iofiles__upload_file_for_ticket',['../namespaceiofiles_1_1views.html#a5ad31a7c784ba42aee3b7cf049d56a89',1,'iofiles::views']]],
+  ['is_5fadmin_4',['is_admin',['../namespaceburrito_1_1utils_1_1users__util.html#a9a50f49b50f4bc991b92cd4165c6fb1b',1,'burrito::utils::users_util']]],
+  ['is_5fallowed_5fto_5finteract_5',['is_allowed_to_interact',['../namespacecomments_1_1utils.html#adf6b13872e9df763b918b1cefa0bd970',1,'comments::utils']]],
+  ['is_5fallowed_5fto_5finteract_5fwith_5fhistory_6',['is_allowed_to_interact_with_history',['../namespaceburrito_1_1utils_1_1tickets__util.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5',1,'burrito::utils::tickets_util']]],
+  ['is_5fchief_5fadmin_7',['is_chief_admin',['../namespaceburrito_1_1utils_1_1users__util.html#af6247f886a9bb8dcaf15443858d83cd4',1,'burrito::utils::users_util']]],
+  ['is_5fcomment_5fexist_5fwith_5ferror_8',['is_comment_exist_with_error',['../namespacecomments_1_1utils.html#abd93addd65e354cf4111cc20db21df38',1,'comments::utils']]],
+  ['is_5fticket_5fbookmarked_9',['is_ticket_bookmarked',['../namespaceburrito_1_1utils_1_1tickets__util.html#aead61e3c358d2f0b5d84a87e825b1bd4',1,'burrito::utils::tickets_util']]],
+  ['is_5fticket_5fexist_10',['is_ticket_exist',['../namespaceburrito_1_1utils_1_1tickets__util.html#a32d1a10d1e89f9df81e51f7996227d7a',1,'burrito::utils::tickets_util']]],
+  ['is_5fticket_5ffollowed_11',['is_ticket_followed',['../namespaceburrito_1_1utils_1_1tickets__util.html#a07b72421c4711c16e9e34a171d8107d4',1,'burrito::utils::tickets_util']]],
+  ['is_5fticket_5fliked_12',['is_ticket_liked',['../namespaceburrito_1_1utils_1_1tickets__util.html#aa6a7a373787b20a73955ebde3f5a4b5d',1,'burrito::utils::tickets_util']]],
+  ['is_5fvalid_5femail_13',['is_valid_email',['../namespaceburrito_1_1utils_1_1validators.html#a2bdf55a27dd942024c431c687939efec',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5ffirstname_14',['is_valid_firstname',['../namespaceburrito_1_1utils_1_1validators.html#ad3d2d53ceddf0dabc76de9a5bfc39976',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5flastname_15',['is_valid_lastname',['../namespaceburrito_1_1utils_1_1validators.html#aaecdaf3069394c918965cc11cb06a4e8',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5flogin_16',['is_valid_login',['../namespaceburrito_1_1utils_1_1validators.html#ac44c4b0bbd598d4055e84d685c57c73d',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5fnum_17',['is_valid_num',['../classpagination__schema_1_1BurritoPagination.html#a752ca6c140792d9de09263ef34b89525',1,'pagination_schema::BurritoPagination']]],
+  ['is_5fvalid_5fpassword_18',['is_valid_password',['../namespaceburrito_1_1utils_1_1validators.html#a2289786ce1aa8d2a285ade3c401ea835',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5fphone_19',['is_valid_phone',['../namespaceburrito_1_1utils_1_1validators.html#afe9b98aca735fb24470c646329868f63',1,'burrito::utils::validators']]],
+  ['is_5fvalid_5fplugin_20',['is_valid_plugin',['../classloader_1_1PluginLoader.html#a7eca858ccfca2dcd761b1018d8995e4e',1,'loader::PluginLoader']]]
 ];

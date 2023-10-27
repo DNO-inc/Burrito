@@ -2,8 +2,8 @@ var hierarchy =
 [
     [ "_FileManager", "classburrito_1_1utils_1_1file__manager_1_1__FileManager.html", null ],
     [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", null ],
+    [ "BurritoBasePlugin", "classbase__plugin_1_1BurritoBasePlugin.html", null ],
     [ "BurritoJWT", "classburrito_1_1utils_1_1auth_1_1BurritoJWT.html", null ],
-    [ "CabinetUser", "classburrito_1_1utils_1_1ssu_1_1CabinetUser.html", null ],
     [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", [
       [ "FacultyConverter", "classburrito_1_1utils_1_1converter_1_1FacultyConverter.html", null ],
       [ "GroupConverter", "classburrito_1_1utils_1_1converter_1_1GroupConverter.html", null ],
@@ -24,6 +24,7 @@ var hierarchy =
     [ "BaseAction.Meta", "classm__actions__model_1_1BaseAction_1_1Meta.html", null ],
     [ "MongoBaseModel.Meta", "classm__basic__model_1_1MongoBaseModel_1_1Meta.html", null ],
     [ "Comments.Meta", "classm__comments__model_1_1Comments_1_1Meta.html", null ],
+    [ "EmailVerificationCode.Meta", "classm__email__code_1_1EmailVerificationCode_1_1Meta.html", null ],
     [ "NotificationMetaData.Meta", "classm__notifications__model_1_1NotificationMetaData_1_1Meta.html", null ],
     [ "Notifications.Meta", "classm__notifications__model_1_1Notifications_1_1Meta.html", null ],
     [ "TicketFiles.Meta", "classm__ticket__files_1_1TicketFiles_1_1Meta.html", null ],
@@ -33,8 +34,12 @@ var hierarchy =
     [ "Subscriptions.Meta", "classsubscriptions__model_1_1Subscriptions_1_1Meta.html", null ],
     [ "Tickets.Meta", "classtickets__model_1_1Tickets_1_1Meta.html", null ],
     [ "Users.Meta", "classuser__model_1_1Users_1_1Meta.html", null ],
+    [ "PluginLoader", "classloader_1_1PluginLoader.html", null ],
     [ "Redis", null, [
       [ "RedisConnector", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector.html", null ]
+    ] ],
+    [ "SMTP_SSL", null, [
+      [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", null ]
     ] ],
     [ "BaseFilterSchema", null, [
       [ "AdminGetTicketListSchema", "classadmin__schema_1_1AdminGetTicketListSchema.html", null ],
@@ -50,6 +55,7 @@ var hierarchy =
         [ "ActionSchema", "classaction__schema_1_1ActionSchema.html", null ],
         [ "FileActionSchema", "classaction__schema_1_1FileActionSchema.html", null ]
       ] ],
+      [ "RequestActionSchema", "classaction__schema_1_1RequestActionSchema.html", null ],
       [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ],
       [ "AdminTicketAuthorInfo", "classadmin__schema_1_1AdminTicketAuthorInfo.html", null ],
       [ "AdminTicketDetailInfo", "classadmin__schema_1_1AdminTicketDetailInfo.html", null ],
@@ -72,9 +78,12 @@ var hierarchy =
       [ "CommentCreationSchema", "classcomment__schema_1_1CommentCreationSchema.html", null ],
       [ "CommentEditSchema", "classcomment__schema_1_1CommentEditSchema.html", null ],
       [ "CommentIDSchema", "classcomment__schema_1_1CommentIDSchema.html", null ],
+      [ "EmailVerificationCodeSchema", "classemail__code_1_1EmailVerificationCodeSchema.html", null ],
       [ "FacultyResponseSchema", "classfaculty__schema_1_1FacultyResponseSchema.html", null ],
       [ "GroupResponseSchema", "classgroup__schema_1_1GroupResponseSchema.html", null ],
       [ "MongoBaseModel", "classm__basic__model_1_1MongoBaseModel.html", null ],
+      [ "RolePermissionResponse", "classmeta_1_1utils_1_1RolePermissionResponse.html", null ],
+      [ "RolesResponse", "classmeta_1_1utils_1_1RolesResponse.html", null ],
       [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
       [ "ResponseAdminDetailSchema", "classmeta__schema_1_1ResponseAdminDetailSchema.html", null ],
       [ "ResponseAdminListSchema", "classmeta__schema_1_1ResponseAdminListSchema.html", null ],
@@ -88,6 +97,7 @@ var hierarchy =
         [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
       ] ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
+      [ "ResponseRoleSchema", "classprofile__schema_1_1ResponseRoleSchema.html", null ],
       [ "QueueResponseSchema", "classqueue__schema_1_1QueueResponseSchema.html", null ],
       [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ],
       [ "StatusResponseSchema", "classstatus__schema_1_1StatusResponseSchema.html", null ],
@@ -99,6 +109,11 @@ var hierarchy =
       [ "TicketUsersInfoSchema", "classtickets__schema_1_1TicketUsersInfoSchema.html", null ],
       [ "UpdateTicketSchema", "classtickets__schema_1_1UpdateTicketSchema.html", null ],
       [ "WebSocketMessage", "classws__message_1_1WebSocketMessage.html", null ]
+    ] ],
+    [ "BurritoBasePlugin", null, [
+      [ "AuthSSUPlugin", "classauth__plugin_1_1AuthSSUPlugin.html", null ],
+      [ "FacultyPlugin", "classfaculty__plugin_1_1FacultyPlugin.html", null ],
+      [ "GroupsPlugin", "classgroups__plugin_1_1GroupsPlugin.html", null ]
     ] ],
     [ "BurritoBasicModel", null, [
       [ "Bookmarks", "classbookmarks__model_1_1Bookmarks.html", null ],
@@ -137,6 +152,7 @@ var hierarchy =
         [ "FileActions", "classm__actions__model_1_1FileActions.html", null ]
       ] ],
       [ "Comments", "classm__comments__model_1_1Comments.html", null ],
+      [ "EmailVerificationCode", "classm__email__code_1_1EmailVerificationCode.html", null ],
       [ "NotificationMetaData", "classm__notifications__model_1_1NotificationMetaData.html", null ],
       [ "Notifications", "classm__notifications__model_1_1Notifications.html", null ],
       [ "TicketFiles", "classm__ticket__files_1_1TicketFiles.html", null ]

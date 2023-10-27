@@ -13,10 +13,12 @@ var namespaceburrito_1_1utils =
       [ "create_tables", "namespaceburrito_1_1utils_1_1db__utils.html#a4af4d67d74aaac5762df83bfa84d1fbb", null ],
       [ "drop_tables", "namespaceburrito_1_1utils_1_1db__utils.html#ac41bec433c88a768a631546c26b92ba4", null ]
     ] ],
+    [ "email_util", "namespaceburrito_1_1utils_1_1email__util.html", "namespaceburrito_1_1utils_1_1email__util" ],
     [ "file_manager", "namespaceburrito_1_1utils_1_1file__manager.html", "namespaceburrito_1_1utils_1_1file__manager" ],
     [ "hash_util", "namespaceburrito_1_1utils_1_1hash__util.html", [
       [ "compare_password", "namespaceburrito_1_1utils_1_1hash__util.html#a5c500359344ca575c581f0fec3cee357", null ],
-      [ "get_hash", "namespaceburrito_1_1utils_1_1hash__util.html#a92a4340e70bc22bb1613ae2129f43d08", null ],
+      [ "generate_email_code", "namespaceburrito_1_1utils_1_1hash__util.html#a3bc42d7cd77cc8dec3482ff539188250", null ],
+      [ "get_hash", "namespaceburrito_1_1utils_1_1hash__util.html#aa9227ddea3e59b5b5c08ebc43d3e59a0", null ],
       [ "_hasher", "namespaceburrito_1_1utils_1_1hash__util.html#a34559f41ea6d133f407bd0aec215439e", null ]
     ] ],
     [ "logger", "namespaceburrito_1_1utils_1_1logger.html", "namespaceburrito_1_1utils_1_1logger" ],
@@ -42,6 +44,7 @@ var namespaceburrito_1_1utils =
       [ "q_scope_is", "namespaceburrito_1_1utils_1_1query__util.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1", null ],
       [ "_PROTECTED_STATUSES", "namespaceburrito_1_1utils_1_1query__util.html#a71b51c235a3102808c4f9b91dc2860a6", null ],
       [ "ADMIN_ROLES", "namespaceburrito_1_1utils_1_1query__util.html#a63c63e4b021f099c6389684c04593448", null ],
+      [ "CHIEF_ADMIN_ROLES", "namespaceburrito_1_1utils_1_1query__util.html#ae64d666539a130adcb89053c77785690", null ],
       [ "STATUS_ACCEPTED", "namespaceburrito_1_1utils_1_1query__util.html#af21e0ec5a37d34a74b4d13b69abc575c", null ],
       [ "STATUS_CLOSE", "namespaceburrito_1_1utils_1_1query__util.html#a7adc33eb41e026cfe715d174dfab5eaf", null ],
       [ "STATUS_NEW", "namespaceburrito_1_1utils_1_1query__util.html#acb51ebdd4d5f6ce9db2cf5c7e0d347a1", null ],
@@ -55,7 +58,6 @@ var namespaceburrito_1_1utils =
     [ "singleton_pattern", "namespaceburrito_1_1utils_1_1singleton__pattern.html", [
       [ "singleton", "namespaceburrito_1_1utils_1_1singleton__pattern.html#a8a234a338d5522ba5d906f6c535e9340", null ]
     ] ],
-    [ "ssu", "namespaceburrito_1_1utils_1_1ssu.html", "namespaceburrito_1_1utils_1_1ssu" ],
     [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", "namespaceburrito_1_1utils_1_1task__manager" ],
     [ "tickets_util", "namespaceburrito_1_1utils_1_1tickets__util.html", [
       [ "am_i_own_this_ticket", "namespaceburrito_1_1utils_1_1tickets__util.html#ae62ef81992c9fe39dcf3ea7d2639478a", null ],
@@ -67,7 +69,7 @@ var namespaceburrito_1_1utils =
       [ "create_ticket_action", "namespaceburrito_1_1utils_1_1tickets__util.html#ad744bd105730c5fba6c42e1af3fa2d10", null ],
       [ "create_ticket_file_action", "namespaceburrito_1_1utils_1_1tickets__util.html#a60f01e3c26aed61aff05205f0159e266", null ],
       [ "get_filtered_tickets", "namespaceburrito_1_1utils_1_1tickets__util.html#af8745c0966c467c2e5aeb077898e2746", null ],
-      [ "get_notification_receivers", "namespaceburrito_1_1utils_1_1tickets__util.html#af6ca9c5821da4e36c82731eaaa96ec60", null ],
+      [ "get_notification_receivers", "namespaceburrito_1_1utils_1_1tickets__util.html#ae2ff9577f04adaab590d028c4dd5b3b9", null ],
       [ "get_ticket_history", "namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3", null ],
       [ "hide_ticket_body", "namespaceburrito_1_1utils_1_1tickets__util.html#a82790b1f6ed1da84874cd5a5a2f265d3", null ],
       [ "is_allowed_to_interact_with_history", "namespaceburrito_1_1utils_1_1tickets__util.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5", null ],
@@ -77,8 +79,8 @@ var namespaceburrito_1_1utils =
       [ "is_ticket_liked", "namespaceburrito_1_1utils_1_1tickets__util.html#aa6a7a373787b20a73955ebde3f5a4b5d", null ],
       [ "make_short_user_data", "namespaceburrito_1_1utils_1_1tickets__util.html#a33669dfc85179e3b2e47bb9362d7333a", null ],
       [ "select_filters", "namespaceburrito_1_1utils_1_1tickets__util.html#afabb18265503916fa1bd8e557a4d1a55", null ],
-      [ "send_comment_update", "namespaceburrito_1_1utils_1_1tickets__util.html#ab1e6dec3dd6e1240888e17c1505889bc", null ],
-      [ "send_notification", "namespaceburrito_1_1utils_1_1tickets__util.html#ab29a80d4d09fb869d968d166e2266970", null ]
+      [ "send_comment_update", "namespaceburrito_1_1utils_1_1tickets__util.html#a29bec6d94d2b7a1557c41de2da62032a", null ],
+      [ "send_notification", "namespaceburrito_1_1utils_1_1tickets__util.html#ad8726d084052ff3ae3cee8b25cbdc61a", null ]
     ] ],
     [ "transliteration", "namespaceburrito_1_1utils_1_1transliteration.html", [
       [ "transliterate", "namespaceburrito_1_1utils_1_1transliteration.html#aa622ce0313300f343aee2d7c6ae56b33", null ],
@@ -86,12 +88,14 @@ var namespaceburrito_1_1utils =
       [ "different_values", "namespaceburrito_1_1utils_1_1transliteration.html#a02bda8b384d3f61799924354973bb309", null ]
     ] ],
     [ "users_util", "namespaceburrito_1_1utils_1_1users__util.html", [
-      [ "create_user", "namespaceburrito_1_1utils_1_1users__util.html#afa5fba75bbb37fe552630c590eb971c8", null ],
-      [ "create_user_tmp_foo", "namespaceburrito_1_1utils_1_1users__util.html#ab5fea89670945078da07dd1ba89c6381", null ],
+      [ "create_user", "namespaceburrito_1_1utils_1_1users__util.html#a2dffc23deaf319e842982a458faa685a", null ],
       [ "create_user_with_cabinet", "namespaceburrito_1_1utils_1_1users__util.html#a33fc6bf02da5a5af858071489c278f7a", null ],
+      [ "get_user_by_email_or_none", "namespaceburrito_1_1utils_1_1users__util.html#a3f2582915593486a12a6d508489326e6", null ],
       [ "get_user_by_id", "namespaceburrito_1_1utils_1_1users__util.html#a30596b183896f68833b8dc449a02053b", null ],
       [ "get_user_by_id_or_none", "namespaceburrito_1_1utils_1_1users__util.html#ac3194dd974051c74376a5a864261f387", null ],
-      [ "get_user_by_login", "namespaceburrito_1_1utils_1_1users__util.html#a9d7d9a5e369aaf2ee055285967a2126e", null ]
+      [ "get_user_by_login", "namespaceburrito_1_1utils_1_1users__util.html#a9d7d9a5e369aaf2ee055285967a2126e", null ],
+      [ "is_admin", "namespaceburrito_1_1utils_1_1users__util.html#a9a50f49b50f4bc991b92cd4165c6fb1b", null ],
+      [ "is_chief_admin", "namespaceburrito_1_1utils_1_1users__util.html#af6247f886a9bb8dcaf15443858d83cd4", null ]
     ] ],
     [ "validators", "namespaceburrito_1_1utils_1_1validators.html", [
       [ "is_valid_email", "namespaceburrito_1_1utils_1_1validators.html#a2bdf55a27dd942024c431c687939efec", null ],

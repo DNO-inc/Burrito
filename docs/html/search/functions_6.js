@@ -1,26 +1,4 @@
 var searchData=
 [
-  ['get_5fauth_5fcore_0',['get_auth_core',['../namespaceburrito_1_1utils_1_1auth.html#a90d0a9c443de58de1b9d54ff1a46a299',1,'burrito::utils::auth']]],
-  ['get_5fchangelog_1',['get_changelog',['../namespaceabout_1_1utils.html#a93be638a46253c7104278aa94857fb8d',1,'about::utils']]],
-  ['get_5fconfig_2',['get_config',['../namespaceburrito_1_1utils_1_1config__reader.html#a224da838e47cd5d3df2004eec53818fa',1,'burrito::utils::config_reader']]],
-  ['get_5fcontributors_3',['get_contributors',['../namespaceabout_1_1utils.html#a5608309cd72112764b160f887824d102',1,'about::utils']]],
-  ['get_5fcurrent_5fapp_4',['get_current_app',['../namespaceburrito_1_1utils_1_1app__util.html#adc4e1ed899a8e7930f16cc1e42bb0e9a',1,'burrito::utils::app_util']]],
-  ['get_5fcurrent_5fapp_5fname_5',['get_current_app_name',['../namespaceburrito_1_1containers.html#a23fd9c324ab5b5b4a82711af742c72ed',1,'burrito::containers']]],
-  ['get_5fdatabase_5fcursor_6',['get_database_cursor',['../namespaceburrito_1_1utils_1_1db__cursor__object.html#af7a0ebbfc1517d726c85e13486ee7535',1,'burrito::utils::db_cursor_object']]],
-  ['get_5fdatetime_5fnow_7',['get_datetime_now',['../namespaceburrito_1_1utils_1_1date.html#a31c5c78a5d516a11fa4ed69eb0aa6349',1,'burrito::utils::date']]],
-  ['get_5ffile_5fmanager_8',['get_file_manager',['../namespaceburrito_1_1utils_1_1file__manager.html#a8b1ef73e724da6f8edcdca70df51a518',1,'burrito::utils::file_manager']]],
-  ['get_5ffiltered_5fbookmarks_9',['get_filtered_bookmarks',['../namespacetickets_1_1utils.html#a93b9d20cae84c42ec266484d5c218474',1,'tickets::utils']]],
-  ['get_5ffiltered_5ftickets_10',['get_filtered_tickets',['../namespaceburrito_1_1utils_1_1tickets__util.html#af8745c0966c467c2e5aeb077898e2746',1,'burrito::utils::tickets_util']]],
-  ['get_5fhash_11',['get_hash',['../namespaceburrito_1_1utils_1_1hash__util.html#a92a4340e70bc22bb1613ae2129f43d08',1,'burrito::utils::hash_util']]],
-  ['get_5flogger_12',['get_logger',['../namespaceburrito_1_1utils_1_1logger.html#a783047af6479b206766918b45b07ac4f',1,'burrito::utils::logger']]],
-  ['get_5fmongo_5fcursor_13',['get_mongo_cursor',['../namespaceburrito_1_1utils_1_1mongo__util.html#ac103a7c5655806b2803b310da9853d2b',1,'burrito::utils::mongo_util']]],
-  ['get_5fnotification_5freceivers_14',['get_notification_receivers',['../namespaceburrito_1_1utils_1_1tickets__util.html#af6ca9c5821da4e36c82731eaaa96ec60',1,'burrito::utils::tickets_util']]],
-  ['get_5fredis_5fconnector_15',['get_redis_connector',['../namespaceburrito_1_1utils_1_1redis__utils.html#ae1ff3638c810d2400cb349ab985d4d95',1,'burrito::utils::redis_utils']]],
-  ['get_5fstatus_5fclose_5fid_16',['get_status_close_id',['../namespacetickets_1_1utils.html#a5063c6b01bb57b212212b7a82486c67d',1,'tickets::utils']]],
-  ['get_5ftask_5fmanager_17',['get_task_manager',['../namespaceburrito_1_1utils_1_1task__manager.html#a10ac527bfd48cff1a266fe9677dd8203',1,'burrito::utils::task_manager']]],
-  ['get_5fticket_5fhistory_18',['get_ticket_history',['../namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3',1,'burrito::utils::tickets_util']]],
-  ['get_5ftimestamp_5fnow_19',['get_timestamp_now',['../namespaceburrito_1_1utils_1_1date.html#afc0e0727dff686a27883dd7b2eb73e1b',1,'burrito::utils::date']]],
-  ['get_5fuser_5fby_5fid_20',['get_user_by_id',['../namespaceburrito_1_1utils_1_1users__util.html#a30596b183896f68833b8dc449a02053b',1,'burrito::utils::users_util']]],
-  ['get_5fuser_5fby_5fid_5for_5fnone_21',['get_user_by_id_or_none',['../namespaceburrito_1_1utils_1_1users__util.html#ac3194dd974051c74376a5a864261f387',1,'burrito::utils::users_util']]],
-  ['get_5fuser_5fby_5flogin_22',['get_user_by_login',['../namespaceburrito_1_1utils_1_1users__util.html#a9d7d9a5e369aaf2ee055285967a2126e',1,'burrito::utils::users_util']]]
+  ['format_0',['format',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html#ad456c943ea50176abf1a0fd57b77b80b',1,'burrito::utils::logger::BurritoFormatter']]]
 ];

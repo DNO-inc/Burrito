@@ -1,13 +1,20 @@
 var searchData=
 [
-  ['read_5ffile_0',['read_file',['../namespaceabout_1_1utils.html#aba03c5b080ab8cbcde7e52ed3619d224',1,'about::utils']]],
-  ['recv_5fdata_1',['recv_data',['../namespacews_1_1utils.html#a7413a869f2454793cfb902e736e4db5c',1,'ws::utils']]],
-  ['recv_5fping_2',['recv_ping',['../namespacews_1_1utils.html#a464757a06eb476e053d63c97fd85a72c',1,'ws::utils']]],
-  ['refresh_5faccess_5ftoken_3',['refresh_access_token',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#aebd0a419b35599aa41c3f9f674181100',1,'burrito::utils::auth::BurritoJWT']]],
-  ['registration_5f_5fuser_5fregistration_4',['registration__user_registration',['../namespaceregistration_1_1views.html#a69cf78962588451d620aab1cd3cb5132',1,'registration::views']]],
-  ['request_5',['request',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a11accc241c3a4699d87044a08784ddc8',1,'burrito::utils::auth::BurritoJWT']]],
-  ['require_5faccess_5ftoken_6',['require_access_token',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a2198a37cb02dbbd38b2f45042e776559',1,'burrito::utils::auth::BurritoJWT']]],
-  ['require_5frefresh_5ftoken_7',['require_refresh_token',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html#a99badc3e5328d6a1a638ab169e005f48',1,'burrito::utils::auth::BurritoJWT']]],
-  ['run_8',['run',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a53f8c28203d2f7c1a8fa07cd04fa4f0a',1,'burrito::utils::task_manager::_TaskManager']]],
-  ['run_5fwebsocket_5fserver_9',['run_websocket_server',['../namespacews_1_1utils.html#ace6113e5079582159b9f0cf31489f16a',1,'ws::utils']]]
+  ['q_5fassignee_5fis_0',['q_assignee_is',['../namespaceburrito_1_1utils_1_1query__util.html#a6462e475908ff831f9238e7c71bc6af6',1,'burrito::utils::query_util']]],
+  ['q_5fbookmarked_1',['q_bookmarked',['../namespaceburrito_1_1utils_1_1query__util.html#a946e2c3d985b4eb3eada777d26cc54c5',1,'burrito::utils::query_util']]],
+  ['q_5fcreator_5fis_2',['q_creator_is',['../namespaceburrito_1_1utils_1_1query__util.html#a945da9ad0df3e177b48edf81024573b8',1,'burrito::utils::query_util']]],
+  ['q_5fdeleted_3',['q_deleted',['../namespaceburrito_1_1utils_1_1query__util.html#a72b04c1157842034b1fdd2d34d853973',1,'burrito::utils::query_util']]],
+  ['q_5ffollowed_4',['q_followed',['../namespaceburrito_1_1utils_1_1query__util.html#a1512c3f80b5c6ecd83a83bf926eb6ae4',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fanonymous_5',['q_is_anonymous',['../namespaceburrito_1_1utils_1_1query__util.html#a30b5bc0e4fb4bf924e73d52253b09cdc',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fhidden_6',['q_is_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#aa4999ab2520084e25a05ac5b2c20d3de',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5ffaculty_7',['q_is_valid_faculty',['../namespaceburrito_1_1utils_1_1query__util.html#a241a8688380946f7eb10d34b78f2e9d5',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fqueue_8',['q_is_valid_queue',['../namespaceburrito_1_1utils_1_1query__util.html#a08cc1446cc635037c5db58ccb0c8dd15',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fstatus_9',['q_is_valid_status',['../namespaceburrito_1_1utils_1_1query__util.html#a528aea165b237924dc624ae639eaab57',1,'burrito::utils::query_util']]],
+  ['q_5fis_5fvalid_5fstatus_5flist_10',['q_is_valid_status_list',['../namespaceburrito_1_1utils_1_1query__util.html#a22db7ad2fcdb79b55eb32220cca31bf4',1,'burrito::utils::query_util']]],
+  ['q_5fliked_11',['q_liked',['../namespaceburrito_1_1utils_1_1query__util.html#a5c60e158024cc72adf3c48516940160f',1,'burrito::utils::query_util']]],
+  ['q_5fnot_5fdeleted_12',['q_not_deleted',['../namespaceburrito_1_1utils_1_1query__util.html#a1a993ecb1ded739fd7cbf3f3702a2542',1,'burrito::utils::query_util']]],
+  ['q_5fnot_5fhidden_13',['q_not_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#a36baad1e481f05f1d24a5ab4b357190a',1,'burrito::utils::query_util']]],
+  ['q_5fowned_5for_5fnot_5fhidden_14',['q_owned_or_not_hidden',['../namespaceburrito_1_1utils_1_1query__util.html#aee0579d197b941cd0d815eabb002845c',1,'burrito::utils::query_util']]],
+  ['q_5fprotected_5fstatuses_15',['q_protected_statuses',['../namespaceburrito_1_1utils_1_1query__util.html#af03b6529f8dff55a433c377610f4b685',1,'burrito::utils::query_util']]],
+  ['q_5fscope_5fis_16',['q_scope_is',['../namespaceburrito_1_1utils_1_1query__util.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1',1,'burrito::utils::query_util']]]
 ];

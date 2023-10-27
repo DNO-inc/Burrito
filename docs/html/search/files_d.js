@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['singleton_5fpattern_2epy_0',['singleton_pattern.py',['../singleton__pattern_8py.html',1,'']]],
-  ['ssu_2epy_1',['ssu.py',['../ssu_8py.html',1,'']]],
-  ['status_5fschema_2epy_2',['status_schema.py',['../status__schema_8py.html',1,'']]],
-  ['statuses_5fmodel_2epy_3',['statuses_model.py',['../statuses__model_8py.html',1,'']]],
-  ['subscriptions_5fmodel_2epy_4',['subscriptions_model.py',['../subscriptions__model_8py.html',1,'']]]
+  ['query_5futil_2epy_0',['query_util.py',['../query__util_8py.html',1,'']]],
+  ['queue_5fschema_2epy_1',['queue_schema.py',['../queue__schema_8py.html',1,'']]],
+  ['queues_5fmodel_2epy_2',['queues_model.py',['../queues__model_8py.html',1,'']]]
 ];

@@ -13,6 +13,7 @@ var namespacetickets =
     ] ],
     [ "utils", "namespacetickets_1_1utils.html", [
       [ "get_filtered_bookmarks", "namespacetickets_1_1utils.html#a93b9d20cae84c42ec266484d5c218474", null ],
+      [ "get_filtered_bookmarks_count", "namespacetickets_1_1utils.html#a7cc1aa24e03e707cea18cfa9b365422d", null ],
       [ "get_status_close_id", "namespacetickets_1_1utils.html#a5063c6b01bb57b212212b7a82486c67d", null ],
       [ "make_ticket_detail_info", "namespacetickets_1_1utils.html#a9ff0c74c14ef2e640a9e43ef140f2aba", null ],
       [ "update_ticket_info", "namespacetickets_1_1utils.html#a91e93fc611d0b84b5429a83726746708", null ]
@@ -22,6 +23,7 @@ var namespacetickets =
       [ "tickets__close_own_ticket", "namespacetickets_1_1views.html#a3d7377727306936ec9121622a77812b8", null ],
       [ "tickets__create_new_ticket", "namespacetickets_1_1views.html#adf251f976eeffc727a70fa1bf8ecbe3d", null ],
       [ "tickets__delete_ticket_for_me", "namespacetickets_1_1views.html#a9a351684640ea3bb0914e568abeda92f", null ],
+      [ "tickets__get_action_by_id", "namespacetickets_1_1views.html#a03d883260a0fe5c13d66967df2b46743", null ],
       [ "tickets__get_bookmarked_tickets", "namespacetickets_1_1views.html#ae7b163f54d037add92cd0cfa6d795945", null ],
       [ "tickets__get_deleted_tickets", "namespacetickets_1_1views.html#a0e783141395ead3d4aea2b99af27b977", null ],
       [ "tickets__get_followed_tickets", "namespacetickets_1_1views.html#aa7f5580409aa0b5365b799b30b02b4e3", null ],

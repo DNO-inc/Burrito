@@ -1,10 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,128,132,153"/>
-<area shape="rect" id="node2" href="$classm__actions__model_1_1BaseAction.html" title=" " alt="" coords="208,29,297,55"/>
-<area shape="rect" id="node5" href="$classm__comments__model_1_1Comments.html" title=" " alt="" coords="209,79,296,104"/>
-<area shape="rect" id="node6" href="$classm__notifications__model_1_1NotificationMetaData.html" title=" " alt="" coords="180,128,325,153"/>
-<area shape="rect" id="node7" href="$classm__notifications__model_1_1Notifications.html" title=" " alt="" coords="205,177,300,203"/>
-<area shape="rect" id="node8" href="$classm__ticket__files_1_1TicketFiles.html" title=" " alt="" coords="209,227,296,252"/>
-<area shape="rect" id="node3" href="$classm__actions__model_1_1Actions.html" title=" " alt="" coords="383,5,450,31"/>
-<area shape="rect" id="node4" href="$classm__actions__model_1_1FileActions.html" title=" " alt="" coords="373,55,460,80"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,67,31"/>
+<area shape="rect" id="node2" href="$classburrito_1_1utils_1_1logger_1_1BurritoLogger.html" title=" " alt="" coords="115,5,213,31"/>
 </map>

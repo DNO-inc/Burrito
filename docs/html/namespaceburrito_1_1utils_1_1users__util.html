@@ -129,93 +129,37 @@ $(document).ready(function(){initNavTree('namespaceburrito_1_1utils_1_1users__ut
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab5fea89670945078da07dd1ba89c6381"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#ab5fea89670945078da07dd1ba89c6381">create_user_tmp_foo</a> (str login, str hashed_password, Groups group, Faculties faculty)</td></tr>
-<tr class="separator:ab5fea89670945078da07dd1ba89c6381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa5fba75bbb37fe552630c590eb971c8"><td class="memItemLeft" align="right" valign="top">int|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#afa5fba75bbb37fe552630c590eb971c8">create_user</a> (str login, str hashed_password)</td></tr>
-<tr class="separator:afa5fba75bbb37fe552630c590eb971c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dffc23deaf319e842982a458faa685a"><td class="memItemLeft" align="right" valign="top">Users&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a2dffc23deaf319e842982a458faa685a">create_user</a> (RegistrationSchema user_data)</td></tr>
+<tr class="separator:a2dffc23deaf319e842982a458faa685a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33fc6bf02da5a5af858071489c278f7a"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a33fc6bf02da5a5af858071489c278f7a">create_user_with_cabinet</a> (int user_id, str firstname, str lastname, int faculty, int group, int email)</td></tr>
 <tr class="separator:a33fc6bf02da5a5af858071489c278f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d7d9a5e369aaf2ee055285967a2126e"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a9d7d9a5e369aaf2ee055285967a2126e">get_user_by_login</a> (str login)</td></tr>
 <tr class="separator:a9d7d9a5e369aaf2ee055285967a2126e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f2582915593486a12a6d508489326e6"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a3f2582915593486a12a6d508489326e6">get_user_by_email_or_none</a> (str email)</td></tr>
+<tr class="separator:a3f2582915593486a12a6d508489326e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30596b183896f68833b8dc449a02053b"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a30596b183896f68833b8dc449a02053b">get_user_by_id</a> (int user_id)</td></tr>
 <tr class="separator:a30596b183896f68833b8dc449a02053b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3194dd974051c74376a5a864261f387"><td class="memItemLeft" align="right" valign="top">Users|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#ac3194dd974051c74376a5a864261f387">get_user_by_id_or_none</a> (int user_id)</td></tr>
 <tr class="separator:ac3194dd974051c74376a5a864261f387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a50f49b50f4bc991b92cd4165c6fb1b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#a9a50f49b50f4bc991b92cd4165c6fb1b">is_admin</a> (int user_id)</td></tr>
+<tr class="separator:a9a50f49b50f4bc991b92cd4165c6fb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6247f886a9bb8dcaf15443858d83cd4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1users__util.html#af6247f886a9bb8dcaf15443858d83cd4">is_chief_admin</a> (int user_id)</td></tr>
+<tr class="separator:af6247f886a9bb8dcaf15443858d83cd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="afa5fba75bbb37fe552630c590eb971c8" name="afa5fba75bbb37fe552630c590eb971c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa5fba75bbb37fe552630c590eb971c8">&#9670;&#160;</a></span>create_user()</h2>
+<a id="a2dffc23deaf319e842982a458faa685a" name="a2dffc23deaf319e842982a458faa685a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dffc23deaf319e842982a458faa685a">&#9670;&#160;</a></span>create_user()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> int | None create_user </td>
+          <td class="memname"> Users create_user </td>
           <td>(</td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>login</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>hashed_password</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">_summary_
-
-Create user with default fields: (login, hashed_password)
-
-Args:
-    login (str): user login
-    hashed_password (str): user hashed password
-
-Returns:
-    bool: status creating new user
-</pre> 
-</div>
-</div>
-<a id="ab5fea89670945078da07dd1ba89c6381" name="ab5fea89670945078da07dd1ba89c6381"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5fea89670945078da07dd1ba89c6381">&#9670;&#160;</a></span>create_user_tmp_foo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> Users | None create_user_tmp_foo </td>
-          <td>(</td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>login</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>hashed_password</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Groups&#160;</td>
-          <td class="paramname"><em>group</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Faculties
+          <td class="paramtype">RegistrationSchema
 &#160;</td>
-          <td class="paramname"><em>faculty</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>user_data</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -282,6 +226,31 @@ Returns:
       </table>
 </div><div class="memdoc">
 
+</div>
+</div>
+<a id="a3f2582915593486a12a6d508489326e6" name="a3f2582915593486a12a6d508489326e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f2582915593486a12a6d508489326e6">&#9670;&#160;</a></span>get_user_by_email_or_none()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> Users | None get_user_by_email_or_none </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>email</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Get user if exist or return None
+
+Args:
+    email (str): user email
+
+Returns:
+    Users | None: return None if user is not exist
+</pre> 
 </div>
 </div>
 <a id="a30596b183896f68833b8dc449a02053b" name="a30596b183896f68833b8dc449a02053b"></a>
@@ -363,6 +332,42 @@ Args:
 Returns:
     Users | None: return None if user is not exist
 </pre> 
+</div>
+</div>
+<a id="a9a50f49b50f4bc991b92cd4165c6fb1b" name="a9a50f49b50f4bc991b92cd4165c6fb1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a50f49b50f4bc991b92cd4165c6fb1b">&#9670;&#160;</a></span>is_admin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool is_admin </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>user_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af6247f886a9bb8dcaf15443858d83cd4" name="af6247f886a9bb8dcaf15443858d83cd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6247f886a9bb8dcaf15443858d83cd4">&#9670;&#160;</a></span>is_chief_admin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool is_chief_admin </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>user_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

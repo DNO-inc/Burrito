@@ -15,7 +15,6 @@ var namespaceadmin =
       [ "make_ticket_detail_info", "namespaceadmin_1_1utils.html#af70f4401a95116f004d0d0f1ddcbac5f", null ]
     ] ],
     [ "views", "namespaceadmin_1_1views.html", [
-      [ "admin__change_user_permissions", "namespaceadmin_1_1views.html#a3b5c3005dbf2aed7f62e766e8632cc5c", null ],
       [ "admin__delete_ticket", "namespaceadmin_1_1views.html#acb671076fb730fc60e52bbef7723c01e", null ],
       [ "admin__get_ticket_list_by_filter", "namespaceadmin_1_1views.html#aff21e92fc5212165fb85bd1f826fb00c", null ],
       [ "admin__show_detail_ticket_info", "namespaceadmin_1_1views.html#af4d99f697e5f835dd9942008e056393d", null ],

@@ -161,9 +161,9 @@ Classes</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:ae13ffa7f3feab669676caa3d9766780a"><td class="memItemLeft" align="right" valign="top">AutoField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#ae13ffa7f3feab669676caa3d9766780a">user_id</a> = AutoField()</td></tr>
 <tr class="separator:ae13ffa7f3feab669676caa3d9766780a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade95eeff908aa19cb236d82cb775238b"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#ade95eeff908aa19cb236d82cb775238b">firstname</a> = CharField(60, null=True)</td></tr>
+<tr class="memitem:ade95eeff908aa19cb236d82cb775238b"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#ade95eeff908aa19cb236d82cb775238b">firstname</a> = CharField(60)</td></tr>
 <tr class="separator:ade95eeff908aa19cb236d82cb775238b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a241dc254f983f7666bb47237dd543300"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a241dc254f983f7666bb47237dd543300">lastname</a> = CharField(60, null=True)</td></tr>
+<tr class="memitem:a241dc254f983f7666bb47237dd543300"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a241dc254f983f7666bb47237dd543300">lastname</a> = CharField(60)</td></tr>
 <tr class="separator:a241dc254f983f7666bb47237dd543300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28441ed420499f8153390a0f5ac228a0"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a28441ed420499f8153390a0f5ac228a0">login</a> = CharField(25, unique=True)</td></tr>
 <tr class="separator:a28441ed420499f8153390a0f5ac228a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,7 +173,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a962d66e6acf55e52f0186ee7c0a835e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02d9fab2dbc187a9645f878c5c1a3c13"><td class="memItemLeft" align="right" valign="top">TextField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a02d9fab2dbc187a9645f878c5c1a3c13">password</a> = TextField()</td></tr>
 <tr class="separator:a02d9fab2dbc187a9645f878c5c1a3c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a354bcd2d0bef6b1d24338b84426f5816"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a354bcd2d0bef6b1d24338b84426f5816">email</a> = CharField(255, null=True)</td></tr>
+<tr class="memitem:a354bcd2d0bef6b1d24338b84426f5816"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a354bcd2d0bef6b1d24338b84426f5816">email</a> = CharField(255, null=False, unique=True)</td></tr>
 <tr class="separator:a354bcd2d0bef6b1d24338b84426f5816"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67f02c3431413469aeb7a36fcace6b38"><td class="memItemLeft" align="right" valign="top">CharField&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuser__model_1_1Users.html#a67f02c3431413469aeb7a36fcace6b38">phone</a> = CharField(15, null=True)</td></tr>
 <tr class="separator:a67f02c3431413469aeb7a36fcace6b38"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,7 +193,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">CharField email = CharField(255, null=True)</td>
+          <td class="memname">CharField email = CharField(255, null=False, unique=True)</td>
         </tr>
       </table>
   </td>
@@ -227,8 +227,7 @@ Static Public Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Faculties,</div>
 <div class="line">        field=<span class="stringliteral">&quot;faculty_id&quot;</span>,</div>
-<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
-<div class="line">        null=<span class="keyword">True</span></div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
 </div>
@@ -243,7 +242,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">CharField firstname = CharField(60, null=True)</td>
+          <td class="memname">CharField firstname = CharField(60)</td>
         </tr>
       </table>
   </td>
@@ -277,7 +276,7 @@ Static Public Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Groups,</div>
 <div class="line">        field=<span class="stringliteral">&quot;group_id&quot;</span>,</div>
-<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;SET NULL&quot;</span>,</div>
 <div class="line">        null=<span class="keyword">True</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
@@ -293,7 +292,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">CharField lastname = CharField(60, null=True)</td>
+          <td class="memname">CharField lastname = CharField(60)</td>
         </tr>
       </table>
   </td>
@@ -415,8 +414,7 @@ Static Public Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">=  ForeignKeyField(</div>
 <div class="line">        Roles,</div>
 <div class="line">        field=<span class="stringliteral">&quot;role_id&quot;</span>,</div>
-<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span>,</div>
-<div class="line">        null=<span class="keyword">True</span></div>
+<div class="line">        on_delete=<span class="stringliteral">&quot;NO ACTION&quot;</span></div>
 <div class="line">    )</div>
 </div><!-- fragment -->
 </div>

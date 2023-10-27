@@ -4,6 +4,7 @@ var tickets_2views_8py =
     [ "tickets__close_own_ticket", "tickets_2views_8py.html#a3d7377727306936ec9121622a77812b8", null ],
     [ "tickets__create_new_ticket", "tickets_2views_8py.html#adf251f976eeffc727a70fa1bf8ecbe3d", null ],
     [ "tickets__delete_ticket_for_me", "tickets_2views_8py.html#a9a351684640ea3bb0914e568abeda92f", null ],
+    [ "tickets__get_action_by_id", "tickets_2views_8py.html#a03d883260a0fe5c13d66967df2b46743", null ],
     [ "tickets__get_bookmarked_tickets", "tickets_2views_8py.html#ae7b163f54d037add92cd0cfa6d795945", null ],
     [ "tickets__get_deleted_tickets", "tickets_2views_8py.html#a0e783141395ead3d4aea2b99af27b977", null ],
     [ "tickets__get_followed_tickets", "tickets_2views_8py.html#aa7f5580409aa0b5365b799b30b02b4e3", null ],

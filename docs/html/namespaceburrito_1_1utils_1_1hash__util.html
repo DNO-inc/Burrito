@@ -130,10 +130,12 @@ $(document).ready(function(){initNavTree('namespaceburrito_1_1utils_1_1hash__uti
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a92a4340e70bc22bb1613ae2129f43d08"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1hash__util.html#a92a4340e70bc22bb1613ae2129f43d08">get_hash</a> (str data)</td></tr>
-<tr class="separator:a92a4340e70bc22bb1613ae2129f43d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9227ddea3e59b5b5c08ebc43d3e59a0"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1hash__util.html#aa9227ddea3e59b5b5c08ebc43d3e59a0">get_hash</a> (str data, bytes|None salt=None)</td></tr>
+<tr class="separator:aa9227ddea3e59b5b5c08ebc43d3e59a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c500359344ca575c581f0fec3cee357"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1hash__util.html#a5c500359344ca575c581f0fec3cee357">compare_password</a> (str password, str hashed_password)</td></tr>
 <tr class="separator:a5c500359344ca575c581f0fec3cee357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bc42d7cd77cc8dec3482ff539188250"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1hash__util.html#a3bc42d7cd77cc8dec3482ff539188250">generate_email_code</a> ()</td></tr>
+<tr class="separator:a3bc42d7cd77cc8dec3482ff539188250"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -179,8 +181,30 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="a92a4340e70bc22bb1613ae2129f43d08" name="a92a4340e70bc22bb1613ae2129f43d08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92a4340e70bc22bb1613ae2129f43d08">&#9670;&#160;</a></span>get_hash()</h2>
+<a id="a3bc42d7cd77cc8dec3482ff539188250" name="a3bc42d7cd77cc8dec3482ff539188250"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bc42d7cd77cc8dec3482ff539188250">&#9670;&#160;</a></span>generate_email_code()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str generate_email_code </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Generate a random email code using /dev/urandom (Linux).
+The code is used to verify user's email.
+
+Returns:
+    The generated email code as a string of 3 numbers
+</pre> 
+</div>
+</div>
+<a id="aa9227ddea3e59b5b5c08ebc43d3e59a0" name="aa9227ddea3e59b5b5c08ebc43d3e59a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9227ddea3e59b5b5c08ebc43d3e59a0">&#9670;&#160;</a></span>get_hash()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -189,8 +213,18 @@ Returns:
           <td class="memname"> str get_hash </td>
           <td>(</td>
           <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bytes | None &#160;</td>
+          <td class="paramname"><em>salt</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

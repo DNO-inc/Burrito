@@ -3,7 +3,8 @@ var annotated_dup =
     [ "action_schema", "namespaceaction__schema.html", [
       [ "ActionSchema", "classaction__schema_1_1ActionSchema.html", null ],
       [ "BaseActionSchems", "classaction__schema_1_1BaseActionSchems.html", null ],
-      [ "FileActionSchema", "classaction__schema_1_1FileActionSchema.html", null ]
+      [ "FileActionSchema", "classaction__schema_1_1FileActionSchema.html", null ],
+      [ "RequestActionSchema", "classaction__schema_1_1RequestActionSchema.html", null ]
     ] ],
     [ "admin_schema", "namespaceadmin__schema.html", [
       [ "AdminChangePermissionSchema", "classadmin__schema_1_1AdminChangePermissionSchema.html", null ],
@@ -20,12 +21,18 @@ var annotated_dup =
       [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ],
       [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ]
     ] ],
+    [ "auth_plugin", "namespaceauth__plugin.html", [
+      [ "AuthSSUPlugin", "classauth__plugin_1_1AuthSSUPlugin.html", null ]
+    ] ],
     [ "auth_schema", "namespaceauth__schema.html", [
       [ "AuthResponseSchema", "classauth__schema_1_1AuthResponseSchema.html", null ],
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ],
       [ "KeyAuthResponseSchema", "classauth__schema_1_1KeyAuthResponseSchema.html", null ],
       [ "UserKeyLoginSchema", "classauth__schema_1_1UserKeyLoginSchema.html", null ],
       [ "UserPasswordLoginSchema", "classauth__schema_1_1UserPasswordLoginSchema.html", null ]
+    ] ],
+    [ "base_plugin", "namespacebase__plugin.html", [
+      [ "BurritoBasePlugin", "classbase__plugin_1_1BurritoBasePlugin.html", null ]
     ] ],
     [ "basic_model", "namespacebasic__model.html", [
       [ "BurritoBasicModel", "classbasic__model_1_1BurritoBasicModel.html", "classbasic__model_1_1BurritoBasicModel" ]
@@ -56,6 +63,9 @@ var annotated_dup =
         [ "db_cursor_object", "namespaceburrito_1_1utils_1_1db__cursor__object.html", [
           [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor" ]
         ] ],
+        [ "email_util", "namespaceburrito_1_1utils_1_1email__util.html", [
+          [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail" ]
+        ] ],
         [ "file_manager", "namespaceburrito_1_1utils_1_1file__manager.html", [
           [ "_FileManager", "classburrito_1_1utils_1_1file__manager_1_1__FileManager.html", "classburrito_1_1utils_1_1file__manager_1_1__FileManager" ]
         ] ],
@@ -73,9 +83,6 @@ var annotated_dup =
         [ "redis_utils", "namespaceburrito_1_1utils_1_1redis__utils.html", [
           [ "RedisConnector", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector.html", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector" ]
         ] ],
-        [ "ssu", "namespaceburrito_1_1utils_1_1ssu.html", [
-          [ "CabinetUser", "classburrito_1_1utils_1_1ssu_1_1CabinetUser.html", "classburrito_1_1utils_1_1ssu_1_1CabinetUser" ]
-        ] ],
         [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", [
           [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager" ]
         ] ]
@@ -92,8 +99,14 @@ var annotated_dup =
     [ "deleted_model", "namespacedeleted__model.html", [
       [ "Deleted", "classdeleted__model_1_1Deleted.html", "classdeleted__model_1_1Deleted" ]
     ] ],
+    [ "email_code", "namespaceemail__code.html", [
+      [ "EmailVerificationCodeSchema", "classemail__code_1_1EmailVerificationCodeSchema.html", null ]
+    ] ],
     [ "faculty_model", "namespacefaculty__model.html", [
       [ "Faculties", "classfaculty__model_1_1Faculties.html", null ]
+    ] ],
+    [ "faculty_plugin", "namespacefaculty__plugin.html", [
+      [ "FacultyPlugin", "classfaculty__plugin_1_1FacultyPlugin.html", null ]
     ] ],
     [ "faculty_schema", "namespacefaculty__schema.html", [
       [ "FacultyResponseSchema", "classfaculty__schema_1_1FacultyResponseSchema.html", null ]
@@ -107,8 +120,14 @@ var annotated_dup =
     [ "group_schema", "namespacegroup__schema.html", [
       [ "GroupResponseSchema", "classgroup__schema_1_1GroupResponseSchema.html", null ]
     ] ],
+    [ "groups_plugin", "namespacegroups__plugin.html", [
+      [ "GroupsPlugin", "classgroups__plugin_1_1GroupsPlugin.html", null ]
+    ] ],
     [ "liked_model", "namespaceliked__model.html", [
       [ "Liked", "classliked__model_1_1Liked.html", "classliked__model_1_1Liked" ]
+    ] ],
+    [ "loader", "namespaceloader.html", [
+      [ "PluginLoader", "classloader_1_1PluginLoader.html", "classloader_1_1PluginLoader" ]
     ] ],
     [ "m_actions_model", "namespacem__actions__model.html", [
       [ "Actions", "classm__actions__model_1_1Actions.html", null ],
@@ -121,12 +140,21 @@ var annotated_dup =
     [ "m_comments_model", "namespacem__comments__model.html", [
       [ "Comments", "classm__comments__model_1_1Comments.html", "classm__comments__model_1_1Comments" ]
     ] ],
+    [ "m_email_code", "namespacem__email__code.html", [
+      [ "EmailVerificationCode", "classm__email__code_1_1EmailVerificationCode.html", "classm__email__code_1_1EmailVerificationCode" ]
+    ] ],
     [ "m_notifications_model", "namespacem__notifications__model.html", [
       [ "NotificationMetaData", "classm__notifications__model_1_1NotificationMetaData.html", "classm__notifications__model_1_1NotificationMetaData" ],
       [ "Notifications", "classm__notifications__model_1_1Notifications.html", "classm__notifications__model_1_1Notifications" ]
     ] ],
     [ "m_ticket_files", "namespacem__ticket__files.html", [
       [ "TicketFiles", "classm__ticket__files_1_1TicketFiles.html", "classm__ticket__files_1_1TicketFiles" ]
+    ] ],
+    [ "meta", "namespacemeta.html", [
+      [ "utils", "namespacemeta_1_1utils.html", [
+        [ "RolePermissionResponse", "classmeta_1_1utils_1_1RolePermissionResponse.html", null ],
+        [ "RolesResponse", "classmeta_1_1utils_1_1RolesResponse.html", null ]
+      ] ]
     ] ],
     [ "meta_schema", "namespacemeta__schema.html", [
       [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
@@ -150,7 +178,8 @@ var annotated_dup =
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
-      [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
+      [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ],
+      [ "ResponseRoleSchema", "classprofile__schema_1_1ResponseRoleSchema.html", null ]
     ] ],
     [ "queue_schema", "namespacequeue__schema.html", [
       [ "QueueResponseSchema", "classqueue__schema_1_1QueueResponseSchema.html", null ]

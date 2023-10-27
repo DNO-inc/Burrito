@@ -44,9 +44,8 @@ async def profile__update_my_profile(
     _curr_is_admin: bool = is_admin(token_payload.user_id)
     _curr_is_chief_admin: bool = is_chief_admin(token_payload.user_id)
 
-    _target_is_admin: bool = is_admin(profile_updated_data.user_id)
-    _target_is_chief_admin: bool = is_chief_admin(profile_updated_data.user_id)
-
+    _target_is_admin: bool = is_admin(profile_updated_data.user_id) if profile_updated_data.user_id else False
+    _target_is_chief_admin: bool = is_chief_admin(profile_updated_data.user_id) if profile_updated_data.user_id else False
     # CHIEF_ADMIN is able to change every bodies profiles
     if profile_updated_data.user_id and _curr_is_chief_admin:
         target_user_id = profile_updated_data.user_id
