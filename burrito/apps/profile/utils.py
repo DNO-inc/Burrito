@@ -8,8 +8,9 @@ from burrito.utils.permissions_checker import check_permission
 from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
+from burrito.models.role_permissions_model import RolePermissions
 
-from burrito.schemas.profile_schema import ResponseProfileSchema
+from burrito.schemas.profile_schema import ResponseProfileSchema, ResponseRoleSchema
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 
@@ -36,5 +37,16 @@ async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
         group=GroupResponseSchema(**model_to_dict(group_object)) if group_object else None,
         phone=current_user.phone,
         email=current_user.email,
+        role=ResponseRoleSchema(
+            role_id=current_user.role.role_id,
+            name=current_user.role.name,
+            permission_list=list(
+                i.permission.name for i in RolePermissions.select(
+                    RolePermissions.permission
+                ).where(
+                    RolePermissions.role == current_user.role.role_id
+                )
+            )
+        ),
         registration_date=str(current_user.registration_date)
     )
