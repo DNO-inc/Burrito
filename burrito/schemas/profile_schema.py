@@ -4,6 +4,12 @@ from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 
 
+class ResponseRoleSchema(BaseModel):
+    role_id: int
+    name: str
+    permission_list: list[str]
+
+
 class CheckProfileSchema(BaseModel):
     user_id: int | None
 
@@ -49,6 +55,8 @@ class ResponseProfileSchema(BaseProfile):
 
     faculty: FacultyResponseSchema | None
     group: GroupResponseSchema | None
+
+    role: ResponseRoleSchema
 
     registration_date: str
 
