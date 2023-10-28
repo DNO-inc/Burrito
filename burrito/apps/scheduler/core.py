@@ -28,7 +28,7 @@ def start_scheduler():
     get_logger().info("scheduler is started")
 
     schedule.every().day.at("03:05").do(check_for_new_tickets)
-    schedule.every().day.at("03:30").do(preprocessor_task)
+    schedule.every().day.at("00:30").do(preprocessor_task)
 
     for i in __HOST_TO_PING:
         schedule.every().hours.do(burrito_ping, *i)
