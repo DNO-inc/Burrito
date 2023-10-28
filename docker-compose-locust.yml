@@ -8,7 +8,8 @@ services:
     ports:
      - "8089:8089"
     volumes:
-      - ./tests/locust_main.py:/locust_main.py
+      - ./tests/locust/locust_main.py:/locust_main.py
+      - ./shadow/image.jpg:/image.jpg
     command: -f /locust_main.py --master -H http://master:8089
 
   worker:
@@ -16,5 +17,6 @@ services:
     env_file:  # LOCUST_LOGIN, LOCUST_PASSWORD, LOCUST_TARGET_HOST
       - ./.env
     volumes:
-      - ./tests/locust_main.py:/locust_main.py
+      - ./tests/locust/locust_main.py:/locust_main.py
+      - ./shadow/image.jpg:/image.jpg
     command: -f /locust_main.py --worker --master-host master
