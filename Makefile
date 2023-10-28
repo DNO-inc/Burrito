@@ -22,6 +22,9 @@ clear_db: tests/utils/clear_db.py
 tests_:
 	$(PYTHON) tests/run_tests.py
 
+locust:
+	docker compose -f docker-compose-locust.yml up --build --scale worker=4
+
 rmi:
 	scripts/docker_rm_all_images.sh
 
