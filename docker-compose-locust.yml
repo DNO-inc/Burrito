@@ -11,6 +11,8 @@ services:
       - ./tests/locust/locust_main.py:/locust_main.py
       - ./shadow/image.jpg:/image.jpg
     command: -f /locust_main.py --master -H http://master:8089
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   worker:
     image: locustio/locust
@@ -20,3 +22,5 @@ services:
       - ./tests/locust/locust_main.py:/locust_main.py
       - ./shadow/image.jpg:/image.jpg
     command: -f /locust_main.py --worker --master-host master
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

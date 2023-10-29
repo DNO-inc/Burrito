@@ -228,10 +228,17 @@ class BurritoJWT:
 
         token_payload = _read_token_payload(self.__token)
 
+        stored_token = get_redis_connector().get(_make_redis_key(token_payload))
+        if not stored_token:
+            raise AuthTokenError(
+                detail="Authorization error: refresh token is invalid or expired",
+                status_code=status.HTTP_401_UNAUTHORIZED
+            )
+
         # If the refresh token is invalid or expired raise an AuthTokenError.
         if (
             token_payload.token_type != "refresh" or
-            get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != self.__token
+            stored_token.decode("utf-8") != self.__token
         ):
             get_logger().error(
                 f"""
@@ -290,10 +297,17 @@ def check_jwt_token(token: str) -> AuthTokenPayload | None:
 
     token_payload = _read_token_payload(token)
 
+    stored_token = get_redis_connector().get(_make_redis_key(token_payload))
+    if not stored_token:
+        raise AuthTokenError(
+            detail="Authorization error: access token is invalid or expired",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )        
+
     # Check if the token is valid or expired.
     if (
         token_payload.token_type != "access" or
-        get_redis_connector().get(_make_redis_key(token_payload)).decode("utf-8") != token
+        stored_token.decode("utf-8") != token
     ):
         get_logger().error(
             f"""
