@@ -101,7 +101,7 @@
         {"queue_id": 901, "name": "Їдальня", "faculty_id": 1675, "scope": "Reports"},
         {"queue_id": 902, "name": "Стипендія", "faculty_id": 1675, "scope": "Q/A"},
         {"queue_id": 903, "name": "Гуртожиток", "faculty_id": 1675, "scope": "Q/A"},
-        {"queue_id": 904, "name": "Гуртожиток", "faculty_id": 1675, "scope": "Reports"}
+        {"queue_id": 904, "name": "Гуртожиток", "faculty_id": 1675, "scope": "Reports"},
         {"queue_id": 905, "name": "Інше", "faculty_id": 1675, "scope": "Q/A"},
         {"queue_id": 906, "name": "Інше", "faculty_id": 1675, "scope": "Reports"}
     ],
