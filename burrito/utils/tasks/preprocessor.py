@@ -1,6 +1,8 @@
 import pymysql.cursors
 import orjson as json
 
+from peewee import IntegrityError
+
 from burrito.utils.task_manager import get_task_manager
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
@@ -86,6 +88,10 @@ def preprocessor_task():
                             MODEL_KEYS[table].create(**value)
                             if table == "queues":
                                 get_database_cursor().execute_sql("SET FOREIGN_KEY_CHECKS=1")
+
+                    except IntegrityError:  # duplicates error while insert data
+                        ...
+
                     except Exception as e:
                         get_logger().warning(f"Preprocessor error: {e}")
 
