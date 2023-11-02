@@ -1,7 +1,7 @@
-from burrito.models.m_basic_model import MongoBaseModel
+from burrito.models.m_basic_model import MongoBaseModel, MongoTTLModel
 
 
-class EmailVerificationCode(MongoBaseModel):
+class EmailVerificationCode(MongoBaseModel, MongoTTLModel):
     hashed_code: str
 
     firstname: str

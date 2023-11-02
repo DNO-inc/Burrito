@@ -45,6 +45,11 @@ if __name__ == "__main__":
     from burrito.apps.ws.utils import run_websocket_server
     from burrito.apps.notifications.utils import email_loop
 
+    from burrito.models.m_email_code import EmailVerificationCode
+    from burrito.utils.mongo_util import mongo_init_ttl_indexes
+
+    mongo_init_ttl_indexes([EmailVerificationCode])
+
     app: FastAPI = get_current_app()
     connect_app(app, "/about", about_router)
     connect_app(app, "/registration", registration_router)
