@@ -54,6 +54,16 @@ _MONGO_DB_NAME = get_config().BURRITO_MONGO_DB
 _MONGO_GRIDFS: gridfs.GridFS = gridfs.GridFS(getattr(_MONGO_CURSOR, _MONGO_DB_NAME))
 
 
+def mongo_init_ttl_indexes(models: list[MongoBaseModel]):
+    """Create indexes to use TTL ability of MongoDB"""
+
+    for model in models:
+        _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].create_index(
+            "obj_creation_time",  # index name
+            expireAfterSeconds=300
+        )
+
+
 def mongo_insert(model: MongoBaseModel):
     """
     Insert a model into mongo. This is a wrapper around the insert_one method.
