@@ -61,7 +61,12 @@ class ResponseProfileSchema(BaseProfile):
     registration_date: str
 
 
-class RequestUpdateProfileSchema(BaseProfile):
+class RequestUpdateProfileSchema(BaseModel):
+    firstname: str | None
+    lastname: str | None
+    faculty: int | None
+    group: int | None
+    phone: str | None
     user_id: int | None
     role_id: int | None
     login: str | None

@@ -4,8 +4,7 @@ from playhouse.shortcuts import model_to_dict
 from burrito.utils.auth import get_auth_core
 from burrito.utils.users_util import (
     get_user_by_id,
-    get_user_by_login,
-    get_user_by_email_or_none
+    get_user_by_login
 )
 
 from burrito.utils.permissions_checker import check_permission
@@ -33,7 +32,6 @@ from burrito.utils.validators import (
     is_valid_firstname,
     is_valid_lastname,
     is_valid_login,
-    is_valid_email,
     is_valid_password,
     is_valid_phone
 )
@@ -100,15 +98,6 @@ async def update_profile_data(
 
     if is_valid_phone(profile_updated_data.phone):
         current_user.phone = profile_updated_data.phone
-
-    if is_valid_email(profile_updated_data.email):
-        if current_user.email != profile_updated_data.email and get_user_by_email_or_none(profile_updated_data.email):
-            raise HTTPException(
-                status_code=403,
-                detail="User with the same email exists"
-            )
-
-        current_user.email = profile_updated_data.email
 
     # check faculty
     if profile_updated_data.faculty:
