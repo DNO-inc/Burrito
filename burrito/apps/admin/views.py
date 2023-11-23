@@ -32,7 +32,8 @@ from burrito.utils.tickets_util import (
     change_ticket_status,
     change_ticket_faculty,
     change_ticket_queue,
-    change_ticket_assignee
+    change_ticket_assignee,
+    am_i_own_this_ticket
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.auth import get_auth_core
@@ -130,7 +131,10 @@ async def admin__get_ticket_list_by_filter(
                 make_short_user_data(
                     ticket.creator,
                     hide_user_id=False
-                ) if not ticket.anonymous else None,
+                ) if not ticket.anonymous or am_i_own_this_ticket(
+                    ticket.creator.user_id,
+                    token_payload.user_id
+                ) else None,
                 make_short_user_data(
                     ticket.assignee,
                     hide_user_id=False
@@ -165,7 +169,10 @@ async def admin__show_detail_ticket_info(
         make_short_user_data(
             ticket.creator,
             hide_user_id=False
-        ) if not ticket.anonymous else None,
+        ) if not ticket.anonymous or am_i_own_this_ticket(
+            ticket.creator.user_id,
+            token_payload.user_id
+        ) else None,
         make_short_user_data(
             ticket.assignee,
             hide_user_id=False
