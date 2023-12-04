@@ -1,3 +1,4 @@
+from secrets import token_urlsafe
 from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
@@ -118,3 +119,7 @@ async def update_profile_data(
         current_user.role = profile_updated_data.role_id
 
     current_user.save()
+
+
+def generate_reset_token() -> str:
+    return token_urlsafe(64)

@@ -1,20 +1,45 @@
-from fastapi import Depends, status
+from fastapi import Depends, status, Request, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.profile_schema import (
     ResponseProfileSchema,
     RequestUpdateProfileSchema
 )
+from burrito.models.m_password_rest_model import AccessRenewMetaData
+from burrito.models.user_model import Users
 
+from burrito.utils.email_util import publish_email
+from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
-from burrito.utils.users_util import is_admin, is_chief_admin
+from burrito.utils.users_util import (
+    is_admin,
+    is_chief_admin,
+    get_user_by_email_or_none,
+    get_user_by_id
+)
 
 from .utils import (
     get_auth_core,
     check_permission,
     view_profile_by_user_id,
-    update_profile_data
+    update_profile_data,
+    generate_reset_token
 )
+
+
+PASSWORD_REST_REQUEST_EMAIL = """
+Шановний(а) користувач(ка),
+
+Якщо ви отримали це повідомлення, це свідчить про те, що ви виразили бажання відновити доступ до свого облікового запису.
+
+Для відновлення доступу, будь ласка, скористайтеся наступним посиланням: {}.
+
+Майте на увазі, що це посилання буде активним лише протягом обмеженого періоду часу. Таким чином, рекомендуємо вам виконати процедуру відновлення якнайшвидше.
+
+Якщо ви не здійснювали жодних змін у своєму обліковому записі, і це повідомлення вас здивувало, будь ласка, зверніться до нашої служби підтримки через платформу TreS.
+
+Дякуємо за ваше розуміння та співпрацю.
+"""
 
 
 async def profile__check_by_id(
@@ -65,3 +90,68 @@ async def profile__update_my_profile(
         status_code=status.HTTP_200_OK,
         content={"detail": "Profile was updated"}
     )
+
+
+async def profile__token_reset_request(
+    request: Request,
+    email: str
+):
+    user_data: Users | None = get_user_by_email_or_none(email)
+    if not user_data:
+        raise HTTPException(
+            status_code=404,
+            detail="User is not exists"
+        )
+
+    reset_token = generate_reset_token()
+
+    mongo_insert(
+        AccessRenewMetaData(
+            user_id=user_data.user_id,
+            reset_token=reset_token
+        )
+    )
+
+    publish_email(
+        [user_data.user_id],
+        "Запит на поновлення доступу до TreS",
+        PASSWORD_REST_REQUEST_EMAIL.format(
+            f"{request.url_for('access_renew_route')}/{reset_token}"
+        )
+    )
+
+    return {
+        "detail": "Please check email to renew access to TreS"
+    }
+
+
+async def profile__get_new_token(
+    reset_token: str,
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    access_renew_metadata = mongo_select(
+        AccessRenewMetaData,
+        reset_token=reset_token
+    )
+    if not access_renew_metadata:
+        raise HTTPException(
+            status_code=404,
+            detail="No meta data found"
+        )
+    mongo_delete(
+        AccessRenewMetaData,
+        reset_token=reset_token
+    )
+
+    access_renew_metadata = access_renew_metadata[0]
+    user: Users = get_user_by_id(access_renew_metadata["user_id"])
+
+    tokens = await __auth_obj.create_token_pare(
+        AuthTokenPayload(
+            user_id=user.user_id,
+            role=user.role.name
+        )
+    )
+    return {
+        "access_token": tokens["access_token"]
+    }
