@@ -13,6 +13,9 @@ from burrito.schemas.admin_schema import (
     AdminTicketListResponse
 )
 
+from burrito.models.m_comments_model import Comments
+from burrito.models.m_ticket_files import TicketFiles
+
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import (
     q_is_anonymous,
@@ -25,6 +28,11 @@ from burrito.utils.query_util import (
     q_is_hidden
 )
 from burrito.utils.users_util import get_user_by_id
+from burrito.utils.mongo_util import (
+    mongo_delete,
+    mongo_select,
+    mongo_delete_file
+)
 from burrito.utils.tickets_util import (
     make_short_user_data,
     get_filtered_tickets,
@@ -202,6 +210,26 @@ async def admin__delete_ticket(
         """
     )
     ticket.delete_instance()
+
+    # delete comments
+    mongo_delete(
+        Comments,
+        ticket_id=deletion_ticket_data.ticket_id
+    )
+
+    # delete files
+    file_objects = mongo_select(
+        TicketFiles,
+        ticket_id=deletion_ticket_data.ticket_id
+    )
+    for file_metadata in file_objects:
+        mongo_delete_file(file_metadata.get("file_id"))
+
+    # delete files metadata
+    mongo_delete(
+        TicketFiles,
+        ticket_id=deletion_ticket_data.ticket_id
+    )
 
     return JSONResponse(
         status_code=200,
