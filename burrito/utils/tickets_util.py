@@ -12,6 +12,10 @@ from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, m
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
 from burrito.utils.email_util import publish_email, EMAIL_NOTIFICATION_TEMPLATE
+from burrito.utils.email_templates import (
+    TEMPLATE__ASSIGNED_TO_TICKET,
+    TEMPLATE__UNASSIGNED_TO_TICKET
+)
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.queues_model import Queues
@@ -650,6 +654,11 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
+    email_template_data = {
+        "ticket_id": ticket.ticket_id,
+        "ticket_subject": ticket.subject
+    }
+
     if new_assignee and (not ticket.assignee):
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -662,6 +671,12 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
 
         change_ticket_status(ticket, user_id, STATUS_ACCEPTED)
 
+        publish_email(
+            (new_assignee.user_id,),
+            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
     elif new_assignee and ticket.assignee and ticket.assignee.user_id != new_assignee.user_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -670,6 +685,17 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             old_value=ticket.assignee.user_id,
             new_value=new_assignee.user_id
         )
+        publish_email(
+            (ticket.assignee.user_id,),
+            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+        publish_email(
+            (new_assignee.user_id,),
+            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
         ticket.assignee = new_assignee
 
     elif new_assignee is None and ticket.assignee and ticket.assignee.user_id == user_id:
@@ -680,6 +706,13 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             old_value=ticket.assignee.user_id,
             new_value="None"
         )
+
+        publish_email(
+            (ticket.assignee.user_id,),
+            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
         ticket.assignee = None
 
 
