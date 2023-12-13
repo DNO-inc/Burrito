@@ -24,6 +24,8 @@ type Config struct {
 
 	MONGO_INITDB_ROOT_USERNAME string `env:"MONGO_INITDB_ROOT_USERNAME,required"`
 	MONGO_INITDB_ROOT_PASSWORD string `env:"MONGO_INITDB_ROOT_PASSWORD,required"`
+
+	JWT_SECRET string `env:"BURRITO_JWT_SECRET,required"`
 }
 
 var config *Config = nil

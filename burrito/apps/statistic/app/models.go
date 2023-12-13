@@ -19,3 +19,7 @@ type ProfileStatisticOutput struct {
 	TicketsCreated  int                 `json:"tickets_created"`
 	CommentsCreated int                 `json:"comments_created"`
 }
+
+type JsonResponse struct {
+	Detail string `json:"detail"`
+}

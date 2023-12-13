@@ -5,12 +5,29 @@ import (
 	"encoding/json"
 
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 // show statistic related to determined profile
 func GetProfileStatistic(ctx *fiber.Ctx) error {
+	// get access token or return an error if the token is invalid or was not provided
+	accessToken, err := utils.GetClearJWT(ctx.GetReqHeaders()["Authorization"])
+	if err != nil {
+		responseObject, _ := json.Marshal(JsonResponse{Detail: err.Error()})
+
+		ctx.SendStatus(403)
+		return ctx.SendString(string(responseObject))
+	}
+
+	// read payload from the token
+	accessTokenPayload := utils.GetTokenPayload(accessToken)
+
+	// return an error if current user's role is not ADMIN or CHIEF_ADMIN
+	if !utils.CheckForAdmin(accessTokenPayload.UserID) {
+		responseObject, _ := json.Marshal(JsonResponse{Detail: "Is not allowed to interact with this resource"})
+		ctx.SendStatus(403)
+		return ctx.SendString(string(responseObject))
+	}
+
 	payload := UserIDSchema{}
 	if err := ctx.BodyParser(&payload); err != nil {
 		return err
@@ -22,12 +39,13 @@ func GetProfileStatistic(ctx *fiber.Ctx) error {
 	client := utils.MongoCreateClient(&mongoCtx)
 
 	// get data from mongodb
-	commentsFilter := bson.D{
-		primitive.E{Key: "user_id", Value: payload.UserID},
-		primitive.E{Key: "type_", Value: "comment"},
-	}
 	collection := client.Database("burrito").Collection("ticket_history")
-	commentsCount, err := collection.CountDocuments(mongoCtx, commentsFilter)
+	commentsCount, err := collection.CountDocuments(mongoCtx, utils.MapToMongoFilters(
+		map[string]any{
+			"user_id": payload.UserID,
+			"type_":   "comment",
+		},
+	))
 	if err != nil {
 		utils.GetLogger().Critical(err)
 	}
@@ -42,6 +60,7 @@ func GetProfileStatistic(ctx *fiber.Ctx) error {
 	for _, item := range ticketStatuses {
 		ticketsCreated += item.Count
 	}
+
 	resultJson, _ := json.Marshal(
 		ProfileStatisticOutput{
 			UserID:          payload.UserID,
@@ -50,6 +69,7 @@ func GetProfileStatistic(ctx *fiber.Ctx) error {
 			CommentsCreated: int(commentsCount),
 		},
 	)
+
 	return ctx.JSON(string(resultJson))
 }
 

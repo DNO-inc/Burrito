@@ -30,3 +30,17 @@ func GetDatabase() *gorm.DB {
 	})
 	return db
 }
+
+var adminRoles = []any{9, 10}
+
+type userAdminData struct {
+	RoleID int `json:"role_id"`
+}
+
+func CheckForAdmin(user_id int) bool {
+	var userMetaData userAdminData
+	userMetaData.RoleID = -1
+	GetDatabase().Table("users").Select("role_id").Where("user_id = ?", user_id).Find(&userMetaData)
+
+	return Contains(adminRoles, userMetaData.RoleID)
+}

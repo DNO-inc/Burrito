@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var mongoConnectStr string = "mongodb://%s:%s@%s:%s/"
+var mongoConnectStr string = "mongodb://%s:%s@%s:%d/"
 
 func MongoCreateContext() (context.Context, context.CancelFunc) {
 	mongoCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -41,4 +43,13 @@ func MongoPing(mongoCtx *context.Context, client *mongo.Client) {
 	if err != nil {
 		GetLogger().Critical(err)
 	}
+}
+
+func MapToMongoFilters(mapFilters map[string]any) bson.D {
+	_filters := bson.D{}
+	for key, value := range mapFilters {
+		_filters = append(_filters, primitive.E{Key: key, Value: value})
+	}
+
+	return _filters
 }
