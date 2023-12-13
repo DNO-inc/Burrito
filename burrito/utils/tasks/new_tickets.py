@@ -1,6 +1,7 @@
 import datetime
 
 from burrito.utils.email_util import publish_email
+from burrito.utils.email_templates import TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN
 from burrito.utils.query_util import STATUS_NEW
 from burrito.utils.logger import get_logger
 
@@ -9,17 +10,6 @@ from burrito.models.user_model import Users
 
 
 MAX_UNCHANGED_DAYS = 2
-EMAIL_NOTIFICATION_FOR_ADMIN = """
-Шановна адміністраціє,
-
-Цим повідомленням нагадуємо, що наступні тікети перебувають в статусі "NEW" протягом останніх {} днів:
-
-{}
-
-Будь ласка, призначте відповідного співробітника для обробки цих тікетів негайно.
-
-Дякуємо за увагу!
-"""
 
 
 def check_for_new_tickets():
@@ -47,10 +37,10 @@ def check_for_new_tickets():
     if tickets_info:
         publish_email(
             admins_list,
-            f"Тікети в статусі NEW вже {MAX_UNCHANGED_DAYS} дні",
-            EMAIL_NOTIFICATION_FOR_ADMIN.format(
-                MAX_UNCHANGED_DAYS,
-                "".join(tickets_info)
+            TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN["subject"].format(days_count=MAX_UNCHANGED_DAYS),
+            TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN["content"].format(
+                days_count=MAX_UNCHANGED_DAYS,
+                data="".join(tickets_info)
             )
         )
         get_logger().info(f"Found {len(tickets_list)} tickets with status NEW")

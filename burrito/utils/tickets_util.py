@@ -11,10 +11,11 @@ from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
-from burrito.utils.email_util import publish_email, EMAIL_NOTIFICATION_TEMPLATE
+from burrito.utils.email_util import publish_email
 from burrito.utils.email_templates import (
     TEMPLATE__ASSIGNED_TO_TICKET,
-    TEMPLATE__UNASSIGNED_TO_TICKET
+    TEMPLATE__UNASSIGNED_TO_TICKET,
+    TEMPLATE__EMAIL_NOTIFICATION
 )
 
 from burrito.models.statuses_model import Statuses
@@ -357,9 +358,12 @@ def create_ticket_action(
         )
         publish_email(
             get_notification_receivers(ticket, exclude_id=user_id),
-            f"TreS #{ticket.ticket_id} \"{ticket.subject}\"",
-            EMAIL_NOTIFICATION_TEMPLATE.format(
-                f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
+            TEMPLATE__EMAIL_NOTIFICATION["subject"].format(
+                ticket_id=ticket.ticket_id,
+                ticket_subject=ticket.subject
+            ),
+            TEMPLATE__EMAIL_NOTIFICATION["content"].format(
+                data=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
             )
         )
         get_redis_connector().publish(
