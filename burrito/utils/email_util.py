@@ -10,17 +10,6 @@ from burrito.utils.logger import get_logger
 from burrito.models.user_model import Users
 
 
-EMAIL_NOTIFICATION_TEMPLATE = """
-Шановн(-ий/-а) студент(-ко),
-
-Ми хочемо вас проінформувати, що були внесені важливі зміни до тікетів на платформі TreS. Нижче наведено деталізація цих змін:
-
-{}
-
-Дякуємо за увагу!
-"""
-
-
 class BurritoEmail(smtplib.SMTP_SSL):
     def __init__(self, host: str):
         """
