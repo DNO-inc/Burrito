@@ -9,6 +9,7 @@ from burrito.models.m_password_rest_model import AccessRenewMetaData
 from burrito.models.user_model import Users
 
 from burrito.utils.email_util import publish_email
+from burrito.utils.email_templates import TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.users_util import (
@@ -25,21 +26,6 @@ from .utils import (
     update_profile_data,
     generate_reset_token
 )
-
-
-PASSWORD_REST_REQUEST_EMAIL = """
-Шановний(а) користувач(ка),
-
-Якщо ви отримали це повідомлення, це свідчить про те, що ви виразили бажання відновити доступ до свого облікового запису.
-
-Для відновлення доступу, будь ласка, скористайтеся наступним посиланням: {}.
-
-Майте на увазі, що це посилання буде активним лише протягом обмеженого періоду часу. Таким чином, рекомендуємо вам виконати процедуру відновлення якнайшвидше.
-
-Якщо ви не здійснювали жодних змін у своєму обліковому записі, і це повідомлення вас здивувало, будь ласка, зверніться до нашої служби підтримки через платформу TreS.
-
-Дякуємо за ваше розуміння та співпрацю.
-"""
 
 
 async def profile__check_by_id(
@@ -114,9 +100,9 @@ async def profile__token_reset_request(
 
     publish_email(
         [user_data.user_id],
-        "Запит на поновлення доступу до TreS",
-        PASSWORD_REST_REQUEST_EMAIL.format(
-            f"{request.url_for('access_renew_route')}/{reset_token}"
+        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["subject"],
+        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["content"].format(
+            url=f"{request.url_for('access_renew_route')}/{reset_token}"
         )
     )
 
