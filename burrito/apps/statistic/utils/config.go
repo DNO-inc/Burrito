@@ -16,6 +16,11 @@ type Config struct {
 	MYSQL_USER          string `env:"MYSQL_USER,required"`
 	MYSQL_PASSWORD      string `env:"MYSQL_PASSWORD,required"`
 
+	REDIS_HOST     string `env:"BURRITO_REDIS_HOST,required"`
+	REDIS_PORT     int    `env:"BURRITO_REDIS_PORT,required"`
+	REDIS_USER     string `env:"BURRITO_REDIS_USER,required"`
+	REDIS_PASSWORD string `env:"BURRITO_REDIS_PASSWORD,required"`
+
 	MONGO_HOST     string `env:"BURRITO_MONGO_HOST,required"`
 	MONGO_PORT     int    `env:"BURRITO_MONGO_PORT,required"`
 	MONGO_DB       string `env:"BURRITO_MONGO_DB,required"`

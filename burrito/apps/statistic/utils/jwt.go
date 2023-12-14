@@ -2,6 +2,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 
 	"github.com/golang-jwt/jwt"
@@ -45,4 +46,13 @@ func GetTokenPayload(accessToken string) *AuthTokenPayload {
 	mapstructure.Decode(claims, &accessTokenPayload)
 
 	return &accessTokenPayload
+}
+
+func makeJWTRedisKey(data *AuthTokenPayload) string {
+	return fmt.Sprintf("%s_%s_%d", data.Jti, data.TokenType, data.UserID)
+}
+
+func IsJWTExists(data *AuthTokenPayload) bool {
+	value := RedisGetByKey(makeJWTRedisKey(data))
+	return value != ""
 }

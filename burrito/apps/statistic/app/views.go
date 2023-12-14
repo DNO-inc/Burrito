@@ -13,19 +13,24 @@ func GetProfileStatistic(ctx *fiber.Ctx) error {
 	accessToken, err := utils.GetClearJWT(ctx.GetReqHeaders()["Authorization"])
 	if err != nil {
 		responseObject, _ := json.Marshal(JsonResponse{Detail: err.Error()})
-
 		ctx.SendStatus(403)
-		return ctx.SendString(string(responseObject))
+		return ctx.JSON(string(responseObject))
 	}
 
 	// read payload from the token
 	accessTokenPayload := utils.GetTokenPayload(accessToken)
 
+	if !utils.IsJWTExists(accessTokenPayload) {
+		responseObject, _ := json.Marshal(JsonResponse{Detail: "JWT is invalid or expired"})
+		ctx.SendStatus(403)
+		return ctx.JSON(string(responseObject))
+	}
+
 	// return an error if current user's role is not ADMIN or CHIEF_ADMIN
 	if !utils.CheckForAdmin(accessTokenPayload.UserID) {
 		responseObject, _ := json.Marshal(JsonResponse{Detail: "Is not allowed to interact with this resource"})
 		ctx.SendStatus(403)
-		return ctx.SendString(string(responseObject))
+		return ctx.JSON(string(responseObject))
 	}
 
 	payload := UserIDSchema{}
