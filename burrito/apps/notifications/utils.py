@@ -14,17 +14,26 @@ def email_loop():
 
     get_logger().info("Email loop is started")
     while True:
+        try:
+            email_subscriber.ping()
+        except Exception:
+            get_logger().critical("Redis server is unavailable")
+            continue
+
         message = email_subscriber.get_message()
 
         if message:
             raw_data = message.get("data")
 
-            if isinstance(raw_data, (str, bytes)):
-                data = orjson.loads(raw_data)
+            if raw_data and isinstance(raw_data, (str, bytes)):
+                try:
+                    data = orjson.loads(raw_data)
+                except UnboundLocalError as exc:
+                    get_logger().warning(exc)
 
                 get_task_manager().add_task(
                     send_email,
                     **data
                 )
 
-        time.sleep(1)
+        time.sleep(60)
