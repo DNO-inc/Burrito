@@ -24,3 +24,4 @@ class Actions(BaseAction):
 class FileActions(BaseAction):
     field_name: str = Field(max_length=255, default="file")
     value: str = Field(max_length=255)
+    file_meta_action: str = Field(max_length=15)

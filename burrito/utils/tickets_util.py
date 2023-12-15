@@ -398,10 +398,11 @@ def create_ticket_file_action(
 
     get_logger().info(
         f"""
-        New fila action (
+        New file action (
             ticket={ticket_id},
             user={user_id},
             value={value}
+            file_meta_action={file_meta_action}
         )
 
         """
@@ -410,7 +411,8 @@ def create_ticket_file_action(
         FileActions(
             ticket_id=ticket_id,
             user_id=user_id,
-            value=value
+            value=value,
+            file_meta_action=file_meta_action
         )
     )
     if generate_notification:
@@ -482,7 +484,8 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
                         ),
                         creation_date=item["creation_date"],
                         field_name=item["field_name"],
-                        value=item["value"]
+                        value=item["value"],
+                        file_meta_action=item["file_meta_action"]
                     )
                 )
 

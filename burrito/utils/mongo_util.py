@@ -249,7 +249,7 @@ def mongo_delete_file(file_id: str) -> None:
     """
     try:
         _MONGO_GRIDFS.delete(ObjectId(file_id))
-        mongo_delete(TicketFiles, file_id=ObjectId(file_id))
+        mongo_delete(TicketFiles, file_id=file_id)
     except Exception as exc:
         raise HTTPException(
             status_code=403,
