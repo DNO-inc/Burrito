@@ -1,3 +1,4 @@
+from typing import Literal
 from pydantic import BaseModel
 
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
@@ -19,6 +20,7 @@ class ActionSchema(BaseActionSchems):
 class FileActionSchema(BaseActionSchems):
     field_name: str = "file"
     value: str
+    file_meta_action: Literal["upload", "delete"]
 
 
 class RequestActionSchema(BaseModel):
