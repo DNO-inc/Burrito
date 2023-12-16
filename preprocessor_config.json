@@ -10,7 +10,7 @@
     },
     "groups": [],
     "faculties": [
-        {"faculty_id": 1, "name": "global"}
+        {"faculty_id": 1, "name": "Університет"}
     ],
     "statuses": [
         {"status_id": 1, "name": "NEW"},

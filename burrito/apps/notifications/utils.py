@@ -17,7 +17,8 @@ def email_loop():
         try:
             email_subscriber.ping()
         except Exception:
-            get_logger().critical("Redis server is unavailable")
+            get_logger().critical("Redis server is unavailable, sleep for 10 seconds")
+            time.sleep(10)
             continue
 
         message = email_subscriber.get_message()
@@ -36,4 +37,7 @@ def email_loop():
                     **data
                 )
 
-        time.sleep(60)
+        else:
+            get_logger().info("No messages")
+
+        time.sleep(1)
