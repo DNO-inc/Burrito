@@ -41,3 +41,5 @@ def email_loop():
             get_logger().info("No messages")
 
         time.sleep(1)
+
+    get_logger().critical("Email loop is closed unexpectedly")
