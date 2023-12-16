@@ -115,13 +115,23 @@ def publish_email(receivers: set[int] | list[int], subject: str, content: str) -
         subject: The subject of the email
         content: The content of the email
     """
+    clear_receivers = list(set(receivers))
     get_redis_connector().publish(
         "email",
         orjson.dumps(
             {
-                "receivers": list(set(receivers)),
+                "receivers": clear_receivers,
                 "subject": subject,
                 "content": content
             }
         )
+    )
+    get_logger().info(
+        f"""
+            New email was published to chanel (
+                "receivers": {clear_receivers},
+                "subject": {subject},
+            )
+
+        """
     )
