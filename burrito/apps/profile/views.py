@@ -1,4 +1,4 @@
-from fastapi import Depends, status, Request, HTTPException
+from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.profile_schema import (
@@ -26,6 +26,10 @@ from .utils import (
     update_profile_data,
     generate_reset_token
 )
+
+
+# TODO: it should be changed to env variable or we need to come up with another way to receive an actual URI for access renewing
+__ACCESS_RENEW_URL_TEMPLATE = "https://burrito.tres.cyberbydlo.com/general_tickets?reset_token={}"
 
 
 async def profile__check_by_id(
@@ -79,7 +83,6 @@ async def profile__update_my_profile(
 
 
 async def profile__token_reset_request(
-    request: Request,
     email: str
 ):
     user_data: Users | None = get_user_by_email_or_none(email)
@@ -102,7 +105,7 @@ async def profile__token_reset_request(
         [user_data.user_id],
         TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["subject"],
         TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["content"].format(
-            url=f"{request.url_for('access_renew_route')}/{reset_token}"
+            url=__ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
         )
     )
 
