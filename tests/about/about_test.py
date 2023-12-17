@@ -1,8 +1,15 @@
 import unittest
 import requests
 
+import jsonschema
+
 from burrito.utils.config_reader import get_config
-from utils.exceptions_tool import check_error
+
+from .schemas import (
+    test_check_version_schema,
+    test_check_updates_schema,
+    test_check_team_schema
+)
 
 
 TIMEOUT = 5
@@ -15,14 +22,7 @@ class AboutTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        jsonschema.validate(response.json(), test_check_version_schema)
 
     def test_check_updates(self):
         response = requests.get(
@@ -30,14 +30,7 @@ class AboutTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        jsonschema.validate(response.json(), test_check_updates_schema)
 
     def test_check_team(self):
         response = requests.get(
@@ -45,11 +38,4 @@ class AboutTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        jsonschema.validate(response.json(), test_check_team_schema)
