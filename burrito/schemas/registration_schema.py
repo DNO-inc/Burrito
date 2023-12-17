@@ -11,4 +11,4 @@ class RegistrationSchema(BaseModel):
     faculty: int
 
     phone: str | None
-    email: str | None
+    email: str

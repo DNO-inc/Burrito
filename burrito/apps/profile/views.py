@@ -29,7 +29,7 @@ from .utils import (
 
 
 # TODO: it should be changed to env variable or we need to come up with another way to receive an actual URI for access renewing
-__ACCESS_RENEW_URL_TEMPLATE = "https://burrito.tres.cyberbydlo.com/general_tickets?reset_token={}"
+__ACCESS_RENEW_URL_TEMPLATE = "https://demo.tres.cyberbydlo.com/general_tickets?reset_token={}"
 
 
 async def profile__check_by_id(
