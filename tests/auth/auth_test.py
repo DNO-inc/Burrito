@@ -1,22 +1,12 @@
 import unittest
 import requests
-
-from registration_test import RegistrationTestCase
+import jsonschema
 
 from burrito.utils.config_reader import get_config
-from utils.exceptions_tool import check_error
 
+from tests.utils import get_token_pare
 
-def do_auth():
-    response = requests.post(
-        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/password/login",
-        json={
-            "login": "super_admin",
-            "password": "string123"
-        },
-        timeout=5
-    )
-    return response.status_code, response.json()
+from .schemas import *
 
 
 class AuthTestCase(unittest.TestCase):
@@ -33,22 +23,13 @@ class AuthTestCase(unittest.TestCase):
             Recv token to use in the next authentications.
         """
 
-        result: tuple[int, dict] = do_auth()
+        result = get_token_pare()
 
-        access_token = result[1].get("access_token")
+        access_token = result["access_token"]
         AuthTestCase.access_token = access_token
 
-        refresh_token = result[1].get("refresh_token")
+        refresh_token = result["refresh_token"]
         AuthTestCase.refresh_token = refresh_token
-
-        check_error(
-            self.assertEqual,
-            {
-                "first": result[0],
-                "second": 200
-            },
-            result[1]
-        )
 
 #    @unittest.skip
     def test_002_refresh_access_token(self):
@@ -59,20 +40,16 @@ class AuthTestCase(unittest.TestCase):
             },
             timeout=5
         )
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+
+        assert response.status_code == 200
+
+        jsonschema.validate(response.json(), test_002_refresh_access_token_schema)
         AuthTestCase.access_token = response.json()["access_token"]
 
     def test_003_delete_token_pare(self):
-        result: tuple[int, dict] = do_auth()
+        result = get_token_pare()
 
-        refresh_token = result[1].get("refresh_token")
+        refresh_token = result["refresh_token"]
 
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/delete",
@@ -82,11 +59,4 @@ class AuthTestCase(unittest.TestCase):
             timeout=5
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        assert response.status_code == 200
