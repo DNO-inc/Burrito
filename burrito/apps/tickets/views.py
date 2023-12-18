@@ -833,7 +833,8 @@ async def tickets__get_action_by_id(
             ),
             creation_date=action["creation_date"],
             field_name=action["field_name"],
-            value=action["value"]
+            value=action["value"],
+            file_meta_action=action["file_meta_action"]
         )
 
     # if it's regular action
