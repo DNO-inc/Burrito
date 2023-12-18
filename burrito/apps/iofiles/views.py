@@ -9,13 +9,13 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.m_ticket_files import TicketFiles
 
 from burrito.utils.auth import get_auth_core, BurritoJWT
-from burrito.utils.query_util import ADMIN_ROLES
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
     is_ticket_exist,
     create_ticket_file_action,
     am_i_own_this_ticket,
-    create_ticket_action
+    create_ticket_action,
+    can_i_interact_with_ticket
 )
 from burrito.utils.query_util import STATUS_OPEN
 from burrito.utils.mongo_util import mongo_save_file, mongo_get_file, mongo_select, mongo_delete_file
@@ -28,15 +28,10 @@ async def iofiles__upload_file_for_ticket(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload = await __auth_obj.require_access_token()
-    current_user = get_user_by_id(token_payload.user_id)
 
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
-    if (
-        ticket.hidden
-        and token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
-        and current_user.role.role_id not in ADMIN_ROLES
-    ):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -83,7 +78,6 @@ async def iofiles__get_file(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload = await __auth_obj.require_access_token()
-    current_user = get_user_by_id(token_payload.user_id)
 
     file_data = mongo_select(TicketFiles, file_id=file_id)
     if not file_data:
@@ -95,11 +89,7 @@ async def iofiles__get_file(
 
     ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
 
-    if (
-        ticket.hidden
-        and token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
-        and current_user.role.role_id not in ADMIN_ROLES
-    ):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -119,15 +109,10 @@ async def iofiles__get_file_ids(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload = await __auth_obj.require_access_token()
-    current_user = get_user_by_id(token_payload.user_id)
 
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
-    if (
-        ticket.hidden
-        and token_payload.user_id not in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
-        and current_user.role.role_id not in ADMIN_ROLES
-    ):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -143,7 +128,6 @@ async def iofiles__delete_file(
     __auth_obj: BurritoJWT = Depends(get_auth_core())
 ):
     token_payload = await __auth_obj.require_access_token()
-    current_user = get_user_by_id(token_payload.user_id)
 
     file_data = mongo_select(TicketFiles, file_id=file_id)
     if not file_data:
@@ -155,11 +139,7 @@ async def iofiles__delete_file(
 
     ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
 
-    if (
-        (ticket.assignee and token_payload.user_id == ticket.assignee.user_id)
-        or (token_payload.user_id == ticket.creator.user_id)
-        or current_user.role.role_id in ADMIN_ROLES
-    ):
+    if can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
         file_data = mongo_select(
             TicketFiles,
             file_id=file_id

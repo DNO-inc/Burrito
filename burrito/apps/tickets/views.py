@@ -54,7 +54,7 @@ from burrito.utils.tickets_util import (
     select_filters,
     create_ticket_action,
     get_ticket_history,
-    is_allowed_to_interact_with_history
+    can_i_interact_with_ticket
 )
 from burrito.utils.mongo_util import mongo_page_count
 from burrito.utils.logger import get_logger
@@ -208,14 +208,7 @@ async def tickets__bookmark_ticket(
         bookmark_ticket_data.ticket_id
     )
 
-    if (
-        ticket.hidden
-        and token_payload.user_id not in (
-            ticket.creator.user_id,
-            ticket.assignee.user_id if ticket.assignee else -1
-        )
-        and current_user.role.role_id not in ADMIN_ROLES
-    ):
+    if not can_i_interact_with_ticket(ticket, current_user):
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
             content={
@@ -294,14 +287,7 @@ async def tickets__like_ticket(
         like_ticket_data.ticket_id
     )
 
-    if (
-        ticket.hidden
-        and token_payload.user_id not in (
-            ticket.creator.user_id,
-            ticket.assignee.user_id if ticket.assignee else -1
-        )
-        and current_user.role.role_id not in ADMIN_ROLES
-    ):
+    if not can_i_interact_with_ticket(ticket, current_user):
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
             content={
@@ -780,7 +766,7 @@ async def tickets__get_full_ticket_history(
 
     ticket = is_ticket_exist(_filters.ticket_id)
 
-    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
         return JSONResponse(
             status_code=403,
             content={
@@ -832,7 +818,7 @@ async def tickets__get_action_by_id(
 
     ticket: Tickets = is_ticket_exist(action["ticket_id"])
     ticket_owner = am_i_own_this_ticket(ticket.ticket_id, token_payload.user_id)
-    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
         raise HTTPException(
             status_code=403,
             detail="Forbidden to interact with this ticket"
