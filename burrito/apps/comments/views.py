@@ -24,7 +24,7 @@ from burrito.utils.tickets_util import (
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import get_auth_core, AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import STATUS_OPEN
-from burrito.utils.tickets_util import create_ticket_action, is_allowed_to_interact_with_history
+from burrito.utils.tickets_util import create_ticket_action, can_i_interact_with_ticket
 
 from .utils import (
     is_comment_exist_with_error,
@@ -41,7 +41,7 @@ async def comments__create(
 
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
 
-    if not is_allowed_to_interact_with_history(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
         return JSONResponse(
             status_code=403,
             content={
@@ -155,6 +155,14 @@ async def comments__get_comment_by_id(
     comment: Comments | None = is_comment_exist_with_error(comment_data.comment_id)
 
     ticket: Tickets = is_ticket_exist(comment["ticket_id"])
+
+    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
+        return JSONResponse(
+            status_code=403,
+            content={
+                "detail": "Permission denied"
+            }
+        )
 
     additional_data = is_comment_exist_with_error(comment["reply_to"]) if comment["reply_to"] else None
 

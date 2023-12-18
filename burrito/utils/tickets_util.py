@@ -543,27 +543,6 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
     return result
 
 
-def is_allowed_to_interact_with_history(ticket: Tickets | int, user_id: int):
-    """
-    Checks if user can interact with ticket.
-
-    Args:
-        ticket: Ticket to check if allowed to interact `user_id`
-        user_id: ID of user who wants to interact with ticket
-
-    Returns:
-        True if user can interact with ticket else False
-    """
-    if isinstance(ticket, int):
-        ticket = is_ticket_exist(ticket)
-
-    return (
-        (ticket.creator.user_id == user_id)
-        or user_id in [admin.user_id for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))]
-        or ticket.hidden == 0
-    )
-
-
 def change_ticket_status(ticket: Tickets | int, user_id: int, new_status: Statuses) -> None:
     """
     Change ticket status. This function is used to change status of ticket.
@@ -819,4 +798,29 @@ def send_comment_update(ticket_id: int, comment_id: str, msg_type: Literal["MSG_
                 "msg_type": msg_type
             }
         )
+    )
+
+
+def can_i_interact_with_ticket(ticket: Tickets | int, user: Users | int) -> bool:
+    """
+    Checks if user can interact with ticket.
+
+    Args:
+        ticket: ID or Tickets instance to check if it's allowed to interact
+        user_id: ID or Users instance who wants to interact with ticket
+
+    Returns:
+        True if user can interact with ticket else False
+    """
+
+    if isinstance(ticket, int):
+        ticket = is_ticket_exist(ticket)
+
+    if isinstance(user, int):
+        user = get_user_by_id(user)
+
+    return (
+        ticket.hidden == 0
+        or user.user_id in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
+        or user.role.role_id in ADMIN_ROLES
     )
