@@ -10,3 +10,5 @@ def burrito_ping(host, port):
         sock.connect((host, int(port)))
     except socket.error:
         get_logger().critical(f"({host}, {port}) is unreachable")
+    except Exception as exc:
+        get_logger().error(exc)
