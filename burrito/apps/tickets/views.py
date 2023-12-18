@@ -45,7 +45,8 @@ from burrito.utils.query_util import (
     q_followed,
     q_liked,
     q_creator_is,
-    STATUS_CLOSE
+    STATUS_CLOSE,
+    ADMIN_ROLES
 )
 from burrito.utils.tickets_util import (
     make_short_user_data,
@@ -201,6 +202,8 @@ async def tickets__bookmark_ticket(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
+    current_user = get_user_by_id(token_payload.user_id)
+
     ticket: Tickets | None = is_ticket_exist(
         bookmark_ticket_data.ticket_id
     )
@@ -211,6 +214,7 @@ async def tickets__bookmark_ticket(
             ticket.creator.user_id,
             ticket.assignee.user_id if ticket.assignee else -1
         )
+        and current_user.role.role_id not in ADMIN_ROLES
     ):
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
@@ -284,6 +288,8 @@ async def tickets__like_ticket(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload)
 
+    current_user = get_user_by_id(token_payload.user_id)
+
     ticket: Tickets | None = is_ticket_exist(
         like_ticket_data.ticket_id
     )
@@ -294,6 +300,7 @@ async def tickets__like_ticket(
             ticket.creator.user_id,
             ticket.assignee.user_id if ticket.assignee else -1
         )
+        and current_user.role.role_id not in ADMIN_ROLES
     ):
         return JSONResponse(
             status_code=status.HTTP_403_FORBIDDEN,
