@@ -13,17 +13,17 @@ endif
 run:
 	$(PYTHON) -m burrito
 
+tres:
+	docker run --rm -p80:80 tres
+
+services:
+	docker compose -f docker-compose-separated.yml up --build
+
 docs_:
 	doxygen docs.conf
 
-clear_db: tests/utils/clear_db.py
-	$(PYTHON) tests/utils/clear_db.py
-
 tests_:
 	$(PYTHON) tests/run_tests.py
-
-locust:
-	docker compose -f docker-compose-locust.yml up --build --scale worker=4
 
 rmi:
 	scripts/docker_rm_all_images.sh
