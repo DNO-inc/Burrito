@@ -13,6 +13,12 @@ endif
 run:
 	$(PYTHON) -m burrito
 
+profiling:
+	python -m cProfile -o shadow/profiling/profiling.pstats -m burrito
+
+profiling_check:
+	gprof2dot -f pstats shadow/profiling/profiling.pstats | dot -Tpng -o shadow/profiling/profiling.png && eog shadow/profiling/profiling.png
+
 tres:
 	docker run --rm -p80:80 tres
 
