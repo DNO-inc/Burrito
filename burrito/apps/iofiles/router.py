@@ -17,12 +17,6 @@ iofiles_router.add_api_route(
 )
 
 iofiles_router.add_api_route(
-    "/{file_id}",
-    iofiles__get_file,
-    methods=["GET"]
-)
-
-iofiles_router.add_api_route(
     "/get_file_ids",
     iofiles__get_file_ids,
     methods=["POST"]
@@ -32,4 +26,10 @@ iofiles_router.add_api_route(
     "/delete_file",
     iofiles__delete_file,
     methods=["POST"]
+)
+
+iofiles_router.add_api_route(
+    "/{file_id}",
+    iofiles__get_file,
+    methods=["GET"]
 )
