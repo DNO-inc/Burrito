@@ -7,5 +7,5 @@ import (
 func main() {
 	app := app.GetApp()
 
-	app.Listen(":8080")
+	panic(app.Listen(":8080"))
 }
