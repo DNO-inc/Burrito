@@ -1,4 +1,4 @@
-from fastapi import Depends, status, Request, HTTPException
+from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.profile_schema import (
@@ -9,6 +9,7 @@ from burrito.models.m_password_rest_model import AccessRenewMetaData
 from burrito.models.user_model import Users
 
 from burrito.utils.email_util import publish_email
+from burrito.utils.email_templates import TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.users_util import (
@@ -27,19 +28,8 @@ from .utils import (
 )
 
 
-PASSWORD_REST_REQUEST_EMAIL = """
-Шановний(а) користувач(ка),
-
-Якщо ви отримали це повідомлення, це свідчить про те, що ви виразили бажання відновити доступ до свого облікового запису.
-
-Для відновлення доступу, будь ласка, скористайтеся наступним посиланням: {}.
-
-Майте на увазі, що це посилання буде активним лише протягом обмеженого періоду часу. Таким чином, рекомендуємо вам виконати процедуру відновлення якнайшвидше.
-
-Якщо ви не здійснювали жодних змін у своєму обліковому записі, і це повідомлення вас здивувало, будь ласка, зверніться до нашої служби підтримки через платформу TreS.
-
-Дякуємо за ваше розуміння та співпрацю.
-"""
+# TODO: it should be changed to env variable or we need to come up with another way to receive an actual URI for access renewing
+__ACCESS_RENEW_URL_TEMPLATE = "https://burrito.tres.cyberbydlo.com/general_tickets?reset_token={}"
 
 
 async def profile__check_by_id(
@@ -93,7 +83,6 @@ async def profile__update_my_profile(
 
 
 async def profile__token_reset_request(
-    request: Request,
     email: str
 ):
     user_data: Users | None = get_user_by_email_or_none(email)
@@ -114,9 +103,9 @@ async def profile__token_reset_request(
 
     publish_email(
         [user_data.user_id],
-        "Запит на поновлення доступу до TreS",
-        PASSWORD_REST_REQUEST_EMAIL.format(
-            f"{request.url_for('access_renew_route')}/{reset_token}"
+        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["subject"],
+        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["content"].format(
+            url=__ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
         )
     )
 

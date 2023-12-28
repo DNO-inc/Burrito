@@ -3,8 +3,8 @@ import random
 import unittest
 import requests
 
-from auth_test import AuthTestCase
-from tickets_test import TicketsTestCase
+from tests.auth.auth_test import AuthTestCase
+from tests.tickets.tickets_test import TicketsTestCase
 
 from burrito.utils.config_reader import get_config
 from utils.exceptions_tool import check_error

@@ -1,10 +1,11 @@
 import unittest
 import requests
+import jsonschema
 
 from burrito.utils.config_reader import get_config
-from utils.exceptions_tool import check_error
+from tests.utils import get_access_token
 
-from auth_test import AuthTestCase
+from .schemas import *
 
 
 TIMEOUT = 5
@@ -15,16 +16,9 @@ class NotificationsTestCase(unittest.TestCase):
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/notifications/offline",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+               "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        jsonschema.validate(response.json(), test_001_get_notifications_schema)

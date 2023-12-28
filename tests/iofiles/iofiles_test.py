@@ -2,10 +2,10 @@ import unittest
 
 import requests
 
-from auth_test import AuthTestCase
-from tickets_test import create_ticket_get_id
-
+from tests.tickets.tickets_test import create_ticket_get_id
+from tests.utils import get_access_token
 from burrito.utils.config_reader import get_config
+
 
 
 class IOFilesTestCase(unittest.TestCase):
@@ -20,7 +20,7 @@ class IOFilesTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/upload_file",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+               "Authorization": f"Bearer {get_access_token()}"
             },
             data={
                 "ticket_id": IOFilesTestCase.ticket_id
@@ -44,7 +44,7 @@ class IOFilesTestCase(unittest.TestCase):
         response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/{IOFilesTestCase.file_id}",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+               "Authorization": f"Bearer {get_access_token()}"
             },
             data={
                 "ticket_id": IOFilesTestCase.ticket_id
@@ -65,7 +65,7 @@ class IOFilesTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/get_file_ids",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+               "Authorization": f"Bearer {get_access_token()}"
             },
             data={
                 "ticket_id": IOFilesTestCase.ticket_id
@@ -83,7 +83,7 @@ class IOFilesTestCase(unittest.TestCase):
         response = requests.post(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/iofiles/delete_file",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+               "Authorization": f"Bearer {get_access_token()}"
             },
             data={
                 "file_id": IOFilesTestCase.file_id

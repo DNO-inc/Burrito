@@ -10,17 +10,6 @@ from burrito.utils.logger import get_logger
 from burrito.models.user_model import Users
 
 
-EMAIL_NOTIFICATION_TEMPLATE = """
-Шановн(-ий/-а) студент(-ко),
-
-Ми хочемо вас проінформувати, що були внесені важливі зміни до тікетів на платформі TreS. Нижче наведено деталізація цих змін:
-
-{}
-
-Дякуємо за увагу!
-"""
-
-
 class BurritoEmail(smtplib.SMTP_SSL):
     def __init__(self, host: str):
         """
@@ -126,13 +115,23 @@ def publish_email(receivers: set[int] | list[int], subject: str, content: str) -
         subject: The subject of the email
         content: The content of the email
     """
+    clear_receivers = list(set(receivers))
     get_redis_connector().publish(
         "email",
         orjson.dumps(
             {
-                "receivers": list(set(receivers)),
+                "receivers": clear_receivers,
                 "subject": subject,
                 "content": content
             }
         )
+    )
+    get_logger().info(
+        f"""
+            New email was published to chanel (
+                "receivers": {clear_receivers},
+                "subject": {subject},
+            )
+
+        """
     )

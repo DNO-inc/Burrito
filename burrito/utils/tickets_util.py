@@ -11,7 +11,12 @@ from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
-from burrito.utils.email_util import publish_email, EMAIL_NOTIFICATION_TEMPLATE
+from burrito.utils.email_util import publish_email
+from burrito.utils.email_templates import (
+    TEMPLATE__ASSIGNED_TO_TICKET,
+    TEMPLATE__UNASSIGNED_TO_TICKET,
+    TEMPLATE__EMAIL_NOTIFICATION
+)
 
 from burrito.models.statuses_model import Statuses
 from burrito.models.queues_model import Queues
@@ -353,9 +358,12 @@ def create_ticket_action(
         )
         publish_email(
             get_notification_receivers(ticket, exclude_id=user_id),
-            f"TreS #{ticket.ticket_id} \"{ticket.subject}\"",
-            EMAIL_NOTIFICATION_TEMPLATE.format(
-                f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
+            TEMPLATE__EMAIL_NOTIFICATION["subject"].format(
+                ticket_id=ticket.ticket_id,
+                ticket_subject=ticket.subject
+            ),
+            TEMPLATE__EMAIL_NOTIFICATION["content"].format(
+                data=f"{action_author.login} змінив значення '{field_name}' з ({old_value}) на ({new_value})"
             )
         )
         get_redis_connector().publish(
@@ -390,10 +398,11 @@ def create_ticket_file_action(
 
     get_logger().info(
         f"""
-        New fila action (
+        New file action (
             ticket={ticket_id},
             user={user_id},
             value={value}
+            file_meta_action={file_meta_action}
         )
 
         """
@@ -402,7 +411,8 @@ def create_ticket_file_action(
         FileActions(
             ticket_id=ticket_id,
             user_id=user_id,
-            value=value
+            value=value,
+            file_meta_action=file_meta_action
         )
     )
     if generate_notification:
@@ -474,7 +484,8 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
                         ),
                         creation_date=item["creation_date"],
                         field_name=item["field_name"],
-                        value=item["value"]
+                        value=item["value"],
+                        file_meta_action=item["file_meta_action"]
                     )
                 )
 
@@ -650,6 +661,11 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
+    email_template_data = {
+        "ticket_id": ticket.ticket_id,
+        "ticket_subject": ticket.subject
+    }
+
     if new_assignee and (not ticket.assignee):
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -662,6 +678,12 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
 
         change_ticket_status(ticket, user_id, STATUS_ACCEPTED)
 
+        publish_email(
+            (new_assignee.user_id,),
+            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
     elif new_assignee and ticket.assignee and ticket.assignee.user_id != new_assignee.user_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
@@ -670,6 +692,17 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             old_value=ticket.assignee.user_id,
             new_value=new_assignee.user_id
         )
+        publish_email(
+            (ticket.assignee.user_id,),
+            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+        publish_email(
+            (new_assignee.user_id,),
+            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
         ticket.assignee = new_assignee
 
     elif new_assignee is None and ticket.assignee and ticket.assignee.user_id == user_id:
@@ -680,6 +713,13 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
             old_value=ticket.assignee.user_id,
             new_value="None"
         )
+
+        publish_email(
+            (ticket.assignee.user_id,),
+            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+        )
+
         ticket.assignee = None
 
 
