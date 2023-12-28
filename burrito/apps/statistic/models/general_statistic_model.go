@@ -6,6 +6,14 @@ type TicketStatusCount struct {
 }
 
 type GeneralStatisticModel struct {
-	TicketsCount int64               `json:"tickets_count"`
-	Statuses     []TicketStatusCount `json:"statuses"`
+	Global struct {
+		TicketsCount int64               `json:"tickets_count"`
+		Statuses     []TicketStatusCount `json:"statuses"`
+	} `json:"global"`
+
+	Period []struct {
+		Date         string `json:"date"`
+		StatusID     int    `json:"status_id"`
+		TicketsCount int64  `json:"tickets_count"`
+	} `json:"period"`
 }
