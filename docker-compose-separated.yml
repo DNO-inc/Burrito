@@ -28,6 +28,7 @@ services:
       - burrito_profile
       - burrito_registration
       - burrito_tickets
+      - burrito_statistic
     networks:
       - burrito_party
     deploy:
@@ -276,6 +277,24 @@ services:
       - .env
     ports:
       - "$BURRITO_WEBSOCKET_PORT"
+    networks:
+      - burrito_party
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 15s
+        max_attempts: 3
+        window: 120s
+
+  burrito_statistic:
+    container_name: burrito_statistic
+    build:
+      context: .
+      dockerfile: burrito/apps/statistic/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "$BURRITO_PORT"
     networks:
       - burrito_party
     deploy:
