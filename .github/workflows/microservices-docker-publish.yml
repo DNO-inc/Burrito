@@ -28,6 +28,7 @@ jobs:
           - tickets
           - scheduler
           - ws
+          - statistic
     permissions:
       contents: read
       packages: write
