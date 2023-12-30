@@ -16,6 +16,7 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/proxy_headers.conf:/etc/nginx/proxy_headers.conf
       - ./nginx/websocket_settings.conf:/etc/nginx/websocket_settings.conf
+      - ./nginx/cors_headers.conf:/etc/nginx/cors_headers.conf
     depends_on:
       - burrito_about
       - burrito_admin
