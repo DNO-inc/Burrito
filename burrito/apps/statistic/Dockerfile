@@ -1,12 +1,14 @@
 FROM golang:alpine AS builder
 
+ENV APP_PATH=burrito/apps/statistic
+
 WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY $APP_PATH/go.mod $APP_PATH/go.sum ./
 
 RUN go mod download
 
-COPY . .
+COPY $APP_PATH .
 
 RUN go build -o main .
 
