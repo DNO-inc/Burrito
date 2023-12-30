@@ -209,7 +209,13 @@ test_016_get_full_ticket_history_schema = {
                 "required": ["faculty_id", "name"]
               },
               "firstname": { "type": "string" },
-              "group": { "type": ["null", "string"] },
+              "group": {
+                "type": ["null", "object"],
+                "properties": {
+                  "group_id": {"type": "integer"},
+                  "name": {"type": "string"}
+                }
+              },
               "lastname": { "type": "string" },
               "login": { "type": "string" },
               "user_id": { "type": "integer" }
