@@ -8,13 +8,11 @@ import (
 )
 
 type Config struct {
-	DB_HOST string `env:"BURRITO_DB_HOST,required"`
-	DB_PORT int    `env:"BURRITO_DB_PORT,required"`
-
-	MYSQL_ROOT_PASSWORD string `env:"MYSQL_ROOT_PASSWORD,required"`
-	MYSQL_DATABASE      string `env:"MYSQL_DATABASE,required"`
-	MYSQL_USER          string `env:"MYSQL_USER,required"`
-	MYSQL_PASSWORD      string `env:"MYSQL_PASSWORD,required"`
+	DB_NAME     string `env:"BURRITO_DB_NAME,required"`
+	DB_USER     string `env:"BURRITO_DB_USER,required"`
+	DB_PASSWORD string `env:"BURRITO_DB_PASSWORD,required"`
+	DB_HOST     string `env:"BURRITO_DB_HOST,required"`
+	DB_PORT     int    `env:"BURRITO_DB_PORT,required"`
 
 	REDIS_HOST     string `env:"BURRITO_REDIS_HOST,required"`
 	REDIS_PORT     int    `env:"BURRITO_REDIS_PORT,required"`

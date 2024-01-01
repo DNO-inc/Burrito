@@ -18,11 +18,11 @@ func GetDatabase() *gorm.DB {
 			mysql.Open(
 				fmt.Sprintf(
 					dsn,
-					GetConfig().MYSQL_USER,
-					GetConfig().MYSQL_PASSWORD,
+					GetConfig().DB_USER,
+					GetConfig().DB_PASSWORD,
 					GetConfig().DB_HOST,
 					GetConfig().DB_PORT,
-					GetConfig().MYSQL_DATABASE,
+					GetConfig().DB_NAME,
 				),
 			),
 			&gorm.Config{},
