@@ -1,0 +1,102 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is an app to provide with a statistic information",
+        "title": "BurritoStatistic",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/statistic/general": {
+            "post": {
+                "description": "get general statistic",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "get general statistic",
+                "parameters": [
+                    {
+                        "description": "GeneralStatisticRequest",
+                        "name": "payload",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.GeneralStatisticRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.GeneralStatisticModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.GeneralStatisticModel": {
+            "type": "object",
+            "properties": {
+                "global": {
+                    "type": "object",
+                    "properties": {
+                        "statuses": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.TicketStatusCount"
+                            }
+                        },
+                        "tickets_count": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "period": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "string"
+                            },
+                            "status_id": {
+                                "type": "integer"
+                            },
+                            "tickets_count": {
+                                "type": "integer"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "models.GeneralStatisticRequest": {
+            "type": "object",
+            "properties": {
+                "from": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.TicketStatusCount": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "status_id": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}
