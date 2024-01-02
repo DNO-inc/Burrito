@@ -9,6 +9,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// @Summary		get general statistic
+// @Description	get general statistic
+// @Accept			json
+// @Produce		json
+// @Param			payload	body		models.GeneralStatisticRequest	true	"GeneralStatisticRequest"
+// @Success 200 {object} models.GeneralStatisticModel
+// @Router /statistic/general [post]
 func GetGeneralStatistic(ctx *fiber.Ctx) error {
 	tokenPayload := utils.ValidateJWTAndCheckPermission(ctx)
 	if tokenPayload == nil {

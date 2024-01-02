@@ -1,0 +1,65 @@
+definitions:
+  models.GeneralStatisticModel:
+    properties:
+      global:
+        properties:
+          statuses:
+            items:
+              $ref: '#/definitions/models.TicketStatusCount'
+            type: array
+          tickets_count:
+            type: integer
+        type: object
+      period:
+        items:
+          properties:
+            date:
+              type: string
+            status_id:
+              type: integer
+            tickets_count:
+              type: integer
+          type: object
+        type: array
+    type: object
+  models.GeneralStatisticRequest:
+    properties:
+      from:
+        type: string
+      to:
+        type: string
+    type: object
+  models.TicketStatusCount:
+    properties:
+      count:
+        type: integer
+      status_id:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: This is an app to provide with a statistic information
+  title: BurritoStatistic
+  version: "1.0"
+paths:
+  /statistic/general:
+    post:
+      consumes:
+      - application/json
+      description: get general statistic
+      parameters:
+      - description: GeneralStatisticRequest
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.GeneralStatisticRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.GeneralStatisticModel'
+      summary: get general statistic
+swagger: "2.0"
