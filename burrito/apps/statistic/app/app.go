@@ -16,7 +16,7 @@ func configureApp() *fiber.App {
 	app := fiber.New()
 
 	app.Use(logger.New(logger.Config{
-		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
+		Format: "[${time}] | [${ip}]:${port} ${status} - ${method} ${path}\n",
 	}))
 
 	app.Use(cors.New(cors.Config{
