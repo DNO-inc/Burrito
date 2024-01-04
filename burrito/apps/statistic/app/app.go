@@ -16,7 +16,14 @@ func configureApp() *fiber.App {
 	app := fiber.New()
 
 	app.Use(logger.New(logger.Config{
-		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
+		Format: "[${time}] | [${ip}]:${port} ${status} - ${method} ${path}\n",
+	}))
+
+	app.Use(cors.New(cors.Config{
+		AllowHeaders:     "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
+		AllowOrigins:     "*",
+		AllowCredentials: true,
+		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,OPTIONS",
 	}))
 
 	app.Use(cors.New(cors.Config{
