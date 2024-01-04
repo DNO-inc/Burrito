@@ -35,9 +35,17 @@ func GetGeneralStatistic(ctx *fiber.Ctx) error {
 	var generalStatisticInstance = models.GeneralStatisticModel{}
 
 	db.Table("tickets").Select("COUNT(*)").Count(&generalStatisticInstance.Global.TicketsCount)
-	db.Table("tickets").Select("status_id, COUNT(*) AS count").Group("status_id").Find(&generalStatisticInstance.Global.Statuses)
+	db.Table("tickets t").Select(
+		"s.status_id, s.name status_name, COUNT(*) AS count",
+	).Joins("JOIN statuses s ON t.status_id = s.status_id").Group("status_id").Find(
+		&generalStatisticInstance.Global.Statuses,
+	)
 
-	db.Table("tickets").Select("DATE(created) date, status_id, COUNT(*) tickets_count").Group("status_id, date").Find(&generalStatisticInstance.Period)
+	db.Table("tickets t").Select(
+		"DATE(t.created) date, s.status_id, s.name status_name, COUNT(*) tickets_count",
+	).Joins("JOIN statuses s ON t.status_id = s.status_id").Group("t.status_id, date").Find(
+		&generalStatisticInstance.Period,
+	)
 
 	statisticResponse, _ := json.Marshal(generalStatisticInstance)
 	return ctx.JSON(string(statisticResponse))

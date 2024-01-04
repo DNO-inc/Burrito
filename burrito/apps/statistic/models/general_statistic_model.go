@@ -1,8 +1,9 @@
 package models
 
 type TicketStatusCount struct {
-	StatusID int `json:"status_id"`
-	Count    int `json:"count"`
+	StatusID   int    `json:"status_id"`
+	StatusName string `json:"status_name"`
+	Count      int    `json:"count"`
 }
 
 type GeneralStatisticModel struct {
@@ -14,6 +15,7 @@ type GeneralStatisticModel struct {
 	Period []struct {
 		Date         string `json:"date"`
 		StatusID     int    `json:"status_id"`
+		StatusName   string `json:"status_name"`
 		TicketsCount int64  `json:"tickets_count"`
 	} `json:"period"`
 }
