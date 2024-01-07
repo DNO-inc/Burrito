@@ -63,7 +63,7 @@ async def comments__create(
         Notifications(
             ticket_id=ticket.ticket_id,
             user_id=token_payload.user_id,
-            body_ua=f"Хтось створив новий коментарій в тікеті {ticket.ticket_id}",
+            body_ua=f"Хтось створив новий коментарій у зверненні {ticket.ticket_id}",
             body=f"Someone has created a new comment in ticket {ticket.ticket_id}"
         ),
         author_id=token_payload.user_id
