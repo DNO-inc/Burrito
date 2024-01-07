@@ -106,19 +106,22 @@ async def admin__get_ticket_list_by_filter(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     user_data = check_permission(token_payload, {"ADMIN"})
 
+    admin_filters = [
+        q_creator_is(filters.creator),
+        q_assignee_is(filters.assignee),
+        q_is_hidden(filters.hidden),
+        q_is_anonymous(filters.anonymous),
+        q_is_valid_faculty(filters.faculty),
+        q_is_valid_status_list(filters.status),
+        q_scope_is(filters.scope),
+        q_is_valid_queue(filters.queue)
+    ]
+
     available_filters = {
-        "ADMIN": [
-            q_creator_is(filters.creator),
-            q_assignee_is(filters.assignee),
-            q_is_hidden(filters.hidden),
-            q_is_anonymous(filters.anonymous),
-            q_is_valid_faculty(filters.faculty),
-            q_is_valid_status_list(filters.status),
-            q_scope_is(filters.scope),
-            q_is_valid_queue(filters.queue)
-        ],
+        "ADMIN": admin_filters,
+        "CHIEF_ADMIN": admin_filters,
         "default": [
-            q_is_hidden(True)
+            q_is_hidden(False)
         ]
     }
     final_filters = select_filters(user_data.role_name, available_filters)
