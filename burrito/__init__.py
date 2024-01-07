@@ -1,6 +1,6 @@
 from pytz import timezone
 
 
-__version__ = "1.2.1 alpha"
+__version__ = "2.0.0 alpha"
 
 CURRENT_TIME_ZONE = timezone("Europe/Kyiv")
