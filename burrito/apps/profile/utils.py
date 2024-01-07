@@ -14,7 +14,6 @@ from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 from burrito.models.role_permissions_model import RolePermissions
-from burrito.models.roles_model import Roles
 
 from burrito.schemas.profile_schema import (
     ResponseProfileSchema,
@@ -36,7 +35,6 @@ from burrito.utils.validators import (
     is_valid_password,
     is_valid_phone
 )
-
 
 __all__ = (
     "get_auth_core",
@@ -114,9 +112,6 @@ async def update_profile_data(
 
     if is_valid_password(profile_updated_data.password):
         current_user.password = get_hash(profile_updated_data.password)
-
-    if profile_updated_data.role_id and Roles.get_or_none(Roles.role_id == profile_updated_data.role_id):
-        current_user.role = profile_updated_data.role_id
 
     current_user.save()
 
