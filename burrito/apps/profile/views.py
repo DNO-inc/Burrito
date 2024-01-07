@@ -8,19 +8,17 @@ from burrito.schemas.profile_schema import (
 from burrito.models.m_password_rest_model import AccessRenewMetaData
 from burrito.models.user_model import Users
 
+from burrito.utils.auth import get_auth_core
 from burrito.utils.email_util import publish_email
 from burrito.utils.email_templates import TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.users_util import (
-    is_admin,
-    is_chief_admin,
     get_user_by_email_or_none,
     get_user_by_id
 )
 
 from .utils import (
-    get_auth_core,
     check_permission,
     view_profile_by_user_id,
     update_profile_data,
@@ -52,29 +50,7 @@ async def profile__update_my_profile(
     token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
     check_permission(token_payload, permission_list={"UPDATE_PROFILE"})
 
-    target_user_id = -1
-    # if token owner is admin we can allow to change profiles of other users
-    # otherwise the profile of the token owner will be changed
-
-    _curr_is_admin: bool = is_admin(token_payload.user_id)
-    _curr_is_chief_admin: bool = is_chief_admin(token_payload.user_id)
-
-    _target_is_admin: bool = is_admin(profile_updated_data.user_id) if profile_updated_data.user_id else False
-    _target_is_chief_admin: bool = is_chief_admin(profile_updated_data.user_id) if profile_updated_data.user_id else False
-    # CHIEF_ADMIN is able to change every bodies profiles
-    if profile_updated_data.user_id and _curr_is_chief_admin:
-        target_user_id = profile_updated_data.user_id
-    elif (
-        profile_updated_data.user_id
-        and _curr_is_admin
-        and not _target_is_admin
-        and not _target_is_chief_admin
-    ):  # ADMIN is only able to change USER* profiles
-        target_user_id = profile_updated_data.user_id
-    else:
-        target_user_id = token_payload.user_id
-
-    await update_profile_data(target_user_id, profile_updated_data)
+    await update_profile_data(token_payload.user_id, profile_updated_data)
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,

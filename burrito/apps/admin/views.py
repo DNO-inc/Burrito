@@ -1,10 +1,11 @@
 import math
 
-from fastapi import Depends
+from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.models.tickets_model import Tickets
 
+from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 from burrito.schemas.admin_schema import (
     AdminTicketIdSchema,
     AdminUpdateTicketSchema,
@@ -54,7 +55,8 @@ from burrito.utils.converter import (
 from .utils import (
     check_permission,
     is_ticket_exist,
-    make_ticket_detail_info
+    make_ticket_detail_info,
+    update_profile_as_admin
 )
 
 
@@ -237,4 +239,48 @@ async def admin__delete_ticket(
     return JSONResponse(
         status_code=200,
         content={"detail": "Ticket was deleted successfully"}
+    )
+
+
+async def admin__update_profile(
+    profile_updated_data: AdminRequestUpdateProfileSchema = AdminRequestUpdateProfileSchema(),
+    __auth_obj: BurritoJWT = Depends(get_auth_core())
+):
+    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
+    check_permission(token_payload, {"ADMIN"})
+
+    if profile_updated_data.user_id in (None, token_payload.user_id):
+        await update_profile_as_admin(
+            token_payload.user_id,
+            profile_updated_data,
+            allow_extra_fields=False
+        )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Profile was updated"}
+        )
+
+    current_user = get_user_by_id(token_payload.user_id)
+    target_user = get_user_by_id(profile_updated_data.user_id)
+
+    # TODO: this is a temporary solution while field 'priority' has not added to Roles model
+    if (
+        current_user.role.role_id > target_user.role.role_id
+        and current_user.role.role_id > profile_updated_data.role_id
+    ):
+        await update_profile_as_admin(
+            profile_updated_data.user_id,
+            profile_updated_data,
+            allow_extra_fields=True
+        )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={"detail": "Profile was updated"}
+        )
+
+    return JSONResponse(
+        status_code=status.HTTP_403_FORBIDDEN,
+        content={"detail": "It's prohibited to update this profile"}
     )

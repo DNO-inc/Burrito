@@ -10,10 +10,10 @@ import (
 
 var dsn string = "%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local"
 var db *gorm.DB = nil
+var mysqlOnce sync.Once
 
 func GetDatabase() *gorm.DB {
-	var once sync.Once
-	once.Do(func() {
+	mysqlOnce.Do(func() {
 		db, _ = gorm.Open(
 			mysql.Open(
 				fmt.Sprintf(
@@ -27,6 +27,10 @@ func GetDatabase() *gorm.DB {
 			),
 			&gorm.Config{},
 		)
+
+		sqlDB, _ := db.DB()
+		sqlDB.SetMaxIdleConns(10)
+		sqlDB.SetMaxOpenConns(50)
 	})
 	return db
 }
