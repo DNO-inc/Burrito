@@ -3,7 +3,7 @@ from fastapi import HTTPException, status
 from burrito.utils.logger import get_logger
 from burrito.utils.transliteration import transliterate
 from burrito.utils.converter import GroupConverter, FacultyConverter
-from burrito.utils.query_util import ADMIN_ROLES, CHIEF_ADMIN_ROLES
+from burrito.utils.query_util import MIN_ADMIN_PRIORITY, MIN_CHIEF_ADMIN_PRIORITY
 
 from burrito.schemas.registration_schema import RegistrationSchema
 
@@ -160,9 +160,8 @@ def get_user_by_id_or_none(user_id: int) -> Users | None:
 
 
 def is_admin(user_id: int) -> bool:
-    # TODO: replace 9 with list
-    return get_user_by_id(user_id).role.role_id == 9
+    return get_user_by_id(user_id).role.priority in MIN_ADMIN_PRIORITY
 
 
 def is_chief_admin(user_id: int) -> bool:
-    return get_user_by_id(user_id).role.role_id in CHIEF_ADMIN_ROLES
+    return get_user_by_id(user_id).role.priority in MIN_CHIEF_ADMIN_PRIORITY

@@ -115,11 +115,16 @@ test_get_admin_list_schema = {
                         "required": ["faculty_id", "name"]
                     },
                     "group": {
-                            "type": "null",
-   #                         "properties": {
-  #                              "group_id": {"type": "number"},
- #                               "name": {"type": "string"}
-#                            }
+                        "oneOf": [
+                            { "type": "null" },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "group_id": { "type": "number" },
+                                    "name": { "type": "string" }
+                                }
+                            }
+                        ]
                     }
                 },
                 "required": ["user_id", "firstname", "lastname", "login", "faculty", "group"]
