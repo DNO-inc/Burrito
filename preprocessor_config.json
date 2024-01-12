@@ -114,16 +114,16 @@
         {"permission_id": 6, "name": "GOD_MODE"}
     ],
     "roles": [
-        {"role_id": 1, "name": "USER_ALL"},
-        {"role_id": 2, "name": "USER_NO_M"},
-        {"role_id": 3, "name": "USER_NO_CT"},
-        {"role_id": 4, "name": "USER_NO_P"},
-        {"role_id": 5, "name": "USER_NO_PCT"},
-        {"role_id": 6, "name": "USER_NO_CTM"},
-        {"role_id": 7, "name": "USER_NO_PM"},
-        {"role_id": 8, "name": "USER_NO_PCTM"},
-        {"role_id": 9, "name": "ADMIN"},
-        {"role_id": 10, "name": "CHIEF_ADMIN"}
+        {"role_id": 1, "name": "USER_ALL", "priority": 10},
+        {"role_id": 2, "name": "USER_NO_M", "priority": 10},
+        {"role_id": 3, "name": "USER_NO_CT", "priority": 10},
+        {"role_id": 4, "name": "USER_NO_P", "priority": 10},
+        {"role_id": 5, "name": "USER_NO_PCT", "priority": 10},
+        {"role_id": 6, "name": "USER_NO_CTM", "priority": 10},
+        {"role_id": 7, "name": "USER_NO_PM", "priority": 10},
+        {"role_id": 8, "name": "USER_NO_PCTM", "priority": 10},
+        {"role_id": 9, "name": "ADMIN", "priority": 90},
+        {"role_id": 10, "name": "CHIEF_ADMIN", "priority": 100}
     ],
     "role_permissions": [
         {"role_id": 1, "permission_id": 1},
