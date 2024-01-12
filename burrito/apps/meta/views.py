@@ -25,7 +25,7 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 
 from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
-from burrito.utils.query_util import ADMIN_ROLES
+from burrito.utils.query_util import MIN_ADMIN_PRIORITY
 from burrito.utils.auth import BurritoJWT, get_auth_core
 
 from burrito.apps.meta.utils import RolesResponse, RolePermissionResponse
@@ -86,7 +86,7 @@ async def meta__get_admins(__auth_obj: BurritoJWT = Depends(get_auth_core())):
             make_short_user_data(
                 admin,
                 hide_user_id=False
-            ) for admin in Users.select().where(Users.role.in_(ADMIN_ROLES))
+            ) for admin in Users.select().where(Users.role.priority in MIN_ADMIN_PRIORITY)
         ]
     )
 
