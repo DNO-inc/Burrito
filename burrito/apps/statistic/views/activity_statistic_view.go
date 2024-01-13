@@ -8,6 +8,11 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// @Summary		get period statistic
+// @Description	get period statistic
+// @Produce		json
+// @Success 200 {object} models.ActivitySummaryModel
+// @Router /statistic/activity_summary [get]
 func ActivitySummaryView(ctx *fiber.Ctx) error {
 	tokenPayload := utils.ValidateJWTAndCheckPermission(ctx)
 	if tokenPayload == nil {

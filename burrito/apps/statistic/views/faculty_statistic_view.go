@@ -19,6 +19,11 @@ JOIN faculties f ON u.faculty_id = f.faculty_id
 GROUP BY u.faculty_id
 `
 
+// @Summary		get faculty statistic
+// @Description	get faculty statistic
+// @Produce		json
+// @Success 200 {object} models.FacultyStatisticModel
+// @Router /statistic/faculty [get]
 func FacultyStatisticView(ctx *fiber.Ctx) error {
 	tokenPayload := utils.ValidateJWTAndCheckPermission(ctx)
 	if tokenPayload == nil {

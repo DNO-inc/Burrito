@@ -10,7 +10,7 @@ import (
 // this routes created without sub-apps or groups cause this app is aimed to be simple
 // it will contain less than 10 endpoints
 func ConnectRoutes(app *fiber.App) {
-	app.Post("/statistic/general", views.GetGeneralStatistic)
+	app.Post("/statistic/period", views.PeriodStatisticView)
 	app.Get("/statistic/activity_summary", views.ActivitySummaryView)
 	app.Get("/statistic/faculties", views.FacultyStatisticView)
 	app.Get("/statistic/docs/*", swagger.HandlerDefault)

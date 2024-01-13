@@ -15,7 +15,41 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/statistic/general": {
+        "/statistic/activity_summary": {
+            "get": {
+                "description": "get period statistic",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "get period statistic",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ActivitySummaryModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/statistic/faculty": {
+            "get": {
+                "description": "get faculty statistic",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "get faculty statistic",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.FacultyStatisticModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/statistic/period": {
             "post": {
                 "description": "get general statistic",
                 "consumes": [
@@ -27,12 +61,12 @@ const docTemplate = `{
                 "summary": "get general statistic",
                 "parameters": [
                     {
-                        "description": "GeneralStatisticRequest",
+                        "description": "PeriodStatisticRequest",
                         "name": "payload",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.GeneralStatisticRequest"
+                            "$ref": "#/definitions/models.PeriodStatisticRequest"
                         }
                     }
                 ],
@@ -40,7 +74,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GeneralStatisticModel"
+                            "$ref": "#/definitions/models.PeriodStatisticModel"
                         }
                     }
                 }
@@ -48,24 +82,69 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.GeneralStatisticModel": {
+        "models.ActivitySummaryModel": {
             "type": "object",
             "properties": {
-                "global": {
-                    "type": "object",
-                    "properties": {
-                        "statuses": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.TicketStatusCount"
+                "average_process_time": {
+                    "type": "number"
+                },
+                "tickets_processed": {
+                    "type": "integer"
+                },
+                "users_registered": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.FacultyData": {
+            "type": "object",
+            "properties": {
+                "created_tickets_percent": {
+                    "type": "number"
+                },
+                "faculty_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "registered_users": {
+                    "type": "integer"
+                }
+            }
+        },
+        "models.FacultyStatisticModel": {
+            "type": "object",
+            "properties": {
+                "faculties_data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.FacultyData"
+                    }
+                }
+            }
+        },
+        "models.PeriodStatisticModel": {
+            "type": "object",
+            "properties": {
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "date": {
+                                "type": "string"
+                            },
+                            "scope": {
+                                "type": "integer"
+                            },
+                            "tickets_count": {
+                                "type": "integer"
                             }
-                        },
-                        "tickets_count": {
-                            "type": "integer"
                         }
                     }
                 },
-                "period": {
+                "statuses": {
                     "type": "array",
                     "items": {
                         "type": "object",
@@ -76,6 +155,9 @@ const docTemplate = `{
                             "status_id": {
                                 "type": "integer"
                             },
+                            "status_name": {
+                                "type": "string"
+                            },
                             "tickets_count": {
                                 "type": "integer"
                             }
@@ -84,7 +166,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.GeneralStatisticRequest": {
+        "models.PeriodStatisticRequest": {
             "type": "object",
             "properties": {
                 "from": {
@@ -92,17 +174,6 @@ const docTemplate = `{
                 },
                 "to": {
                     "type": "string"
-                }
-            }
-        },
-        "models.TicketStatusCount": {
-            "type": "object",
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "status_id": {
-                    "type": "integer"
                 }
             }
         }
