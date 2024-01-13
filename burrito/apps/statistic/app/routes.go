@@ -11,6 +11,7 @@ import (
 // it will contain less than 10 endpoints
 func ConnectRoutes(app *fiber.App) {
 	app.Post("/statistic/general", views.GetGeneralStatistic)
+	app.Get("/statistic/activity_summary", views.ActivitySummaryView)
 	app.Get("/statistic/faculties", views.FacultyStatisticView)
 	app.Get("/statistic/docs/*", swagger.HandlerDefault)
 }
