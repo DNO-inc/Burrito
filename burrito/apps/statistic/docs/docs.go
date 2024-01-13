@@ -136,7 +136,7 @@ const docTemplate = `{
                                 "type": "string"
                             },
                             "scope": {
-                                "type": "integer"
+                                "type": "string"
                             },
                             "tickets_count": {
                                 "type": "integer"

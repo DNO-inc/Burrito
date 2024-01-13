@@ -15,7 +15,7 @@ type PeriodStatisticModel struct {
 
 	ByScopes []struct {
 		Date         string `json:"date"`
-		Scope        int    `json:"scope"`
+		Scope        string `json:"scope"`
 		TicketsCount int64  `json:"tickets_count"`
 	} `json:"scopes"`
 }

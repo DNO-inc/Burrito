@@ -51,5 +51,5 @@ func PeriodStatisticView(ctx *fiber.Ctx) error {
 	`).Scan(&periodStatisticInstance.ByScopes)
 
 	statisticResponse, _ := json.Marshal(periodStatisticInstance)
-	return ctx.JSON(string(statisticResponse))
+	return ctx.SendString(string(statisticResponse))
 }

@@ -37,5 +37,5 @@ func FacultyStatisticView(ctx *fiber.Ctx) error {
 	db.Raw(facultyStatisticQuery).Scan(&facultyStatisticInstance.FacultiesData)
 
 	response, _ := json.Marshal(facultyStatisticInstance)
-	return ctx.JSON(string(response))
+	return ctx.SendString(string(response))
 }

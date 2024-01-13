@@ -29,5 +29,5 @@ func ActivitySummaryView(ctx *fiber.Ctx) error {
 	db.Raw("SELECT COUNT(*) FROM users").Scan(&activityStatisticInstance.UsersRegistered)
 
 	response, _ := json.Marshal(activityStatisticInstance)
-	return ctx.JSON(string(response))
+	return ctx.SendString(string(response))
 }

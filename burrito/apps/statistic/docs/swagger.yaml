@@ -34,7 +34,7 @@ definitions:
             date:
               type: string
             scope:
-              type: integer
+              type: string
             tickets_count:
               type: integer
           type: object
