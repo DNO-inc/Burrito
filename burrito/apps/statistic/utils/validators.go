@@ -2,6 +2,6 @@ package utils
 
 import "BurritoStatistic/models"
 
-func IsValidGeneralStatisticRequest(data *models.GeneralStatisticRequest) bool {
+func IsValidPeriodStatisticRequest(data *models.PeriodStatisticRequest) bool {
 	return IsValidDate(data.From) && IsValidDate(data.To)
 }

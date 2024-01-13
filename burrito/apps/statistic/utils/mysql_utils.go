@@ -45,6 +45,6 @@ func CheckForAdmin(user_id int) bool {
 	var userMetaData userAdminData
 	userMetaData.RoleID = -1
 	GetDatabase().Table("users").Select("role_id").Where("user_id = ?", user_id).Find(&userMetaData)
-
+	fmt.Println(user_id, userMetaData.RoleID)
 	return Contains(adminRoles, userMetaData.RoleID)
 }

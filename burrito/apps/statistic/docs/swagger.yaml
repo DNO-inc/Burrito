@@ -1,40 +1,64 @@
 definitions:
-  models.GeneralStatisticModel:
+  models.ActivitySummaryModel:
     properties:
-      global:
-        properties:
-          statuses:
-            items:
-              $ref: '#/definitions/models.TicketStatusCount'
-            type: array
-          tickets_count:
-            type: integer
-        type: object
-      period:
+      average_process_time:
+        type: number
+      tickets_processed:
+        type: integer
+      users_registered:
+        type: integer
+    type: object
+  models.FacultyData:
+    properties:
+      created_tickets_percent:
+        type: number
+      faculty_id:
+        type: integer
+      name:
+        type: string
+      registered_users:
+        type: integer
+    type: object
+  models.FacultyStatisticModel:
+    properties:
+      faculties_data:
+        items:
+          $ref: '#/definitions/models.FacultyData'
+        type: array
+    type: object
+  models.PeriodStatisticModel:
+    properties:
+      scopes:
+        items:
+          properties:
+            date:
+              type: string
+            scope:
+              type: string
+            tickets_count:
+              type: integer
+          type: object
+        type: array
+      statuses:
         items:
           properties:
             date:
               type: string
             status_id:
               type: integer
+            status_name:
+              type: string
             tickets_count:
               type: integer
           type: object
         type: array
     type: object
-  models.GeneralStatisticRequest:
+  models.PeriodStatisticRequest:
     properties:
       from:
         type: string
       to:
         type: string
-    type: object
-  models.TicketStatusCount:
-    properties:
-      count:
-        type: integer
-      status_id:
-        type: integer
     type: object
 info:
   contact: {}
@@ -42,24 +66,46 @@ info:
   title: BurritoStatistic
   version: "1.0"
 paths:
-  /statistic/general:
-    post:
-      consumes:
-      - application/json
-      description: get general statistic
-      parameters:
-      - description: GeneralStatisticRequest
-        in: body
-        name: payload
-        required: true
-        schema:
-          $ref: '#/definitions/models.GeneralStatisticRequest'
+  /statistic/activity_summary:
+    get:
+      description: get period statistic
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.GeneralStatisticModel'
+            $ref: '#/definitions/models.ActivitySummaryModel'
+      summary: get period statistic
+  /statistic/faculty:
+    get:
+      description: get faculty statistic
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.FacultyStatisticModel'
+      summary: get faculty statistic
+  /statistic/period:
+    post:
+      consumes:
+      - application/json
+      description: get general statistic
+      parameters:
+      - description: PeriodStatisticRequest
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/models.PeriodStatisticRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PeriodStatisticModel'
       summary: get general statistic
 swagger: "2.0"
