@@ -149,7 +149,7 @@ async def auth__key_login(
 
         if not new_user:
             return JSONResponse(
-                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                status_code=status.HTTP_406_NOT_ACCEPTABLE,
                 content={"detail": "Failed to create a new user"}
             )
 

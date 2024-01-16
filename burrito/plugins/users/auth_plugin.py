@@ -35,11 +35,19 @@ class AuthSSUPlugin(BurritoBasePlugin):
 
             raise ValueError
 
+        is_student = True
+        if response["result"].get("info2"):
+            is_student = False
+
         return {
-            "user_id": response["result"]["info1"][0]["ID_NUM"],
+            "user_id": (
+                int(response["result"]["info1"][-1]["ID_NUM"])
+                if is_student
+                else int(response["result"]["info2"][-1]["ID_NUM"])
+            ),
             "firstname": response["result"]["name"],
             "lastname": response["result"]["surname"],
-            "faculty": response["result"]["info1"][0]["KOD_DIV"],
-            "group": response["result"]["info1"][0]["KOD_GROUP"],
+            "faculty": response["result"]["info1"][0]["KOD_DIV"] if is_student else 1,
+            "group": response["result"]["info1"][0]["KOD_GROUP"] if is_student else None,
             "email": response["result"]["email"]
         }
