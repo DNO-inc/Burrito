@@ -25,10 +25,7 @@ from burrito.utils.query_util import (
     q_is_valid_queue,
     q_scope_is,
     q_is_valid_status_list,
-    q_not_hidden,
-    q_protected_statuses,
-    q_not_deleted,
-    q_is_hidden,
+    q_owned_or_not_hidden,
     q_assignee_is,
     q_creator_is
 )
@@ -62,18 +59,12 @@ async def tickets__show_tickets_list_by_filter(
         "default": [
             q_creator_is(filters.creator) if filters.creator else None,
             q_assignee_is(filters.assignee),
-            q_is_hidden(filters.hidden),
             q_is_anonymous(filters.anonymous),
             q_is_valid_faculty(filters.faculty),
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
-            *([
-                q_not_deleted(token_payload.user_id)
-            ] if filters.creator == token_payload.user_id else [
-                q_not_hidden(),
-                q_protected_statuses()
-            ])
+            q_owned_or_not_hidden(token_payload.user_id, filters.hidden)
         ]
     }
     final_filters = select_filters(user_data.role_name, available_filters)
