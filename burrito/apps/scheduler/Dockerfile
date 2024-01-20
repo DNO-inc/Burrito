@@ -25,6 +25,7 @@ COPY ./preprocessor_config.json /preprocessor_config.json
 COPY ./CONTRIBUTORS.md /CONTRIBUTORS.md
 COPY ./CHANGELOG.md /CHANGELOG.md
 COPY ./burrito /burrito
+COPY ./event_init.sql /event_init.sql
 
 WORKDIR ./
 

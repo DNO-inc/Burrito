@@ -44,7 +44,9 @@ if __name__ == "__main__":
 
     from burrito.utils.task_manager import get_task_manager
     from burrito.apps.ws.utils import run_websocket_server
+
     from burrito.apps.notifications.utils import email_loop
+    from burrito.apps.statistic.router import statistic_router
 
     from burrito.models.m_password_rest_model import AccessRenewMetaData
     from burrito.models.m_email_code import EmailVerificationCode
@@ -64,6 +66,7 @@ if __name__ == "__main__":
     connect_app(app, "/iofiles", iofiles_router)
     connect_app(app, "/comments", comments_router)
     connect_app(app, "/notifications", notifications_router)
+    connect_app(app, "/statistic", statistic_router)
 
     LOGGING_CONFIG["formatters"]["default"]["fmt"] = "[ %(asctime)s ] | %(name)s (%(process)d) | %(levelprefix)s %(message)s"
     LOGGING_CONFIG["formatters"]["access"]["fmt"] = "[ %(asctime)s ] | %(name)s (%(process)d) | %(levelprefix)s %(client_addr)s - \"%(request_line)s\" %(status_code)s"
