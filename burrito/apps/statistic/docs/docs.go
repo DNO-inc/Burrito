@@ -32,7 +32,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/statistic/faculty": {
+        "/statistic/faculties": {
             "get": {
                 "description": "get faculty statistic",
                 "produces": [
