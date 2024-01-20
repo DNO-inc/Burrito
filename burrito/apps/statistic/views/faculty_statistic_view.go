@@ -23,7 +23,7 @@ GROUP BY u.faculty_id
 // @Description	get faculty statistic
 // @Produce		json
 // @Success 200 {object} models.FacultyStatisticModel
-// @Router /statistic/faculty [get]
+// @Router /statistic/faculties [get]
 func FacultyStatisticView(ctx *fiber.Ctx) error {
 	tokenPayload := utils.ValidateJWTAndCheckPermission(ctx)
 	if tokenPayload == nil {

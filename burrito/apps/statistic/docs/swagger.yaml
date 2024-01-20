@@ -77,7 +77,7 @@ paths:
           schema:
             $ref: '#/definitions/models.ActivitySummaryModel'
       summary: get period statistic
-  /statistic/faculty:
+  /statistic/faculties:
     get:
       description: get faculty statistic
       produces:
