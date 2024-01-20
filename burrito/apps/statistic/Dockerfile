@@ -1,23 +1,31 @@
-FROM golang:alpine AS builder
+FROM python:3.10-slim-buster as burrito-build-base
 
-ENV APP_PATH=burrito/apps/statistic
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    PATH="/opt/pysetup/.venv/bin:$PATH"
 
-WORKDIR /app
+RUN apt-get update
+RUN apt-get install --no-install-recommends -y build-essential
 
-COPY $APP_PATH/go.mod $APP_PATH/go.sum ./
+WORKDIR /opt/pysetup
 
-RUN go mod download
+RUN pip3 install poetry
 
-COPY $APP_PATH .
+COPY pyproject.toml ./
 
-RUN go build -o main .
+RUN poetry install --only main
 
-FROM alpine:latest
 
-WORKDIR /app
+FROM python:3.10-slim-buster
 
-COPY --from=builder /app/main .
+ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 
-EXPOSE 8080
+COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/
+COPY ./preprocessor_config.json /preprocessor_config.json
+COPY ./CONTRIBUTORS.md /CONTRIBUTORS.md
+COPY ./CHANGELOG.md /CHANGELOG.md
+COPY ./burrito /burrito
 
-CMD ["./main"]
+WORKDIR ./
+
+CMD ["python", "-m", "burrito.apps.statistic"]
