@@ -26,13 +26,6 @@ func configureApp() *fiber.App {
 		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,OPTIONS",
 	}))
 
-	app.Use(cors.New(cors.Config{
-		AllowHeaders:     "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
-		AllowOrigins:     "*",
-		AllowCredentials: true,
-		AllowMethods:     "GET,POST,HEAD,PUT,DELETE,OPTIONS",
-	}))
-
 	ConnectRoutes(app)
 
 	return app
