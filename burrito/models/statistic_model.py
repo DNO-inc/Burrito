@@ -15,9 +15,9 @@ class StatusesStatistic(BurritoBasicModel):
 class FacultyScopesStatistic(BurritoBasicModel):
     faculty_id = AutoField()
     name = CharField()
-    reports_count = CharField(column_name="Reports")
-    qa_count = CharField(column_name="Q/A")
-    suggestion = CharField(column_name="Suggestion")
+    reports_count = IntegerField(column_name="Reports")
+    qa_count = IntegerField(column_name="Q/A")
+    suggestion = IntegerField(column_name="Suggestion")
 
     def __str__(self) -> str:
         return f"{self.faculty_id} {self.name}"
@@ -29,3 +29,9 @@ class ScopesStatistic(BurritoBasicModel):
 
     def __str__(self) -> str:
         return f"{self.scope} {self.tickets_count}"
+
+
+class FacultyTicketsStatistic(BurritoBasicModel):
+    created_tickets_count = IntegerField()
+    faculty_id = IntegerField()
+    name = CharField()

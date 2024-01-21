@@ -44,7 +44,7 @@ class StatisticTestCase(unittest.TestCase):
     def test_period_statistic(self):
         """Recv profile data in JSON format"""
 
-        response = requests.post(
+        response = requests.get(
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/statistic/period",
             headers={
                "Authorization": f"Bearer {get_access_token()}"

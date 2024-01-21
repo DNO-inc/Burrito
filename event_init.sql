@@ -66,3 +66,18 @@ create event if not exists `tickets_by_scopes_stats` on schedule
                     )
             group by scope
         );
+
+create event if not exists `faculty_by_tickets_stats` on schedule
+        every 1 hour
+    on completion not preserve
+    enable
+    comment 'Calculate statistics for tickets created on faculties'
+    do
+        create or replace view faculties_by_tickets as (
+            select 
+                faculty_id,
+                name,
+                (select count(*) from tickets where f.faculty_id = faculty_id  group by faculty_id) created_tickets_count
+            from faculties f 
+            having created_tickets_count is not null
+        );
