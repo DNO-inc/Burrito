@@ -21,17 +21,14 @@ statistic_faculty_schema = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "created_tickets_percent": {
-                        "type": "number"
-                    },
                     "faculty_id": {
                         "type": "integer"
                     },
                     "name": {
                         "type": "string"
                     },
-                    "registered_users": {
-                        "type": "integer"
+                    "created_tickets_count": {
+                        "type": "number"
                     }
                 }
             }
@@ -48,13 +45,33 @@ statistic_period_schema = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "date": {
-                        "type": "string"
-                    },
                     "scope": {
                         "type": "string"
                     },
                     "tickets_count": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "faculty_scopes": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "faculty_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "reports_count": {
+                        "type": "integer"
+                    },
+                    "qa_count": {
+                        "type": "integer"
+                    },
+                    "suggestion": {
                         "type": "integer"
                     }
                 }
@@ -65,13 +82,10 @@ statistic_period_schema = {
             "items": {
                 "type": "object",
                 "properties": {
-                    "date": {
-                        "type": "string"
-                    },
                     "status_id": {
                         "type": "integer"
                     },
-                    "status_name": {
+                    "name": {
                         "type": "string"
                     },
                     "tickets_count": {
