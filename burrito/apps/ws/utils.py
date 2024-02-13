@@ -10,7 +10,7 @@ from burrito.models.tickets_model import Tickets
 
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
-from burrito.utils.auth import check_jwt_token
+from burrito.utils.auth import read_token_payload
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import is_ticket_exist
@@ -153,7 +153,7 @@ def main_handler(websocket: WebSocketServerProtocol):
 
     token_payload: AuthTokenPayload = None
     try:
-        token_payload = check_jwt_token(raw_data)
+        token_payload = read_token_payload(raw_data)
 
     except Exception:
         send_data(websocket, b"Auth fail")
