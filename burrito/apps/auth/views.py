@@ -14,7 +14,8 @@ from burrito.utils.logger import get_logger
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import (
     AuthTokenPayload,
-    BurritoJWT
+    BurritoJWT,
+    create_access_token
 )
 from burrito.utils.users_util import (
     get_user_by_id_or_none, get_user_by_id, create_user_with_cabinet
@@ -185,7 +186,8 @@ async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core()))
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=(await __auth_obj.rotate_refresh_token())
+        access_token=create_access_token(token_payload),
+        refresh_token=(await __auth_obj.rotate_refresh_token())
     )
 
 
@@ -198,6 +200,6 @@ async def auth_delete_refresh_token(__auth_obj: BurritoJWT = Depends(get_auth_co
     await __auth_obj.delete_refresh_token()
 
     return JSONResponse(
-        content="Refresh and access tokens was deleted",
+        content={"detail": "Refresh tokens was deleted"},
         status_code=200
     )
