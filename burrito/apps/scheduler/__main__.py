@@ -14,21 +14,6 @@ from burrito.utils.logger import get_logger
 from burrito.plugins.loader import PluginLoader
 
 
-with open("event_init.sql", "r", encoding="utf-8") as file:
-    db: MySQLDatabase = get_database_cursor()
-
-    for query in file.read().split(";"):
-        query = query.replace('\t', "").replace("\n", "")
-        query = ' '.join(query.split())
-
-        if not query:
-            continue
-
-        try:
-            db.execute_sql(query)
-        except Exception as e:
-            get_logger().error(e)
-
 PluginLoader.load()
 
 if __name__ == "__main__":
@@ -46,5 +31,20 @@ if __name__ == "__main__":
 
     os.environ['TZ'] = str(CURRENT_TIME_ZONE)
     time.tzset()
+
+    with open("event_init.sql", "r", encoding="utf-8") as file:
+        db: MySQLDatabase = get_database_cursor()
+
+        for query in file.read().split(";"):
+            query = query.replace('\t', "").replace("\n", "")
+            query = ' '.join(query.split())
+
+            if not query:
+                continue
+
+            try:
+                db.execute_sql(query)
+            except Exception as e:
+                get_logger().error(e)
 
     start_scheduler()
