@@ -103,7 +103,7 @@ async def statistic__activity_summary(__auth_obj: BurritoJWT = Depends(get_auth_
 
     return JSONResponse(
         content={
-            "average_process_time": round(day_sum / len(result), 1),
+            "average_process_time": 0 if not result else round(day_sum / len(result), 1),
             "tickets_processed": db.execute_sql("SELECT COUNT(*) FROM tickets").fetchone()[0],
             "users_registered": db.execute_sql("SELECT COUNT(*) FROM users").fetchone()[0]
         }
