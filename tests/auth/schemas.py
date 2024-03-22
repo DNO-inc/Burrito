@@ -5,7 +5,7 @@ test_002_refresh_access_token_schema = {
         "user_id": {"type": "number"},
         "login": {"type": "string"},
         "access_token": {"type": "string"},
-        "refresh_token": {"type": "null"}
+        "refresh_token": {"type": "string"}
     },
     "required": ["user_id", "login", "access_token", "refresh_token"]
 }

@@ -60,18 +60,17 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration(self):
         """Make registration"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             login=RegistrationTestCase.random_login,
             password=RegistrationTestCase.random_password,
         )
 
-        RegistrationTestCase.user_id = user_data
 
     @unittest.skip
     def test_do_registration_with_invalid_login(self):
         """make registration with invalid datas"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             login=".",
             password=RegistrationTestCase.random_password
         )
@@ -80,7 +79,7 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration_with_invalid_password(self):
         """make registration with invalid datas"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             login="".join(random.sample(string.ascii_letters, 5)),
             password="."
         )
@@ -89,7 +88,7 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration_with_invalid_group(self):
         """make registration with invalid datas"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             group="hello_man_11"
         )
 
@@ -97,7 +96,7 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration_with_invalid_faculty(self):
         """make registration with invalid datas"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             faculty="hello_man_11"
         )
 
@@ -105,7 +104,7 @@ class RegistrationTestCase(unittest.TestCase):
     def test_do_registration_with_the_same_login(self):
         """Test case when users try to register with the existent login"""
 
-        user_data = make_user_registration(
+        make_user_registration(
             login=RegistrationTestCase.random_login,
             password=RegistrationTestCase.random_password
         )
