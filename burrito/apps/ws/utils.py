@@ -14,6 +14,7 @@ from burrito.utils.auth import read_token_payload
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import is_ticket_exist
+from burrito.utils.users_util import is_admin
 
 
 def recv_data(websocket: WebSocketServerProtocol) -> bytes:
@@ -83,9 +84,13 @@ def chat_cycle(websocket: WebSocketServerProtocol, token_payload: AuthTokenPaylo
     try:
         ticket: Tickets = is_ticket_exist(chat_number)
 
-        if ticket.hidden and token_payload.user_id not in (
-            ticket.creator.user_id,
-            ticket.assignee.user_id if ticket.assignee else -1
+        if ticket.hidden and (
+            (
+                token_payload.user_id not in (
+                    ticket.creator.user_id,
+                    ticket.assignee.user_id if ticket.assignee else -1
+                )
+            ) and (not is_admin(token_payload.user_id))
         ):
             send_data(websocket, b"Is not allowed to interact with this ticket")
             close_conn(websocket)
