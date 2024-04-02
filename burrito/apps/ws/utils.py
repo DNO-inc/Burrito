@@ -90,7 +90,7 @@ def chat_cycle(websocket: WebSocketServerProtocol, token_payload: AuthTokenPaylo
                     ticket.creator.user_id,
                     ticket.assignee.user_id if ticket.assignee else -1
                 )
-            ) or (not is_admin(token_payload.user_id))
+            ) and (not is_admin(token_payload.user_id))
         ):
             send_data(websocket, b"Is not allowed to interact with this ticket")
             close_conn(websocket)
