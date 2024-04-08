@@ -5,21 +5,20 @@ from peewee import MySQLDatabase
 
 from playhouse.shortcuts import model_to_dict
 
-from burrito.utils.auth import BurritoJWT, get_auth_core, AuthTokenPayload
-from burrito.utils.permissions_checker import check_permission
+from burrito.utils.auth import get_current_user
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.mongo_util import get_mongo_cursor, _MONGO_DB_NAME
 
+from burrito.models.user_model import Users
 from burrito.models.statistic_model import (
     StatusesStatistic, FacultyScopesStatistic, ScopesStatistic,
     FacultyTicketsStatistic
 )
 
 
-async def statistic__periodic(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
-
+async def statistic__periodic(
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
+):
     return JSONResponse(
         content={
             "statuses": [
@@ -35,9 +34,9 @@ async def statistic__periodic(__auth_obj: BurritoJWT = Depends(get_auth_core()))
     )
 
 
-async def statistic__faculties(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
+async def statistic__faculties(
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
+):
 
     return JSONResponse(
         content={
@@ -48,10 +47,9 @@ async def statistic__faculties(__auth_obj: BurritoJWT = Depends(get_auth_core())
     )
 
 
-async def statistic__activity_summary(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
-
+async def statistic__activity_summary(
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
+):
     db: MySQLDatabase = get_database_cursor()
     mongo_cursor = get_mongo_cursor()
 

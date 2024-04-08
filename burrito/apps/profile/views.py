@@ -8,18 +8,21 @@ from burrito.schemas.profile_schema import (
 from burrito.models.m_password_rest_model import AccessRenewMetaData
 from burrito.models.user_model import Users
 
-from burrito.utils.auth import get_auth_core
+from burrito.utils.auth import (
+    get_current_user,
+    create_access_token,
+    create_refresh_token,
+    AuthTokenPayload
+)
 from burrito.utils.email_util import publish_email
 from burrito.utils.email_templates import TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.users_util import (
     get_user_by_email_or_none,
     get_user_by_id
 )
 
 from .utils import (
-    check_permission,
     view_profile_by_user_id,
     update_profile_data,
     generate_reset_token
@@ -32,25 +35,20 @@ __ACCESS_RENEW_URL_TEMPLATE = "https://demo.tres.cyberbydlo.com/general_tickets?
 
 async def profile__check_by_id(
     user_id: int,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ) -> ResponseProfileSchema:
     """Return some data to check user profile"""
-
-    await __auth_obj.require_access_token()
 
     return await view_profile_by_user_id(user_id)
 
 
 async def profile__update_my_profile(
     profile_updated_data: RequestUpdateProfileSchema | None = RequestUpdateProfileSchema(),
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"UPDATE_PROFILE"}))
 ):
     """Update profile data"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, permission_list={"UPDATE_PROFILE"})
-
-    await update_profile_data(token_payload.user_id, profile_updated_data)
+    await update_profile_data(_curr_user, profile_updated_data)
 
     return JSONResponse(
         status_code=status.HTTP_200_OK,
@@ -92,7 +90,7 @@ async def profile__token_reset_request(
 
 async def profile__get_new_token(
     reset_token: str,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ):
     access_renew_metadata = mongo_select(
         AccessRenewMetaData,
@@ -111,12 +109,12 @@ async def profile__get_new_token(
     access_renew_metadata = access_renew_metadata[0]
     user: Users = get_user_by_id(access_renew_metadata["user_id"])
 
-    tokens = await __auth_obj.create_token_pare(
-        AuthTokenPayload(
-            user_id=user.user_id,
-            role=user.role.name
-        )
+    payload = AuthTokenPayload(
+        user_id=user.user_id,
+        role=user.role.name
     )
+
     return {
-        "access_token": tokens["access_token"]
+        "access_token": create_access_token(payload),
+        "refresh_token": create_refresh_token(payload)
     }

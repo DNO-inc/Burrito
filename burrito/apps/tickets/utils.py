@@ -1,7 +1,6 @@
 from typing import Any
 from functools import cache
 
-from burrito.utils.auth import get_auth_core
 from burrito.utils.users_util import get_user_by_id
 
 from burrito.utils.permissions_checker import check_permission
@@ -23,7 +22,6 @@ from burrito.schemas.tickets_schema import (
     TicketDetailInfoSchema
 )
 
-from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import (
     is_ticket_exist,
     am_i_own_this_ticket,
@@ -36,7 +34,6 @@ from burrito.utils.tickets_util import (
 
 
 __all__ = (
-    "get_auth_core",
     "get_user_by_id",
     "check_permission",
     "is_ticket_exist",
@@ -77,7 +74,7 @@ def get_status_close_id() -> Statuses:
 
 def make_ticket_detail_info(
         ticket: Tickets,
-        token_payload: AuthTokenPayload,
+        current_user: Users,
         creator: Users | None,
         assignee: Users | None,
         *,
@@ -113,9 +110,9 @@ def make_ticket_detail_info(
         upvotes=Liked.select().where(
             Liked.ticket_id == ticket.ticket_id
         ).count(),
-        is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-        is_followed=is_ticket_followed(token_payload.user_id, ticket.ticket_id),
-        is_bookmarked=is_ticket_bookmarked(token_payload.user_id, ticket.ticket_id),
+        is_liked=is_ticket_liked(current_user.user_id, ticket.ticket_id),
+        is_followed=is_ticket_followed(current_user.user_id, ticket.ticket_id),
+        is_bookmarked=is_ticket_bookmarked(current_user.user_id, ticket.ticket_id),
         date=str(ticket.created)
     )
 

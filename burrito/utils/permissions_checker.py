@@ -16,14 +16,16 @@ class PermissionMetaData(BaseModel):
     role_name: str
 
 
-def check_permission(token_payload, permission_list: set[str] = set()):
-    current_user: Users | None = get_user_by_id(
-        token_payload.user_id
-    )
+def check_permission(user: Users | int, permission_list: set[str] | None = None):
+    if isinstance(user, int):
+        user = get_user_by_id(user)
+
+    if permission_list is None:
+        permission_list = set()
 
     current_user_permissions: set[str] = set()
     for item in RolePermissions.select().where(
-        RolePermissions.role == current_user.role
+        RolePermissions.role == user.role
     ):
         current_user_permissions.add(item.permission.name)
 
@@ -42,6 +44,6 @@ def check_permission(token_payload, permission_list: set[str] = set()):
         )
 
     return PermissionMetaData(
-        user_id=current_user.user_id,
-        role_name=current_user.role.name
+        user_id=user.user_id,
+        role_name=user.role.name
     )

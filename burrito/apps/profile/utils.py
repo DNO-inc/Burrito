@@ -2,7 +2,6 @@ from secrets import token_urlsafe
 from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
-from burrito.utils.auth import get_auth_core
 from burrito.utils.users_util import (
     get_user_by_id,
     get_user_by_login
@@ -37,7 +36,6 @@ from burrito.utils.validators import (
 )
 
 __all__ = (
-    "get_auth_core",
     "get_user_by_id",
     "check_permission",
     "view_profile_by_user_id"
@@ -74,10 +72,11 @@ async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
 
 
 async def update_profile_data(
-    user_id: int,
+    current_user: Users | int,
     profile_updated_data: RequestUpdateProfileSchema | None = RequestUpdateProfileSchema()
 ) -> None:
-    current_user: Users | None = get_user_by_id(user_id)
+    if isinstance(current_user, int):
+        current_user = get_user_by_id(current_user)
 
     if is_valid_firstname(profile_updated_data.firstname):
         current_user.firstname = profile_updated_data.firstname

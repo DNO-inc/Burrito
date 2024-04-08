@@ -12,7 +12,7 @@ from burrito.schemas.tickets_schema import (
 from burrito.models.tickets_model import Tickets
 from burrito.models.deleted_model import Deleted
 
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import get_current_user
 from burrito.utils.tickets_util import (
     am_i_own_this_ticket_with_error,
     select_filters,
@@ -30,28 +30,23 @@ from burrito.utils.query_util import (
 )
 
 from ..utils import (
-    get_auth_core,
     is_ticket_exist,
-    check_permission,
     make_ticket_detail_info
 )
 
 
 async def tickets__delete_ticket_for_me(
         deletion_ticket_data: TicketIDValuesListScheme,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
     """Delete ticket"""
-
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
 
     for id_value in deletion_ticket_data.ticket_id_list:
         ticket: Tickets | None = is_ticket_exist(id_value)
 
         am_i_own_this_ticket_with_error(
             ticket.creator.user_id,
-            token_payload.user_id
+            _curr_user.user_id
         )
 
         try:
@@ -75,16 +70,13 @@ async def tickets__delete_ticket_for_me(
 
 async def tickets__undelete_ticket(
         ticket_data: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
-
     ticket: Tickets | None = is_ticket_exist(ticket_data.ticket_id)
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
-        token_payload.user_id
+        _curr_user.user_id
     )
 
     try:
@@ -107,11 +99,8 @@ async def tickets__undelete_ticket(
 
 async def tickets__get_deleted_tickets(
         _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload)
-
     available_filters = {
         "default": [
             q_is_anonymous(_filters.anonymous),
@@ -119,10 +108,10 @@ async def tickets__get_deleted_tickets(
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
-            q_deleted(token_payload.user_id)
+            q_deleted(_curr_user.user_id)
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
 
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
@@ -139,7 +128,7 @@ async def tickets__get_deleted_tickets(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 make_short_user_data(ticket.creator, hide_user_id=False),
                 assignee,
                 crop_body=True

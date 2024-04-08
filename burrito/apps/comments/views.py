@@ -12,6 +12,7 @@ from burrito.schemas.comment_schema import (
 from burrito.models.m_notifications_model import Notifications
 from burrito.models.m_comments_model import Comments
 from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
 
 from burrito.utils.mongo_util import mongo_insert, mongo_update, mongo_delete
 from burrito.utils.tickets_util import (
@@ -22,7 +23,7 @@ from burrito.utils.tickets_util import (
     send_comment_update
 )
 from burrito.utils.permissions_checker import check_permission
-from burrito.utils.auth import get_auth_core, AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import get_current_user, AuthTokenPayload
 from burrito.utils.query_util import STATUS_OPEN
 from burrito.utils.tickets_util import create_ticket_action, can_i_interact_with_ticket
 
@@ -34,14 +35,11 @@ from .utils import (
 
 async def comments__create(
     creation_comment_data: CommentCreationSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"SEND_MESSAGE"})
-
     ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
 
-    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         return JSONResponse(
             status_code=403,
             content={
@@ -53,7 +51,7 @@ async def comments__create(
         Comments(
             reply_to=creation_comment_data.reply_to,
             ticket_id=creation_comment_data.ticket_id,
-            author_id=token_payload.user_id,
+            author_id=_curr_user.user_id,
             body=creation_comment_data.body
         )
     )
@@ -62,18 +60,18 @@ async def comments__create(
         ticket,
         Notifications(
             ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
+            user_id=_curr_user.user_id,
             body_ua=f"Хтось створив новий коментарій у зверненні {ticket.ticket_id}",
             body=f"Someone has created a new comment in ticket {ticket.ticket_id}"
         ),
-        author_id=token_payload.user_id
+        author_id=_curr_user.user_id
     )
     send_comment_update(ticket.ticket_id, comment_id, msg_type="MSG_CREATE")
 
-    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
+    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, _curr_user.user_id):
         create_ticket_action(
             ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
+            user_id=_curr_user.user_id,
             field_name="status",
             old_value=ticket.status.name,
             new_value=STATUS_OPEN.name
@@ -92,13 +90,10 @@ async def comments__create(
 
 async def comments__edit(
     edit_comment_data: CommentEditSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"SEND_MESSAGE"})
-
     comment: Comments | None = is_comment_exist_with_error(edit_comment_data.comment_id)
-    is_allowed_to_interact(comment, token_payload.user_id)
+    is_allowed_to_interact(comment, _curr_user.user_id)
 
     if edit_comment_data.body:
         comment["body"] = edit_comment_data.body
@@ -123,13 +118,10 @@ async def comments__edit(
 
 async def comments__delete(
     deletion_comment_data: CommentIDSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"SEND_MESSAGE"})
-
     comment: Comments | None = is_comment_exist_with_error(deletion_comment_data.comment_id)
-    is_allowed_to_interact(comment, token_payload.user_id)
+    is_allowed_to_interact(comment, _curr_user.user_id)
 
     mongo_delete(Comments, _id=comment["_id"])
 
@@ -147,16 +139,13 @@ async def comments__delete(
 
 async def comments__get_comment_by_id(
     comment_data: CommentIDSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"SEND_MESSAGE"})
-
     comment: Comments | None = is_comment_exist_with_error(comment_data.comment_id)
 
     ticket: Tickets = is_ticket_exist(comment["ticket_id"])
 
-    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         return JSONResponse(
             status_code=403,
             content={
@@ -166,7 +155,7 @@ async def comments__get_comment_by_id(
 
     additional_data = is_comment_exist_with_error(comment["reply_to"]) if comment["reply_to"] else None
 
-    ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id)
+    ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, _curr_user.user_id)
 
     return CommentDetailInfoScheme(
         reply_to=CommentBaseDetailInfoSchema(

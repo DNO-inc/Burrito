@@ -16,8 +16,8 @@ from burrito.schemas.admin_schema import (
 
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_ticket_files import TicketFiles
+from burrito.models.user_model import Users
 
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -45,7 +45,7 @@ from burrito.utils.tickets_util import (
     am_i_own_this_ticket
 )
 from burrito.utils.logger import get_logger
-from burrito.utils.auth import get_auth_core
+from burrito.utils.auth import get_current_user
 from burrito.utils.converter import (
     StatusConverter,
     FacultyConverter,
@@ -53,7 +53,6 @@ from burrito.utils.converter import (
 )
 
 from .utils import (
-    check_permission,
     is_ticket_exist,
     make_ticket_detail_info,
     update_profile_as_admin
@@ -62,33 +61,30 @@ from .utils import (
 
 async def admin__update_ticket_data(
     admin_updates: AdminUpdateTicketSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
-
     ticket: Tickets | None = is_ticket_exist(
         admin_updates.ticket_id
     )
 
     faculty_object = FacultyConverter.convert(admin_updates.faculty) if admin_updates.faculty else None
     if faculty_object:
-        change_ticket_faculty(ticket, token_payload.user_id, faculty_object)
+        change_ticket_faculty(ticket, _curr_user.user_id, faculty_object)
 
     queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
     if queue_object:
-        change_ticket_queue(ticket, token_payload.user_id, queue_object)
+        change_ticket_queue(ticket, _curr_user.user_id, queue_object)
 
     status_object = None
-    if ticket.assignee and ticket.assignee.user_id == token_payload.user_id:
+    if ticket.assignee and ticket.assignee.user_id == _curr_user.user_id:
         status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
         if status_object and ticket.queue:
-            change_ticket_status(ticket, token_payload.user_id, status_object)
+            change_ticket_status(ticket, _curr_user.user_id, status_object)
 
     if admin_updates.assignee_id:
         change_ticket_assignee(
             ticket,
-            token_payload.user_id,
+            _curr_user.user_id,
             get_user_by_id(admin_updates.assignee_id) if admin_updates.assignee_id >= 0 else None
         )
 
@@ -103,11 +99,8 @@ async def admin__update_ticket_data(
 
 async def admin__get_ticket_list_by_filter(
     filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload, {"ADMIN"})
-
     admin_filters = [
         q_creator_is(filters.creator),
         q_assignee_is(filters.assignee),
@@ -126,7 +119,7 @@ async def admin__get_ticket_list_by_filter(
             q_is_hidden(False)
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
 
     response_list: list[AdminTicketDetailInfo] = []
 
@@ -140,13 +133,13 @@ async def admin__get_ticket_list_by_filter(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 make_short_user_data(
                     ticket.creator,
                     hide_user_id=False
                 ) if not ticket.anonymous or am_i_own_this_ticket(
                     ticket.creator.user_id,
-                    token_payload.user_id
+                    _curr_user.user_id
                 ) else None,
                 make_short_user_data(
                     ticket.assignee,
@@ -166,11 +159,9 @@ async def admin__get_ticket_list_by_filter(
 
 async def admin__show_detail_ticket_info(
     ticket_id_info: AdminTicketIdSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
     """Show detail ticket info"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
 
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
@@ -178,13 +169,13 @@ async def admin__show_detail_ticket_info(
 
     return make_ticket_detail_info(
         ticket,
-        token_payload,
+        _curr_user,
         make_short_user_data(
             ticket.creator,
             hide_user_id=False
         ) if not ticket.anonymous or am_i_own_this_ticket(
             ticket.creator.user_id,
-            token_payload.user_id
+            _curr_user.user_id
         ) else None,
         make_short_user_data(
             ticket.assignee,
@@ -196,11 +187,8 @@ async def admin__show_detail_ticket_info(
 
 async def admin__delete_ticket(
     deletion_ticket_data: AdminTicketIdSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
-
     ticket: Tickets | None = is_ticket_exist(
         deletion_ticket_data.ticket_id
     )
@@ -209,7 +197,7 @@ async def admin__delete_ticket(
         f"""
         New deletion (
             ticket_id={ticket.ticket_id},
-            initiator={token_payload.user_id}
+            initiator={_curr_user.user_id}
         )
 
         """
@@ -244,14 +232,11 @@ async def admin__delete_ticket(
 
 async def admin__update_profile(
     profile_updated_data: AdminRequestUpdateProfileSchema = AdminRequestUpdateProfileSchema(),
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, {"ADMIN"})
-
-    if profile_updated_data.user_id in (None, token_payload.user_id):
+    if profile_updated_data.user_id in (None, _curr_user.user_id):
         await update_profile_as_admin(
-            token_payload.user_id,
+            _curr_user.user_id,
             profile_updated_data,
             allow_extra_fields=False
         )
@@ -261,7 +246,7 @@ async def admin__update_profile(
             content={"detail": "Profile was updated"}
         )
 
-    current_user = get_user_by_id(token_payload.user_id)
+    current_user = get_user_by_id(_curr_user.user_id)
     target_user = get_user_by_id(profile_updated_data.user_id)
 
     # TODO: this is a temporary solution while field 'priority' has not added to Roles model

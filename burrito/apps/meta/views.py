@@ -26,7 +26,7 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.utils.converter import FacultyConverter
 from burrito.utils.tickets_util import make_short_user_data
 from burrito.utils.query_util import MIN_ADMIN_PRIORITY
-from burrito.utils.auth import BurritoJWT, get_auth_core
+from burrito.utils.auth import get_current_user
 
 from burrito.apps.meta.utils import RolesResponse, RolePermissionResponse
 
@@ -39,7 +39,7 @@ async def meta__get_statuses_list():
     )
 
 
-async def meta__get_groups_list(__auth_obj: BurritoJWT = Depends(get_auth_core())):
+async def meta__get_groups_list(_curr_user: Users = Depends(get_current_user())):
     return ResponseGroupsListSchema(
         groups_list=[
             GroupResponseSchema(
@@ -78,9 +78,7 @@ async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
     return ResponseQueueListSchema(queues_list=response_list)
 
 
-async def meta__get_admins(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    await __auth_obj.require_access_token()
-
+async def meta__get_admins(_curr_user: Users = Depends(get_current_user())):
     return ResponseAdminListSchema(
         admin_list=[
             make_short_user_data(
@@ -91,9 +89,7 @@ async def meta__get_admins(__auth_obj: BurritoJWT = Depends(get_auth_core())):
     )
 
 
-async def meta__get_roles(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    await __auth_obj.require_access_token()
-
+async def meta__get_roles(_curr_user: Users = Depends(get_current_user())):
     return {
         "roles": [
             RolesResponse(**model_to_dict(role)) for role in Roles.select()
@@ -101,9 +97,7 @@ async def meta__get_roles(__auth_obj: BurritoJWT = Depends(get_auth_core())):
     }
 
 
-async def meta__get_role_permissions(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    await __auth_obj.require_access_token()
-
+async def meta__get_role_permissions(_curr_user: Users = Depends(get_current_user())):
     return {
         "role_permissions": [
             RolePermissionResponse(
