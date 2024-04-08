@@ -1,4 +1,4 @@
-from fastapi import Depends, status, HTTPException
+from fastapi import status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.registration_schema import RegistrationSchema
@@ -12,12 +12,17 @@ from burrito.utils.converter import GroupConverter, FacultyConverter
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.email_util import tmp_send_email
-from burrito.utils.auth import get_auth_core, BurritoJWT, AuthTokenPayload
+from burrito.utils.auth import (
+    AuthTokenPayload,
+    create_token_pare
+)
 from burrito.utils.users_util import get_user_by_email_or_none
 
 from .utils import (
-    create_user, get_user_by_login,
-    is_valid_login, is_valid_password
+    create_user,
+    get_user_by_login,
+    is_valid_login,
+    is_valid_password
 )
 
 
@@ -111,8 +116,7 @@ async def registration__user_registration(
 
 
 async def registration__verify_email(
-    verification_data: EmailVerificationCodeSchema,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    verification_data: EmailVerificationCodeSchema
 ):
     email_code = mongo_select(
         EmailVerificationCode,
@@ -137,12 +141,15 @@ async def registration__verify_email(
     )
 
     if current_user:
-        result = (await __auth_obj.create_token_pare(
-            AuthTokenPayload(
-                user_id=current_user.user_id,
-                role=current_user.role.name
-            )
-        )) | {"user_id": current_user.user_id}
+        result = {
+            **create_token_pare(
+                AuthTokenPayload(
+                    user_id=current_user.user_id,
+                    role=current_user.role.name
+                )
+            ),
+            "user_id": current_user.user_id
+        }
 
         mongo_delete(
             EmailVerificationCode,

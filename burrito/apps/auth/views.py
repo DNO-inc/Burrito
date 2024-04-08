@@ -11,29 +11,28 @@ from burrito.schemas.auth_schema import (
 from burrito.models.user_model import Users
 
 from burrito.utils.logger import get_logger
-from burrito.utils.permissions_checker import check_permission
 from burrito.utils.auth import (
     AuthTokenPayload,
-    BurritoJWT,
-    create_access_token
+    create_access_token,
+    create_token_pare,
+    rotate_refresh_token,
+    delete_refresh_token
 )
 from burrito.utils.users_util import (
-    get_user_by_id_or_none, get_user_by_id, create_user_with_cabinet
+    get_user_by_id_or_none,
+    create_user_with_cabinet
 )
 
 from burrito.plugins.loader import PluginLoader
 
-
 from .utils import (
-    get_auth_core,
     get_user_by_login,
     compare_password
 )
 
 
 async def auth__password_login(
-        user_login_data: UserPasswordLoginSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+    user_login_data: UserPasswordLoginSchema,
 ):
     """Authentication by login and password"""
 
@@ -43,7 +42,7 @@ async def auth__password_login(
         # if user login exist we can compare password and hashed password
 
         if compare_password(user_login_data.password, user.password):
-            tokens = await __auth_obj.create_token_pare(
+            tokens = create_token_pare(
                 AuthTokenPayload(
                     user_id=user.user_id,
                     role=user.role.name
@@ -78,8 +77,7 @@ async def auth__password_login(
 
 
 async def auth__key_login(
-        user_login_data: UserKeyLoginSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+    user_login_data: UserKeyLoginSchema
 ):
     """Authentication by key from SSU Cabinet"""
 
@@ -100,7 +98,7 @@ async def auth__key_login(
     if user:
         # if user login exist we just return auth schema
 
-        tokens = await __auth_obj.create_token_pare(
+        tokens = create_token_pare(
             AuthTokenPayload(
                 user_id=user.user_id,
                 role=user.role.name
@@ -136,7 +134,7 @@ async def auth__key_login(
         )
 
         if new_user:
-            result = {"user_id": new_user.user_id} | (await __auth_obj.create_token_pare(
+            result = {"user_id": new_user.user_id} | (create_token_pare(
                 AuthTokenPayload(
                     user_id=new_user.user_id,
                     role=new_user.role.name
@@ -154,7 +152,7 @@ async def auth__key_login(
                 content={"detail": "Failed to create a new user"}
             )
 
-        tokens = await __auth_obj.create_token_pare(
+        tokens = create_token_pare(
             AuthTokenPayload(
                 user_id=user.user_id,
                 role=user.role.name
@@ -177,28 +175,27 @@ async def auth__key_login(
         )
 
 
-async def auth__token_refresh(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    token_payload: AuthTokenPayload = await __auth_obj.require_refresh_token()
-    check_permission(token_payload)
+async def auth__token_refresh(
+    _auth_obj: tuple[Users, str] = Depends(rotate_refresh_token)
+):
+    user = _auth_obj[0]
 
-    user: Users | None = get_user_by_id(token_payload.user_id)
+    payload = AuthTokenPayload(
+        user_id=user.user_id,
+        role=user.role.name
+    )
 
     return AuthResponseSchema(
         user_id=user.user_id,
         login=user.login,
-        access_token=create_access_token(token_payload),
-        refresh_token=(await __auth_obj.rotate_refresh_token())
+        access_token=create_access_token(payload),
+        refresh_token=_auth_obj[1]
     )
 
 
-async def auth_delete_refresh_token(__auth_obj: BurritoJWT = Depends(get_auth_core())):
-    token_payload: AuthTokenPayload = await __auth_obj.require_refresh_token()
-    check_permission(token_payload)
-
-    get_user_by_id(token_payload.user_id)
-
-    await __auth_obj.delete_refresh_token()
-
+async def auth_delete_refresh_token(
+    _curr_user: Users = Depends(delete_refresh_token)
+):
     return JSONResponse(
         content={"detail": "Refresh tokens was deleted"},
         status_code=200

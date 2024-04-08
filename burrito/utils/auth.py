@@ -9,7 +9,8 @@ from burrito.utils.date import get_timestamp_now
 from burrito.utils.logger import get_logger
 from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
-
+from burrito.utils.users_util import get_user_by_id
+from burrito.utils.permissions_checker import check_permission
 
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
 JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)
@@ -42,10 +43,7 @@ def _make_redis_key(data: AuthTokenPayload) -> str:
     Returns:
         str: redis key to get access/refresh token
     """
-    return "{}_{}".format(
-        data.user_id,
-        data.jti
-    )
+    return f"{data.user_id}_{data.jti}"
 
 
 def _make_token_body(token_data: AuthTokenPayload, token_type: Literal["access", "refresh"]) -> str:
@@ -119,131 +117,80 @@ def create_refresh_token(token_data: AuthTokenPayload) -> str:
     return _token
 
 
-class BurritoJWT:
-    def __init__(self, request: Request = None) -> None:
-        """
-        Initialize the object.
-
-        Args:
-            request: The request object that will be used to extract token from authorization header
-        """
-
-        self.__req = request
-        self.__token = self._get_clear_token()
-
-    def __call__(self) -> Any:
-        pass
-
-    def _get_clear_token(self) -> str:
-        """
-        Get clear token from authorization header.
-
-        Returns:
-            Clear token or None if not present in the header
-        """
-
-        raw_token = self.__req.headers.get("authorization")
-
-        if not raw_token:
-            return None
-
-        return raw_token.removeprefix("Bearer ")
-
-    @property
-    def request(self) -> Request:
-        return self.__req
-
-    async def create_token_pare(self, token_data: AuthTokenPayload) -> dict[str, str]:
-        """
-        Create a tokens pare (access and refresh)
-
-        Args:
-            token_data: The payload of the token
-
-        Returns:
-            A dictionary containing the access and refresh tokens
-        """
-
-        return {
-            "access_token": create_access_token(token_data),
-            "refresh_token": create_refresh_token(token_data)
-        }
-
-    async def require_access_token(self) -> AuthTokenPayload:
-        """
-        Check if access token is valid.
-
-        Returns:
-            An auth token payload or None if token is invalid.
-        """
-
-        # Raise an AuthTokenError if the token is not valid.
-        if not self.__token:
-            raise AuthTokenError(
-                detail="Missing authorization header",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        return read_token_payload(self.__token)
-
-    async def require_refresh_token(self) -> AuthTokenPayload:
-        """
-        Check if refresh token is valid.
-
-        Returns:
-            An auth token payload or None if token is invalid.
-        """
-
-        # Raise an AuthTokenError if the token is not valid.
-        if not self.__token:
-            raise AuthTokenError(
-                detail="Missing authorization header",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        token_payload = read_token_payload(self.__token)
-
-        stored_token = get_redis_connector().get(_make_redis_key(token_payload))
-        if not stored_token:
-            raise AuthTokenError(
-                detail="Authorization error: refresh token is invalid or expired",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        if (stored_token.decode("utf-8") != self.__token):
-            get_logger().error(
-                f"""
-                    refresh token is invalid or expired:
-                        * payload:  {token_payload.dict()}
-
-                """
-            )
-            raise AuthTokenError(
-                detail="Authorization error: refresh token is invalid or expired",
-                status_code=status.HTTP_401_UNAUTHORIZED
-            )
-
-        return token_payload
-
-    async def rotate_refresh_token(self) -> str:
-        token_payload = await self.require_refresh_token()
-
-        get_redis_connector().delete(_make_redis_key(token_payload))
-
-        return create_refresh_token(token_payload)
-
-    async def delete_refresh_token(self):
-        """
-        Delete refresh token from database.
-        """
-
-        get_redis_connector().delete(_make_redis_key(await self.require_refresh_token()))
+def create_token_pare(token_data: AuthTokenPayload) -> dict[str, str]:
+    return {
+        "access_token": create_access_token(token_data),
+        "refresh_token": create_refresh_token(token_data)
+    }
 
 
-def get_auth_core() -> BurritoJWT:
-    """
-    Provides access to Burrito's auth system.
-    It is used to authenticate a user and get the token that is associated with that user.
-    """
+def _extract_from_headers(headers) -> str:
+    raw_token = headers.get("authorization")
+    if not raw_token:
+        raise AuthTokenError(
+            detail="Missing authorization header",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )
+    return raw_token.removeprefix("Bearer ")
 
-    return BurritoJWT
+
+def _require_refresh_token(headers) -> AuthTokenPayload:
+    raw_token = _extract_from_headers(headers)
+    token_payload = read_token_payload(raw_token)
+
+    stored_token = get_redis_connector().get(_make_redis_key(token_payload))
+    if not stored_token:
+        raise AuthTokenError(
+            detail="Authorization error: refresh token is invalid or expired",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )
+
+    if (stored_token.decode("utf-8") != raw_token):
+        get_logger().error(
+            f"""
+                refresh token is invalid or expired:
+                    * payload:  {token_payload.dict()}
+
+            """
+        )
+        raise AuthTokenError(
+            detail="Authorization error: refresh token is invalid or expired",
+            status_code=status.HTTP_401_UNAUTHORIZED
+        )
+
+    return token_payload
+
+
+class get_current_user:
+    def __init__(self, permission_list: set[tuple] | None = None) -> None:
+        self._permission_list = permission_list
+
+    def __call__(self, request: Request) -> Any:
+        current_user = get_user_by_id(
+            read_token_payload(_extract_from_headers(request.headers)).user_id
+        )
+        check_permission(current_user, self._permission_list)
+
+        return current_user
+
+
+def rotate_refresh_token(request: Request) -> str:
+    token_payload = _require_refresh_token(request.headers)
+
+    current_user = get_user_by_id(token_payload.user_id)
+
+    get_redis_connector().delete(_make_redis_key(token_payload))
+
+    return current_user, create_refresh_token(token_payload)
+
+
+def delete_refresh_token(request: Request):
+    token_payload = _require_refresh_token(request.headers)
+
+    current_user = get_user_by_id(token_payload.user_id)
+
+    get_redis_connector().delete(
+        _make_redis_key(token_payload)
+    )
+
+    return current_user

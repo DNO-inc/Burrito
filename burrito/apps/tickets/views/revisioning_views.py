@@ -15,9 +15,10 @@ from burrito.schemas.action_schema import RequestActionSchema, ActionSchema, Fil
 from burrito.models.tickets_model import Tickets
 from burrito.models.m_actions_model import Actions
 from burrito.models.m_actions_model import BaseAction
+from burrito.models.user_model import Users
 
 from burrito.utils.users_util import get_user_by_id_or_none
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import get_current_user
 from burrito.utils.mongo_util import mongo_select
 from burrito.utils.query_util import (
     q_is_anonymous,
@@ -39,9 +40,7 @@ from burrito.utils.tickets_util import (
 from burrito.utils.mongo_util import mongo_page_count
 
 from ..utils import (
-    get_auth_core,
     is_ticket_exist,
-    check_permission,
     am_i_own_this_ticket,
     make_ticket_detail_info
 )
@@ -49,11 +48,9 @@ from ..utils import (
 
 async def tickets__show_tickets_list_by_filter(
         filters: TicketListRequestSchema | None = TicketListRequestSchema(),
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user: Users = Depends(get_current_user(permission_list={"READ_TICKET"}))
 ):
     """Show tickets"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload, permission_list={"READ_TICKET"})
 
     available_filters = {
         "default": [
@@ -64,10 +61,10 @@ async def tickets__show_tickets_list_by_filter(
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
-            q_owned_or_not_hidden(token_payload.user_id, filters.hidden)
+            q_owned_or_not_hidden(_curr_user.user_id, filters.hidden)
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=filters.start_page,
@@ -78,7 +75,7 @@ async def tickets__show_tickets_list_by_filter(
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
-            token_payload.user_id
+            _curr_user.user_id
         )
 
         if not i_am_creator and ticket.hidden:
@@ -95,7 +92,7 @@ async def tickets__show_tickets_list_by_filter(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 creator,
                 assignee,
                 crop_body=True
@@ -112,11 +109,9 @@ async def tickets__show_tickets_list_by_filter(
 
 async def tickets__show_detail_ticket_info(
         ticket_id_info: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user: Users = Depends(get_current_user(permission_list={"READ_TICKET"}))
 ):
     """Show detail ticket info"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload, permission_list={"READ_TICKET"})
 
     ticket: Tickets | None = is_ticket_exist(
         ticket_id_info.ticket_id
@@ -124,7 +119,7 @@ async def tickets__show_detail_ticket_info(
 
     i_am_creator = am_i_own_this_ticket(
         ticket.creator.user_id,
-        token_payload.user_id
+        _curr_user.user_id
     )
 
     if not i_am_creator and ticket.hidden:
@@ -143,7 +138,7 @@ async def tickets__show_detail_ticket_info(
 
     return make_ticket_detail_info(
         ticket,
-        token_payload,
+        _curr_user,
         creator,
         assignee,
         crop_body=False
@@ -152,14 +147,11 @@ async def tickets__show_detail_ticket_info(
 
 async def tickets__get_full_ticket_history(
         _filters: RequestTicketHistorySchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
-
     ticket = is_ticket_exist(_filters.ticket_id)
 
-    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
+    if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         return JSONResponse(
             status_code=403,
             content={
@@ -169,7 +161,7 @@ async def tickets__get_full_ticket_history(
 
     history = get_ticket_history(
         ticket,
-        token_payload.user_id,
+        _curr_user.user_id,
         start_page=_filters.start_page,
         items_count=_filters.items_count
     )
@@ -182,11 +174,8 @@ async def tickets__get_full_ticket_history(
 
 async def tickets__get_action_by_id(
         action_data: RequestActionSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
-
     action = mongo_select(BaseAction, _id=action_data.action_id)
 
     if action:
@@ -210,8 +199,8 @@ async def tickets__get_action_by_id(
         )
 
     ticket: Tickets = is_ticket_exist(action["ticket_id"])
-    ticket_owner = am_i_own_this_ticket(ticket.ticket_id, token_payload.user_id)
-    if not can_i_interact_with_ticket(ticket, token_payload.user_id):
+    ticket_owner = am_i_own_this_ticket(ticket.ticket_id, _curr_user.user_id)
+    if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         raise HTTPException(
             status_code=403,
             detail="Forbidden to interact with this ticket"

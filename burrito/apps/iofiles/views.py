@@ -7,8 +7,9 @@ from fastapi.responses import StreamingResponse
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.m_ticket_files import TicketFiles
+from burrito.models.user_model import Users
 
-from burrito.utils.auth import get_auth_core, BurritoJWT
+from burrito.utils.auth import get_current_user
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.tickets_util import (
     is_ticket_exist,
@@ -18,20 +19,23 @@ from burrito.utils.tickets_util import (
     can_i_interact_with_ticket
 )
 from burrito.utils.query_util import STATUS_OPEN
-from burrito.utils.mongo_util import mongo_save_file, mongo_get_file, mongo_select, mongo_delete_file
+from burrito.utils.mongo_util import (
+    mongo_save_file,
+    mongo_get_file,
+    mongo_select,
+    mongo_delete_file
+)
 from burrito.utils.logger import get_logger
 
 
 async def iofiles__upload_file_for_ticket(
     ticket_id: Annotated[int, Form(...)],
     file_list: list[UploadFile],
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload = await __auth_obj.require_access_token()
-
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
-    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -41,26 +45,26 @@ async def iofiles__upload_file_for_ticket(
     for file_item in file_list:
         current_file_id = mongo_save_file(
             ticket.ticket_id,
-            token_payload.user_id,
+            _curr_user.user_id,
             file_item.filename,
             await file_item.read(),
             file_item.content_type
         )
         get_logger().info(
-           f"User {token_payload.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
+           f"User {_curr_user.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
         )
         file_ids.append(current_file_id)
         create_ticket_file_action(
             ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
+            user_id=_curr_user.user_id,
             value=file_item.filename,
             file_meta_action="upload"
         )
 
-    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, token_payload.user_id):
+    if ticket.status.status_id in (4, 6) and am_i_own_this_ticket(ticket.creator.user_id, _curr_user.user_id):
         create_ticket_action(
             ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
+            user_id=_curr_user.user_id,
             field_name="status",
             old_value=ticket.status.name,
             new_value=STATUS_OPEN.name
@@ -75,10 +79,8 @@ async def iofiles__upload_file_for_ticket(
 
 async def iofiles__get_file(
     file_id: str,
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload = await __auth_obj.require_access_token()
-
     file_data = mongo_select(TicketFiles, file_id=file_id)
     if not file_data:
         raise HTTPException(
@@ -89,7 +91,7 @@ async def iofiles__get_file(
 
     ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
 
-    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -106,13 +108,11 @@ async def iofiles__get_file(
 
 async def iofiles__get_file_ids(
     ticket_id: Annotated[int, Form(...)],
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload = await __auth_obj.require_access_token()
-
     ticket: Tickets | None = is_ticket_exist(ticket_id)
 
-    if not can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
+    if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
             status_code=403,
             detail="Is not allowed to attach files to this ticket"
@@ -125,10 +125,8 @@ async def iofiles__get_file_ids(
 
 async def iofiles__delete_file(
     file_id: str = Form(...),
-    __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _curr_user: Users = Depends(get_current_user())
 ):
-    token_payload = await __auth_obj.require_access_token()
-
     file_data = mongo_select(TicketFiles, file_id=file_id)
     if not file_data:
         raise HTTPException(
@@ -139,7 +137,7 @@ async def iofiles__delete_file(
 
     ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
 
-    if can_i_interact_with_ticket(ticket, get_user_by_id(token_payload.user_id)):
+    if can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         file_data = mongo_select(
             TicketFiles,
             file_id=file_id
@@ -149,7 +147,7 @@ async def iofiles__delete_file(
 
         create_ticket_file_action(
             ticket_id=ticket.ticket_id,
-            user_id=token_payload.user_id,
+            user_id=_curr_user.user_id,
             value=file_data["file_name"] if file_data else "file",
             file_meta_action="delete"
         )

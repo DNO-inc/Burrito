@@ -15,7 +15,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 
 from burrito.utils.users_util import get_user_by_id
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import AuthTokenPayload, get_current_user
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -35,7 +35,6 @@ from burrito.utils.tickets_util import (
 from burrito.utils.logger import get_logger
 
 from ..utils import (
-    get_auth_core,
     is_ticket_exist,
     check_permission,
     make_ticket_detail_info,
@@ -46,13 +45,11 @@ from ..utils import (
 
 async def tickets__bookmark_ticket(
         bookmark_ticket_data: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
     """Follow ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
 
-    current_user = get_user_by_id(token_payload.user_id)
+    current_user = get_user_by_id(_curr_user.user_id)
 
     ticket: Tickets | None = is_ticket_exist(
         bookmark_ticket_data.ticket_id
@@ -67,14 +64,14 @@ async def tickets__bookmark_ticket(
         )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user == token_payload.user_id,
+        Bookmarks.user == _curr_user.user_id,
         Bookmarks.ticket == ticket.ticket_id
     )
 
     try:
         if not bookmark:
             Bookmarks.create(
-                user_id=token_payload.user_id,
+                user_id=_curr_user.user_id,
                 ticket_id=ticket.ticket_id
             )
         return JSONResponse(
@@ -94,18 +91,16 @@ async def tickets__bookmark_ticket(
 
 async def tickets__unbookmark_ticket(
         unbookmark_ticket_data: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
     """Follow ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         unbookmark_ticket_data.ticket_id
     )
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
-        Bookmarks.user == token_payload.user_id,
+        Bookmarks.user == _curr_user.user_id,
         Bookmarks.ticket == ticket.ticket_id
     )
 
@@ -125,12 +120,9 @@ async def tickets__unbookmark_ticket(
 
 async def tickets__get_bookmarked_tickets(
         _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
     """Get tickets which were bookmarked by current user"""
-
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload)
 
     available_filters = {
         "default": [
@@ -139,10 +131,10 @@ async def tickets__get_bookmarked_tickets(
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
-            q_bookmarked(token_payload.user_id)
+            q_bookmarked(_curr_user.user_id)
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
     expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
@@ -161,7 +153,7 @@ async def tickets__get_bookmarked_tickets(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 make_short_user_data(ticket.creator, hide_user_id=False),
                 assignee,
                 crop_body=True
@@ -182,12 +174,9 @@ async def tickets__get_bookmarked_tickets(
 
 async def tickets__get_followed_tickets(
         _filters: BaseFilterSchema | None = BaseFilterSchema(),
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+        _curr_user = Depends(get_current_user())
 ):
     """Get tickets which were followed by current user"""
-
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload)
 
     available_filters = {
         "default": [
@@ -197,11 +186,11 @@ async def tickets__get_followed_tickets(
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
-            q_followed(token_payload.user_id),
+            q_followed(_curr_user.user_id),
             q_protected_statuses()
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
     expression: list[Tickets] = get_filtered_bookmarks(
         final_filters,
         start_page=_filters.start_page,
@@ -224,7 +213,7 @@ async def tickets__get_followed_tickets(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 creator,
                 assignee,
                 crop_body=True

@@ -12,9 +12,10 @@ from burrito.schemas.tickets_schema import (
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.liked_model import Liked
+from burrito.models.user_model import Users
 
 from burrito.utils.users_util import get_user_by_id
-from burrito.utils.auth import AuthTokenPayload, BurritoJWT
+from burrito.utils.auth import get_current_user
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -33,23 +34,19 @@ from burrito.utils.tickets_util import (
 from burrito.utils.logger import get_logger
 
 from ..utils import (
-    get_auth_core,
     is_ticket_exist,
-    check_permission,
     am_i_own_this_ticket,
     make_ticket_detail_info
 )
 
 
 async def tickets__like_ticket(
-        like_ticket_data: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+    like_ticket_data: TicketIDValueSchema,
+    _curr_user: Users = Depends(get_current_user())
 ):
     """Like ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
 
-    current_user = get_user_by_id(token_payload.user_id)
+    current_user = get_user_by_id(_curr_user.user_id)
 
     ticket: Tickets | None = is_ticket_exist(
         like_ticket_data.ticket_id
@@ -64,14 +61,14 @@ async def tickets__like_ticket(
         )
 
     like: Liked | None = Liked.get_or_none(
-        Liked.user_id == token_payload.user_id,
+        Liked.user_id == _curr_user.user_id,
         Liked.ticket_id == ticket.ticket_id
     )
 
     try:
         if not like:
             Liked.create(
-                user_id=token_payload.user_id,
+                user_id=_curr_user.user_id,
                 ticket_id=ticket.ticket_id
             )
         return JSONResponse(
@@ -92,19 +89,17 @@ async def tickets__like_ticket(
 
 
 async def tickets__unlike_ticket(
-        unlike_ticket_data: TicketIDValueSchema,
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+    unlike_ticket_data: TicketIDValueSchema,
+    _curr_user: Users = Depends(get_current_user())
 ):
     """Unlike ticket"""
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    check_permission(token_payload)
 
     ticket: Tickets | None = is_ticket_exist(
         unlike_ticket_data.ticket_id
     )
 
     like: Liked | None = Liked.get_or_none(
-        Liked.user_id == token_payload.user_id,
+        Liked.user_id == _curr_user.user_id,
         Liked.ticket_id == ticket.ticket_id
     )
 
@@ -123,26 +118,23 @@ async def tickets__unlike_ticket(
 
 
 async def tickets__get_liked_tickets(
-        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        __auth_obj: BurritoJWT = Depends(get_auth_core())
+    _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
+    _curr_user: Users = Depends(get_current_user())
 ):
     """Get tickets which were liked by current user"""
 
-    token_payload: AuthTokenPayload = await __auth_obj.require_access_token()
-    user_data = check_permission(token_payload)
-
     available_filters = {
         "default": [
-            q_owned_or_not_hidden(token_payload.user_id, _filters.hidden),
+            q_owned_or_not_hidden(_curr_user.user_id, _filters.hidden),
             q_is_anonymous(_filters.anonymous),
             q_is_valid_faculty(_filters.faculty),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
-            q_liked(token_payload.user_id)
+            q_liked(_curr_user.user_id)
         ]
     }
-    final_filters = select_filters(user_data.role_name, available_filters)
+    final_filters = select_filters(_curr_user.role.name, available_filters)
     expression: list[Tickets] = get_filtered_tickets(
         final_filters,
         start_page=_filters.start_page,
@@ -153,7 +145,7 @@ async def tickets__get_liked_tickets(
     for ticket in expression:
         i_am_creator = am_i_own_this_ticket(
             ticket.creator.user_id,
-            token_payload.user_id
+            _curr_user.user_id
         )
 
         if not i_am_creator and ticket.hidden:
@@ -173,7 +165,7 @@ async def tickets__get_liked_tickets(
         response_list.append(
             make_ticket_detail_info(
                 ticket,
-                token_payload,
+                _curr_user,
                 creator,
                 assignee,
                 crop_body=True

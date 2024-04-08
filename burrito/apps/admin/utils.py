@@ -14,7 +14,6 @@ from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.admin_schema import AdminTicketDetailInfo
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 
-from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.converter import (
     FacultyConverter,
     GroupConverter
@@ -43,7 +42,7 @@ __all__ = [
 
 def make_ticket_detail_info(
         ticket: Tickets,
-        token_payload: AuthTokenPayload,
+        current_user: Users,
         creator: Users | None,
         assignee: Users | None,
         *,
@@ -79,9 +78,9 @@ def make_ticket_detail_info(
         upvotes=Liked.select().where(
             Liked.ticket_id == ticket.ticket_id
         ).count(),
-        is_liked=is_ticket_liked(token_payload.user_id, ticket.ticket_id),
-        is_followed=is_ticket_followed(token_payload.user_id, ticket.ticket_id),
-        is_bookmarked=is_ticket_bookmarked(token_payload.user_id, ticket.ticket_id),
+        is_liked=is_ticket_liked(current_user.user_id, ticket.ticket_id),
+        is_followed=is_ticket_followed(current_user.user_id, ticket.ticket_id),
+        is_bookmarked=is_ticket_bookmarked(current_user.user_id, ticket.ticket_id),
         date=str(ticket.created)
     )
 
