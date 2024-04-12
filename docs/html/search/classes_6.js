@@ -4,6 +4,8 @@ var searchData=
   ['facultyconverter_1',['FacultyConverter',['../classburrito_1_1utils_1_1converter_1_1FacultyConverter.html',1,'burrito::utils::converter']]],
   ['facultyplugin_2',['FacultyPlugin',['../classfaculty__plugin_1_1FacultyPlugin.html',1,'faculty_plugin']]],
   ['facultyresponseschema_3',['FacultyResponseSchema',['../classfaculty__schema_1_1FacultyResponseSchema.html',1,'faculty_schema']]],
-  ['fileactions_4',['FileActions',['../classm__actions__model_1_1FileActions.html',1,'m_actions_model']]],
-  ['fileactionschema_5',['FileActionSchema',['../classaction__schema_1_1FileActionSchema.html',1,'action_schema']]]
+  ['facultyscopesstatistic_4',['FacultyScopesStatistic',['../classstatistic__model_1_1FacultyScopesStatistic.html',1,'statistic_model']]],
+  ['facultyticketsstatistic_5',['FacultyTicketsStatistic',['../classstatistic__model_1_1FacultyTicketsStatistic.html',1,'statistic_model']]],
+  ['fileactions_6',['FileActions',['../classm__actions__model_1_1FileActions.html',1,'m_actions_model']]],
+  ['fileactionschema_7',['FileActionSchema',['../classaction__schema_1_1FileActionSchema.html',1,'action_schema']]]
 ];

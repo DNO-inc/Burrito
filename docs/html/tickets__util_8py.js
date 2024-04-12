@@ -2,6 +2,7 @@ var tickets__util_8py =
 [
     [ "am_i_own_this_ticket", "tickets__util_8py.html#ae62ef81992c9fe39dcf3ea7d2639478a", null ],
     [ "am_i_own_this_ticket_with_error", "tickets__util_8py.html#ae4243a34921e192127180d38b354e9bf", null ],
+    [ "can_i_interact_with_ticket", "tickets__util_8py.html#aa3b24511a197cecb7de66754511ee657", null ],
     [ "change_ticket_assignee", "tickets__util_8py.html#a4bd8d3aea99eb87fa9e50570d01235d2", null ],
     [ "change_ticket_faculty", "tickets__util_8py.html#a8e154c59c122cced14e83cd7ea52d0f5", null ],
     [ "change_ticket_queue", "tickets__util_8py.html#adda46141b84a35a93e3c4922c3adfb45", null ],
@@ -12,7 +13,6 @@ var tickets__util_8py =
     [ "get_notification_receivers", "tickets__util_8py.html#ae2ff9577f04adaab590d028c4dd5b3b9", null ],
     [ "get_ticket_history", "tickets__util_8py.html#a4ba76d16fbae3b74612fef37b33f2ae3", null ],
     [ "hide_ticket_body", "tickets__util_8py.html#a82790b1f6ed1da84874cd5a5a2f265d3", null ],
-    [ "is_allowed_to_interact_with_history", "tickets__util_8py.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5", null ],
     [ "is_ticket_bookmarked", "tickets__util_8py.html#aead61e3c358d2f0b5d84a87e825b1bd4", null ],
     [ "is_ticket_exist", "tickets__util_8py.html#a32d1a10d1e89f9df81e51f7996227d7a", null ],
     [ "is_ticket_followed", "tickets__util_8py.html#a07b72421c4711c16e9e34a171d8107d4", null ],

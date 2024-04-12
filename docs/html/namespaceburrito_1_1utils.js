@@ -13,8 +13,14 @@ var namespaceburrito_1_1utils =
       [ "create_tables", "namespaceburrito_1_1utils_1_1db__utils.html#a4af4d67d74aaac5762df83bfa84d1fbb", null ],
       [ "drop_tables", "namespaceburrito_1_1utils_1_1db__utils.html#ac41bec433c88a768a631546c26b92ba4", null ]
     ] ],
+    [ "email_templates", "namespaceburrito_1_1utils_1_1email__templates.html", [
+      [ "TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL", "namespaceburrito_1_1utils_1_1email__templates.html#a3f146675afd3be26cdda936e50970761", null ],
+      [ "TEMPLATE__ASSIGNED_TO_TICKET", "namespaceburrito_1_1utils_1_1email__templates.html#a5d29c32d9ac916016574d780eb910fc8", null ],
+      [ "TEMPLATE__EMAIL_NOTIFICATION", "namespaceburrito_1_1utils_1_1email__templates.html#ac859bb1fbd741006c68fa59991bd2c0e", null ],
+      [ "TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN", "namespaceburrito_1_1utils_1_1email__templates.html#afd94a0f5f7cc980e5ef244f0dbf9bd1f", null ],
+      [ "TEMPLATE__UNASSIGNED_TO_TICKET", "namespaceburrito_1_1utils_1_1email__templates.html#a2609f346d200d2baacaf5134697821a9", null ]
+    ] ],
     [ "email_util", "namespaceburrito_1_1utils_1_1email__util.html", "namespaceburrito_1_1utils_1_1email__util" ],
-    [ "file_manager", "namespaceburrito_1_1utils_1_1file__manager.html", "namespaceburrito_1_1utils_1_1file__manager" ],
     [ "hash_util", "namespaceburrito_1_1utils_1_1hash__util.html", [
       [ "compare_password", "namespaceburrito_1_1utils_1_1hash__util.html#a5c500359344ca575c581f0fec3cee357", null ],
       [ "generate_email_code", "namespaceburrito_1_1utils_1_1hash__util.html#a3bc42d7cd77cc8dec3482ff539188250", null ],
@@ -43,8 +49,8 @@ var namespaceburrito_1_1utils =
       [ "q_protected_statuses", "namespaceburrito_1_1utils_1_1query__util.html#af03b6529f8dff55a433c377610f4b685", null ],
       [ "q_scope_is", "namespaceburrito_1_1utils_1_1query__util.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1", null ],
       [ "_PROTECTED_STATUSES", "namespaceburrito_1_1utils_1_1query__util.html#a71b51c235a3102808c4f9b91dc2860a6", null ],
-      [ "ADMIN_ROLES", "namespaceburrito_1_1utils_1_1query__util.html#a63c63e4b021f099c6389684c04593448", null ],
-      [ "CHIEF_ADMIN_ROLES", "namespaceburrito_1_1utils_1_1query__util.html#ae64d666539a130adcb89053c77785690", null ],
+      [ "MIN_ADMIN_PRIORITY", "namespaceburrito_1_1utils_1_1query__util.html#a0afa5efae91e42eba91da05d5e616c11", null ],
+      [ "MIN_CHIEF_ADMIN_PRIORITY", "namespaceburrito_1_1utils_1_1query__util.html#a594aeb6cf671622938e8342d743bd3c4", null ],
       [ "STATUS_ACCEPTED", "namespaceburrito_1_1utils_1_1query__util.html#af21e0ec5a37d34a74b4d13b69abc575c", null ],
       [ "STATUS_CLOSE", "namespaceburrito_1_1utils_1_1query__util.html#a7adc33eb41e026cfe715d174dfab5eaf", null ],
       [ "STATUS_NEW", "namespaceburrito_1_1utils_1_1query__util.html#acb51ebdd4d5f6ce9db2cf5c7e0d347a1", null ],
@@ -62,6 +68,7 @@ var namespaceburrito_1_1utils =
     [ "tickets_util", "namespaceburrito_1_1utils_1_1tickets__util.html", [
       [ "am_i_own_this_ticket", "namespaceburrito_1_1utils_1_1tickets__util.html#ae62ef81992c9fe39dcf3ea7d2639478a", null ],
       [ "am_i_own_this_ticket_with_error", "namespaceburrito_1_1utils_1_1tickets__util.html#ae4243a34921e192127180d38b354e9bf", null ],
+      [ "can_i_interact_with_ticket", "namespaceburrito_1_1utils_1_1tickets__util.html#aa3b24511a197cecb7de66754511ee657", null ],
       [ "change_ticket_assignee", "namespaceburrito_1_1utils_1_1tickets__util.html#a4bd8d3aea99eb87fa9e50570d01235d2", null ],
       [ "change_ticket_faculty", "namespaceburrito_1_1utils_1_1tickets__util.html#a8e154c59c122cced14e83cd7ea52d0f5", null ],
       [ "change_ticket_queue", "namespaceburrito_1_1utils_1_1tickets__util.html#adda46141b84a35a93e3c4922c3adfb45", null ],
@@ -72,7 +79,6 @@ var namespaceburrito_1_1utils =
       [ "get_notification_receivers", "namespaceburrito_1_1utils_1_1tickets__util.html#ae2ff9577f04adaab590d028c4dd5b3b9", null ],
       [ "get_ticket_history", "namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3", null ],
       [ "hide_ticket_body", "namespaceburrito_1_1utils_1_1tickets__util.html#a82790b1f6ed1da84874cd5a5a2f265d3", null ],
-      [ "is_allowed_to_interact_with_history", "namespaceburrito_1_1utils_1_1tickets__util.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5", null ],
       [ "is_ticket_bookmarked", "namespaceburrito_1_1utils_1_1tickets__util.html#aead61e3c358d2f0b5d84a87e825b1bd4", null ],
       [ "is_ticket_exist", "namespaceburrito_1_1utils_1_1tickets__util.html#a32d1a10d1e89f9df81e51f7996227d7a", null ],
       [ "is_ticket_followed", "namespaceburrito_1_1utils_1_1tickets__util.html#a07b72421c4711c16e9e34a171d8107d4", null ],

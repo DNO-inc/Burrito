@@ -1,7 +1,7 @@
 var comments_2views_8py =
 [
-    [ "comments__create", "comments_2views_8py.html#a639bcccb4e716430b8b564fc719b03aa", null ],
-    [ "comments__delete", "comments_2views_8py.html#acf2ab015b6579afcdd0754d8da17a83d", null ],
-    [ "comments__edit", "comments_2views_8py.html#a92184b2b49135491a661d4e0f96ccd27", null ],
-    [ "comments__get_comment_by_id", "comments_2views_8py.html#a1ebd38f5807410a6acceb3b42668d425", null ]
+    [ "comments__create", "comments_2views_8py.html#a2038cc70f650aa42312dab9d7e36f270", null ],
+    [ "comments__delete", "comments_2views_8py.html#aeb116b4359675fbec0ab413251759a0c", null ],
+    [ "comments__edit", "comments_2views_8py.html#ab1588df7746459aa56c4e02bf74f935f", null ],
+    [ "comments__get_comment_by_id", "comments_2views_8py.html#a59619c1538c68bbbfd731d9fb251ccee", null ]
 ];

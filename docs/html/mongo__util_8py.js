@@ -5,6 +5,7 @@ var mongo__util_8py =
     [ "mongo_delete", "mongo__util_8py.html#a74399538a91b63a079fefa74b096c14a", null ],
     [ "mongo_delete_file", "mongo__util_8py.html#a5d250fe7a38b7302d417e3d64e85a730", null ],
     [ "mongo_get_file", "mongo__util_8py.html#a6d5d08b8ef2d258d9148a01672ffc13b", null ],
+    [ "mongo_init_ttl_indexes", "mongo__util_8py.html#adadf9fbb709e1a8bf486b59b1751da44", null ],
     [ "mongo_insert", "mongo__util_8py.html#a5e298f3ab7b275f145c379d465f92696", null ],
     [ "mongo_items_count", "mongo__util_8py.html#ac0fe33726e8df24d5f4cfd511ebff2f1", null ],
     [ "mongo_page_count", "mongo__util_8py.html#a90aec3795b494fe238065f4a4a5fc0b3", null ],

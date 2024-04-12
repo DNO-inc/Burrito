@@ -11,6 +11,7 @@ var dir_9a897e05fda952206fad3f13ea4aaa93 =
     [ "profile", "dir_e46aaaa29c80828531d2e2893c66f3ce.html", "dir_e46aaaa29c80828531d2e2893c66f3ce" ],
     [ "registration", "dir_20675a350e8b2f60a0f15860a37389ec.html", "dir_20675a350e8b2f60a0f15860a37389ec" ],
     [ "scheduler", "dir_2922d116cf4bc6495207f5c5f687204a.html", "dir_2922d116cf4bc6495207f5c5f687204a" ],
+    [ "statistic", "dir_d19606556b6919e6cc76cdc1a960c400.html", "dir_d19606556b6919e6cc76cdc1a960c400" ],
     [ "tickets", "dir_9161399acf903b7e7d2d0d4882a4a16e.html", "dir_9161399acf903b7e7d2d0d4882a4a16e" ],
     [ "ws", "dir_d675ba89f78b078d7152dfbfdf2a1345.html", "dir_d675ba89f78b078d7152dfbfdf2a1345" ]
 ];

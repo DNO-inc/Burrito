@@ -1,3 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classburrito_1_1utils_1_1auth_1_1BurritoJWT.html" title=" " alt="" coords="5,5,93,31"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,55,127,80"/>
+<area shape="rect" id="node2" href="$classcomment__schema_1_1RequestTicketsCommentSchema.html" title=" " alt="" coords="175,5,393,31"/>
+<area shape="rect" id="node3" href="$classfilters__schema_1_1BaseFilterSchema.html" title=" " alt="" coords="219,55,349,80"/>
+<area shape="rect" id="node4" href="$classtickets__schema_1_1RequestTicketHistorySchema.html" title=" " alt="" coords="185,104,383,129"/>
 </map>

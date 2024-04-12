@@ -129,18 +129,20 @@ $(document).ready(function(){initNavTree('namespaceadmin_1_1views.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a871f722b085868c0e2a90916d9db5a59"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a871f722b085868c0e2a90916d9db5a59">admin__update_ticket_data</a> (AdminUpdateTicketSchema admin_updates, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a871f722b085868c0e2a90916d9db5a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff21e92fc5212165fb85bd1f826fb00c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#aff21e92fc5212165fb85bd1f826fb00c">admin__get_ticket_list_by_filter</a> (AdminGetTicketListSchema|None filters=AdminGetTicketListSchema(), <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:aff21e92fc5212165fb85bd1f826fb00c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4d99f697e5f835dd9942008e056393d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#af4d99f697e5f835dd9942008e056393d">admin__show_detail_ticket_info</a> (AdminTicketIdSchema ticket_id_info, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:af4d99f697e5f835dd9942008e056393d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb671076fb730fc60e52bbef7723c01e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#acb671076fb730fc60e52bbef7723c01e">admin__delete_ticket</a> (AdminTicketIdSchema deletion_ticket_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:acb671076fb730fc60e52bbef7723c01e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42bfe7ed62e9f76c1486be43449c5d45"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a42bfe7ed62e9f76c1486be43449c5d45">admin__update_ticket_data</a> (AdminUpdateTicketSchema admin_updates, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;})))</td></tr>
+<tr class="separator:a42bfe7ed62e9f76c1486be43449c5d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e5057a6e77982a4408f99767cbc663c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a6e5057a6e77982a4408f99767cbc663c">admin__get_ticket_list_by_filter</a> (AdminGetTicketListSchema|None filters=AdminGetTicketListSchema(), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;})))</td></tr>
+<tr class="separator:a6e5057a6e77982a4408f99767cbc663c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269f4e99cf247c4ee8d5650c68497c3b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a269f4e99cf247c4ee8d5650c68497c3b">admin__show_detail_ticket_info</a> (AdminTicketIdSchema ticket_id_info, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;})))</td></tr>
+<tr class="separator:a269f4e99cf247c4ee8d5650c68497c3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a091ad9111a6f5caf6c8178474a440a69"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a091ad9111a6f5caf6c8178474a440a69">admin__delete_ticket</a> (AdminTicketIdSchema deletion_ticket_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;})))</td></tr>
+<tr class="separator:a091ad9111a6f5caf6c8178474a440a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5925a6abcbf5393baac0c1fc3267a86d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1views.html#a5925a6abcbf5393baac0c1fc3267a86d">admin__update_profile</a> (AdminRequestUpdateProfileSchema profile_updated_data=AdminRequestUpdateProfileSchema(), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;})))</td></tr>
+<tr class="separator:a5925a6abcbf5393baac0c1fc3267a86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="acb671076fb730fc60e52bbef7723c01e" name="acb671076fb730fc60e52bbef7723c01e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb671076fb730fc60e52bbef7723c01e">&#9670;&#160;</a></span>admin__delete_ticket()</h2>
+<a id="a091ad9111a6f5caf6c8178474a440a69" name="a091ad9111a6f5caf6c8178474a440a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a091ad9111a6f5caf6c8178474a440a69">&#9670;&#160;</a></span>admin__delete_ticket()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,8 +156,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -167,8 +169,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aff21e92fc5212165fb85bd1f826fb00c" name="aff21e92fc5212165fb85bd1f826fb00c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff21e92fc5212165fb85bd1f826fb00c">&#9670;&#160;</a></span>admin__get_ticket_list_by_filter()</h2>
+<a id="a6e5057a6e77982a4408f99767cbc663c" name="a6e5057a6e77982a4408f99767cbc663c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e5057a6e77982a4408f99767cbc663c">&#9670;&#160;</a></span>admin__get_ticket_list_by_filter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,8 +184,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -195,8 +197,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af4d99f697e5f835dd9942008e056393d" name="af4d99f697e5f835dd9942008e056393d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4d99f697e5f835dd9942008e056393d">&#9670;&#160;</a></span>admin__show_detail_ticket_info()</h2>
+<a id="a269f4e99cf247c4ee8d5650c68497c3b" name="a269f4e99cf247c4ee8d5650c68497c3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269f4e99cf247c4ee8d5650c68497c3b">&#9670;&#160;</a></span>admin__show_detail_ticket_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,8 +212,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -223,8 +225,36 @@ Functions</h2></td></tr>
 <pre class="fragment">Show detail ticket info</pre> 
 </div>
 </div>
-<a id="a871f722b085868c0e2a90916d9db5a59" name="a871f722b085868c0e2a90916d9db5a59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a871f722b085868c0e2a90916d9db5a59">&#9670;&#160;</a></span>admin__update_ticket_data()</h2>
+<a id="a5925a6abcbf5393baac0c1fc3267a86d" name="a5925a6abcbf5393baac0c1fc3267a86d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5925a6abcbf5393baac0c1fc3267a86d">&#9670;&#160;</a></span>admin__update_profile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def admin__update_profile </td>
+          <td>(</td>
+          <td class="paramtype">AdminRequestUpdateProfileSchema &#160;</td>
+          <td class="paramname"><em>profile_updated_data</em> = <code>AdminRequestUpdateProfileSchema()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;}))</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42bfe7ed62e9f76c1486be43449c5d45" name="a42bfe7ed62e9f76c1486be43449c5d45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42bfe7ed62e9f76c1486be43449c5d45">&#9670;&#160;</a></span>admin__update_ticket_data()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,8 +268,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;ADMIN&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

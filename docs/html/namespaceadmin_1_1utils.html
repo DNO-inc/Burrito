@@ -129,12 +129,14 @@ $(document).ready(function(){initNavTree('namespaceadmin_1_1utils.html',''); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af70f4401a95116f004d0d0f1ddcbac5f"><td class="memItemLeft" align="right" valign="top">AdminTicketDetailInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1utils.html#af70f4401a95116f004d0d0f1ddcbac5f">make_ticket_detail_info</a> (Tickets ticket, <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_payload, Users|None creator, Users|None assignee, *bool crop_body=True)</td></tr>
-<tr class="separator:af70f4401a95116f004d0d0f1ddcbac5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed18b0d65aaf2fbee89b14a1d792e16e"><td class="memItemLeft" align="right" valign="top">AdminTicketDetailInfo&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1utils.html#aed18b0d65aaf2fbee89b14a1d792e16e">make_ticket_detail_info</a> (Tickets ticket, Users current_user, Users|None creator, Users|None assignee, *bool crop_body=True)</td></tr>
+<tr class="separator:aed18b0d65aaf2fbee89b14a1d792e16e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2dd99dd8251da87869f256380d5b87"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceadmin_1_1utils.html#a8e2dd99dd8251da87869f256380d5b87">update_profile_as_admin</a> (int user_id, AdminRequestUpdateProfileSchema|None profile_updated_data=AdminRequestUpdateProfileSchema(), bool allow_extra_fields=False)</td></tr>
+<tr class="separator:a8e2dd99dd8251da87869f256380d5b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="af70f4401a95116f004d0d0f1ddcbac5f" name="af70f4401a95116f004d0d0f1ddcbac5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af70f4401a95116f004d0d0f1ddcbac5f">&#9670;&#160;</a></span>make_ticket_detail_info()</h2>
+<a id="aed18b0d65aaf2fbee89b14a1d792e16e" name="aed18b0d65aaf2fbee89b14a1d792e16e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed18b0d65aaf2fbee89b14a1d792e16e">&#9670;&#160;</a></span>make_ticket_detail_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,8 +150,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td>
-          <td class="paramname"><em>token_payload</em>, </td>
+          <td class="paramtype">Users&#160;</td>
+          <td class="paramname"><em>current_user</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -168,6 +170,40 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">*bool &#160;</td>
           <td class="paramname"><em>crop_body</em> = <code>True</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8e2dd99dd8251da87869f256380d5b87" name="a8e2dd99dd8251da87869f256380d5b87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2dd99dd8251da87869f256380d5b87">&#9670;&#160;</a></span>update_profile_as_admin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None update_profile_as_admin </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>user_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">AdminRequestUpdateProfileSchema | None &#160;</td>
+          <td class="paramname"><em>profile_updated_data</em> = <code>AdminRequestUpdateProfileSchema()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool &#160;</td>
+          <td class="paramname"><em>allow_extra_fields</em> = <code>False</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

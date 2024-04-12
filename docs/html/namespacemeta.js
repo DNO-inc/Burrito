@@ -14,11 +14,11 @@ var namespacemeta =
     [ "utils", "namespacemeta_1_1utils.html", "namespacemeta_1_1utils" ],
     [ "views", "namespacemeta_1_1views.html", [
       [ "meta__faculties_list", "namespacemeta_1_1views.html#abc29394161eaf07c0b66d99369a8efde", null ],
-      [ "meta__get_admins", "namespacemeta_1_1views.html#ae1784e2d6044603c5f62d7769f538491", null ],
-      [ "meta__get_groups_list", "namespacemeta_1_1views.html#ac2c228d367cd19b423bda016876c7833", null ],
+      [ "meta__get_admins", "namespacemeta_1_1views.html#a9f9ce75e11dabd75cff927b1c85a9fdf", null ],
+      [ "meta__get_groups_list", "namespacemeta_1_1views.html#a503ee9ca04d8729b640719cadf8e7b7d", null ],
       [ "meta__get_queues_list", "namespacemeta_1_1views.html#a6f9e061126574453f88c2f37eb21e811", null ],
-      [ "meta__get_role_permissions", "namespacemeta_1_1views.html#a1f2f0a7926dad55fd6687de350e2d354", null ],
-      [ "meta__get_roles", "namespacemeta_1_1views.html#abf7122441ae334efb25cade34d96e156", null ],
+      [ "meta__get_role_permissions", "namespacemeta_1_1views.html#a85cd58859c2086397c45c1f26c71a3df", null ],
+      [ "meta__get_roles", "namespacemeta_1_1views.html#accbfefcb132cba126fef1b9f7bd89a24", null ],
       [ "meta__get_statuses_list", "namespacemeta_1_1views.html#a336ff9d46c7127e8f930c0fa34dd6fd7", null ]
     ] ]
 ];

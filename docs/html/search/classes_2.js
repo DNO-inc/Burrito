@@ -11,7 +11,6 @@ var searchData=
   ['burritodatabasecursor_8',['BurritoDatabaseCursor',['../classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html',1,'burrito::utils::db_cursor_object']]],
   ['burritoemail_9',['BurritoEmail',['../classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html',1,'burrito::utils::email_util']]],
   ['burritoformatter_10',['BurritoFormatter',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html',1,'burrito::utils::logger']]],
-  ['burritojwt_11',['BurritoJWT',['../classburrito_1_1utils_1_1auth_1_1BurritoJWT.html',1,'burrito::utils::auth']]],
-  ['burritologger_12',['BurritoLogger',['../classburrito_1_1utils_1_1logger_1_1BurritoLogger.html',1,'burrito::utils::logger']]],
-  ['burritopagination_13',['BurritoPagination',['../classpagination__schema_1_1BurritoPagination.html',1,'pagination_schema']]]
+  ['burritologger_11',['BurritoLogger',['../classburrito_1_1utils_1_1logger_1_1BurritoLogger.html',1,'burrito::utils::logger']]],
+  ['burritopagination_12',['BurritoPagination',['../classpagination__schema_1_1BurritoPagination.html',1,'pagination_schema']]]
 ];

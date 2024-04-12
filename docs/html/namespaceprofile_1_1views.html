@@ -129,14 +129,18 @@ $(document).ready(function(){initNavTree('namespaceprofile_1_1views.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a809bdef68f836f9b1f8a91a7e9ebb7b8"><td class="memItemLeft" align="right" valign="top">ResponseProfileSchema&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#a809bdef68f836f9b1f8a91a7e9ebb7b8">profile__check_by_id</a> (int user_id, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a809bdef68f836f9b1f8a91a7e9ebb7b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ac421dab73bd5b310ab27e2ee6376de"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#a1ac421dab73bd5b310ab27e2ee6376de">profile__update_my_profile</a> (RequestUpdateProfileSchema|None profile_updated_data=RequestUpdateProfileSchema(), <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a1ac421dab73bd5b310ab27e2ee6376de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba527b35bdc84a0ec109102fe0016b40"><td class="memItemLeft" align="right" valign="top">ResponseProfileSchema&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aba527b35bdc84a0ec109102fe0016b40">profile__check_by_id</a> (int user_id, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="separator:aba527b35bdc84a0ec109102fe0016b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea0cab4607cbb4a2d38f93831f0b0193"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aea0cab4607cbb4a2d38f93831f0b0193">profile__update_my_profile</a> (RequestUpdateProfileSchema|None profile_updated_data=RequestUpdateProfileSchema(), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;UPDATE_PROFILE&quot;})))</td></tr>
+<tr class="separator:aea0cab4607cbb4a2d38f93831f0b0193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1e324befd763274b448ce29c2fb33d9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#af1e324befd763274b448ce29c2fb33d9">profile__token_reset_request</a> (str email)</td></tr>
+<tr class="separator:af1e324befd763274b448ce29c2fb33d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f34ef0f01a9cb97e6828526dea86a3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#a96f34ef0f01a9cb97e6828526dea86a3">profile__get_new_token</a> (str reset_token, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="separator:a96f34ef0f01a9cb97e6828526dea86a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a809bdef68f836f9b1f8a91a7e9ebb7b8" name="a809bdef68f836f9b1f8a91a7e9ebb7b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a809bdef68f836f9b1f8a91a7e9ebb7b8">&#9670;&#160;</a></span>profile__check_by_id()</h2>
+<a id="aba527b35bdc84a0ec109102fe0016b40" name="aba527b35bdc84a0ec109102fe0016b40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba527b35bdc84a0ec109102fe0016b40">&#9670;&#160;</a></span>profile__check_by_id()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,8 +154,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -163,8 +167,55 @@ Functions</h2></td></tr>
 <pre class="fragment">Return some data to check user profile</pre> 
 </div>
 </div>
-<a id="a1ac421dab73bd5b310ab27e2ee6376de" name="a1ac421dab73bd5b310ab27e2ee6376de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ac421dab73bd5b310ab27e2ee6376de">&#9670;&#160;</a></span>profile__update_my_profile()</h2>
+<a id="a96f34ef0f01a9cb97e6828526dea86a3" name="a96f34ef0f01a9cb97e6828526dea86a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f34ef0f01a9cb97e6828526dea86a3">&#9670;&#160;</a></span>profile__get_new_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def profile__get_new_token </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>reset_token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af1e324befd763274b448ce29c2fb33d9" name="af1e324befd763274b448ce29c2fb33d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e324befd763274b448ce29c2fb33d9">&#9670;&#160;</a></span>profile__token_reset_request()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def profile__token_reset_request </td>
+          <td>(</td>
+          <td class="paramtype">str
+&#160;</td>
+          <td class="paramname"><em>email</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aea0cab4607cbb4a2d38f93831f0b0193" name="aea0cab4607cbb4a2d38f93831f0b0193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea0cab4607cbb4a2d38f93831f0b0193">&#9670;&#160;</a></span>profile__update_my_profile()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,8 +229,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;UPDATE_PROFILE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

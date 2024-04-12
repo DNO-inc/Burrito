@@ -129,36 +129,18 @@ $(document).ready(function(){initNavTree('namespaceauth_1_1views.html',''); init
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa48cb5c0c711494f7ddba21214e52723"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#aa48cb5c0c711494f7ddba21214e52723">auth__password_login</a> (UserPasswordLoginSchema user_login_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:aa48cb5c0c711494f7ddba21214e52723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aab6f39b2a1e7ee34a256e6174c364a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a3aab6f39b2a1e7ee34a256e6174c364a">auth__key_login</a> (UserKeyLoginSchema user_login_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a3aab6f39b2a1e7ee34a256e6174c364a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7160a70a7bf69214427e4aae4f822a22"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a7160a70a7bf69214427e4aae4f822a22">auth__token_refresh</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a7160a70a7bf69214427e4aae4f822a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24ba3927a720c81c1732a6957dc0e2ca"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a24ba3927a720c81c1732a6957dc0e2ca">auth__delete_tokens</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a24ba3927a720c81c1732a6957dc0e2ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75d2a0f3f9b4e0507be51c90802a60f9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a75d2a0f3f9b4e0507be51c90802a60f9">auth__password_login</a> (UserPasswordLoginSchema user_login_data)</td></tr>
+<tr class="separator:a75d2a0f3f9b4e0507be51c90802a60f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83afeb2df8d72d197b77453b08506679"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a83afeb2df8d72d197b77453b08506679">auth__key_login</a> (UserKeyLoginSchema user_login_data)</td></tr>
+<tr class="separator:a83afeb2df8d72d197b77453b08506679"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4aca2d796dfef5337ee9f6c53d9541"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#aca4aca2d796dfef5337ee9f6c53d9541">auth__token_refresh</a> (tuple[Users, str] _auth_obj=Depends(rotate_refresh_token))</td></tr>
+<tr class="separator:aca4aca2d796dfef5337ee9f6c53d9541"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6867e070ae3c9e589b2b355532c2c641"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceauth_1_1views.html#a6867e070ae3c9e589b2b355532c2c641">auth_delete_refresh_token</a> (Users _curr_user=Depends(delete_refresh_token))</td></tr>
+<tr class="separator:a6867e070ae3c9e589b2b355532c2c641"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a24ba3927a720c81c1732a6957dc0e2ca" name="a24ba3927a720c81c1732a6957dc0e2ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24ba3927a720c81c1732a6957dc0e2ca">&#9670;&#160;</a></span>auth__delete_tokens()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def auth__delete_tokens </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3aab6f39b2a1e7ee34a256e6174c364a" name="a3aab6f39b2a1e7ee34a256e6174c364a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3aab6f39b2a1e7ee34a256e6174c364a">&#9670;&#160;</a></span>auth__key_login()</h2>
+<a id="a83afeb2df8d72d197b77453b08506679" name="a83afeb2df8d72d197b77453b08506679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83afeb2df8d72d197b77453b08506679">&#9670;&#160;</a></span>auth__key_login()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,27 +148,18 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">def auth__key_login </td>
           <td>(</td>
-          <td class="paramtype">UserKeyLoginSchema&#160;</td>
-          <td class="paramname"><em>user_login_data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">UserKeyLoginSchema
+&#160;</td>
+          <td class="paramname"><em>user_login_data</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Authentication by key from SSU Cabinet</pre> 
 </div>
 </div>
-<a id="aa48cb5c0c711494f7ddba21214e52723" name="aa48cb5c0c711494f7ddba21214e52723"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa48cb5c0c711494f7ddba21214e52723">&#9670;&#160;</a></span>auth__password_login()</h2>
+<a id="a75d2a0f3f9b4e0507be51c90802a60f9" name="a75d2a0f3f9b4e0507be51c90802a60f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75d2a0f3f9b4e0507be51c90802a60f9">&#9670;&#160;</a></span>auth__password_login()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -195,26 +168,16 @@ Functions</h2></td></tr>
           <td class="memname">def auth__password_login </td>
           <td>(</td>
           <td class="paramtype">UserPasswordLoginSchema&#160;</td>
-          <td class="paramname"><em>user_login_data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>user_login_data</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Authentication by login and password</pre> 
 </div>
 </div>
-<a id="a7160a70a7bf69214427e4aae4f822a22" name="a7160a70a7bf69214427e4aae4f822a22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7160a70a7bf69214427e4aae4f822a22">&#9670;&#160;</a></span>auth__token_refresh()</h2>
+<a id="aca4aca2d796dfef5337ee9f6c53d9541" name="aca4aca2d796dfef5337ee9f6c53d9541"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca4aca2d796dfef5337ee9f6c53d9541">&#9670;&#160;</a></span>auth__token_refresh()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,8 +185,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname">def auth__token_refresh </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code></td><td>)</td>
+          <td class="paramtype">tuple[Users, str] &#160;</td>
+          <td class="paramname"><em>_auth_obj</em> = <code>Depends(rotate_refresh_token)</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6867e070ae3c9e589b2b355532c2c641" name="a6867e070ae3c9e589b2b355532c2c641"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6867e070ae3c9e589b2b355532c2c641">&#9670;&#160;</a></span>auth_delete_refresh_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def auth_delete_refresh_token </td>
+          <td>(</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(delete_refresh_token)</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
