@@ -32,12 +32,12 @@ var namespaces_dup =
     [ "m_comments_model", "namespacem__comments__model.html", "namespacem__comments__model" ],
     [ "m_email_code", "namespacem__email__code.html", "namespacem__email__code" ],
     [ "m_notifications_model", "namespacem__notifications__model.html", "namespacem__notifications__model" ],
+    [ "m_password_rest_model", "namespacem__password__rest__model.html", "namespacem__password__rest__model" ],
     [ "m_ticket_files", "namespacem__ticket__files.html", "namespacem__ticket__files" ],
     [ "meta", "namespacemeta.html", "namespacemeta" ],
     [ "meta_schema", "namespacemeta__schema.html", "namespacemeta__schema" ],
     [ "new_tickets", "namespacenew__tickets.html", [
       [ "check_for_new_tickets", "namespacenew__tickets.html#aa27cab212f5407e2dd1b5e8fff84606f", null ],
-      [ "EMAIL_NOTIFICATION_FOR_ADMIN", "namespacenew__tickets.html#aced10e4bd44f8013e20ce6080cef1586", null ],
       [ "MAX_UNCHANGED_DAYS", "namespacenew__tickets.html#adbb91634137f80a2ddcc7ba8179ec0a0", null ]
     ] ],
     [ "notifications", "namespacenotifications.html", "namespacenotifications" ],
@@ -62,6 +62,8 @@ var namespaces_dup =
     [ "role_permissions_model", "namespacerole__permissions__model.html", "namespacerole__permissions__model" ],
     [ "roles_model", "namespaceroles__model.html", "namespaceroles__model" ],
     [ "scheduler", "namespacescheduler.html", "namespacescheduler" ],
+    [ "statistic", "namespacestatistic.html", "namespacestatistic" ],
+    [ "statistic_model", "namespacestatistic__model.html", "namespacestatistic__model" ],
     [ "status_schema", "namespacestatus__schema.html", "namespacestatus__schema" ],
     [ "statuses_model", "namespacestatuses__model.html", "namespacestatuses__model" ],
     [ "subscriptions_model", "namespacesubscriptions__model.html", "namespacesubscriptions__model" ],

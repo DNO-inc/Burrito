@@ -129,18 +129,18 @@ $(document).ready(function(){initNavTree('namespacecomments_1_1views.html',''); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a639bcccb4e716430b8b564fc719b03aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a639bcccb4e716430b8b564fc719b03aa">comments__create</a> (CommentCreationSchema creation_comment_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a639bcccb4e716430b8b564fc719b03aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92184b2b49135491a661d4e0f96ccd27"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a92184b2b49135491a661d4e0f96ccd27">comments__edit</a> (CommentEditSchema edit_comment_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a92184b2b49135491a661d4e0f96ccd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf2ab015b6579afcdd0754d8da17a83d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#acf2ab015b6579afcdd0754d8da17a83d">comments__delete</a> (CommentIDSchema deletion_comment_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:acf2ab015b6579afcdd0754d8da17a83d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ebd38f5807410a6acceb3b42668d425"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a1ebd38f5807410a6acceb3b42668d425">comments__get_comment_by_id</a> (CommentIDSchema comment_data, <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> __auth_obj=Depends(get_auth_core()))</td></tr>
-<tr class="separator:a1ebd38f5807410a6acceb3b42668d425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2038cc70f650aa42312dab9d7e36f270"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a2038cc70f650aa42312dab9d7e36f270">comments__create</a> (CommentCreationSchema creation_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="separator:a2038cc70f650aa42312dab9d7e36f270"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1588df7746459aa56c4e02bf74f935f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#ab1588df7746459aa56c4e02bf74f935f">comments__edit</a> (CommentEditSchema edit_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="separator:ab1588df7746459aa56c4e02bf74f935f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb116b4359675fbec0ab413251759a0c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#aeb116b4359675fbec0ab413251759a0c">comments__delete</a> (CommentIDSchema deletion_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="separator:aeb116b4359675fbec0ab413251759a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59619c1538c68bbbfd731d9fb251ccee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a59619c1538c68bbbfd731d9fb251ccee">comments__get_comment_by_id</a> (CommentIDSchema comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="separator:a59619c1538c68bbbfd731d9fb251ccee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a639bcccb4e716430b8b564fc719b03aa" name="a639bcccb4e716430b8b564fc719b03aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a639bcccb4e716430b8b564fc719b03aa">&#9670;&#160;</a></span>comments__create()</h2>
+<a id="a2038cc70f650aa42312dab9d7e36f270" name="a2038cc70f650aa42312dab9d7e36f270"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2038cc70f650aa42312dab9d7e36f270">&#9670;&#160;</a></span>comments__create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,8 +154,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -167,8 +167,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acf2ab015b6579afcdd0754d8da17a83d" name="acf2ab015b6579afcdd0754d8da17a83d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf2ab015b6579afcdd0754d8da17a83d">&#9670;&#160;</a></span>comments__delete()</h2>
+<a id="aeb116b4359675fbec0ab413251759a0c" name="aeb116b4359675fbec0ab413251759a0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb116b4359675fbec0ab413251759a0c">&#9670;&#160;</a></span>comments__delete()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,8 +182,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -195,8 +195,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a92184b2b49135491a661d4e0f96ccd27" name="a92184b2b49135491a661d4e0f96ccd27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92184b2b49135491a661d4e0f96ccd27">&#9670;&#160;</a></span>comments__edit()</h2>
+<a id="ab1588df7746459aa56c4e02bf74f935f" name="ab1588df7746459aa56c4e02bf74f935f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1588df7746459aa56c4e02bf74f935f">&#9670;&#160;</a></span>comments__edit()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,8 +210,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -223,8 +223,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a1ebd38f5807410a6acceb3b42668d425" name="a1ebd38f5807410a6acceb3b42668d425"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ebd38f5807410a6acceb3b42668d425">&#9670;&#160;</a></span>comments__get_comment_by_id()</h2>
+<a id="a59619c1538c68bbbfd731d9fb251ccee" name="a59619c1538c68bbbfd731d9fb251ccee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59619c1538c68bbbfd731d9fb251ccee">&#9670;&#160;</a></span>comments__get_comment_by_id()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,8 +238,8 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> &#160;</td>
-          <td class="paramname"><em>__auth_obj</em> = <code>Depends(get_auth_core())</code>&#160;</td>
+          <td class="paramtype">Users &#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

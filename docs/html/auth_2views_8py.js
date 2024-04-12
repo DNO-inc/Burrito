@@ -1,7 +1,7 @@
 var auth_2views_8py =
 [
-    [ "auth__delete_tokens", "auth_2views_8py.html#a24ba3927a720c81c1732a6957dc0e2ca", null ],
-    [ "auth__key_login", "auth_2views_8py.html#a3aab6f39b2a1e7ee34a256e6174c364a", null ],
-    [ "auth__password_login", "auth_2views_8py.html#aa48cb5c0c711494f7ddba21214e52723", null ],
-    [ "auth__token_refresh", "auth_2views_8py.html#a7160a70a7bf69214427e4aae4f822a22", null ]
+    [ "auth__key_login", "auth_2views_8py.html#a83afeb2df8d72d197b77453b08506679", null ],
+    [ "auth__password_login", "auth_2views_8py.html#a75d2a0f3f9b4e0507be51c90802a60f9", null ],
+    [ "auth__token_refresh", "auth_2views_8py.html#aca4aca2d796dfef5337ee9f6c53d9541", null ],
+    [ "auth_delete_refresh_token", "auth_2views_8py.html#a6867e070ae3c9e589b2b355532c2c641", null ]
 ];

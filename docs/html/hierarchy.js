@@ -1,9 +1,7 @@
 var hierarchy =
 [
-    [ "_FileManager", "classburrito_1_1utils_1_1file__manager_1_1__FileManager.html", null ],
     [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", null ],
     [ "BurritoBasePlugin", "classbase__plugin_1_1BurritoBasePlugin.html", null ],
-    [ "BurritoJWT", "classburrito_1_1utils_1_1auth_1_1BurritoJWT.html", null ],
     [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", [
       [ "FacultyConverter", "classburrito_1_1utils_1_1converter_1_1FacultyConverter.html", null ],
       [ "GroupConverter", "classburrito_1_1utils_1_1converter_1_1GroupConverter.html", null ],
@@ -14,6 +12,7 @@ var hierarchy =
     [ "Formatter", null, [
       [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", null ]
     ] ],
+    [ "get_current_user", "classburrito_1_1utils_1_1auth_1_1get__current__user.html", null ],
     [ "Logger", null, [
       [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", null ]
     ] ],
@@ -27,6 +26,7 @@ var hierarchy =
     [ "EmailVerificationCode.Meta", "classm__email__code_1_1EmailVerificationCode_1_1Meta.html", null ],
     [ "NotificationMetaData.Meta", "classm__notifications__model_1_1NotificationMetaData_1_1Meta.html", null ],
     [ "Notifications.Meta", "classm__notifications__model_1_1Notifications_1_1Meta.html", null ],
+    [ "AccessRenewMetaData.Meta", "classm__password__rest__model_1_1AccessRenewMetaData_1_1Meta.html", null ],
     [ "TicketFiles.Meta", "classm__ticket__files_1_1TicketFiles_1_1Meta.html", null ],
     [ "Participants.Meta", "classparticipants__model_1_1Participants_1_1Meta.html", null ],
     [ "Queues.Meta", "classqueues__model_1_1Queues_1_1Meta.html", null ],
@@ -82,6 +82,7 @@ var hierarchy =
       [ "FacultyResponseSchema", "classfaculty__schema_1_1FacultyResponseSchema.html", null ],
       [ "GroupResponseSchema", "classgroup__schema_1_1GroupResponseSchema.html", null ],
       [ "MongoBaseModel", "classm__basic__model_1_1MongoBaseModel.html", null ],
+      [ "MongoTTLModel", "classm__basic__model_1_1MongoTTLModel.html", null ],
       [ "RolePermissionResponse", "classmeta_1_1utils_1_1RolePermissionResponse.html", null ],
       [ "RolesResponse", "classmeta_1_1utils_1_1RolesResponse.html", null ],
       [ "RequestQueueListSchema", "classmeta__schema_1_1RequestQueueListSchema.html", null ],
@@ -92,11 +93,12 @@ var hierarchy =
       [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ],
       [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ],
       [ "BurritoPagination", "classpagination__schema_1_1BurritoPagination.html", null ],
+      [ "AdminRequestUpdateProfileSchema", "classprofile__schema_1_1AdminRequestUpdateProfileSchema.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", [
-        [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
         [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
       ] ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
+      [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
       [ "ResponseRoleSchema", "classprofile__schema_1_1ResponseRoleSchema.html", null ],
       [ "QueueResponseSchema", "classqueue__schema_1_1QueueResponseSchema.html", null ],
       [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ],
@@ -126,6 +128,10 @@ var hierarchy =
       [ "Queues", "classqueues__model_1_1Queues.html", null ],
       [ "RolePermissions", "classrole__permissions__model_1_1RolePermissions.html", null ],
       [ "Roles", "classroles__model_1_1Roles.html", null ],
+      [ "FacultyScopesStatistic", "classstatistic__model_1_1FacultyScopesStatistic.html", null ],
+      [ "FacultyTicketsStatistic", "classstatistic__model_1_1FacultyTicketsStatistic.html", null ],
+      [ "ScopesStatistic", "classstatistic__model_1_1ScopesStatistic.html", null ],
+      [ "StatusesStatistic", "classstatistic__model_1_1StatusesStatistic.html", null ],
       [ "Statuses", "classstatuses__model_1_1Statuses.html", null ],
       [ "Subscriptions", "classsubscriptions__model_1_1Subscriptions.html", null ],
       [ "Tickets", "classtickets__model_1_1Tickets.html", null ],
@@ -155,10 +161,15 @@ var hierarchy =
       [ "EmailVerificationCode", "classm__email__code_1_1EmailVerificationCode.html", null ],
       [ "NotificationMetaData", "classm__notifications__model_1_1NotificationMetaData.html", null ],
       [ "Notifications", "classm__notifications__model_1_1Notifications.html", null ],
+      [ "AccessRenewMetaData", "classm__password__rest__model_1_1AccessRenewMetaData.html", null ],
       [ "TicketFiles", "classm__ticket__files_1_1TicketFiles.html", null ]
     ] ],
     [ "MongoClient", null, [
       [ "MongoConnector", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector.html", null ]
+    ] ],
+    [ "MongoTTLModel", null, [
+      [ "EmailVerificationCode", "classm__email__code_1_1EmailVerificationCode.html", null ],
+      [ "AccessRenewMetaData", "classm__password__rest__model_1_1AccessRenewMetaData.html", null ]
     ] ],
     [ "MySQLDatabase", null, [
       [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", null ]

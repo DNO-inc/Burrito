@@ -8,5 +8,8 @@ var searchData=
   ['singleton_5',['singleton',['../namespaceburrito_1_1utils_1_1singleton__pattern.html#a8a234a338d5522ba5d906f6c535e9340',1,'burrito::utils::singleton_pattern']]],
   ['start_5fscheduler_6',['start_scheduler',['../namespacescheduler_1_1core.html#a1940faa9cff30cbb1554fcdb6415c1d5',1,'scheduler::core']]],
   ['startup_5fevent_7',['startup_event',['../namespaceburrito_1_1utils_1_1app__util.html#acea632a7df93720cf5fd14a80152bf23',1,'burrito::utils::app_util']]],
-  ['stop_8',['stop',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'burrito::utils::task_manager::_TaskManager']]]
+  ['statistic_5f_5factivity_5fsummary_8',['statistic__activity_summary',['../namespacestatistic_1_1views.html#a65496c5790657394ded60f99dbf8a417',1,'statistic::views']]],
+  ['statistic_5f_5ffaculties_9',['statistic__faculties',['../namespacestatistic_1_1views.html#a1e401c702870cf712a89b560e2b84282',1,'statistic::views']]],
+  ['statistic_5f_5fperiodic_10',['statistic__periodic',['../namespacestatistic_1_1views.html#a773bf19e2b78468fa014857807ecaa72',1,'statistic::views']]],
+  ['stop_11',['stop',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html#a26ca7c1c7fcdd35378e7be97727047a6',1,'burrito::utils::task_manager::_TaskManager']]]
 ];

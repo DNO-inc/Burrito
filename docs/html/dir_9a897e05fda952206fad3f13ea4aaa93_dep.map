@@ -1,17 +1,18 @@
 <map id="burrito/apps" name="burrito/apps">
-<area shape="rect" id="node2" href="dir_7386af00e0133f39dc454b1663717a7a.html" title="about" alt="" coords="1089,63,1143,88"/>
-<area shape="rect" id="node3" href="dir_b0b3ac18fa654ec4426c734d5be7e0b5.html" title="admin" alt="" coords="1007,63,1065,88"/>
-<area shape="rect" id="node4" href="dir_f661f71b79a1b327fe58c34502149432.html" title="anon" alt="" coords="932,63,983,88"/>
-<area shape="rect" id="node5" href="dir_35b15864b5b3bd39cd1ca8d654c80ef8.html" title="auth" alt="" coords="861,63,907,88"/>
-<area shape="rect" id="node6" href="dir_6520e230cb246d47e961be51f6549208.html" title="comments" alt="" coords="753,63,836,88"/>
-<area shape="rect" id="node7" href="dir_125bcf741c78afb9825e1e60a51d2db9.html" title="iofiles" alt="" coords="673,63,729,88"/>
-<area shape="rect" id="node8" href="dir_e07307ee3c040c18bf88f0426acadf31.html" title="meta" alt="" coords="599,63,649,88"/>
-<area shape="rect" id="node9" href="dir_7d78613346e1535bf7f8b67db373b07c.html" title="notifications" alt="" coords="482,63,574,88"/>
-<area shape="rect" id="node10" href="dir_e46aaaa29c80828531d2e2893c66f3ce.html" title="profile" alt="" coords="401,63,458,88"/>
-<area shape="rect" id="node11" href="dir_20675a350e8b2f60a0f15860a37389ec.html" title="registration" alt="" coords="290,63,377,88"/>
-<area shape="rect" id="node12" href="dir_2922d116cf4bc6495207f5c5f687204a.html" title="scheduler" alt="" coords="187,63,266,88"/>
-<area shape="rect" id="node13" href="dir_9161399acf903b7e7d2d0d4882a4a16e.html" title="tickets" alt="" coords="101,63,163,88"/>
-<area shape="rect" id="node14" href="dir_d675ba89f78b078d7152dfbfdf2a1345.html" title="ws" alt="" coords="38,63,77,88"/>
-<area shape="rect" id="clust2" href="dir_9a897e05fda952206fad3f13ea4aaa93.html" alt="" coords="27,52,1229,99"/>
-<area shape="rect" id="clust1" href="dir_effe16904bd75740d358b0b288a5be8c.html" title="burrito" alt="" coords="16,16,1240,109"/>
+<area shape="rect" id="node2" href="dir_7386af00e0133f39dc454b1663717a7a.html" title="about" alt="" coords="1181,63,1235,88"/>
+<area shape="rect" id="node3" href="dir_b0b3ac18fa654ec4426c734d5be7e0b5.html" title="admin" alt="" coords="1099,63,1157,88"/>
+<area shape="rect" id="node4" href="dir_f661f71b79a1b327fe58c34502149432.html" title="anon" alt="" coords="1024,63,1075,88"/>
+<area shape="rect" id="node5" href="dir_35b15864b5b3bd39cd1ca8d654c80ef8.html" title="auth" alt="" coords="953,63,999,88"/>
+<area shape="rect" id="node6" href="dir_6520e230cb246d47e961be51f6549208.html" title="comments" alt="" coords="845,63,928,88"/>
+<area shape="rect" id="node7" href="dir_125bcf741c78afb9825e1e60a51d2db9.html" title="iofiles" alt="" coords="765,63,821,88"/>
+<area shape="rect" id="node8" href="dir_e07307ee3c040c18bf88f0426acadf31.html" title="meta" alt="" coords="691,63,741,88"/>
+<area shape="rect" id="node9" href="dir_7d78613346e1535bf7f8b67db373b07c.html" title="notifications" alt="" coords="574,63,666,88"/>
+<area shape="rect" id="node10" href="dir_e46aaaa29c80828531d2e2893c66f3ce.html" title="profile" alt="" coords="493,63,550,88"/>
+<area shape="rect" id="node11" href="dir_20675a350e8b2f60a0f15860a37389ec.html" title="registration" alt="" coords="382,63,469,88"/>
+<area shape="rect" id="node12" href="dir_2922d116cf4bc6495207f5c5f687204a.html" title="scheduler" alt="" coords="279,63,358,88"/>
+<area shape="rect" id="node13" href="dir_d19606556b6919e6cc76cdc1a960c400.html" title="statistic" alt="" coords="187,63,255,88"/>
+<area shape="rect" id="node14" href="dir_9161399acf903b7e7d2d0d4882a4a16e.html" title="tickets" alt="" coords="101,63,163,88"/>
+<area shape="rect" id="node15" href="dir_d675ba89f78b078d7152dfbfdf2a1345.html" title="ws" alt="" coords="38,63,77,88"/>
+<area shape="rect" id="clust2" href="dir_9a897e05fda952206fad3f13ea4aaa93.html" alt="" coords="27,52,1321,99"/>
+<area shape="rect" id="clust1" href="dir_effe16904bd75740d358b0b288a5be8c.html" title="burrito" alt="" coords="16,16,1332,109"/>
 </map>

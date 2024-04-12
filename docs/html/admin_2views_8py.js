@@ -1,7 +1,8 @@
 var admin_2views_8py =
 [
-    [ "admin__delete_ticket", "admin_2views_8py.html#acb671076fb730fc60e52bbef7723c01e", null ],
-    [ "admin__get_ticket_list_by_filter", "admin_2views_8py.html#aff21e92fc5212165fb85bd1f826fb00c", null ],
-    [ "admin__show_detail_ticket_info", "admin_2views_8py.html#af4d99f697e5f835dd9942008e056393d", null ],
-    [ "admin__update_ticket_data", "admin_2views_8py.html#a871f722b085868c0e2a90916d9db5a59", null ]
+    [ "admin__delete_ticket", "admin_2views_8py.html#a091ad9111a6f5caf6c8178474a440a69", null ],
+    [ "admin__get_ticket_list_by_filter", "admin_2views_8py.html#a6e5057a6e77982a4408f99767cbc663c", null ],
+    [ "admin__show_detail_ticket_info", "admin_2views_8py.html#a269f4e99cf247c4ee8d5650c68497c3b", null ],
+    [ "admin__update_profile", "admin_2views_8py.html#a5925a6abcbf5393baac0c1fc3267a86d", null ],
+    [ "admin__update_ticket_data", "admin_2views_8py.html#a42bfe7ed62e9f76c1486be43449c5d45", null ]
 ];

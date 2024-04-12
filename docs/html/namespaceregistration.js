@@ -14,7 +14,7 @@ var namespaceregistration =
     [ "utils", "namespaceregistration_1_1utils.html", null ],
     [ "views", "namespaceregistration_1_1views.html", [
       [ "registration__user_registration", "namespaceregistration_1_1views.html#af949ee06b5f8386281f2a4fc062af780", null ],
-      [ "registration__verify_email", "namespaceregistration_1_1views.html#a8fe3fc914c6f80c63df1067d04adb8ae", null ],
+      [ "registration__verify_email", "namespaceregistration_1_1views.html#a60467a413ab227f40a1d5eebc26950f7", null ],
       [ "EMAIL_VERIFICATIONS_TEMPLATE", "namespaceregistration_1_1views.html#a34ca230481cb524f96732fd638ad80f4", null ]
     ] ]
 ];

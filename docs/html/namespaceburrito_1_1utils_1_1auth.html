@@ -135,36 +135,68 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ad2868ae85459f91de0c84f42e031af6a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ad2868ae85459f91de0c84f42e031af6a">_make_redis_key</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> data)</td></tr>
 <tr class="separator:ad2868ae85459f91de0c84f42e031af6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a978c0696025d0471d9c91171076ac05e"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a978c0696025d0471d9c91171076ac05e">_make_token_body</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data, str token_type, str jti)</td></tr>
-<tr class="separator:a978c0696025d0471d9c91171076ac05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4effd73da80bc35f3da55e3d72b180a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ad4effd73da80bc35f3da55e3d72b180a">_read_token_payload</a> (str token)</td></tr>
-<tr class="separator:ad4effd73da80bc35f3da55e3d72b180a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f37b06c182649f3c61c895e6c1f89b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a4f37b06c182649f3c61c895e6c1f89b9">check_jwt_token</a> (str token)</td></tr>
-<tr class="separator:a4f37b06c182649f3c61c895e6c1f89b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90d0a9c443de58de1b9d54ff1a46a299"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a90d0a9c443de58de1b9d54ff1a46a299">get_auth_core</a> ()</td></tr>
-<tr class="separator:a90d0a9c443de58de1b9d54ff1a46a299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87bc90feff8c36b237003024b0dadf21"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a87bc90feff8c36b237003024b0dadf21">_make_token_body</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data, Literal[&quot;access&quot;, &quot;refresh&quot;] token_type)</td></tr>
+<tr class="separator:a87bc90feff8c36b237003024b0dadf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25aeeda039d1e77bee6ca0570f7605f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>|None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a25aeeda039d1e77bee6ca0570f7605f7">read_token_payload</a> (str token)</td></tr>
+<tr class="separator:a25aeeda039d1e77bee6ca0570f7605f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdcec3bea66cf917d3af0e1ad4caef53"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#acdcec3bea66cf917d3af0e1ad4caef53">create_access_token</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data)</td></tr>
+<tr class="separator:acdcec3bea66cf917d3af0e1ad4caef53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ae6f73c9afdc2012bebc42ea9935f2c"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a7ae6f73c9afdc2012bebc42ea9935f2c">create_refresh_token</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data)</td></tr>
+<tr class="separator:a7ae6f73c9afdc2012bebc42ea9935f2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a975e843f05140b0d30126de435595f2d"><td class="memItemLeft" align="right" valign="top">dict[str, str]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a975e843f05140b0d30126de435595f2d">create_token_pare</a> (<a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> token_data)</td></tr>
+<tr class="separator:a975e843f05140b0d30126de435595f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e2937fc4452ca58797cc9b5d057fb1a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a9e2937fc4452ca58797cc9b5d057fb1a">_extract_from_headers</a> (headers)</td></tr>
+<tr class="separator:a9e2937fc4452ca58797cc9b5d057fb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae329d99f17ad42aedced18ada4ea3f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ae329d99f17ad42aedced18ada4ea3f46">_require_refresh_token</a> (headers)</td></tr>
+<tr class="separator:ae329d99f17ad42aedced18ada4ea3f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4c0c37df5694e6101d4767cb1878c53"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ad4c0c37df5694e6101d4767cb1878c53">rotate_refresh_token</a> (Request request)</td></tr>
+<tr class="separator:ad4c0c37df5694e6101d4767cb1878c53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a5e4c3e20fbed9aae5e6d395a9f6f6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a02a5e4c3e20fbed9aae5e6d395a9f6f6">delete_refresh_token</a> (Request request)</td></tr>
+<tr class="separator:a02a5e4c3e20fbed9aae5e6d395a9f6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a9de8c643b7e2f078eae241455649d885"><td class="memItemLeft" align="right" valign="top">get_config&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a9de8c643b7e2f078eae241455649d885">_JWT_SECRET</a> = get_config().BURRITO_JWT_SECRET</td></tr>
 <tr class="separator:a9de8c643b7e2f078eae241455649d885"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accbc45b0b9673a233e21b188eaa317a8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#accbc45b0b9673a233e21b188eaa317a8">_JWT_ACCESS_TTL</a> = int(get_config().BURRITO_JWT_ACCESS_TTL)</td></tr>
-<tr class="separator:accbc45b0b9673a233e21b188eaa317a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a555ccd151cd2c3ef159c9cc2862689"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a1a555ccd151cd2c3ef159c9cc2862689">_JWT_REFRESH_TTL</a> = int(get_config().BURRITO_JWT_REFRESH_TTL)</td></tr>
-<tr class="separator:a1a555ccd151cd2c3ef159c9cc2862689"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad78537c70e91ee7a243d1725b5312b1a"><td class="memItemLeft" align="right" valign="top">str&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#ad78537c70e91ee7a243d1725b5312b1a">_KEY_TEMPLATE</a> = &quot;{}_{}_{}&quot;</td></tr>
-<tr class="separator:ad78537c70e91ee7a243d1725b5312b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef82bc51d32e58507d8e7b6ad28e60d1"><td class="memItemLeft" align="right" valign="top">dict&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#aef82bc51d32e58507d8e7b6ad28e60d1">_TOKEN_TYPES</a> = {&quot;access&quot;, &quot;refresh&quot;}</td></tr>
-<tr class="separator:aef82bc51d32e58507d8e7b6ad28e60d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ce7b1ea7aa3deaded31a8dcf66b602"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a76ce7b1ea7aa3deaded31a8dcf66b602">JWT_ACCESS_TTL</a> = int(get_config().BURRITO_JWT_ACCESS_TTL)</td></tr>
+<tr class="separator:a76ce7b1ea7aa3deaded31a8dcf66b602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dbf2686b31f7a96dd19614c9460bd99"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1auth.html#a5dbf2686b31f7a96dd19614c9460bd99">JWT_REFRESH_TTL</a> = int(get_config().BURRITO_JWT_REFRESH_TTL)</td></tr>
+<tr class="separator:a5dbf2686b31f7a96dd19614c9460bd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a9e2937fc4452ca58797cc9b5d057fb1a" name="a9e2937fc4452ca58797cc9b5d057fb1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e2937fc4452ca58797cc9b5d057fb1a">&#9670;&#160;</a></span>_extract_from_headers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str _extract_from_headers </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>headers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad2868ae85459f91de0c84f42e031af6a" name="ad2868ae85459f91de0c84f42e031af6a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad2868ae85459f91de0c84f42e031af6a">&#9670;&#160;</a></span>_make_redis_key()</h2>
 
@@ -198,8 +230,8 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="a978c0696025d0471d9c91171076ac05e" name="a978c0696025d0471d9c91171076ac05e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a978c0696025d0471d9c91171076ac05e">&#9670;&#160;</a></span>_make_token_body()</h2>
+<a id="a87bc90feff8c36b237003024b0dadf21" name="a87bc90feff8c36b237003024b0dadf21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87bc90feff8c36b237003024b0dadf21">&#9670;&#160;</a></span>_make_token_body()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,14 +248,8 @@ Returns:
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>token_type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>jti</em>&#160;</td>
+          <td class="paramtype">Literal[&quot;access&quot;, &quot;refresh&quot;]&#160;</td>
+          <td class="paramname"><em>token_type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -249,8 +275,8 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="ad4effd73da80bc35f3da55e3d72b180a" name="ad4effd73da80bc35f3da55e3d72b180a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4effd73da80bc35f3da55e3d72b180a">&#9670;&#160;</a></span>_read_token_payload()</h2>
+<a id="ae329d99f17ad42aedced18ada4ea3f46" name="ae329d99f17ad42aedced18ada4ea3f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae329d99f17ad42aedced18ada4ea3f46">&#9670;&#160;</a></span>_require_refresh_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -259,10 +285,10 @@ Returns:
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> | None _read_token_payload </td>
+          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> _require_refresh_token </td>
           <td>(</td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>token</em></td><td>)</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>headers</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -271,6 +297,96 @@ Returns:
 <span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdcec3bea66cf917d3af0e1ad4caef53" name="acdcec3bea66cf917d3af0e1ad4caef53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdcec3bea66cf917d3af0e1ad4caef53">&#9670;&#160;</a></span>create_access_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str create_access_token </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td>
+          <td class="paramname"><em>token_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ae6f73c9afdc2012bebc42ea9935f2c" name="a7ae6f73c9afdc2012bebc42ea9935f2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ae6f73c9afdc2012bebc42ea9935f2c">&#9670;&#160;</a></span>create_refresh_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> str create_refresh_token </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td>
+          <td class="paramname"><em>token_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a975e843f05140b0d30126de435595f2d" name="a975e843f05140b0d30126de435595f2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a975e843f05140b0d30126de435595f2d">&#9670;&#160;</a></span>create_token_pare()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> dict[str, str] create_token_pare </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a>&#160;</td>
+          <td class="paramname"><em>token_data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02a5e4c3e20fbed9aae5e6d395a9f6f6" name="a02a5e4c3e20fbed9aae5e6d395a9f6f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a5e4c3e20fbed9aae5e6d395a9f6f6">&#9670;&#160;</a></span>delete_refresh_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def delete_refresh_token </td>
+          <td>(</td>
+          <td class="paramtype">Request&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a25aeeda039d1e77bee6ca0570f7605f7" name="a25aeeda039d1e77bee6ca0570f7605f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25aeeda039d1e77bee6ca0570f7605f7">&#9670;&#160;</a></span>read_token_payload()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> | None read_token_payload </td>
+          <td>(</td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
 </div><div class="memdoc">
 <pre class="fragment">Read the token payload.
 
@@ -282,94 +398,25 @@ Returns:
 </pre> 
 </div>
 </div>
-<a id="a4f37b06c182649f3c61c895e6c1f89b9" name="a4f37b06c182649f3c61c895e6c1f89b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f37b06c182649f3c61c895e6c1f89b9">&#9670;&#160;</a></span>check_jwt_token()</h2>
+<a id="ad4c0c37df5694e6101d4767cb1878c53" name="ad4c0c37df5694e6101d4767cb1878c53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4c0c37df5694e6101d4767cb1878c53">&#9670;&#160;</a></span>rotate_refresh_token()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html">AuthTokenPayload</a> | None check_jwt_token </td>
+          <td class="memname"> str rotate_refresh_token </td>
           <td>(</td>
-          <td class="paramtype">str&#160;</td>
-          <td class="paramname"><em>token</em></td><td>)</td>
+          <td class="paramtype">Request&#160;</td>
+          <td class="paramname"><em>request</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Check if token is valid and not expired. This is a helper function to check the validity of a JWT token
 
-Args:
-    token: Token received from token endpoint
-
-Returns:
-    Token payload if valid or None if not valid or expired
-</pre> 
-</div>
-</div>
-<a id="a90d0a9c443de58de1b9d54ff1a46a299" name="a90d0a9c443de58de1b9d54ff1a46a299"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90d0a9c443de58de1b9d54ff1a46a299">&#9670;&#160;</a></span>get_auth_core()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> <a class="el" href="classburrito_1_1utils_1_1auth_1_1BurritoJWT.html">BurritoJWT</a> get_auth_core </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Provides access to Burrito's auth system. It is used to authenticate a user and get the token that is associated with that user.
-</pre> 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="accbc45b0b9673a233e21b188eaa317a8" name="accbc45b0b9673a233e21b188eaa317a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accbc45b0b9673a233e21b188eaa317a8">&#9670;&#160;</a></span>_JWT_ACCESS_TTL</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int _JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1a555ccd151cd2c3ef159c9cc2862689" name="a1a555ccd151cd2c3ef159c9cc2862689"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a555ccd151cd2c3ef159c9cc2862689">&#9670;&#160;</a></span>_JWT_REFRESH_TTL</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int _JWT_REFRESH_TTL = int(get_config().BURRITO_JWT_REFRESH_TTL)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a9de8c643b7e2f078eae241455649d885" name="a9de8c643b7e2f078eae241455649d885"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9de8c643b7e2f078eae241455649d885">&#9670;&#160;</a></span>_JWT_SECRET</h2>
 
@@ -392,46 +439,30 @@ Returns:
 
 </div>
 </div>
-<a id="ad78537c70e91ee7a243d1725b5312b1a" name="ad78537c70e91ee7a243d1725b5312b1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad78537c70e91ee7a243d1725b5312b1a">&#9670;&#160;</a></span>_KEY_TEMPLATE</h2>
+<a id="a76ce7b1ea7aa3deaded31a8dcf66b602" name="a76ce7b1ea7aa3deaded31a8dcf66b602"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ce7b1ea7aa3deaded31a8dcf66b602">&#9670;&#160;</a></span>JWT_ACCESS_TTL</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">str _KEY_TEMPLATE = &quot;{}_{}_{}&quot;</td>
+          <td class="memname">int JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="aef82bc51d32e58507d8e7b6ad28e60d1" name="aef82bc51d32e58507d8e7b6ad28e60d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef82bc51d32e58507d8e7b6ad28e60d1">&#9670;&#160;</a></span>_TOKEN_TYPES</h2>
+<a id="a5dbf2686b31f7a96dd19614c9460bd99" name="a5dbf2686b31f7a96dd19614c9460bd99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dbf2686b31f7a96dd19614c9460bd99">&#9670;&#160;</a></span>JWT_REFRESH_TTL</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">dict _TOKEN_TYPES = {&quot;access&quot;, &quot;refresh&quot;}</td>
+          <td class="memname">int JWT_REFRESH_TTL = int(get_config().BURRITO_JWT_REFRESH_TTL)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 </div>

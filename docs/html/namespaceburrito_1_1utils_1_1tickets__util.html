@@ -155,8 +155,6 @@ Functions</h2></td></tr>
 <tr class="separator:a60f01e3c26aed61aff05205f0159e266"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ba76d16fbae3b74612fef37b33f2ae3"><td class="memItemLeft" align="right" valign="top">list[object]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a4ba76d16fbae3b74612fef37b33f2ae3">get_ticket_history</a> (Tickets|int ticket, int user_id, int start_page=1, int items_count=10)</td></tr>
 <tr class="separator:a4ba76d16fbae3b74612fef37b33f2ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed9bab6c3a5d2fa849f2a4ec328c5ab5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#aed9bab6c3a5d2fa849f2a4ec328c5ab5">is_allowed_to_interact_with_history</a> (Tickets|int ticket, int user_id)</td></tr>
-<tr class="separator:aed9bab6c3a5d2fa849f2a4ec328c5ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe11ad61498dcd6beda385c2c92f2c5e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#abe11ad61498dcd6beda385c2c92f2c5e">change_ticket_status</a> (Tickets|int ticket, int user_id, Statuses new_status)</td></tr>
 <tr class="separator:abe11ad61498dcd6beda385c2c92f2c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adda46141b84a35a93e3c4922c3adfb45"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#adda46141b84a35a93e3c4922c3adfb45">change_ticket_queue</a> (Tickets|int ticket, int user_id, Queues new_queue)</td></tr>
@@ -171,6 +169,8 @@ Functions</h2></td></tr>
 <tr class="separator:ad8726d084052ff3ae3cee8b25cbdc61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29bec6d94d2b7a1557c41de2da62032a"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#a29bec6d94d2b7a1557c41de2da62032a">send_comment_update</a> (int ticket_id, str comment_id, Literal[&quot;MSG_CREATE&quot;, &quot;MSG_EDIT&quot;, &quot;MSG_DELETE&quot;] msg_type)</td></tr>
 <tr class="separator:a29bec6d94d2b7a1557c41de2da62032a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b24511a197cecb7de66754511ee657"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceburrito_1_1utils_1_1tickets__util.html#aa3b24511a197cecb7de66754511ee657">can_i_interact_with_ticket</a> (Tickets|int ticket, Users|int user)</td></tr>
+<tr class="separator:aa3b24511a197cecb7de66754511ee657"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ae62ef81992c9fe39dcf3ea7d2639478a" name="ae62ef81992c9fe39dcf3ea7d2639478a"></a>
@@ -244,6 +244,42 @@ Args:
 
 Returns:
     True if the user is allowed to interact with this
+</pre> 
+</div>
+</div>
+<a id="aa3b24511a197cecb7de66754511ee657" name="aa3b24511a197cecb7de66754511ee657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b24511a197cecb7de66754511ee657">&#9670;&#160;</a></span>can_i_interact_with_ticket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> bool can_i_interact_with_ticket </td>
+          <td>(</td>
+          <td class="paramtype">Tickets | int&#160;</td>
+          <td class="paramname"><em>ticket</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Users | int&#160;</td>
+          <td class="paramname"><em>user</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Checks if user can interact with ticket.
+
+Args:
+    ticket: ID or Tickets instance to check if it's allowed to interact
+    user_id: ID or Users instance who wants to interact with ticket
+
+Returns:
+    True if user can interact with ticket else False
 </pre> 
 </div>
 </div>
@@ -697,42 +733,6 @@ Args:
 
 Returns: 
     The ticket body truncated to `result_length` characters
-</pre> 
-</div>
-</div>
-<a id="aed9bab6c3a5d2fa849f2a4ec328c5ab5" name="aed9bab6c3a5d2fa849f2a4ec328c5ab5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed9bab6c3a5d2fa849f2a4ec328c5ab5">&#9670;&#160;</a></span>is_allowed_to_interact_with_history()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">def is_allowed_to_interact_with_history </td>
-          <td>(</td>
-          <td class="paramtype">Tickets | int&#160;</td>
-          <td class="paramname"><em>ticket</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>user_id</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<pre class="fragment">Checks if user can interact with ticket.
-
-Args:
-    ticket: Ticket to check if allowed to interact `user_id`
-    user_id: ID of user who wants to interact with ticket
-
-Returns:
-    True if user can interact with ticket else False
 </pre> 
 </div>
 </div>

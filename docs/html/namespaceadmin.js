@@ -12,12 +12,14 @@ var namespaceadmin =
       [ "methods", "namespaceadmin_1_1router.html#a33d390b3d71a902ec9fbcd5d2d237619", null ]
     ] ],
     [ "utils", "namespaceadmin_1_1utils.html", [
-      [ "make_ticket_detail_info", "namespaceadmin_1_1utils.html#af70f4401a95116f004d0d0f1ddcbac5f", null ]
+      [ "make_ticket_detail_info", "namespaceadmin_1_1utils.html#aed18b0d65aaf2fbee89b14a1d792e16e", null ],
+      [ "update_profile_as_admin", "namespaceadmin_1_1utils.html#a8e2dd99dd8251da87869f256380d5b87", null ]
     ] ],
     [ "views", "namespaceadmin_1_1views.html", [
-      [ "admin__delete_ticket", "namespaceadmin_1_1views.html#acb671076fb730fc60e52bbef7723c01e", null ],
-      [ "admin__get_ticket_list_by_filter", "namespaceadmin_1_1views.html#aff21e92fc5212165fb85bd1f826fb00c", null ],
-      [ "admin__show_detail_ticket_info", "namespaceadmin_1_1views.html#af4d99f697e5f835dd9942008e056393d", null ],
-      [ "admin__update_ticket_data", "namespaceadmin_1_1views.html#a871f722b085868c0e2a90916d9db5a59", null ]
+      [ "admin__delete_ticket", "namespaceadmin_1_1views.html#a091ad9111a6f5caf6c8178474a440a69", null ],
+      [ "admin__get_ticket_list_by_filter", "namespaceadmin_1_1views.html#a6e5057a6e77982a4408f99767cbc663c", null ],
+      [ "admin__show_detail_ticket_info", "namespaceadmin_1_1views.html#a269f4e99cf247c4ee8d5650c68497c3b", null ],
+      [ "admin__update_profile", "namespaceadmin_1_1views.html#a5925a6abcbf5393baac0c1fc3267a86d", null ],
+      [ "admin__update_ticket_data", "namespaceadmin_1_1views.html#a42bfe7ed62e9f76c1486be43449c5d45", null ]
     ] ]
 ];

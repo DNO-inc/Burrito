@@ -48,7 +48,7 @@ var annotated_dup =
         [ "auth", "namespaceburrito_1_1utils_1_1auth.html", [
           [ "AuthTokenError", "classburrito_1_1utils_1_1auth_1_1AuthTokenError.html", null ],
           [ "AuthTokenPayload", "classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html", null ],
-          [ "BurritoJWT", "classburrito_1_1utils_1_1auth_1_1BurritoJWT.html", "classburrito_1_1utils_1_1auth_1_1BurritoJWT" ]
+          [ "get_current_user", "classburrito_1_1utils_1_1auth_1_1get__current__user.html", "classburrito_1_1utils_1_1auth_1_1get__current__user" ]
         ] ],
         [ "config_reader", "namespaceburrito_1_1utils_1_1config__reader.html", [
           [ "EnvConfigReader", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader" ]
@@ -65,9 +65,6 @@ var annotated_dup =
         ] ],
         [ "email_util", "namespaceburrito_1_1utils_1_1email__util.html", [
           [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail" ]
-        ] ],
-        [ "file_manager", "namespaceburrito_1_1utils_1_1file__manager.html", [
-          [ "_FileManager", "classburrito_1_1utils_1_1file__manager_1_1__FileManager.html", "classburrito_1_1utils_1_1file__manager_1_1__FileManager" ]
         ] ],
         [ "logger", "namespaceburrito_1_1utils_1_1logger.html", [
           [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter" ],
@@ -135,7 +132,8 @@ var annotated_dup =
       [ "FileActions", "classm__actions__model_1_1FileActions.html", null ]
     ] ],
     [ "m_basic_model", "namespacem__basic__model.html", [
-      [ "MongoBaseModel", "classm__basic__model_1_1MongoBaseModel.html", "classm__basic__model_1_1MongoBaseModel" ]
+      [ "MongoBaseModel", "classm__basic__model_1_1MongoBaseModel.html", "classm__basic__model_1_1MongoBaseModel" ],
+      [ "MongoTTLModel", "classm__basic__model_1_1MongoTTLModel.html", null ]
     ] ],
     [ "m_comments_model", "namespacem__comments__model.html", [
       [ "Comments", "classm__comments__model_1_1Comments.html", "classm__comments__model_1_1Comments" ]
@@ -146,6 +144,9 @@ var annotated_dup =
     [ "m_notifications_model", "namespacem__notifications__model.html", [
       [ "NotificationMetaData", "classm__notifications__model_1_1NotificationMetaData.html", "classm__notifications__model_1_1NotificationMetaData" ],
       [ "Notifications", "classm__notifications__model_1_1Notifications.html", "classm__notifications__model_1_1Notifications" ]
+    ] ],
+    [ "m_password_rest_model", "namespacem__password__rest__model.html", [
+      [ "AccessRenewMetaData", "classm__password__rest__model_1_1AccessRenewMetaData.html", "classm__password__rest__model_1_1AccessRenewMetaData" ]
     ] ],
     [ "m_ticket_files", "namespacem__ticket__files.html", [
       [ "TicketFiles", "classm__ticket__files_1_1TicketFiles.html", "classm__ticket__files_1_1TicketFiles" ]
@@ -175,6 +176,7 @@ var annotated_dup =
       [ "Permissions", "classpermissions__model_1_1Permissions.html", null ]
     ] ],
     [ "profile_schema", "namespaceprofile__schema.html", [
+      [ "AdminRequestUpdateProfileSchema", "classprofile__schema_1_1AdminRequestUpdateProfileSchema.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", null ],
       [ "CheckProfileSchema", "classprofile__schema_1_1CheckProfileSchema.html", null ],
       [ "RequestUpdateProfileSchema", "classprofile__schema_1_1RequestUpdateProfileSchema.html", null ],
@@ -195,6 +197,12 @@ var annotated_dup =
     ] ],
     [ "roles_model", "namespaceroles__model.html", [
       [ "Roles", "classroles__model_1_1Roles.html", null ]
+    ] ],
+    [ "statistic_model", "namespacestatistic__model.html", [
+      [ "FacultyScopesStatistic", "classstatistic__model_1_1FacultyScopesStatistic.html", "classstatistic__model_1_1FacultyScopesStatistic" ],
+      [ "FacultyTicketsStatistic", "classstatistic__model_1_1FacultyTicketsStatistic.html", null ],
+      [ "ScopesStatistic", "classstatistic__model_1_1ScopesStatistic.html", "classstatistic__model_1_1ScopesStatistic" ],
+      [ "StatusesStatistic", "classstatistic__model_1_1StatusesStatistic.html", "classstatistic__model_1_1StatusesStatistic" ]
     ] ],
     [ "status_schema", "namespacestatus__schema.html", [
       [ "StatusResponseSchema", "classstatus__schema_1_1StatusResponseSchema.html", null ]

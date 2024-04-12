@@ -16,9 +16,9 @@ var namespacecomments =
       [ "is_comment_exist_with_error", "namespacecomments_1_1utils.html#abd93addd65e354cf4111cc20db21df38", null ]
     ] ],
     [ "views", "namespacecomments_1_1views.html", [
-      [ "comments__create", "namespacecomments_1_1views.html#a639bcccb4e716430b8b564fc719b03aa", null ],
-      [ "comments__delete", "namespacecomments_1_1views.html#acf2ab015b6579afcdd0754d8da17a83d", null ],
-      [ "comments__edit", "namespacecomments_1_1views.html#a92184b2b49135491a661d4e0f96ccd27", null ],
-      [ "comments__get_comment_by_id", "namespacecomments_1_1views.html#a1ebd38f5807410a6acceb3b42668d425", null ]
+      [ "comments__create", "namespacecomments_1_1views.html#a2038cc70f650aa42312dab9d7e36f270", null ],
+      [ "comments__delete", "namespacecomments_1_1views.html#aeb116b4359675fbec0ab413251759a0c", null ],
+      [ "comments__edit", "namespacecomments_1_1views.html#ab1588df7746459aa56c4e02bf74f935f", null ],
+      [ "comments__get_comment_by_id", "namespacecomments_1_1views.html#a59619c1538c68bbbfd731d9fb251ccee", null ]
     ] ]
 ];

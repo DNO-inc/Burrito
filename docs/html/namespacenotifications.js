@@ -18,6 +18,6 @@ var namespacenotifications =
       [ "email_loop", "namespacenotifications_1_1utils.html#a8f1f865bf336f14a8e9d3f92d3e920f5", null ]
     ] ],
     [ "views", "namespacenotifications_1_1views.html", [
-      [ "notifications__get_notifications", "namespacenotifications_1_1views.html#a72591c09608b5aa36e0326073fc88b06", null ]
+      [ "notifications__get_notifications", "namespacenotifications_1_1views.html#a5c0b33e88268622e9fe55be019e23d9b", null ]
     ] ]
 ];
