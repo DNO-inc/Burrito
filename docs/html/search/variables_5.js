@@ -5,5 +5,5 @@ var searchData=
   ['email_5floop_2',['email_loop',['../namespaceburrito_1_1____main____.html#ab4101c9a74d999fff335fc6916cdbb1f',1,'burrito.__main__.email_loop()'],['../namespacenotifications_1_1____main____.html#ab4101c9a74d999fff335fc6916cdbb1f',1,'notifications.__main__.email_loop()']]],
   ['email_5fverifications_5ftemplate_3',['EMAIL_VERIFICATIONS_TEMPLATE',['../namespaceregistration_1_1views.html#a34ca230481cb524f96732fd638ad80f4',1,'registration::views']]],
   ['encoding_4',['encoding',['../namespacescheduler_1_1____main____.html#ab1000d1f2ea9878f60bc119650013894',1,'scheduler.__main__.encoding()'],['../namespacepreprocessor.html#ab1000d1f2ea9878f60bc119650013894',1,'preprocessor.encoding()']]],
-  ['exp_5',['exp',['../classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html#a3bb4af16b31e7979f424cf66f1bfa6e2',1,'burrito::utils::auth::AuthTokenPayload']]]
+  ['exp_5',['exp',['../classauth_1_1AuthTokenPayload.html#a3bb4af16b31e7979f424cf66f1bfa6e2',1,'auth::AuthTokenPayload']]]
 ];

@@ -1,7 +1,6 @@
 var dir_0f1b12bd8124b9873bd36aa4ae04368b =
 [
     [ "tasks", "dir_1c500304dd61f28c951e513d7fc44c76.html", "dir_1c500304dd61f28c951e513d7fc44c76" ],
-    [ "__init__.py", "utils_2____init_____8py.html", null ],
     [ "app_util.py", "app__util_8py.html", "app__util_8py" ],
     [ "auth.py", "auth_8py.html", "auth_8py" ],
     [ "config_reader.py", "config__reader_8py.html", "config__reader_8py" ],

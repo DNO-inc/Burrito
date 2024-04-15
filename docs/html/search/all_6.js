@@ -10,7 +10,7 @@ var searchData=
   ['faculty_5fplugin_2epy_7',['faculty_plugin.py',['../faculty__plugin_8py.html',1,'']]],
   ['faculty_5fschema_8',['faculty_schema',['../namespacefaculty__schema.html',1,'']]],
   ['faculty_5fschema_2epy_9',['faculty_schema.py',['../faculty__schema_8py.html',1,'']]],
-  ['facultyconverter_10',['FacultyConverter',['../classburrito_1_1utils_1_1converter_1_1FacultyConverter.html',1,'burrito::utils::converter']]],
+  ['facultyconverter_10',['FacultyConverter',['../classconverter_1_1FacultyConverter.html',1,'converter']]],
   ['facultyplugin_11',['FacultyPlugin',['../classfaculty__plugin_1_1FacultyPlugin.html',1,'faculty_plugin']]],
   ['facultyresponseschema_12',['FacultyResponseSchema',['../classfaculty__schema_1_1FacultyResponseSchema.html',1,'faculty_schema']]],
   ['facultyscopesstatistic_13',['FacultyScopesStatistic',['../classstatistic__model_1_1FacultyScopesStatistic.html',1,'statistic_model']]],
@@ -25,6 +25,6 @@ var searchData=
   ['filters_5fschema_2epy_22',['filters_schema.py',['../filters__schema_8py.html',1,'']]],
   ['firstname_23',['firstname',['../classm__email__code_1_1EmailVerificationCode.html#a6fc5616b41124070c3d8247acd7befe5',1,'m_email_code.EmailVerificationCode.firstname()'],['../classuser__model_1_1Users.html#ade95eeff908aa19cb236d82cb775238b',1,'user_model.Users.firstname()'],['../classadmin__schema_1_1AdminTicketAuthorInfo.html#a6fc5616b41124070c3d8247acd7befe5',1,'admin_schema.AdminTicketAuthorInfo.firstname()'],['../classanon__schema_1_1AnonTicketUsersInfoSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'anon_schema.AnonTicketUsersInfoSchema.firstname()'],['../classmeta__schema_1_1ResponseAdminDetailSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'meta_schema.ResponseAdminDetailSchema.firstname()'],['../classprofile__schema_1_1BaseProfile.html#a6fc5616b41124070c3d8247acd7befe5',1,'profile_schema.BaseProfile.firstname()'],['../classprofile__schema_1_1RequestUpdateProfileSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'profile_schema.RequestUpdateProfileSchema.firstname()'],['../classprofile__schema_1_1AdminRequestUpdateProfileSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'profile_schema.AdminRequestUpdateProfileSchema.firstname()'],['../classregistration__schema_1_1RegistrationSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'registration_schema.RegistrationSchema.firstname()'],['../classtickets__schema_1_1TicketUsersInfoSchema.html#a6fc5616b41124070c3d8247acd7befe5',1,'tickets_schema.TicketUsersInfoSchema.firstname()']]],
   ['forever_24',['forever',['../namespaceburrito_1_1____main____.html#adfe555f98c9c98380866103b9e46d1e8',1,'burrito.__main__.forever()'],['../namespacenotifications_1_1____main____.html#adfe555f98c9c98380866103b9e46d1e8',1,'notifications.__main__.forever()']]],
-  ['format_25',['format',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html#ad456c943ea50176abf1a0fd57b77b80b',1,'burrito::utils::logger::BurritoFormatter']]],
-  ['formats_26',['FORMATS',['../classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html#a7c92ba87a8a18677e2cb6849e705c948',1,'burrito::utils::logger::BurritoFormatter']]]
+  ['format_25',['format',['../classlogger_1_1BurritoFormatter.html#ad456c943ea50176abf1a0fd57b77b80b',1,'logger::BurritoFormatter']]],
+  ['formats_26',['FORMATS',['../classlogger_1_1BurritoFormatter.html#a7c92ba87a8a18677e2cb6849e705c948',1,'logger::BurritoFormatter']]]
 ];

@@ -1,20 +1,20 @@
 var hierarchy =
 [
-    [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", null ],
+    [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", null ],
     [ "BurritoBasePlugin", "classbase__plugin_1_1BurritoBasePlugin.html", null ],
-    [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", [
-      [ "FacultyConverter", "classburrito_1_1utils_1_1converter_1_1FacultyConverter.html", null ],
-      [ "GroupConverter", "classburrito_1_1utils_1_1converter_1_1GroupConverter.html", null ],
-      [ "QueueConverter", "classburrito_1_1utils_1_1converter_1_1QueueConverter.html", null ],
-      [ "StatusConverter", "classburrito_1_1utils_1_1converter_1_1StatusConverter.html", null ]
+    [ "Converter", "classconverter_1_1Converter.html", [
+      [ "FacultyConverter", "classconverter_1_1FacultyConverter.html", null ],
+      [ "GroupConverter", "classconverter_1_1GroupConverter.html", null ],
+      [ "QueueConverter", "classconverter_1_1QueueConverter.html", null ],
+      [ "StatusConverter", "classconverter_1_1StatusConverter.html", null ]
     ] ],
-    [ "EnvConfigReader", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html", null ],
+    [ "EnvConfigReader", "classconfig__reader_1_1EnvConfigReader.html", null ],
     [ "Formatter", null, [
-      [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", null ]
+      [ "BurritoFormatter", "classlogger_1_1BurritoFormatter.html", null ]
     ] ],
-    [ "get_current_user", "classburrito_1_1utils_1_1auth_1_1get__current__user.html", null ],
+    [ "get_current_user", "classauth_1_1get__current__user.html", null ],
     [ "Logger", null, [
-      [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", null ]
+      [ "BurritoLogger", "classlogger_1_1BurritoLogger.html", null ]
     ] ],
     [ "BurritoBasicModel.Meta", "classbasic__model_1_1BurritoBasicModel_1_1Meta.html", null ],
     [ "Bookmarks.Meta", "classbookmarks__model_1_1Bookmarks_1_1Meta.html", null ],
@@ -36,10 +36,10 @@ var hierarchy =
     [ "Users.Meta", "classuser__model_1_1Users_1_1Meta.html", null ],
     [ "PluginLoader", "classloader_1_1PluginLoader.html", null ],
     [ "Redis", null, [
-      [ "RedisConnector", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector.html", null ]
+      [ "RedisConnector", "classredis__utils_1_1RedisConnector.html", null ]
     ] ],
     [ "SMTP_SSL", null, [
-      [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", null ]
+      [ "BurritoEmail", "classemail__util_1_1BurritoEmail.html", null ]
     ] ],
     [ "BaseFilterSchema", null, [
       [ "AdminGetTicketListSchema", "classadmin__schema_1_1AdminGetTicketListSchema.html", null ],
@@ -65,13 +65,12 @@ var hierarchy =
       [ "AnonTicketDetailInfoSchema", "classanon__schema_1_1AnonTicketDetailInfoSchema.html", null ],
       [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ],
       [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ],
+      [ "AuthTokenPayload", "classauth_1_1AuthTokenPayload.html", null ],
       [ "AuthResponseSchema", "classauth__schema_1_1AuthResponseSchema.html", null ],
       [ "AuthSettingsModel", "classauth__schema_1_1AuthSettingsModel.html", null ],
       [ "KeyAuthResponseSchema", "classauth__schema_1_1KeyAuthResponseSchema.html", null ],
       [ "UserKeyLoginSchema", "classauth__schema_1_1UserKeyLoginSchema.html", null ],
       [ "UserPasswordLoginSchema", "classauth__schema_1_1UserPasswordLoginSchema.html", null ],
-      [ "AuthTokenPayload", "classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html", null ],
-      [ "PermissionMetaData", "classburrito_1_1utils_1_1permissions__checker_1_1PermissionMetaData.html", null ],
       [ "CommentBaseDetailInfoSchema", "classcomment__schema_1_1CommentBaseDetailInfoSchema.html", [
         [ "CommentDetailInfoScheme", "classcomment__schema_1_1CommentDetailInfoScheme.html", null ]
       ] ],
@@ -93,6 +92,7 @@ var hierarchy =
       [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ],
       [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ],
       [ "BurritoPagination", "classpagination__schema_1_1BurritoPagination.html", null ],
+      [ "PermissionMetaData", "classpermissions__checker_1_1PermissionMetaData.html", null ],
       [ "AdminRequestUpdateProfileSchema", "classprofile__schema_1_1AdminRequestUpdateProfileSchema.html", null ],
       [ "BaseProfile", "classprofile__schema_1_1BaseProfile.html", [
         [ "ResponseProfileSchema", "classprofile__schema_1_1ResponseProfileSchema.html", null ]
@@ -143,11 +143,11 @@ var hierarchy =
       [ "RequestTicketHistorySchema", "classtickets__schema_1_1RequestTicketHistorySchema.html", null ]
     ] ],
     [ "FastAPI", null, [
-      [ "BurritoApi", "classburrito_1_1utils_1_1app__util_1_1BurritoApi.html", null ]
+      [ "BurritoApi", "classapp__util_1_1BurritoApi.html", null ]
     ] ],
     [ "HTTPException", null, [
-      [ "AuthTokenError", "classburrito_1_1utils_1_1auth_1_1AuthTokenError.html", null ],
-      [ "EndpointPermissionError", "classburrito_1_1utils_1_1permissions__checker_1_1EndpointPermissionError.html", null ]
+      [ "AuthTokenError", "classauth_1_1AuthTokenError.html", null ],
+      [ "EndpointPermissionError", "classpermissions__checker_1_1EndpointPermissionError.html", null ]
     ] ],
     [ "Model", null, [
       [ "BurritoBasicModel", "classbasic__model_1_1BurritoBasicModel.html", null ]
@@ -165,16 +165,16 @@ var hierarchy =
       [ "TicketFiles", "classm__ticket__files_1_1TicketFiles.html", null ]
     ] ],
     [ "MongoClient", null, [
-      [ "MongoConnector", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector.html", null ]
+      [ "MongoConnector", "classmongo__util_1_1MongoConnector.html", null ]
     ] ],
     [ "MongoTTLModel", null, [
       [ "EmailVerificationCode", "classm__email__code_1_1EmailVerificationCode.html", null ],
       [ "AccessRenewMetaData", "classm__password__rest__model_1_1AccessRenewMetaData.html", null ]
     ] ],
     [ "MySQLDatabase", null, [
-      [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", null ]
+      [ "BurritoDatabaseCursor", "classdb__cursor__object_1_1BurritoDatabaseCursor.html", null ]
     ] ],
     [ "ReconnectMixin", null, [
-      [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", null ]
+      [ "BurritoDatabaseCursor", "classdb__cursor__object_1_1BurritoDatabaseCursor.html", null ]
     ] ]
 ];

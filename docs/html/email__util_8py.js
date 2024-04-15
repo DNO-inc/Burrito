@@ -1,6 +1,6 @@
 var email__util_8py =
 [
-    [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail" ],
+    [ "BurritoEmail", "classemail__util_1_1BurritoEmail.html", "classemail__util_1_1BurritoEmail" ],
     [ "get_burrito_email", "email__util_8py.html#a1fea3787bdf7f197c3a1ab3b6c6a13fc", null ],
     [ "publish_email", "email__util_8py.html#aa4b992ee863a916264692bd2abd7a0a0", null ],
     [ "send_email", "email__util_8py.html#ac2e2d582cdc1fc8e3e8a1870f92e5484", null ],

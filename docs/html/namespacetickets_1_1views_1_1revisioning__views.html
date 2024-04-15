@@ -129,13 +129,13 @@ $(document).ready(function(){initNavTree('namespacetickets_1_1views_1_1revisioni
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2b0cbade436c0a18d6eff49f82be14e4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#a2b0cbade436c0a18d6eff49f82be14e4">tickets__show_tickets_list_by_filter</a> (TicketListRequestSchema|None filters=TicketListRequestSchema(), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;READ_TICKET&quot;})))</td></tr>
+<tr class="memitem:a2b0cbade436c0a18d6eff49f82be14e4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#a2b0cbade436c0a18d6eff49f82be14e4">tickets__show_tickets_list_by_filter</a> (TicketListRequestSchema|None filters=TicketListRequestSchema(), Users _curr_user=Depends(get_current_user(permission_list={&quot;READ_TICKET&quot;})))</td></tr>
 <tr class="separator:a2b0cbade436c0a18d6eff49f82be14e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4d3db2e6288b26c1f6430da5074a276"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#ab4d3db2e6288b26c1f6430da5074a276">tickets__show_detail_ticket_info</a> (TicketIDValueSchema ticket_id_info, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;READ_TICKET&quot;})))</td></tr>
+<tr class="memitem:ab4d3db2e6288b26c1f6430da5074a276"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#ab4d3db2e6288b26c1f6430da5074a276">tickets__show_detail_ticket_info</a> (TicketIDValueSchema ticket_id_info, Users _curr_user=Depends(get_current_user(permission_list={&quot;READ_TICKET&quot;})))</td></tr>
 <tr class="separator:ab4d3db2e6288b26c1f6430da5074a276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5839823e1b0b53e585bb2cea26a263f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#af5839823e1b0b53e585bb2cea26a263f">tickets__get_full_ticket_history</a> (RequestTicketHistorySchema _filters, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:af5839823e1b0b53e585bb2cea26a263f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#af5839823e1b0b53e585bb2cea26a263f">tickets__get_full_ticket_history</a> (RequestTicketHistorySchema _filters, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:af5839823e1b0b53e585bb2cea26a263f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8118179d3b644b88b51b9ecaa2562e4a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#a8118179d3b644b88b51b9ecaa2562e4a">tickets__get_action_by_id</a> (RequestActionSchema action_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:a8118179d3b644b88b51b9ecaa2562e4a"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetickets_1_1views_1_1revisioning__views.html#a8118179d3b644b88b51b9ecaa2562e4a">tickets__get_action_by_id</a> (RequestActionSchema action_data, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:a8118179d3b644b88b51b9ecaa2562e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -155,7 +155,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,7 +183,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -211,7 +211,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;READ_TICKET&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;READ_TICKET&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -239,7 +239,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;READ_TICKET&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;READ_TICKET&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

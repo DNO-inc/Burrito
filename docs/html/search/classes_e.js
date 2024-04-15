@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['redisconnector_0',['RedisConnector',['../classburrito_1_1utils_1_1redis__utils_1_1RedisConnector.html',1,'burrito::utils::redis_utils']]],
+  ['redisconnector_0',['RedisConnector',['../classredis__utils_1_1RedisConnector.html',1,'redis_utils']]],
   ['registrationschema_1',['RegistrationSchema',['../classregistration__schema_1_1RegistrationSchema.html',1,'registration_schema']]],
   ['requestactionschema_2',['RequestActionSchema',['../classaction__schema_1_1RequestActionSchema.html',1,'action_schema']]],
   ['requestqueuelistschema_3',['RequestQueueListSchema',['../classmeta__schema_1_1RequestQueueListSchema.html',1,'meta_schema']]],

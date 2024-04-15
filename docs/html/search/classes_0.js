@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5ftaskmanager_0',['_TaskManager',['../classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html',1,'burrito::utils::task_manager']]]
+  ['_5ftaskmanager_0',['_TaskManager',['../classtask__manager_1_1__TaskManager.html',1,'task_manager']]]
 ];

@@ -21,6 +21,14 @@ var annotated_dup =
       [ "AnonTicketListResponseSchema", "classanon__schema_1_1AnonTicketListResponseSchema.html", null ],
       [ "AnonTicketUsersInfoSchema", "classanon__schema_1_1AnonTicketUsersInfoSchema.html", null ]
     ] ],
+    [ "app_util", "namespaceapp__util.html", [
+      [ "BurritoApi", "classapp__util_1_1BurritoApi.html", "classapp__util_1_1BurritoApi" ]
+    ] ],
+    [ "auth", "namespaceauth.html", [
+      [ "AuthTokenError", "classauth_1_1AuthTokenError.html", null ],
+      [ "AuthTokenPayload", "classauth_1_1AuthTokenPayload.html", null ],
+      [ "get_current_user", "classauth_1_1get__current__user.html", "classauth_1_1get__current__user" ]
+    ] ],
     [ "auth_plugin", "namespaceauth__plugin.html", [
       [ "AuthSSUPlugin", "classauth__plugin_1_1AuthSSUPlugin.html", null ]
     ] ],
@@ -40,51 +48,6 @@ var annotated_dup =
     [ "bookmarks_model", "namespacebookmarks__model.html", [
       [ "Bookmarks", "classbookmarks__model_1_1Bookmarks.html", "classbookmarks__model_1_1Bookmarks" ]
     ] ],
-    [ "burrito", "namespaceburrito.html", [
-      [ "utils", "namespaceburrito_1_1utils.html", [
-        [ "app_util", "namespaceburrito_1_1utils_1_1app__util.html", [
-          [ "BurritoApi", "classburrito_1_1utils_1_1app__util_1_1BurritoApi.html", "classburrito_1_1utils_1_1app__util_1_1BurritoApi" ]
-        ] ],
-        [ "auth", "namespaceburrito_1_1utils_1_1auth.html", [
-          [ "AuthTokenError", "classburrito_1_1utils_1_1auth_1_1AuthTokenError.html", null ],
-          [ "AuthTokenPayload", "classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html", null ],
-          [ "get_current_user", "classburrito_1_1utils_1_1auth_1_1get__current__user.html", "classburrito_1_1utils_1_1auth_1_1get__current__user" ]
-        ] ],
-        [ "config_reader", "namespaceburrito_1_1utils_1_1config__reader.html", [
-          [ "EnvConfigReader", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html", "classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader" ]
-        ] ],
-        [ "converter", "namespaceburrito_1_1utils_1_1converter.html", [
-          [ "Converter", "classburrito_1_1utils_1_1converter_1_1Converter.html", null ],
-          [ "FacultyConverter", "classburrito_1_1utils_1_1converter_1_1FacultyConverter.html", null ],
-          [ "GroupConverter", "classburrito_1_1utils_1_1converter_1_1GroupConverter.html", null ],
-          [ "QueueConverter", "classburrito_1_1utils_1_1converter_1_1QueueConverter.html", null ],
-          [ "StatusConverter", "classburrito_1_1utils_1_1converter_1_1StatusConverter.html", null ]
-        ] ],
-        [ "db_cursor_object", "namespaceburrito_1_1utils_1_1db__cursor__object.html", [
-          [ "BurritoDatabaseCursor", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor.html", "classburrito_1_1utils_1_1db__cursor__object_1_1BurritoDatabaseCursor" ]
-        ] ],
-        [ "email_util", "namespaceburrito_1_1utils_1_1email__util.html", [
-          [ "BurritoEmail", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail.html", "classburrito_1_1utils_1_1email__util_1_1BurritoEmail" ]
-        ] ],
-        [ "logger", "namespaceburrito_1_1utils_1_1logger.html", [
-          [ "BurritoFormatter", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter.html", "classburrito_1_1utils_1_1logger_1_1BurritoFormatter" ],
-          [ "BurritoLogger", "classburrito_1_1utils_1_1logger_1_1BurritoLogger.html", "classburrito_1_1utils_1_1logger_1_1BurritoLogger" ]
-        ] ],
-        [ "mongo_util", "namespaceburrito_1_1utils_1_1mongo__util.html", [
-          [ "MongoConnector", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector.html", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector" ]
-        ] ],
-        [ "permissions_checker", "namespaceburrito_1_1utils_1_1permissions__checker.html", [
-          [ "EndpointPermissionError", "classburrito_1_1utils_1_1permissions__checker_1_1EndpointPermissionError.html", null ],
-          [ "PermissionMetaData", "classburrito_1_1utils_1_1permissions__checker_1_1PermissionMetaData.html", null ]
-        ] ],
-        [ "redis_utils", "namespaceburrito_1_1utils_1_1redis__utils.html", [
-          [ "RedisConnector", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector.html", "classburrito_1_1utils_1_1redis__utils_1_1RedisConnector" ]
-        ] ],
-        [ "task_manager", "namespaceburrito_1_1utils_1_1task__manager.html", [
-          [ "_TaskManager", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager.html", "classburrito_1_1utils_1_1task__manager_1_1__TaskManager" ]
-        ] ]
-      ] ]
-    ] ],
     [ "comment_schema", "namespacecomment__schema.html", [
       [ "CommentBaseDetailInfoSchema", "classcomment__schema_1_1CommentBaseDetailInfoSchema.html", null ],
       [ "CommentCreationSchema", "classcomment__schema_1_1CommentCreationSchema.html", null ],
@@ -93,11 +56,27 @@ var annotated_dup =
       [ "CommentIDSchema", "classcomment__schema_1_1CommentIDSchema.html", null ],
       [ "RequestTicketsCommentSchema", "classcomment__schema_1_1RequestTicketsCommentSchema.html", null ]
     ] ],
+    [ "config_reader", "namespaceconfig__reader.html", [
+      [ "EnvConfigReader", "classconfig__reader_1_1EnvConfigReader.html", "classconfig__reader_1_1EnvConfigReader" ]
+    ] ],
+    [ "converter", "namespaceconverter.html", [
+      [ "Converter", "classconverter_1_1Converter.html", null ],
+      [ "FacultyConverter", "classconverter_1_1FacultyConverter.html", null ],
+      [ "GroupConverter", "classconverter_1_1GroupConverter.html", null ],
+      [ "QueueConverter", "classconverter_1_1QueueConverter.html", null ],
+      [ "StatusConverter", "classconverter_1_1StatusConverter.html", null ]
+    ] ],
+    [ "db_cursor_object", "namespacedb__cursor__object.html", [
+      [ "BurritoDatabaseCursor", "classdb__cursor__object_1_1BurritoDatabaseCursor.html", "classdb__cursor__object_1_1BurritoDatabaseCursor" ]
+    ] ],
     [ "deleted_model", "namespacedeleted__model.html", [
       [ "Deleted", "classdeleted__model_1_1Deleted.html", "classdeleted__model_1_1Deleted" ]
     ] ],
     [ "email_code", "namespaceemail__code.html", [
       [ "EmailVerificationCodeSchema", "classemail__code_1_1EmailVerificationCodeSchema.html", null ]
+    ] ],
+    [ "email_util", "namespaceemail__util.html", [
+      [ "BurritoEmail", "classemail__util_1_1BurritoEmail.html", "classemail__util_1_1BurritoEmail" ]
     ] ],
     [ "faculty_model", "namespacefaculty__model.html", [
       [ "Faculties", "classfaculty__model_1_1Faculties.html", null ]
@@ -125,6 +104,10 @@ var annotated_dup =
     ] ],
     [ "loader", "namespaceloader.html", [
       [ "PluginLoader", "classloader_1_1PluginLoader.html", "classloader_1_1PluginLoader" ]
+    ] ],
+    [ "logger", "namespacelogger.html", [
+      [ "BurritoFormatter", "classlogger_1_1BurritoFormatter.html", "classlogger_1_1BurritoFormatter" ],
+      [ "BurritoLogger", "classlogger_1_1BurritoLogger.html", "classlogger_1_1BurritoLogger" ]
     ] ],
     [ "m_actions_model", "namespacem__actions__model.html", [
       [ "Actions", "classm__actions__model_1_1Actions.html", null ],
@@ -166,11 +149,18 @@ var annotated_dup =
       [ "ResponseQueueListSchema", "classmeta__schema_1_1ResponseQueueListSchema.html", null ],
       [ "ResponseStatusesListSchema", "classmeta__schema_1_1ResponseStatusesListSchema.html", null ]
     ] ],
+    [ "mongo_util", "namespacemongo__util.html", [
+      [ "MongoConnector", "classmongo__util_1_1MongoConnector.html", "classmongo__util_1_1MongoConnector" ]
+    ] ],
     [ "pagination_schema", "namespacepagination__schema.html", [
       [ "BurritoPagination", "classpagination__schema_1_1BurritoPagination.html", "classpagination__schema_1_1BurritoPagination" ]
     ] ],
     [ "participants_model", "namespaceparticipants__model.html", [
       [ "Participants", "classparticipants__model_1_1Participants.html", "classparticipants__model_1_1Participants" ]
+    ] ],
+    [ "permissions_checker", "namespacepermissions__checker.html", [
+      [ "EndpointPermissionError", "classpermissions__checker_1_1EndpointPermissionError.html", null ],
+      [ "PermissionMetaData", "classpermissions__checker_1_1PermissionMetaData.html", null ]
     ] ],
     [ "permissions_model", "namespacepermissions__model.html", [
       [ "Permissions", "classpermissions__model_1_1Permissions.html", null ]
@@ -188,6 +178,9 @@ var annotated_dup =
     ] ],
     [ "queues_model", "namespacequeues__model.html", [
       [ "Queues", "classqueues__model_1_1Queues.html", "classqueues__model_1_1Queues" ]
+    ] ],
+    [ "redis_utils", "namespaceredis__utils.html", [
+      [ "RedisConnector", "classredis__utils_1_1RedisConnector.html", "classredis__utils_1_1RedisConnector" ]
     ] ],
     [ "registration_schema", "namespaceregistration__schema.html", [
       [ "RegistrationSchema", "classregistration__schema_1_1RegistrationSchema.html", null ]
@@ -212,6 +205,9 @@ var annotated_dup =
     ] ],
     [ "subscriptions_model", "namespacesubscriptions__model.html", [
       [ "Subscriptions", "classsubscriptions__model_1_1Subscriptions.html", "classsubscriptions__model_1_1Subscriptions" ]
+    ] ],
+    [ "task_manager", "namespacetask__manager.html", [
+      [ "_TaskManager", "classtask__manager_1_1__TaskManager.html", "classtask__manager_1_1__TaskManager" ]
     ] ],
     [ "tickets_model", "namespacetickets__model.html", [
       [ "Tickets", "classtickets__model_1_1Tickets.html", "classtickets__model_1_1Tickets" ]

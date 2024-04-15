@@ -129,13 +129,13 @@ $(document).ready(function(){initNavTree('namespaceprofile_1_1views.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aba527b35bdc84a0ec109102fe0016b40"><td class="memItemLeft" align="right" valign="top">ResponseProfileSchema&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aba527b35bdc84a0ec109102fe0016b40">profile__check_by_id</a> (int user_id, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:aba527b35bdc84a0ec109102fe0016b40"><td class="memItemLeft" align="right" valign="top">ResponseProfileSchema&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aba527b35bdc84a0ec109102fe0016b40">profile__check_by_id</a> (int user_id, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:aba527b35bdc84a0ec109102fe0016b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea0cab4607cbb4a2d38f93831f0b0193"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aea0cab4607cbb4a2d38f93831f0b0193">profile__update_my_profile</a> (RequestUpdateProfileSchema|None profile_updated_data=RequestUpdateProfileSchema(), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;UPDATE_PROFILE&quot;})))</td></tr>
+<tr class="memitem:aea0cab4607cbb4a2d38f93831f0b0193"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#aea0cab4607cbb4a2d38f93831f0b0193">profile__update_my_profile</a> (RequestUpdateProfileSchema|None profile_updated_data=RequestUpdateProfileSchema(), Users _curr_user=Depends(get_current_user(permission_list={&quot;UPDATE_PROFILE&quot;})))</td></tr>
 <tr class="separator:aea0cab4607cbb4a2d38f93831f0b0193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1e324befd763274b448ce29c2fb33d9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#af1e324befd763274b448ce29c2fb33d9">profile__token_reset_request</a> (str email)</td></tr>
 <tr class="separator:af1e324befd763274b448ce29c2fb33d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96f34ef0f01a9cb97e6828526dea86a3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#a96f34ef0f01a9cb97e6828526dea86a3">profile__get_new_token</a> (str reset_token, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:a96f34ef0f01a9cb97e6828526dea86a3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceprofile_1_1views.html#a96f34ef0f01a9cb97e6828526dea86a3">profile__get_new_token</a> (str reset_token, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:a96f34ef0f01a9cb97e6828526dea86a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -155,7 +155,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,7 +183,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -230,7 +230,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;UPDATE_PROFILE&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;UPDATE_PROFILE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

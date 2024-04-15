@@ -1,4 +1,4 @@
-from typing import Any, Literal
+from typing import Any, Literal, Dict
 import jwt
 import uuid
 
@@ -12,6 +12,8 @@ from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.permissions_checker import check_permission
 
+from burrito.models.user_model import Users
+
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
 JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)
 JWT_REFRESH_TTL = int(get_config().BURRITO_JWT_REFRESH_TTL)
@@ -22,6 +24,17 @@ class AuthTokenError(HTTPException):
 
 
 class AuthTokenPayload(BaseModel):
+    """
+    Attributes:
+        iss         token issuer
+        sub         subject of JWT
+        exp         expiration time (UNIX timestamp)
+        iat         time at which the token was created (UNIX timestamp)
+        jti         token ID
+        user_id     current user ID
+        role        role name of the current user (only used on fronted)
+    """
+
     # common payload
     iss: str = "https://github.com/DNO-inc"
     sub: str = "auth"
@@ -96,10 +109,30 @@ def read_token_payload(token: str) -> AuthTokenPayload | None:
 
 
 def create_access_token(token_data: AuthTokenPayload) -> str:
+    """
+    Returns access JWT.
+
+    Args:
+        token_data (AuthTokenPayload): JWT payload
+
+    Returns:
+        str: access token
+    """
+
     return _make_token_body(token_data, "access")
 
 
 def create_refresh_token(token_data: AuthTokenPayload) -> str:
+    """
+    Returns refresh JWT and store it in Redis storage for further validation.
+
+    Args:
+        token_data (AuthTokenPayload): JWT payload
+
+    Returns:
+        str: refresh token
+    """
+
     _token = _make_token_body(token_data, "refresh")
     _token_redis_key = _make_redis_key(token_data)
 
@@ -117,14 +150,35 @@ def create_refresh_token(token_data: AuthTokenPayload) -> str:
     return _token
 
 
-def create_token_pare(token_data: AuthTokenPayload) -> dict[str, str]:
+def create_token_pare(token_data: AuthTokenPayload) -> Dict[str, str]:
+    """Creates both of tokens access and refresh.
+
+    Args:
+        token_data (AuthTokenPayload): JWT payload
+
+    Returns:
+        dict[str, str]: access and refresh tokens
+    """
+
     return {
         "access_token": create_access_token(token_data),
         "refresh_token": create_refresh_token(token_data)
     }
 
 
-def _extract_from_headers(headers) -> str:
+def _extract_from_headers(headers: Dict[str, Any]) -> str:
+    """Get request headers and extract JWT from authorization header
+
+    Args:
+        headers (Dict[str, Any]): request headers
+
+    Raises:
+        AuthTokenError: Raised if Authorization header is not provided
+
+    Returns:
+        str: pure JWT token without the 'Bearer' prefix
+    """
+
     raw_token = headers.get("authorization")
     if not raw_token:
         raise AuthTokenError(
@@ -134,7 +188,19 @@ def _extract_from_headers(headers) -> str:
     return raw_token.removeprefix("Bearer ")
 
 
-def _require_refresh_token(headers) -> AuthTokenPayload:
+def _require_refresh_token(headers: Dict[str, Any]) -> AuthTokenPayload:
+    """Try to extract and validate refresh JWT.
+
+    Args:
+        headers (Dict[str, Any]): request headers
+
+    Raises:
+        AuthTokenError: Raised if Authorization header is not provided or token is expired
+
+    Returns:
+        AuthTokenPayload: JWT payload
+    """
+
     raw_token = _extract_from_headers(headers)
     token_payload = read_token_payload(raw_token)
 
@@ -162,10 +228,21 @@ def _require_refresh_token(headers) -> AuthTokenPayload:
 
 
 class get_current_user:
+    """
+    Dependency to determine the current user
+    """
+
     def __init__(self, permission_list: set[tuple] | None = None) -> None:
         self._permission_list = permission_list
 
-    def __call__(self, request: Request) -> Any:
+    def __call__(self, request: Request) -> Users:
+        """
+        Args:
+            request (Request): request object for extraction authorization headers
+
+        Returns:
+            Users: current user, the owner of the given token
+        """
         current_user = get_user_by_id(
             read_token_payload(_extract_from_headers(request.headers)).user_id
         )
@@ -175,6 +252,15 @@ class get_current_user:
 
 
 def rotate_refresh_token(request: Request) -> str:
+    """
+    Extracts refresh token from headers and refresh it
+
+    Args:
+        request (Request): request object for extraction authorization headers
+
+    Returns:
+        str: new refresh token
+    """
     token_payload = _require_refresh_token(request.headers)
 
     current_user = get_user_by_id(token_payload.user_id)
@@ -185,6 +271,13 @@ def rotate_refresh_token(request: Request) -> str:
 
 
 def delete_refresh_token(request: Request):
+    """
+    Delete refresh token
+
+    Args:
+        request (Request): request object for extraction authorization headers
+    """
+
     token_payload = _require_refresh_token(request.headers)
 
     current_user = get_user_by_id(token_payload.user_id)

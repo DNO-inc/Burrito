@@ -129,13 +129,13 @@ $(document).ready(function(){initNavTree('namespaceiofiles_1_1views.html',''); i
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aca41667295bd0acd1af6de1a3e4d66eb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#aca41667295bd0acd1af6de1a3e4d66eb">iofiles__upload_file_for_ticket</a> (Annotated[int, Form(...)] ticket_id, list[UploadFile] file_list, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:aca41667295bd0acd1af6de1a3e4d66eb"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#aca41667295bd0acd1af6de1a3e4d66eb">iofiles__upload_file_for_ticket</a> (Annotated[int, Form(...)] ticket_id, list[UploadFile] file_list, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:aca41667295bd0acd1af6de1a3e4d66eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d89f242867d535033dc5922a9f4c5dd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#a3d89f242867d535033dc5922a9f4c5dd">iofiles__get_file</a> (str file_id, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:a3d89f242867d535033dc5922a9f4c5dd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#a3d89f242867d535033dc5922a9f4c5dd">iofiles__get_file</a> (str file_id, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:a3d89f242867d535033dc5922a9f4c5dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aace72bdbf05cc315dc80e2dd184b44e6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#aace72bdbf05cc315dc80e2dd184b44e6">iofiles__get_file_ids</a> (Annotated[int, Form(...)] ticket_id, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:aace72bdbf05cc315dc80e2dd184b44e6"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#aace72bdbf05cc315dc80e2dd184b44e6">iofiles__get_file_ids</a> (Annotated[int, Form(...)] ticket_id, Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:aace72bdbf05cc315dc80e2dd184b44e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a743c558e6c2b7e9e13c1e848d0357739"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#a743c558e6c2b7e9e13c1e848d0357739">iofiles__delete_file</a> (str file_id=Form(...), Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>()))</td></tr>
+<tr class="memitem:a743c558e6c2b7e9e13c1e848d0357739"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiofiles_1_1views.html#a743c558e6c2b7e9e13c1e848d0357739">iofiles__delete_file</a> (str file_id=Form(...), Users _curr_user=Depends(get_current_user()))</td></tr>
 <tr class="separator:a743c558e6c2b7e9e13c1e848d0357739"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -155,7 +155,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,7 +183,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -211,7 +211,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -245,7 +245,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>())</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user())</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
