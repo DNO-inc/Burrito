@@ -133,15 +133,17 @@ $(document).ready(function(){initNavTree('classburrito_1_1utils_1_1auth_1_1get__
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5a69884f9fa3d9952ce7e854fd70afee"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html#a5a69884f9fa3d9952ce7e854fd70afee">__init__</a> (self, set[tuple]|None permission_list=None)</td></tr>
 <tr class="separator:a5a69884f9fa3d9952ce7e854fd70afee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf38206a19afca7d6dc1310543a1f861"><td class="memItemLeft" align="right" valign="top">Any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html#aaf38206a19afca7d6dc1310543a1f861">__call__</a> (self, Request request)</td></tr>
-<tr class="separator:aaf38206a19afca7d6dc1310543a1f861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73179f9227155cd72f2346544deb2ea"><td class="memItemLeft" align="right" valign="top">Users&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html#aa73179f9227155cd72f2346544deb2ea">__call__</a> (self, Request request)</td></tr>
+<tr class="separator:aa73179f9227155cd72f2346544deb2ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a55691a808edab5d2e564dcfcc7337cb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html#a55691a808edab5d2e564dcfcc7337cb2">_permission_list</a></td></tr>
 <tr class="separator:a55691a808edab5d2e564dcfcc7337cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><pre class="fragment">Dependency to determine the current user
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5a69884f9fa3d9952ce7e854fd70afee" name="a5a69884f9fa3d9952ce7e854fd70afee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a69884f9fa3d9952ce7e854fd70afee">&#9670;&#160;</a></span>__init__()</h2>
 
@@ -171,14 +173,14 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaf38206a19afca7d6dc1310543a1f861" name="aaf38206a19afca7d6dc1310543a1f861"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf38206a19afca7d6dc1310543a1f861">&#9670;&#160;</a></span>__call__()</h2>
+<a id="aa73179f9227155cd72f2346544deb2ea" name="aa73179f9227155cd72f2346544deb2ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73179f9227155cd72f2346544deb2ea">&#9670;&#160;</a></span>__call__()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"> Any __call__ </td>
+          <td class="memname"> Users __call__ </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -196,7 +198,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<pre class="fragment">Args:
+    request (Request): request object for extraction authorization headers
 
+Returns:
+    Users: current user, the owner of the given token
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
