@@ -7,6 +7,6 @@ var searchData=
   ['commenteditschema_4',['CommentEditSchema',['../classcomment__schema_1_1CommentEditSchema.html',1,'comment_schema']]],
   ['commentidschema_5',['CommentIDSchema',['../classcomment__schema_1_1CommentIDSchema.html',1,'comment_schema']]],
   ['comments_6',['Comments',['../classm__comments__model_1_1Comments.html',1,'m_comments_model']]],
-  ['converter_7',['Converter',['../classburrito_1_1utils_1_1converter_1_1Converter.html',1,'burrito::utils::converter']]],
+  ['converter_7',['Converter',['../classconverter_1_1Converter.html',1,'converter']]],
   ['createticketschema_8',['CreateTicketSchema',['../classtickets__schema_1_1CreateTicketSchema.html',1,'tickets_schema']]]
 ];

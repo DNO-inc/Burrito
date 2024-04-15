@@ -129,13 +129,13 @@ $(document).ready(function(){initNavTree('namespacecomments_1_1views.html',''); 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2038cc70f650aa42312dab9d7e36f270"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a2038cc70f650aa42312dab9d7e36f270">comments__create</a> (CommentCreationSchema creation_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="memitem:a2038cc70f650aa42312dab9d7e36f270"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a2038cc70f650aa42312dab9d7e36f270">comments__create</a> (CommentCreationSchema creation_comment_data, Users _curr_user=Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
 <tr class="separator:a2038cc70f650aa42312dab9d7e36f270"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1588df7746459aa56c4e02bf74f935f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#ab1588df7746459aa56c4e02bf74f935f">comments__edit</a> (CommentEditSchema edit_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="memitem:ab1588df7746459aa56c4e02bf74f935f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#ab1588df7746459aa56c4e02bf74f935f">comments__edit</a> (CommentEditSchema edit_comment_data, Users _curr_user=Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
 <tr class="separator:ab1588df7746459aa56c4e02bf74f935f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb116b4359675fbec0ab413251759a0c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#aeb116b4359675fbec0ab413251759a0c">comments__delete</a> (CommentIDSchema deletion_comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="memitem:aeb116b4359675fbec0ab413251759a0c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#aeb116b4359675fbec0ab413251759a0c">comments__delete</a> (CommentIDSchema deletion_comment_data, Users _curr_user=Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
 <tr class="separator:aeb116b4359675fbec0ab413251759a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59619c1538c68bbbfd731d9fb251ccee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a59619c1538c68bbbfd731d9fb251ccee">comments__get_comment_by_id</a> (CommentIDSchema comment_data, Users _curr_user=Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
+<tr class="memitem:a59619c1538c68bbbfd731d9fb251ccee"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecomments_1_1views.html#a59619c1538c68bbbfd731d9fb251ccee">comments__get_comment_by_id</a> (CommentIDSchema comment_data, Users _curr_user=Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;})))</td></tr>
 <tr class="separator:a59619c1538c68bbbfd731d9fb251ccee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -155,7 +155,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -183,7 +183,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -211,7 +211,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -239,7 +239,7 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">Users &#160;</td>
-          <td class="paramname"><em>_curr_user</em> = <code>Depends(<a class="el" href="classburrito_1_1utils_1_1auth_1_1get__current__user.html">get_current_user</a>(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
+          <td class="paramname"><em>_curr_user</em> = <code>Depends(get_current_user(permission_list={&quot;SEND_MESSAGE&quot;}))</code>&#160;</td>
         </tr>
         <tr>
           <td></td>

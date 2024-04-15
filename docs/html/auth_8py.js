@@ -1,8 +1,8 @@
 var auth_8py =
 [
-    [ "AuthTokenError", "classburrito_1_1utils_1_1auth_1_1AuthTokenError.html", null ],
-    [ "AuthTokenPayload", "classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html", null ],
-    [ "get_current_user", "classburrito_1_1utils_1_1auth_1_1get__current__user.html", "classburrito_1_1utils_1_1auth_1_1get__current__user" ],
+    [ "AuthTokenError", "classauth_1_1AuthTokenError.html", null ],
+    [ "AuthTokenPayload", "classauth_1_1AuthTokenPayload.html", null ],
+    [ "get_current_user", "classauth_1_1get__current__user.html", "classauth_1_1get__current__user" ],
     [ "_extract_from_headers", "auth_8py.html#a892471d440eda29b38880a858748459e", null ],
     [ "_make_redis_key", "auth_8py.html#ad2868ae85459f91de0c84f42e031af6a", null ],
     [ "_make_token_body", "auth_8py.html#a87bc90feff8c36b237003024b0dadf21", null ],

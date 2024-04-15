@@ -1,6 +1,6 @@
 var mongo__util_8py =
 [
-    [ "MongoConnector", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector.html", "classburrito_1_1utils_1_1mongo__util_1_1MongoConnector" ],
+    [ "MongoConnector", "classmongo__util_1_1MongoConnector.html", "classmongo__util_1_1MongoConnector" ],
     [ "get_mongo_cursor", "mongo__util_8py.html#ac103a7c5655806b2803b310da9853d2b", null ],
     [ "mongo_delete", "mongo__util_8py.html#a74399538a91b63a079fefa74b096c14a", null ],
     [ "mongo_delete_file", "mongo__util_8py.html#a5d250fe7a38b7302d417e3d64e85a730", null ],

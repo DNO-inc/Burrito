@@ -14,6 +14,5 @@ var namespaceburrito =
     [ "containers", "namespaceburrito_1_1containers.html", [
       [ "get_current_app_name", "namespaceburrito_1_1containers.html#a23fd9c324ab5b5b4a82711af742c72ed", null ]
     ] ],
-    [ "utils", "namespaceburrito_1_1utils.html", "namespaceburrito_1_1utils" ],
     [ "CURRENT_TIME_ZONE", "namespaceburrito.html#aecb9ceeedd022aeb6b9f6cb3b5cc0e43", null ]
 ];

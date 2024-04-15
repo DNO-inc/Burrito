@@ -53,11 +53,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "____init_____8py.html",
-"classburrito_1_1utils_1_1config__reader_1_1EnvConfigReader.html#a5ec357de48cfe674b83ba236bdd76d76",
+"classcomment__schema_1_1CommentDetailInfoScheme.html",
 "classtickets__schema_1_1TicketUsersInfoSchema.html",
 "namespaceadmin_1_1utils.html#a8e2dd99dd8251da87869f256380d5b87",
-"namespacem__actions__model.html",
-"query__util_8py.html#a30b5bc0e4fb4bf924e73d52253b09cdc"
+"namespaceprofile_1_1____main____.html",
+"query__util_8py.html#a46ced8aba51d0ec98e1fc1a0f4dbd6a1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

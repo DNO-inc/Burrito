@@ -18,6 +18,6 @@ var searchData=
   ['authresponseschema_15',['AuthResponseSchema',['../classauth__schema_1_1AuthResponseSchema.html',1,'auth_schema']]],
   ['authsettingsmodel_16',['AuthSettingsModel',['../classauth__schema_1_1AuthSettingsModel.html',1,'auth_schema']]],
   ['authssuplugin_17',['AuthSSUPlugin',['../classauth__plugin_1_1AuthSSUPlugin.html',1,'auth_plugin']]],
-  ['authtokenerror_18',['AuthTokenError',['../classburrito_1_1utils_1_1auth_1_1AuthTokenError.html',1,'burrito::utils::auth']]],
-  ['authtokenpayload_19',['AuthTokenPayload',['../classburrito_1_1utils_1_1auth_1_1AuthTokenPayload.html',1,'burrito::utils::auth']]]
+  ['authtokenerror_18',['AuthTokenError',['../classauth_1_1AuthTokenError.html',1,'auth']]],
+  ['authtokenpayload_19',['AuthTokenPayload',['../classauth_1_1AuthTokenPayload.html',1,'auth']]]
 ];
