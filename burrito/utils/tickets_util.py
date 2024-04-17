@@ -637,6 +637,12 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
         user_id: ID of user who is changing assignee
         new_assignee: new assignee of ticket
     """
+    if not is_admin(new_assignee):
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="This user is not admin"
+        )
+
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
