@@ -159,9 +159,15 @@ def get_user_by_id_or_none(user_id: int) -> Users | None:
     return _current_user
 
 
-def is_admin(user_id: int) -> bool:
-    return get_user_by_id(user_id).role.priority in MIN_ADMIN_PRIORITY
+def is_admin(user: int | Users) -> bool:
+    if isinstance(user, int):
+        user = get_user_by_id(user)
+
+    return user.role.priority >= MIN_ADMIN_PRIORITY
 
 
-def is_chief_admin(user_id: int) -> bool:
-    return get_user_by_id(user_id).role.priority in MIN_CHIEF_ADMIN_PRIORITY
+def is_chief_admin(user: int | Users) -> bool:
+    if isinstance(user, int):
+        user = get_user_by_id(user)
+
+    return user.role.priority >= MIN_CHIEF_ADMIN_PRIORITY

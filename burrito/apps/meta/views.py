@@ -84,7 +84,11 @@ async def meta__get_admins(_curr_user: Users = Depends(get_current_user())):
             make_short_user_data(
                 admin,
                 hide_user_id=False
-            ) for admin in Users.select().where(Users.role.priority in MIN_ADMIN_PRIORITY)
+            ) for admin in Users.select().join(
+                Roles
+            ).where(
+                Roles.priority >= MIN_ADMIN_PRIORITY
+            )
         ]
     )
 

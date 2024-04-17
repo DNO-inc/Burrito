@@ -6,8 +6,8 @@ from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
 
 from burrito.utils.logger import get_logger
-from burrito.utils.query_util import MIN_ADMIN_PRIORITY, STATUS_ACCEPTED
-from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none
+from burrito.utils.query_util import STATUS_ACCEPTED
+from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none, is_admin
 from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.websockets import make_websocket_message
@@ -822,5 +822,5 @@ def can_i_interact_with_ticket(ticket: Tickets | int, user: Users | int) -> bool
     return (
         ticket.hidden == 0
         or user.user_id in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
-        or user.role.priority in MIN_ADMIN_PRIORITY
+        or is_admin(user)
     )
