@@ -15,8 +15,8 @@ from burrito.utils.converter import (
 
 _PROTECTED_STATUSES: tuple[int] = (1,)
 
-MIN_ADMIN_PRIORITY: tuple[int] = (90, 100)
-MIN_CHIEF_ADMIN_PRIORITY: tuple[int] = (100,)
+MIN_ADMIN_PRIORITY: int = 90
+MIN_CHIEF_ADMIN_PRIORITY: int = 100
 
 STATUS_NEW = StatusConverter.convert(1)
 STATUS_ACCEPTED = StatusConverter.convert(2)
