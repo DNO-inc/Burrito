@@ -67,7 +67,7 @@ services:
       dockerfile: burrito/apps/about/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -86,7 +86,7 @@ services:
       dockerfile: burrito/apps/admin/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -105,7 +105,7 @@ services:
       dockerfile: burrito/apps/anon/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -124,7 +124,7 @@ services:
       dockerfile: burrito/apps/auth/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -143,7 +143,7 @@ services:
       dockerfile: burrito/apps/comments/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -162,7 +162,7 @@ services:
       dockerfile: burrito/apps/iofiles/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -181,7 +181,7 @@ services:
       dockerfile: burrito/apps/meta/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -200,7 +200,7 @@ services:
       dockerfile: burrito/apps/notifications/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -219,7 +219,7 @@ services:
       dockerfile: burrito/apps/profile/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -238,7 +238,7 @@ services:
       dockerfile: burrito/apps/registration/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -257,7 +257,7 @@ services:
       dockerfile: burrito/apps/tickets/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party
@@ -276,7 +276,7 @@ services:
       dockerfile: burrito/apps/ws/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_WEBSOCKET_PORT"
     networks:
       - burrito_party
@@ -294,7 +294,7 @@ services:
       dockerfile: burrito/apps/statistic/Dockerfile
     env_file:
       - .env
-    ports:
+    expose:
       - "$BURRITO_PORT"
     networks:
       - burrito_party

@@ -18,7 +18,7 @@
         {"status_id": 3, "name": "OPEN"},
         {"status_id": 4, "name": "WAITING"},
         {"status_id": 5, "name": "REJECTED"},
-        {"status_id": 6, "name": "CLOSE"}
+        {"status_id": 6, "name": "CLOSED"}
     ],
     "queues": [
         {"queue_id": 1, "name": "Лекції", "faculty_id": 1, "scope": "Reports"},
