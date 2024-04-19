@@ -1,8 +1,9 @@
-from typing import Any, Literal, Dict
-import jwt
+from typing import Any, Literal, Dict, Annotated
 import uuid
 
-from fastapi import HTTPException, Request, status
+import jwt
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from fastapi import HTTPException, status, Depends
 from pydantic import BaseModel
 
 from burrito.utils.date import get_timestamp_now
@@ -17,6 +18,9 @@ from burrito.models.user_model import Users
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
 JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)
 JWT_REFRESH_TTL = int(get_config().BURRITO_JWT_REFRESH_TTL)
+
+
+_HTTP_BEARER_SECURITY = HTTPBearer()
 
 
 class AuthTokenError(HTTPException):
@@ -166,33 +170,13 @@ def create_token_pare(token_data: AuthTokenPayload) -> Dict[str, str]:
     }
 
 
-def _extract_from_headers(headers: Dict[str, Any]) -> str:
-    """Get request headers and extract JWT from authorization header
-
-    Args:
-        headers (Dict[str, Any]): request headers
-
-    Raises:
-        AuthTokenError: Raised if Authorization header is not provided
-
-    Returns:
-        str: pure JWT token without the 'Bearer' prefix
-    """
-
-    raw_token = headers.get("authorization")
-    if not raw_token:
-        raise AuthTokenError(
-            detail="Missing authorization header",
-            status_code=status.HTTP_401_UNAUTHORIZED
-        )
-    return raw_token.removeprefix("Bearer ")
-
-
-def _require_refresh_token(headers: Dict[str, Any]) -> AuthTokenPayload:
+def _require_refresh_token(
+    credentials: HTTPAuthorizationCredentials
+) -> AuthTokenPayload:
     """Try to extract and validate refresh JWT.
 
     Args:
-        headers (Dict[str, Any]): request headers
+        credentials (HTTPAuthorizationCredentials): refresh token
 
     Raises:
         AuthTokenError: Raised if Authorization header is not provided or token is expired
@@ -201,7 +185,7 @@ def _require_refresh_token(headers: Dict[str, Any]) -> AuthTokenPayload:
         AuthTokenPayload: JWT payload
     """
 
-    raw_token = _extract_from_headers(headers)
+    raw_token = credentials.credentials
     token_payload = read_token_payload(raw_token)
 
     stored_token = get_redis_connector().get(_make_redis_key(token_payload))
@@ -235,33 +219,38 @@ class get_current_user:
     def __init__(self, permission_list: set[tuple] | None = None) -> None:
         self._permission_list = permission_list
 
-    def __call__(self, request: Request) -> Users:
+    def __call__(
+        self,
+        credentials: Annotated[HTTPAuthorizationCredentials, Depends(_HTTP_BEARER_SECURITY)]
+    ) -> Users:
         """
         Args:
-            request (Request): request object for extraction authorization headers
+            credentials (HTTPAuthorizationCredentials): access token
 
         Returns:
             Users: current user, the owner of the given token
         """
         current_user = get_user_by_id(
-            read_token_payload(_extract_from_headers(request.headers)).user_id
+            read_token_payload(credentials.credentials).user_id
         )
         check_permission(current_user, self._permission_list)
 
         return current_user
 
 
-def rotate_refresh_token(request: Request) -> str:
+def rotate_refresh_token(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(_HTTP_BEARER_SECURITY)]
+) -> str:
     """
     Extracts refresh token from headers and refresh it
 
     Args:
-        request (Request): request object for extraction authorization headers
+        credentials (HTTPAuthorizationCredentials): refresh token
 
     Returns:
         str: new refresh token
     """
-    token_payload = _require_refresh_token(request.headers)
+    token_payload = _require_refresh_token(credentials)
 
     current_user = get_user_by_id(token_payload.user_id)
 
@@ -270,15 +259,17 @@ def rotate_refresh_token(request: Request) -> str:
     return current_user, create_refresh_token(token_payload)
 
 
-def delete_refresh_token(request: Request):
+def delete_refresh_token(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(_HTTP_BEARER_SECURITY)]
+):
     """
     Delete refresh token
 
     Args:
-        request (Request): request object for extraction authorization headers
+        credentials (HTTPAuthorizationCredentials): refresh token
     """
 
-    token_payload = _require_refresh_token(request.headers)
+    token_payload = _require_refresh_token(credentials)
 
     current_user = get_user_by_id(token_payload.user_id)
 

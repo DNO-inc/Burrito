@@ -22,8 +22,7 @@ from burrito.utils.tickets_util import (
     make_short_user_data,
     send_comment_update
 )
-from burrito.utils.permissions_checker import check_permission
-from burrito.utils.auth import get_current_user, AuthTokenPayload
+from burrito.utils.auth import get_current_user
 from burrito.utils.query_util import STATUS_OPEN
 from burrito.utils.tickets_util import create_ticket_action, can_i_interact_with_ticket
 
