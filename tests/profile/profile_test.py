@@ -73,7 +73,7 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 401
+        assert response.status_code == 403
 
         _response_schema = {
             "type": "object",
