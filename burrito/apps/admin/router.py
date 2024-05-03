@@ -11,8 +11,8 @@ from .views import (
 admin_router = APIRouter()
 
 admin_router.add_api_route(
-    "/tickets/",
-    admin__update_ticket_data,
+    "/profile/update",
+    admin__update_profile,
     methods=["PATCH"]
 )
 admin_router.add_api_route(
@@ -21,8 +21,8 @@ admin_router.add_api_route(
     methods=["POST"]
 )
 admin_router.add_api_route(
-    "/profile/update",
-    admin__update_profile,
+    "/tickets/{ticket_id}",
+    admin__update_ticket_data,
     methods=["PATCH"]
 )
 admin_router.add_api_route(

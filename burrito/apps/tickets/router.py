@@ -24,6 +24,42 @@ from burrito.apps.tickets.views import (
 tickets_router = APIRouter()
 
 tickets_router.add_api_route(
+    "/delete_many",
+    tickets__delete_ticket_for_me,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/deleted",
+    tickets__get_deleted_tickets,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/actions/{action_id}",
+    tickets__get_action_by_id,
+    methods=["GET"]
+)
+tickets_router.add_api_route(
+    "/bookmarked",
+    tickets__get_bookmarked_tickets,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/followed",
+    tickets__get_followed_tickets,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/liked",
+    tickets__get_liked_tickets,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/ticket_list",
+    tickets__show_tickets_list_by_filter,
+    methods=["POST"]
+)
+
+tickets_router.add_api_route(
     "/",
     tickets__create_new_ticket,
     methods=["POST"]
@@ -71,41 +107,5 @@ tickets_router.add_api_route(
 tickets_router.add_api_route(
     "/{ticket_id}/full_history",
     tickets__get_full_ticket_history,
-    methods=["POST"]
-)
-
-tickets_router.add_api_route(
-    "/delete_many",
-    tickets__delete_ticket_for_me,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/deleted",
-    tickets__get_deleted_tickets,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/actions/{action_id}",
-    tickets__get_action_by_id,
-    methods=["GET"]
-)
-tickets_router.add_api_route(
-    "/bookmarked",
-    tickets__get_bookmarked_tickets,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/followed",
-    tickets__get_followed_tickets,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/liked",
-    tickets__get_liked_tickets,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/ticket_list",
-    tickets__show_tickets_list_by_filter,
     methods=["POST"]
 )

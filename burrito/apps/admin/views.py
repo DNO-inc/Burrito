@@ -7,7 +7,6 @@ from burrito.models.tickets_model import Tickets
 
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 from burrito.schemas.admin_schema import (
-    AdminTicketIdSchema,
     AdminUpdateTicketSchema,
     AdminGetTicketListSchema,
     AdminTicketDetailInfo,
@@ -60,12 +59,11 @@ from .utils import (
 
 
 async def admin__update_ticket_data(
+    ticket_id: int,
     admin_updates: AdminUpdateTicketSchema,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    ticket: Tickets | None = is_ticket_exist(
-        admin_updates.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     faculty_object = FacultyConverter.convert(admin_updates.faculty) if admin_updates.faculty else None
     if faculty_object:
