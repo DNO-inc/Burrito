@@ -3,7 +3,6 @@ from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
     CreateTicketSchema,
-    TicketIDValueSchema,
     UpdateTicketSchema
 )
 
@@ -77,14 +76,13 @@ async def tickets__create_new_ticket(
 
 
 async def tickets__update_own_ticket_data(
+        ticket_id: int,
         updates: UpdateTicketSchema,
         _curr_user: Users = Depends(get_current_user())
 ):
     """Update ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        updates.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
@@ -100,14 +98,12 @@ async def tickets__update_own_ticket_data(
 
 
 async def tickets__close_own_ticket(
-        data_to_close_ticket: TicketIDValueSchema,
+        ticket_id: int,
         _curr_user: Users = Depends(get_current_user())
 ):
     """Close ticket"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        data_to_close_ticket.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
@@ -115,7 +111,7 @@ async def tickets__close_own_ticket(
     )
 
     create_ticket_action(
-        ticket_id=data_to_close_ticket.ticket_id,
+        ticket_id=ticket_id,
         user_id=_curr_user.user_id,
         field_name="status",
         old_value=ticket.status.name,

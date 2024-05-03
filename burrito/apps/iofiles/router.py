@@ -11,21 +11,21 @@ from .views import (
 iofiles_router = APIRouter()
 
 iofiles_router.add_api_route(
-    "/upload_file",
+    "/",
     iofiles__upload_file_for_ticket,
     methods=["POST"]
 )
 
 iofiles_router.add_api_route(
-    "/get_file_ids",
+    "/file_ids/{ticket_id}",
     iofiles__get_file_ids,
-    methods=["POST"]
+    methods=["GET"]
 )
 
 iofiles_router.add_api_route(
-    "/delete_file",
+    "/{file_id}",
     iofiles__delete_file,
-    methods=["POST"]
+    methods=["DELETE"]
 )
 
 iofiles_router.add_api_route(

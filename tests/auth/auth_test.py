@@ -41,7 +41,7 @@ class AuthTestCase(unittest.TestCase):
             timeout=5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), test_002_refresh_access_token_schema)
         AuthTestCase.access_token = response.json()["access_token"]
@@ -59,4 +59,4 @@ class AuthTestCase(unittest.TestCase):
             timeout=5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())

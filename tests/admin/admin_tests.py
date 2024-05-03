@@ -7,7 +7,6 @@ from tests.auth.auth_test import AuthTestCase
 from tests.tickets.tickets_test import TicketsTestCase
 
 from burrito.utils.config_reader import get_config
-from utils.exceptions_tool import check_error
 
 
 TIMEOUT = 10
@@ -28,14 +27,7 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        self.assertEqual(response.status_code, 200, response.json())
 
     def test_002_admin_ticket_list_view(self):
         response = requests.post(
@@ -53,14 +45,7 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        self.assertEqual(response.status_code, 200, response.json())
 
     def test_003_admin_ticket_detail_view(self):
         response = requests.post(
@@ -74,14 +59,7 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        self.assertEqual(response.status_code, 200, response.json())
 
     @unittest.skip
     def test_004_admin_delete_ticket(self):
@@ -96,11 +74,4 @@ class AdminTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        check_error(
-            self.assertEqual,
-            {
-                "first": response.status_code,
-                "second": 200
-            },
-            response
-        )
+        self.assertEqual(response.status_code, 200, response.json())

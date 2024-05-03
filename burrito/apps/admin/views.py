@@ -158,14 +158,12 @@ async def admin__get_ticket_list_by_filter(
 
 
 async def admin__show_detail_ticket_info(
-    ticket_id_info: AdminTicketIdSchema,
+    ticket_id: int,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
     """Show detail ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        ticket_id_info.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     return make_ticket_detail_info(
         ticket,
@@ -186,12 +184,10 @@ async def admin__show_detail_ticket_info(
 
 
 async def admin__delete_ticket(
-    deletion_ticket_data: AdminTicketIdSchema,
+    ticket_id: int,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    ticket: Tickets | None = is_ticket_exist(
-        deletion_ticket_data.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     get_logger().info(
         f"""
@@ -207,13 +203,13 @@ async def admin__delete_ticket(
     # delete comments
     mongo_delete(
         Comments,
-        ticket_id=deletion_ticket_data.ticket_id
+        ticket_id=ticket_id
     )
 
     # delete files
     file_objects = mongo_select(
         TicketFiles,
-        ticket_id=deletion_ticket_data.ticket_id
+        ticket_id=ticket_id
     )
     for file_metadata in file_objects:
         mongo_delete_file(file_metadata.get("file_id"))
@@ -221,7 +217,7 @@ async def admin__delete_ticket(
     # delete files metadata
     mongo_delete(
         TicketFiles,
-        ticket_id=deletion_ticket_data.ticket_id
+        ticket_id=ticket_id
     )
 
     return JSONResponse(

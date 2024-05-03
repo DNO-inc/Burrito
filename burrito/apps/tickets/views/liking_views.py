@@ -4,7 +4,6 @@ from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
     TicketDetailInfoSchema,
     TicketListResponseSchema,
     TicketsBasicFilterSchema
@@ -41,16 +40,14 @@ from ..utils import (
 
 
 async def tickets__like_ticket(
-    like_ticket_data: TicketIDValueSchema,
+    ticket_id: int,
     _curr_user: Users = Depends(get_current_user())
 ):
     """Like ticket"""
 
     current_user = get_user_by_id(_curr_user.user_id)
 
-    ticket: Tickets | None = is_ticket_exist(
-        like_ticket_data.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     if not can_i_interact_with_ticket(ticket, current_user):
         return JSONResponse(
@@ -89,14 +86,12 @@ async def tickets__like_ticket(
 
 
 async def tickets__unlike_ticket(
-    unlike_ticket_data: TicketIDValueSchema,
+    ticket_id: int,
     _curr_user: Users = Depends(get_current_user())
 ):
     """Unlike ticket"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        unlike_ticket_data.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     like: Liked | None = Liked.get_or_none(
         Liked.user_id == _curr_user.user_id,

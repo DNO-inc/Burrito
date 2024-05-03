@@ -20,4 +20,6 @@ class AnonTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
+        self.assertEqual(response.status_code, 200, response.json())
+
         jsonschema.validate(response.json(), scheme_test_anon_tickets_list_filter)

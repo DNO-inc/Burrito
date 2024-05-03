@@ -24,7 +24,7 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 404
+        self.assertEqual(response.status_code, 404, response.json())
 
         _response_schema = {
             "type": "object",
@@ -46,7 +46,7 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), profile_view_schema_template)
 
@@ -61,19 +61,19 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), profile_view_schema_template)
 
     def test_update_profile_without_auth(self):
         """Update profile data"""
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
+        response = requests.patch(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             timeout=0.5
         )
 
-        assert response.status_code == 403
+        self.assertEqual(response.status_code, 403, response.json())
 
         _response_schema = {
             "type": "object",
@@ -87,8 +87,8 @@ class ProfileTestCase(unittest.TestCase):
     def test_update_profile_with_auth(self):
         """Update profile data"""
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
+        response = requests.patch(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
             },
@@ -103,7 +103,7 @@ class ProfileTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         _response_schema = {
             "type": "object",

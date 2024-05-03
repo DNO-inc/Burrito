@@ -22,6 +22,8 @@ class AboutTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
+        self.assertEqual(response.status_code, 200, response.json())
+
         jsonschema.validate(response.json(), test_check_version_schema)
 
     def test_check_updates(self):
@@ -30,6 +32,8 @@ class AboutTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
+        self.assertEqual(response.status_code, 200, response.json())
+
         jsonschema.validate(response.json(), test_check_updates_schema)
 
     def test_check_team(self):
@@ -37,5 +41,7 @@ class AboutTestCase(unittest.TestCase):
             f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/about/team",
             timeout=TIMEOUT
         )
+
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), test_check_team_schema)

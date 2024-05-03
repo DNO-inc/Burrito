@@ -24,29 +24,59 @@ from burrito.apps.tickets.views import (
 tickets_router = APIRouter()
 
 tickets_router.add_api_route(
-    "/create",
+    "/",
     tickets__create_new_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/update",
+    "/{ticket_id}",
     tickets__update_own_ticket_data,
+    methods=["PATCH"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}",
+    tickets__show_detail_ticket_info,
+    methods=["GET"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/close",
+    tickets__close_own_ticket,
+    methods=["PATCH"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/undelete",
+    tickets__undelete_ticket,
+    methods=["DELETE"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/bookmark",
+    tickets__bookmark_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
-    "/close",
-    tickets__close_own_ticket,
+    "/{ticket_id}/unbookmark",
+    tickets__unbookmark_ticket,
+    methods=["DELETE"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/like",
+    tickets__like_ticket,
+    methods=["POST"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/unlike",
+    tickets__unlike_ticket,
+    methods=["DELETE"]
+)
+tickets_router.add_api_route(
+    "/{ticket_id}/full_history",
+    tickets__get_full_ticket_history,
     methods=["POST"]
 )
 
 tickets_router.add_api_route(
-    "/delete",
+    "/delete_many",
     tickets__delete_ticket_for_me,
-    methods=["DELETE"]
-)
-tickets_router.add_api_route(
-    "/undelete",
-    tickets__undelete_ticket,
     methods=["POST"]
 )
 tickets_router.add_api_route(
@@ -54,16 +84,10 @@ tickets_router.add_api_route(
     tickets__get_deleted_tickets,
     methods=["POST"]
 )
-
 tickets_router.add_api_route(
-    "/bookmark",
-    tickets__bookmark_ticket,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/unbookmark",
-    tickets__unbookmark_ticket,
-    methods=["POST"]
+    "/actions/{action_id}",
+    tickets__get_action_by_id,
+    methods=["GET"]
 )
 tickets_router.add_api_route(
     "/bookmarked",
@@ -75,40 +99,13 @@ tickets_router.add_api_route(
     tickets__get_followed_tickets,
     methods=["POST"]
 )
-
-tickets_router.add_api_route(
-    "/like",
-    tickets__like_ticket,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/unlike",
-    tickets__unlike_ticket,
-    methods=["POST"]
-)
 tickets_router.add_api_route(
     "/liked",
     tickets__get_liked_tickets,
     methods=["POST"]
 )
-
 tickets_router.add_api_route(
     "/ticket_list",
     tickets__show_tickets_list_by_filter,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/show",
-    tickets__show_detail_ticket_info,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/full_history",
-    tickets__get_full_ticket_history,
-    methods=["POST"]
-)
-tickets_router.add_api_route(
-    "/get_action",
-    tickets__get_action_by_id,
     methods=["POST"]
 )

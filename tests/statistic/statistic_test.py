@@ -22,7 +22,7 @@ class StatisticTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), statistic_activity_schema)
 
@@ -37,7 +37,7 @@ class StatisticTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), statistic_faculty_schema)
 
@@ -52,6 +52,6 @@ class StatisticTestCase(unittest.TestCase):
             timeout=0.5
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), statistic_period_schema)

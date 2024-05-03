@@ -13,9 +13,9 @@ profile_router = APIRouter()
 
 
 profile_router.add_api_route(
-    "/update",
+    "/",
     profile__update_my_profile,
-    methods=["POST"]
+    methods=["PATCH"]
 )
 profile_router.add_api_route(
     "/access_renew/{reset_token}",

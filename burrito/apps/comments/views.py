@@ -137,10 +137,10 @@ async def comments__delete(
 
 
 async def comments__get_comment_by_id(
-    comment_data: CommentIDSchema,
+    comment_id: str,
     _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    comment: Comments | None = is_comment_exist_with_error(comment_data.comment_id)
+    comment: Comments | None = is_comment_exist_with_error(comment_id)
 
     ticket: Tickets = is_ticket_exist(comment["ticket_id"])
 

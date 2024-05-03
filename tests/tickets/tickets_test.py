@@ -17,7 +17,7 @@ TIMEOUT = 10
 
 def create_ticket_get_id(subject: str) -> int:
     response = requests.post(
-        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
+        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/",
         headers={
             "Authorization": f"Bearer {get_access_token()}"
         },
@@ -63,8 +63,8 @@ class TicketsTestCase(unittest.TestCase):
 
         ticket_id = create_ticket_get_id("for black list")
 
-        response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete_many",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
             },
@@ -74,16 +74,15 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
-
 
     def test_003_delete_ticket_noexist(self):
         """Delete ticket"""
 
-        response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete_many",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
             },
@@ -93,7 +92,7 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 403
+        self.assertEqual(response.status_code, 403, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -101,17 +100,14 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{create_ticket_get_id('to like')}/like",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": create_ticket_get_id("to like")
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -119,17 +115,14 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{TicketsTestCase.first_ticket + 123456}/like",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": TicketsTestCase.first_ticket + 123456
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 403
+        self.assertEqual(response.status_code, 403, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -137,17 +130,14 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{create_ticket_get_id('to bookmark')}/bookmark",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": create_ticket_get_id("to bookmark")
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -155,17 +145,14 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{TicketsTestCase.first_ticket + 123456}/bookmark",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": TicketsTestCase.first_ticket + 123456
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 403
+        self.assertEqual(response.status_code, 403, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -181,23 +168,20 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), tickets_list_response_schema_template)
 
     def test_009_ticket_detail_view(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/show",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{create_ticket_get_id('show info about ticket')}",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": create_ticket_get_id("show info about ticket")
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), test_009_ticket_detail_view_schemas)
 
@@ -206,13 +190,12 @@ class TicketsTestCase(unittest.TestCase):
 
         ticket_id = create_ticket_get_id("to update")
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/update",
+        response = requests.patch(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{ticket_id}",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
-                "ticket_id": ticket_id,
                 "subject": "to update (updated)",
                 "body": "new body",
                 "hidden": True
@@ -220,25 +203,22 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
     def test_011_close_ticket(self):
         ticket_id = create_ticket_get_id("close me")
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/close",
+        response = requests.patch(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{ticket_id}/close",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": ticket_id
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -251,7 +231,7 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), tickets_list_response_schema_template)
 
@@ -267,7 +247,7 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), tickets_list_response_schema_template)
 
@@ -280,7 +260,7 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), tickets_list_response_schema_template)
 
@@ -289,8 +269,8 @@ class TicketsTestCase(unittest.TestCase):
 
         ticket_id = create_ticket_get_id("for black list to undelete")
 
-        response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+        response = requests.post(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete_many",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
             },
@@ -300,22 +280,19 @@ class TicketsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/undelete",
+        response = requests.delete(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{ticket_id}/undelete",
             headers={
                "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": ticket_id
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
@@ -323,31 +300,23 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/full_history",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/{TicketsTestCase.first_ticket}/full_history",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "ticket_id": TicketsTestCase.first_ticket
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), test_016_get_full_ticket_history_schema)
 
     @unittest.skip
     def test_017_get_action_by_id(self):
-        """Delete ticket"""
-
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/get_action",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/actions/6522d1207bf20629548622f6",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "action_id": "6522d1207bf20629548622f6"
             },
             timeout=TIMEOUT
         )

@@ -4,7 +4,6 @@ from fastapi import Depends
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
     TicketIDValuesListScheme
@@ -36,8 +35,8 @@ from ..utils import (
 
 
 async def tickets__delete_ticket_for_me(
-        deletion_ticket_data: TicketIDValuesListScheme,
-        _curr_user = Depends(get_current_user())
+    deletion_ticket_data: TicketIDValuesListScheme,
+    _curr_user=Depends(get_current_user())
 ):
     """Delete ticket"""
 
@@ -69,10 +68,10 @@ async def tickets__delete_ticket_for_me(
 
 
 async def tickets__undelete_ticket(
-        ticket_data: TicketIDValueSchema,
-        _curr_user = Depends(get_current_user())
+    ticket_id: int,
+    _curr_user=Depends(get_current_user())
 ):
-    ticket: Tickets | None = is_ticket_exist(ticket_data.ticket_id)
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     am_i_own_this_ticket_with_error(
         ticket.creator.user_id,
@@ -98,8 +97,8 @@ async def tickets__undelete_ticket(
 
 
 async def tickets__get_deleted_tickets(
-        _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        _curr_user = Depends(get_current_user())
+    _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
+    _curr_user=Depends(get_current_user())
 ):
     available_filters = {
         "default": [

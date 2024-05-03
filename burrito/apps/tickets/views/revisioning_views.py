@@ -4,7 +4,6 @@ from fastapi import Depends, status, HTTPException
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
     TicketDetailInfoSchema,
     TicketListRequestSchema,
     TicketListResponseSchema,
@@ -108,14 +107,12 @@ async def tickets__show_tickets_list_by_filter(
 
 
 async def tickets__show_detail_ticket_info(
-        ticket_id_info: TicketIDValueSchema,
+        ticket_id: int,
         _curr_user: Users = Depends(get_current_user(permission_list={"READ_TICKET"}))
 ):
     """Show detail ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        ticket_id_info.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     i_am_creator = am_i_own_this_ticket(
         ticket.creator.user_id,
@@ -146,10 +143,11 @@ async def tickets__show_detail_ticket_info(
 
 
 async def tickets__get_full_ticket_history(
-        _filters: RequestTicketHistorySchema,
+        ticket_id: int,
+        _filters: RequestTicketHistorySchema = RequestTicketHistorySchema(),
         _curr_user: Users = Depends(get_current_user())
 ):
-    ticket = is_ticket_exist(_filters.ticket_id)
+    ticket = is_ticket_exist(ticket_id)
 
     if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         return JSONResponse(
@@ -173,29 +171,29 @@ async def tickets__get_full_ticket_history(
 
 
 async def tickets__get_action_by_id(
-        action_data: RequestActionSchema,
-        _curr_user: Users = Depends(get_current_user())
+    action_id: str,
+    _curr_user: Users = Depends(get_current_user())
 ):
-    action = mongo_select(BaseAction, _id=action_data.action_id)
+    action = mongo_select(BaseAction, _id=action_id)
 
     if action:
         action = action[0]
     else:
         raise HTTPException(
             status_code=404,
-            detail=f"Action with action_id {action_data.action_id} is not exists"
+            detail=f"Action with action_id {action_id} is not exists"
         )
 
     if not action.get("type_"):
         raise HTTPException(
             status_code=404,
-            detail=f"Action with action_id {action_data.action_id} is not exists"
+            detail=f"Action with action_id {action_id} is not exists"
         )
 
     if action["type_"] != "action":
         raise HTTPException(
             status_code=404,
-            detail=f"Action with action_id {action_data.action_id} is not exists"
+            detail=f"Action with action_id {action_id} is not exists"
         )
 
     ticket: Tickets = is_ticket_exist(action["ticket_id"])

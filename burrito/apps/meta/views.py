@@ -59,8 +59,8 @@ async def meta__faculties_list():
     )
 
 
-async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
-    faculty_object = FacultyConverter.convert(faculty_data.faculty)
+async def meta__get_queues_list(faculty: int):
+    faculty_object = FacultyConverter.convert(faculty)
 
     response_list: list[QueueResponseSchema] = []
     for queue in Queues.select().where(

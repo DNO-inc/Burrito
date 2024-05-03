@@ -15,7 +15,7 @@ TIMEOUT = 5
 class CommentsTestCase(unittest.TestCase):
     def test_001_comments_create(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/create",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -26,7 +26,7 @@ class CommentsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         _response_schema = {
             "type": "object",
@@ -42,8 +42,8 @@ class CommentsTestCase(unittest.TestCase):
         return response.json()["comment_id"]
 
     def test_002_comments_edit(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/edit",
+        response = requests.patch(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -54,7 +54,7 @@ class CommentsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         _response_schema = {
             "type": "object",
@@ -68,7 +68,7 @@ class CommentsTestCase(unittest.TestCase):
 
     def test_003_comments_delete(self):
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/delete",
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -78,7 +78,7 @@ class CommentsTestCase(unittest.TestCase):
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         _response_schema = {
             "type": "object",
@@ -95,7 +95,7 @@ class CommentsTestCase(unittest.TestCase):
 
         for _ in range(10):
             response = requests.post(
-                f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/create",
+                f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/",
                 headers={
                     "Authorization": f"Bearer {get_access_token()}"
                 },
@@ -106,7 +106,7 @@ class CommentsTestCase(unittest.TestCase):
                 timeout=TIMEOUT
             )
 
-            assert response.status_code == 200
+            self.assertEqual(response.status_code, 200, response.json())
 
             _response_schema = {
                 "type": "object",
@@ -119,17 +119,14 @@ class CommentsTestCase(unittest.TestCase):
             jsonschema.validate(response.json(), _response_schema)
 
     def test_005_comments_get_comment(self):
-        response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/get_comment_by_id",
+        response = requests.get(
+            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/{self.test_001_comments_create()}",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
-            },
-            json={
-                "comment_id": self.test_001_comments_create()
             },
             timeout=TIMEOUT
         )
 
-        assert response.status_code == 200
+        self.assertEqual(response.status_code, 200, response.json())
 
         jsonschema.validate(response.json(), test_005_comments_get_comment_schema)

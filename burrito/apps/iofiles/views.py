@@ -107,7 +107,7 @@ async def iofiles__get_file(
 
 
 async def iofiles__get_file_ids(
-    ticket_id: Annotated[int, Form(...)],
+    ticket_id: int,
     _curr_user: Users = Depends(get_current_user())
 ):
     ticket: Tickets | None = is_ticket_exist(ticket_id)
@@ -124,7 +124,7 @@ async def iofiles__get_file_ids(
 
 
 async def iofiles__delete_file(
-    file_id: str = Form(...),
+    file_id: str,
     _curr_user: Users = Depends(get_current_user())
 ):
     file_data = mongo_select(TicketFiles, file_id=file_id)

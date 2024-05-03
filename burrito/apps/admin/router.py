@@ -11,9 +11,9 @@ from .views import (
 admin_router = APIRouter()
 
 admin_router.add_api_route(
-    "/tickets/update",
+    "/tickets/",
     admin__update_ticket_data,
-    methods=["POST"]
+    methods=["PATCH"]
 )
 admin_router.add_api_route(
     "/tickets/ticket_list",
@@ -21,18 +21,17 @@ admin_router.add_api_route(
     methods=["POST"]
 )
 admin_router.add_api_route(
-    "/tickets/show",
-    admin__show_detail_ticket_info,
-    methods=["POST"]
+    "/profile/update",
+    admin__update_profile,
+    methods=["PATCH"]
 )
 admin_router.add_api_route(
-    "/tickets/delete",
+    "/tickets/{ticket_id}",
     admin__delete_ticket,
     methods=["DELETE"]
 )
-
 admin_router.add_api_route(
-    "/profile/update",
-    admin__update_profile,
-    methods=["POST"]
+    "/tickets/{ticket_id}",
+    admin__show_detail_ticket_info,
+    methods=["GET"]
 )

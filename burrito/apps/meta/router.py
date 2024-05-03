@@ -14,43 +14,43 @@ from .views import (
 meta_router = APIRouter()
 
 meta_router.add_api_route(
-    "/get_statuses",
+    "/statuses",
     meta__get_statuses_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_groups",
+    "/groups",
     meta__get_groups_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_faculties",
+    "/faculties",
     meta__faculties_list,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_queues",
+    "/queues/by_faculty/{faculty}",
     meta__get_queues_list,
-    methods=["POST"]
+    methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_admins",
+    "/admins",
     meta__get_admins,
-    methods=["POST"]
+    methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_roles",
+    "/roles",
     meta__get_roles,
     methods=["GET"]
 )
 
 meta_router.add_api_route(
-    "/get_role_permissions",
+    "/role_permissions",
     meta__get_role_permissions,
     methods=["GET"]
 )

@@ -4,7 +4,6 @@ from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
     TicketDetailInfoSchema,
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
@@ -15,7 +14,7 @@ from burrito.models.tickets_model import Tickets
 from burrito.models.bookmarks_model import Bookmarks
 
 from burrito.utils.users_util import get_user_by_id
-from burrito.utils.auth import AuthTokenPayload, get_current_user
+from burrito.utils.auth import get_current_user
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
@@ -36,7 +35,6 @@ from burrito.utils.logger import get_logger
 
 from ..utils import (
     is_ticket_exist,
-    check_permission,
     make_ticket_detail_info,
     get_filtered_bookmarks,
     get_filtered_bookmarks_count
@@ -44,16 +42,14 @@ from ..utils import (
 
 
 async def tickets__bookmark_ticket(
-        bookmark_ticket_data: TicketIDValueSchema,
-        _curr_user = Depends(get_current_user())
+        ticket_id: int,
+        _curr_user=Depends(get_current_user())
 ):
     """Follow ticket"""
 
     current_user = get_user_by_id(_curr_user.user_id)
 
-    ticket: Tickets | None = is_ticket_exist(
-        bookmark_ticket_data.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     if not can_i_interact_with_ticket(ticket, current_user):
         return JSONResponse(
@@ -90,14 +86,12 @@ async def tickets__bookmark_ticket(
 
 
 async def tickets__unbookmark_ticket(
-        unbookmark_ticket_data: TicketIDValueSchema,
-        _curr_user = Depends(get_current_user())
+        ticket_id: int,
+        _curr_user=Depends(get_current_user())
 ):
     """Follow ticket"""
 
-    ticket: Tickets | None = is_ticket_exist(
-        unbookmark_ticket_data.ticket_id
-    )
+    ticket: Tickets | None = is_ticket_exist(ticket_id)
 
     bookmark: Bookmarks | None = Bookmarks.get_or_none(
         Bookmarks.user == _curr_user.user_id,
@@ -120,7 +114,7 @@ async def tickets__unbookmark_ticket(
 
 async def tickets__get_bookmarked_tickets(
         _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        _curr_user = Depends(get_current_user())
+        _curr_user=Depends(get_current_user())
 ):
     """Get tickets which were bookmarked by current user"""
 
@@ -174,7 +168,7 @@ async def tickets__get_bookmarked_tickets(
 
 async def tickets__get_followed_tickets(
         _filters: BaseFilterSchema | None = BaseFilterSchema(),
-        _curr_user = Depends(get_current_user())
+        _curr_user=Depends(get_current_user())
 ):
     """Get tickets which were followed by current user"""
 

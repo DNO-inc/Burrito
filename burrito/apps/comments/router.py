@@ -11,22 +11,22 @@ from .views import (
 comments_router = APIRouter()
 
 comments_router.add_api_route(
-    "/create",
+    "/",
     comments__create,
     methods=["POST"]
 )
 comments_router.add_api_route(
-    "/edit",
+    "/",
     comments__edit,
-    methods=["POST"]
+    methods=["PATCH"]
 )
 comments_router.add_api_route(
-    "/delete",
+    "/",
     comments__delete,
     methods=["DELETE"]
 )
 comments_router.add_api_route(
-    "/get_comment_by_id",
+    "/{comment_id}",
     comments__get_comment_by_id,
-    methods=["POST"]
+    methods=["GET"]
 )

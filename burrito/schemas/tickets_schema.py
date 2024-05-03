@@ -18,7 +18,6 @@ class CreateTicketSchema(BaseModel):
 
 
 class UpdateTicketSchema(BaseModel):
-    ticket_id: int
     subject: str | None
     body: str | None
     hidden: bool | None
@@ -33,10 +32,6 @@ class TicketListRequestSchema(BaseFilterSchema):
 
 class TicketsBasicFilterSchema(BaseFilterSchema):
     hidden: bool | None
-
-
-class TicketIDValueSchema(BaseModel):
-    ticket_id: int
 
 
 class TicketIDValuesListScheme(BaseModel):
@@ -78,4 +73,4 @@ class TicketListResponseSchema(BaseModel):
 
 
 class RequestTicketHistorySchema(BurritoPagination):
-    ticket_id: int
+    ...

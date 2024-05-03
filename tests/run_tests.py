@@ -30,7 +30,7 @@ if __name__ == "__main__":
     ###        unittest.TestLoader().loadTestsFromTestCase(AdminTestCase),
             unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
             unittest.TestLoader().loadTestsFromTestCase(MetaTestCase),
-    #        unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase),
+            unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase),
             unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase),
             unittest.TestLoader().loadTestsFromTestCase(NotificationsTestCase),
             unittest.TestLoader().loadTestsFromTestCase(StatisticTestCase)
