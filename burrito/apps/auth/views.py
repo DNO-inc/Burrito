@@ -19,7 +19,7 @@ from burrito.utils.auth import (
     delete_refresh_token
 )
 from burrito.utils.users_util import (
-    get_user_by_id_or_none,
+    get_user_by_email_or_none,
     create_user_with_cabinet
 )
 
@@ -93,7 +93,7 @@ async def auth__key_login(
             content={"detail": "Failed to get user data from SSU Cabinet"}
         )
 
-    user: Users | None = get_user_by_id_or_none(cabinet_profile["user_id"])
+    user: Users | None = get_user_by_email_or_none(cabinet_profile["email"])
 
     if user:
         # if user login exist we just return auth schema
