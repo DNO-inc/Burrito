@@ -61,21 +61,21 @@ def create_user(
 
 
 def create_user_with_cabinet(
-        user_id: int,
-        firstname: str,
-        lastname: str,
-        faculty: int,
-        group: int,
-        email: int,
+    cabinet_id: int,
+    firstname: str,
+    lastname: str,
+    faculty: int,
+    group: int,
+    email: int,
 ) -> Users | None:
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
-    tmp_user_login = transliterate(f"{firstname} {lastname} {user_id}")
+    tmp_user_login = transliterate(f"{firstname} {cabinet_id}")
 
     try:
         user: Users = Users.create(
-            user_id=user_id,
+            cabinet_id=cabinet_id,
             firstname=firstname,
             lastname=lastname,
             login=tmp_user_login,
@@ -154,9 +154,22 @@ def get_user_by_id_or_none(user_id: int) -> Users | None:
         Users | None: return None if user is not exist
     """
 
-    _current_user = Users.get_or_none(Users.user_id == user_id)
+    return Users.get_or_none(Users.user_id == user_id)
 
-    return _current_user
+
+def get_user_by_cabinet_id(cabinet_id: int) -> Users | None:
+    """_summary_
+
+    Get user by cabinet ID
+
+    Args:
+        cabinet_id (int): user's ID in SSU cabinet
+
+    Returns:
+        Users | None: return None if user is not exist
+    """
+
+    return Users.get_or_none(Users.cabinet_id == cabinet_id)
 
 
 def is_admin(user: int | Users) -> bool:
