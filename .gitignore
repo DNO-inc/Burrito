@@ -11,3 +11,5 @@ grafana/*
 shadow
 .vagrant
 .poetry.lock
+
+*.ipynb

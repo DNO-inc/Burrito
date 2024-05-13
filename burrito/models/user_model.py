@@ -1,6 +1,7 @@
 from peewee import (
     CharField, TextField, AutoField,
-    DateTimeField, ForeignKeyField
+    DateTimeField, ForeignKeyField,
+    IntegerField
 )
 
 from burrito.utils.date import get_datetime_now
@@ -13,6 +14,7 @@ from burrito.models.basic_model import BurritoBasicModel
 
 class Users(BurritoBasicModel):
     user_id = AutoField()
+    cabinet_id = IntegerField(null=True, unique=True, default=None)
 
     firstname = CharField(60)
     lastname = CharField(60)
@@ -47,6 +49,3 @@ class Users(BurritoBasicModel):
 
     class Meta:
         depends_on = [Roles, Groups, Faculties]
-        table_settings = [
-            "AUTO_INCREMENT = 1073741824"
-        ]

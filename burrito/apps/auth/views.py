@@ -19,7 +19,7 @@ from burrito.utils.auth import (
     delete_refresh_token
 )
 from burrito.utils.users_util import (
-    get_user_by_email_or_none,
+    get_user_by_cabinet_id,
     create_user_with_cabinet
 )
 
@@ -93,7 +93,7 @@ async def auth__key_login(
             content={"detail": "Failed to get user data from SSU Cabinet"}
         )
 
-    user: Users | None = get_user_by_email_or_none(cabinet_profile["email"])
+    user: Users | None = get_user_by_cabinet_id(cabinet_profile["user_id"])
 
     if user:
         # if user login exist we just return auth schema
@@ -120,59 +120,44 @@ async def auth__key_login(
             **tokens
         )
 
-    if not user:
+    # So, this is the first login. Let's create a locale user record
 
-        # So, this is the first login. Let's create a locale user record
+    new_user: Users | None = create_user_with_cabinet(
+        cabinet_id=cabinet_profile["user_id"],
+        firstname=cabinet_profile["firstname"],
+        lastname=cabinet_profile["lastname"],
+        faculty=cabinet_profile["faculty"],
+        group=cabinet_profile["group"],
+        email=cabinet_profile["email"],
+    )
 
-        new_user: Users | None = create_user_with_cabinet(
-            user_id=cabinet_profile["user_id"],
-            firstname=cabinet_profile["firstname"],
-            lastname=cabinet_profile["lastname"],
-            faculty=cabinet_profile["faculty"],
-            group=cabinet_profile["group"],
-            email=cabinet_profile["email"],
+    if not new_user:
+        return JSONResponse(
+            status_code=status.HTTP_406_NOT_ACCEPTABLE,
+            content={"detail": "Failed to create a new user"}
         )
 
-        if new_user:
-            result = {"user_id": new_user.user_id} | (create_token_pare(
-                AuthTokenPayload(
-                    user_id=new_user.user_id,
-                    role=new_user.role.name
-                )
-            ))
-
-            return JSONResponse(
-                status_code=status.HTTP_200_OK,
-                content=result
-            )
-
-        if not new_user:
-            return JSONResponse(
-                status_code=status.HTTP_406_NOT_ACCEPTABLE,
-                content={"detail": "Failed to create a new user"}
-            )
-
-        tokens = create_token_pare(
-            AuthTokenPayload(
-                user_id=user.user_id,
-                role=user.role.name
-            )
+    result = {"user_id": new_user.user_id} | (create_token_pare(
+        AuthTokenPayload(
+            user_id=new_user.user_id,
+            role=new_user.role.name
         )
+    ))
 
-        get_logger().info(
-            f"""
-                Key login:
-                    * user_id: {user.user_id}
-                    * name: {user.firstname} {user.lastname}
-                    * tokens: {tokens}
+    get_logger().info(
+        f"""
+            Key login:
+                * user_id: {new_user.user_id}
+                * name: {new_user.firstname} {new_user.lastname}
+                * tokens: {tokens}
 
-            """
-        )
+        """
+    )
 
-        return KeyAuthResponseSchema(
-            user_id=user.user_id,
-            **tokens
-        )
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content=result
+    )
 
 
 async def auth__token_refresh(
