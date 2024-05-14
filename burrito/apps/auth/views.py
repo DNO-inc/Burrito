@@ -149,7 +149,6 @@ async def auth__key_login(
             Key login:
                 * user_id: {new_user.user_id}
                 * name: {new_user.firstname} {new_user.lastname}
-                * tokens: {tokens}
 
         """
     )
