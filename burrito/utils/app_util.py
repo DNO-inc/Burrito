@@ -3,8 +3,14 @@ import time
 
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
+from pymongo.errors import ServerSelectionTimeoutError
+import peewee
 
-from .singleton_pattern import singleton
+from burrito.utils.exceptions import (
+    DBConnectionError,
+    db_connection_error_handler
+)
+from burrito.utils.singleton_pattern import singleton
 from burrito.utils.task_manager import get_task_manager
 from burrito import CURRENT_TIME_ZONE
 
@@ -29,8 +35,20 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
         BurritoApi: current application object
     """
 
-    app = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
+    app: FastAPI = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
 
+    app.add_exception_handler(
+        DBConnectionError,
+        db_connection_error_handler
+    )
+    app.add_exception_handler(
+        ServerSelectionTimeoutError,
+        db_connection_error_handler
+    )
+    app.add_exception_handler(
+        peewee.OperationalError,
+        db_connection_error_handler
+    )
     app.add_event_handler("startup", startup_event)
     app.add_middleware(
         CORSMiddleware,

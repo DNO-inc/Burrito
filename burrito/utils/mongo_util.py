@@ -7,9 +7,9 @@ from pymongo import MongoClient, ASCENDING, DESCENDING
 from pymongo.errors import ServerSelectionTimeoutError
 import gridfs
 
+from burrito.utils.exceptions import MongoConnectionError, DBConnectionError
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
-from burrito.utils.logger import get_logger
 
 from burrito.models.m_basic_model import MongoBaseModel
 from burrito.models.m_ticket_files import TicketFiles
@@ -39,26 +39,27 @@ def get_mongo_cursor():
 
     try:
         mongo_cursor.admin.command("ping")
+
     except ServerSelectionTimeoutError as exc:
-        get_logger().critical("Mongo server is unavailable")
-        raise HTTPException(
-            status_code=500,
-            detail="Some of the services is unavailable, please try late"
-        ) from exc
+        raise MongoConnectionError(str(exc)) from exc
+
+    except Exception as exc:
+        raise DBConnectionError(str(exc)) from exc
 
     return mongo_cursor
 
 
-_MONGO_CURSOR = get_mongo_cursor()
 _MONGO_DB_NAME = get_config().BURRITO_MONGO_DB
-_MONGO_GRIDFS: gridfs.GridFS = gridfs.GridFS(getattr(_MONGO_CURSOR, _MONGO_DB_NAME))
+_MONGO_GRIDFS: gridfs.GridFS = gridfs.GridFS(
+    getattr(get_mongo_cursor(), _MONGO_DB_NAME)
+)
 
 
 def mongo_init_ttl_indexes(models: list[MongoBaseModel]):
     """Create indexes to use TTL ability of MongoDB"""
 
     for model in models:
-        _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].create_index(
+        get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].create_index(
             "obj_creation_time",  # index name
             expireAfterSeconds=300
         )
@@ -74,7 +75,7 @@ def mongo_insert(model: MongoBaseModel):
     Returns:
         The id of the newly inserted record
     """
-    return str(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].insert_one(model.dict()).inserted_id)
+    return str(get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].insert_one(model.dict()).inserted_id)
 
 
 def mongo_select(
@@ -105,7 +106,7 @@ def mongo_select(
 
     if sort_by:
         return list(
-            _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
+            get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
                 (start_page - 1) * items_count
             ).limit(items_count).sort(
                 sort_by,
@@ -114,7 +115,7 @@ def mongo_select(
         )
 
     return list(
-        _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
+        get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].find(filters).skip(
             (start_page - 1) * items_count
         ).limit(items_count)
     )
@@ -131,7 +132,7 @@ def mongo_update(model: MongoBaseModel, **filters) -> list[object]:
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].update_many(
+    get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].update_many(
         filters, {"$set": model.dict()}
     )
 
@@ -147,7 +148,7 @@ def mongo_delete(model: MongoBaseModel, **filters) -> None:
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    _MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].delete_many(filters)
+    get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].delete_many(filters)
 
 
 def mongo_page_count(
@@ -171,7 +172,7 @@ def mongo_page_count(
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    return math.ceil(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
+    return math.ceil(get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters) / items_count)
 
 
 def mongo_items_count(model: MongoBaseModel, **filters) -> int:
@@ -188,7 +189,7 @@ def mongo_items_count(model: MongoBaseModel, **filters) -> int:
     if item_id and isinstance(item_id, str):
         filters["_id"] = ObjectId(item_id)
 
-    return math.ceil(_MONGO_CURSOR[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
+    return math.ceil(get_mongo_cursor()[_MONGO_DB_NAME][model.Meta.table_name].count_documents(filters))
 
 
 def mongo_save_file(ticket_id: int, file_owner_id: int, file_name: str, file: bytes, content_type: str | None) -> str:

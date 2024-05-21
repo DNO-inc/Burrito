@@ -2,9 +2,11 @@ from peewee import MySQLDatabase
 from playhouse.shortcuts import ReconnectMixin
 
 from pymysql import connect as pymysql_conn
+from pymysql.err import OperationalError
 
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
+from burrito.utils.exceptions import MySQLConnectionError, DBConnectionError
 
 
 @singleton
@@ -27,11 +29,18 @@ def get_database_cursor() -> BurritoDatabaseCursor:
         BurritoDatabaseCursor: current database cursor
     """
 
-    return BurritoDatabaseCursor(
-        get_config().BURRITO_DB_NAME,
-        user=get_config().BURRITO_DB_USER,
-        password=get_config().BURRITO_DB_PASSWORD,
-        host=get_config().BURRITO_DB_HOST,
-        port=int(get_config().BURRITO_DB_PORT),
-        charset="utf8mb4"
-    )
+    try:
+        return BurritoDatabaseCursor(
+            get_config().BURRITO_DB_NAME,
+            user=get_config().BURRITO_DB_USER,
+            password=get_config().BURRITO_DB_PASSWORD,
+            host=get_config().BURRITO_DB_HOST,
+            port=int(get_config().BURRITO_DB_PORT),
+            charset="utf8mb4"
+        )
+
+    except OperationalError as exc:
+        raise MySQLConnectionError(str(exc)) from exc
+
+    except Exception as exc:
+        raise DBConnectionError(str(exc)) from exc
