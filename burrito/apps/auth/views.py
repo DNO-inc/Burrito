@@ -205,13 +205,11 @@ async def auth__logout(
 
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(
+            await client.get(
                 f"https://cabinet.sumdu.edu.ua/api/logout?key={cabinet_key}"
             )
 
         remove_cabinet_key(_curr_user)
-
-        get_logger().critical(response.json())
 
     except Exception as exc:
         get_logger().error(exc)
