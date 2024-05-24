@@ -4,7 +4,8 @@ from .views import (
     auth__password_login,
     auth__key_login,
     auth__token_refresh,
-    auth_delete_refresh_token
+    auth_delete_refresh_token,
+    auth__logout
 )
 
 
@@ -36,5 +37,9 @@ auth_router.add_api_route(
     auth_delete_refresh_token,
     methods=["POST"]
 )
-# auth_router.add_api_route("/token/logout", token_login, methods=["POST"])
-# auth_router.add_api_route("/token/refresh", token_login, methods=["POST"])
+
+auth_router.add_api_route(
+    "/cabinet_logout",
+    auth__logout,
+    methods=["GET"]
+)

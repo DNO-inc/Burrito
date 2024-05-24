@@ -1,3 +1,4 @@
+import httpx
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
@@ -16,7 +17,8 @@ from burrito.utils.auth import (
     create_access_token,
     create_token_pare,
     rotate_refresh_token,
-    delete_refresh_token
+    delete_refresh_token,
+    get_current_user
 )
 from burrito.utils.users_util import (
     get_user_by_cabinet_id,
@@ -27,7 +29,10 @@ from burrito.plugins.loader import PluginLoader
 
 from .utils import (
     get_user_by_login,
-    compare_password
+    compare_password,
+    put_cabinet_key,
+    get_cabinet_key,
+    remove_cabinet_key
 )
 
 
@@ -115,6 +120,8 @@ async def auth__key_login(
             """
         )
 
+        put_cabinet_key(user, user_login_data.key)
+
         return KeyAuthResponseSchema(
             user_id=user.user_id,
             **tokens
@@ -137,13 +144,6 @@ async def auth__key_login(
             content={"detail": "Failed to create a new user"}
         )
 
-    result = {"user_id": new_user.user_id} | (create_token_pare(
-        AuthTokenPayload(
-            user_id=new_user.user_id,
-            role=new_user.role.name
-        )
-    ))
-
     get_logger().info(
         f"""
             Key login:
@@ -153,9 +153,16 @@ async def auth__key_login(
         """
     )
 
-    return JSONResponse(
-        status_code=status.HTTP_200_OK,
-        content=result
+    put_cabinet_key(new_user, user_login_data.key)
+
+    return KeyAuthResponseSchema(
+        user_id=new_user.user_id,
+        **create_token_pare(
+            AuthTokenPayload(
+                user_id=new_user.user_id,
+                role=new_user.role.name
+            )
+        )
     )
 
 
@@ -182,5 +189,38 @@ async def auth_delete_refresh_token(
 ):
     return JSONResponse(
         content={"detail": "Refresh tokens was deleted"},
+        status_code=200
+    )
+
+
+async def auth__logout(
+    _curr_user: Users = Depends(get_current_user())
+):
+    cabinet_key = get_cabinet_key(_curr_user)
+    if not cabinet_key:
+        return JSONResponse(
+            content={"detail": "Service key is expired"},
+            status_code=403
+        )
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"https://cabinet.sumdu.edu.ua/api/logout?key={cabinet_key}"
+            )
+
+        remove_cabinet_key(_curr_user)
+
+        get_logger().critical(response.json())
+
+    except Exception as exc:
+        get_logger().error(exc)
+        return JSONResponse(
+            content={"detail": "Something gone wrong"},
+            status_code=200
+        )
+
+    return JSONResponse(
+        content={"detail": "You have successfully logged out"},
         status_code=200
     )
