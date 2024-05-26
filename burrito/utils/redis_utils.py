@@ -20,7 +20,7 @@ class RedisConnector(redis.Redis):
         super().__init__(host=host, port=port, password=password, **kwargs)
 
 
-def get_redis_connector() -> RedisConnector:
+def get_redis_connector() -> redis.Redis:
     """
     Returns redis connector to interact with Redis database.
     """
