@@ -73,30 +73,32 @@ def create_user_with_cabinet(
 
     tmp_user_login = transliterate(f"{firstname} {cabinet_id}")
 
-    try:
-        user: Users = Users.create(
-            cabinet_id=cabinet_id,
-            firstname=firstname,
-            lastname=lastname,
-            login=tmp_user_login,
-            faculty=faculty,
-            group=group,
-            email=email,
-            role=role_object
-        )
-        return user
+    #TODO: tmp solution, i hope. Assign a `global' faculty to the user if it fails to create
+    for i in range(2):
+        try:
+            user: Users = Users.create(
+                cabinet_id=cabinet_id,
+                firstname=firstname,
+                lastname=lastname,
+                login=tmp_user_login,
+                faculty=faculty if not i else 1,
+                group=group,
+                email=email,
+                role=role_object
+            )
+            return user
 
-    except Exception as e:
-        get_logger().error(e)
-        get_logger().warning(
-            f"""
-            Email {email}
-            Login {tmp_user_login}
-            Faculty {faculty}
-            Group {group}
+        except Exception as e:
+            get_logger().error(e)
+            get_logger().warning(
+                f"""
+                Email {email}
+                Login {tmp_user_login}
+                Faculty {faculty}
+                Group {group}
 
-            """
-        )
+                """
+            )
 
 
 def get_user_by_login(login: str) -> Users | None:
