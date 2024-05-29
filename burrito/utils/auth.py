@@ -145,7 +145,6 @@ def create_refresh_token(token_data: AuthTokenPayload) -> str:
     get_logger().info(
         f"""
             Generate new token:
-                * token: {_token}
                 * redis key: {_token_redis_key}
                 * payload:  {token_data.dict()}
 

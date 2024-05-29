@@ -12,7 +12,7 @@ class BurritoFormatter(logging.Formatter):
     red = "\x1b[31;20m"
     magenta = "\u001b[35m"
     reset = "\x1b[0m"
-    _format = "[ %(asctime)s ] | %(name)s (%(process)d) | %(levelname)s: %(message)s (%(filename)s:%(lineno)d)"
+    _format = "[ %(asctime)s ] | %(name)s (%(process)d) | %(levelname)s: %(message)s (%(pathname)s:%(lineno)d)"
 
     # Defining formats
     FORMATS = {
@@ -61,7 +61,7 @@ class BurritoLogger(logging.Logger):
         self.addHandler(ch)
 
 
-def get_logger(level: int = logging.DEBUG) -> BurritoLogger:
+def get_logger(level: int = logging.DEBUG) -> logging.Logger:
     """_summary_
 
     Args:
