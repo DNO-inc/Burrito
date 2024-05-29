@@ -26,7 +26,9 @@ from burrito.utils.query_util import (
     q_scope_is,
     q_creator_is,
     q_assignee_is,
-    q_is_hidden
+    q_is_hidden,
+    q_followed,
+    q_protected_statuses
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.mongo_util import (
@@ -42,7 +44,9 @@ from burrito.utils.tickets_util import (
     change_ticket_faculty,
     change_ticket_queue,
     change_ticket_assignee,
-    am_i_own_this_ticket
+    am_i_own_this_ticket,
+    get_filtered_bookmarks,
+    get_filtered_bookmarks_count
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.auth import get_current_user
@@ -268,4 +272,62 @@ async def admin__update_profile(
     return JSONResponse(
         status_code=status.HTTP_403_FORBIDDEN,
         content={"detail": "It's prohibited to update this profile"}
+    )
+
+
+async def admin__get_followed_tickets(
+    _filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
+    _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
+):
+    available_filters = {
+        "default": [
+            q_is_hidden(_filters.hidden),
+            q_is_anonymous(_filters.anonymous),
+            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_status_list(_filters.status),
+            q_scope_is(_filters.scope),
+            q_is_valid_queue(_filters.queue),
+            q_followed(_curr_user.user_id),
+            q_protected_statuses()
+        ]
+    }
+    final_filters = select_filters(_curr_user.role.name, available_filters)
+    expression: list[Tickets] = get_filtered_bookmarks(
+        final_filters,
+        start_page=_filters.start_page,
+        tickets_count=_filters.items_count
+    )
+
+    response_list: list[AdminTicketDetailInfo] = []
+    for ticket in expression:
+        creator = None
+        if not ticket.anonymous:
+            creator = make_short_user_data(ticket.creator, hide_user_id=False)
+
+        assignee = None
+        if ticket.assignee:
+            assignee = make_short_user_data(
+                ticket.assignee,
+                hide_user_id=False
+            )
+
+        response_list.append(
+            make_ticket_detail_info(
+                ticket,
+                _curr_user,
+                creator,
+                assignee,
+                crop_body=True
+            )
+        )
+
+    return AdminTicketListResponse(
+        ticket_list=response_list,
+        total_pages=math.ceil(
+            get_filtered_bookmarks_count(
+                final_filters,
+                start_page=_filters.start_page,
+                tickets_count=_filters.items_count
+            ) / _filters.items_count
+        )
     )

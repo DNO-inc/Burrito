@@ -830,3 +830,47 @@ def can_i_interact_with_ticket(ticket: Tickets | int, user: Users | int) -> bool
         or user.user_id in (ticket.creator.user_id, ticket.assignee.user_id if ticket.assignee else -1)
         or is_admin(user)
     )
+
+
+def get_filtered_bookmarks(
+    _filters: list[Any],
+    _desc: bool = True,
+    start_page: int = 1,
+    tickets_count: int = 10
+) -> list[Tickets]:
+    if _filters:
+        return Tickets.select(
+            Tickets
+        ).join(
+            Bookmarks,
+            on=(Tickets.ticket_id == Bookmarks.ticket)
+        ).where(*_filters).paginate(
+            start_page,
+            tickets_count
+        ).order_by(
+            Bookmarks.created.desc() if _desc else Bookmarks.created
+        )
+
+    return Tickets.select(
+        Tickets
+    ).join(
+        Bookmarks,
+        on=(Tickets.ticket_id == Bookmarks.ticket)
+    ).paginate(
+        start_page,
+        tickets_count
+    ).order_by(
+        Bookmarks.created.desc() if _desc else Bookmarks.created
+    )
+
+
+def get_filtered_bookmarks_count(
+    _filters: list[Any],
+    start_page: int = 1,
+    tickets_count: int = 10
+) -> int:
+    return get_filtered_bookmarks(
+        _filters,
+        start_page=start_page,
+        tickets_count=tickets_count
+    ).count()

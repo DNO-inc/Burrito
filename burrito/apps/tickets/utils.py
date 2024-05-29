@@ -1,4 +1,3 @@
-from typing import Any
 from functools import cache
 
 from burrito.utils.users_util import get_user_by_id
@@ -7,7 +6,6 @@ from burrito.utils.permissions_checker import check_permission
 
 from burrito.utils.logger import get_logger
 
-from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.queues_model import Queues
@@ -115,47 +113,3 @@ def make_ticket_detail_info(
         is_bookmarked=is_ticket_bookmarked(current_user.user_id, ticket.ticket_id),
         date=str(ticket.created)
     )
-
-
-def get_filtered_bookmarks(
-    _filters: list[Any],
-    _desc: bool = True,
-    start_page: int = 1,
-    tickets_count: int = 10
-) -> list[Tickets]:
-    if _filters:
-        return Tickets.select(
-            Tickets
-        ).join(
-            Bookmarks,
-            on=(Tickets.ticket_id == Bookmarks.ticket)
-        ).where(*_filters).paginate(
-            start_page,
-            tickets_count
-        ).order_by(
-            Bookmarks.created.desc() if _desc else Bookmarks.created
-        )
-
-    return Tickets.select(
-        Tickets
-    ).join(
-        Bookmarks,
-        on=(Tickets.ticket_id == Bookmarks.ticket)
-    ).paginate(
-        start_page,
-        tickets_count
-    ).order_by(
-        Bookmarks.created.desc() if _desc else Bookmarks.created
-    )
-
-
-def get_filtered_bookmarks_count(
-    _filters: list[Any],
-    start_page: int = 1,
-    tickets_count: int = 10
-) -> int:
-    return get_filtered_bookmarks(
-        _filters,
-        start_page=start_page,
-        tickets_count=tickets_count
-    ).count()
