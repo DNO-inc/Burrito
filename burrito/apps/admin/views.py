@@ -27,8 +27,7 @@ from burrito.utils.query_util import (
     q_creator_is,
     q_assignee_is,
     q_is_hidden,
-    q_followed,
-    q_protected_statuses
+    q_followed
 )
 from burrito.utils.users_util import get_user_by_id
 from burrito.utils.mongo_util import (
@@ -279,16 +278,21 @@ async def admin__get_followed_tickets(
     _filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
+    admin_filters = [
+        q_is_hidden(_filters.hidden),
+        q_is_anonymous(_filters.anonymous),
+        q_is_valid_faculty(_filters.faculty),
+        q_is_valid_status_list(_filters.status),
+        q_scope_is(_filters.scope),
+        q_is_valid_queue(_filters.queue),
+        q_followed(_curr_user.user_id)
+    ]
+
     available_filters = {
+        "ADMIN": admin_filters,
+        "CHIEF_ADMIN": admin_filters,
         "default": [
-            q_is_hidden(_filters.hidden),
-            q_is_anonymous(_filters.anonymous),
-            q_is_valid_faculty(_filters.faculty),
-            q_is_valid_status_list(_filters.status),
-            q_scope_is(_filters.scope),
-            q_is_valid_queue(_filters.queue),
-            q_followed(_curr_user.user_id),
-            q_protected_statuses()
+            q_is_hidden(False)
         ]
     }
     final_filters = select_filters(_curr_user.role.name, available_filters)
