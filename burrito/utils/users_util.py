@@ -88,6 +88,15 @@ def create_user_with_cabinet(
 
     except Exception as e:
         get_logger().error(e)
+        get_logger().warning(
+            f"""
+            Email {email}
+            Login {tmp_user_login}
+            Faculty {faculty}
+            Group {group}
+
+            """
+        )
 
 
 def get_user_by_login(login: str) -> Users | None:
