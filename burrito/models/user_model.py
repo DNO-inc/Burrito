@@ -19,7 +19,7 @@ class Users(BurritoBasicModel):
     firstname = CharField(60)
     lastname = CharField(60)
 
-    login = CharField(25, unique=True)
+    login = CharField(40, unique=True)
 
     faculty = ForeignKeyField(
         Faculties,

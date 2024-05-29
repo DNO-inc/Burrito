@@ -59,7 +59,6 @@ async def auth__password_login(
                     Password login:
                         * user_id: {user.user_id}
                         * login: {user_login_data.login}
-                        * tokens: {tokens}
 
                 """
             )
@@ -115,7 +114,6 @@ async def auth__key_login(
                 Key login:
                     * user_id: {user.user_id}
                     * name: {user.firstname} {user.lastname}
-                    * tokens: {tokens}
 
             """
         )
