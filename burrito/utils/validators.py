@@ -16,7 +16,7 @@ def is_valid_login(login: str) -> bool:
     if not isinstance(login, str):
         return False
 
-    if len(login) < 3 or len(login) > 20:
+    if len(login) < 3 or len(login) > 40:
         return False
 
     pattern = r"^[\w_]*$"
