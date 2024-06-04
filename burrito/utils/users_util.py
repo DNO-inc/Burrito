@@ -74,7 +74,7 @@ def create_user_with_cabinet(
     tmp_user_login = transliterate(f"{firstname} {cabinet_id}")
 
     #TODO: tmp solution, i hope. Assign a `global' faculty to the user if it fails to create
-    for i in range(2):
+    for i in range(3):
         try:
             user: Users = Users.create(
                 cabinet_id=cabinet_id,
@@ -82,7 +82,7 @@ def create_user_with_cabinet(
                 lastname=lastname,
                 login=tmp_user_login,
                 faculty=faculty if not i else 1,
-                group=group,
+                group=group if i != 2 else None,
                 email=email,
                 role=role_object
             )
@@ -92,6 +92,8 @@ def create_user_with_cabinet(
             get_logger().error(e)
             get_logger().warning(
                 f"""
+                Firstname {firstname}
+                Lastname {lastname}
                 Email {email}
                 Login {tmp_user_login}
                 Faculty {faculty}
