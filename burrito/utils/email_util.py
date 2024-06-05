@@ -1,6 +1,7 @@
 import orjson
 import smtplib
 from email.message import EmailMessage
+import traceback
 
 from burrito.utils.config_reader import get_config
 from burrito.utils.redis_utils import get_redis_connector
@@ -46,14 +47,18 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
 
         # if current_user is not exist
         if current_user is None:
+            get_logger().warning(f"Unexistent user ID ({id_})")
             continue
         # skip user if email is empty
         if not current_user.email:
+            get_logger().warning(f"Empty email for user ({current_user.user_id})")
             continue
 
         receivers_email.append(current_user.email)
 
     if not receivers_email:
+        get_logger().warning("No email recipients provided")
+        get_logger().info(f"Receivers IDs list: {receivers}")
         return
 
     sender = get_config().BURRITO_EMAIL_LOGIN
@@ -76,8 +81,9 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
 
         get_logger().info(f"Email successfully sent to {receivers_email}")
 
-    except Exception as exc:
-        get_logger().warning(f"{exc} Failed to send email to {receivers_email}")
+    except Exception:
+        traceback.print_exc()
+        get_logger().warning(f"Failed to send email to {receivers_email}")
 
 
 # TODO: delete this function after public tests

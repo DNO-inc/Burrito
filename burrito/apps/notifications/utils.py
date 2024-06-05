@@ -27,6 +27,7 @@ def email_loop():
             raw_data = message.get("data")
 
             if raw_data and isinstance(raw_data, (str, bytes)):
+                get_logger().info(f"Found such data in the chanel: {raw_data}")
                 try:
                     data = orjson.loads(raw_data)
                 except UnboundLocalError as exc:
