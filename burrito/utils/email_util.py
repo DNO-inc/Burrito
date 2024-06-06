@@ -42,6 +42,7 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     """
     receivers_email: list[str] = []
 
+    get_logger().info("Preparing for sending email")
     for id_ in receivers:
         current_user: Users = get_user_by_id_or_none(id_)
 
