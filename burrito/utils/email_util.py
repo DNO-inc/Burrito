@@ -11,7 +11,7 @@ from burrito.utils.logger import get_logger
 from burrito.models.user_model import Users
 
 
-class BurritoEmail(smtplib.SMTP_SSL):
+class BurritoEmail(smtplib.SMTP):
     def __init__(self, host: str):
         """
         Initialize the connection to SMTP server.
@@ -74,9 +74,8 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
         get_logger().info("Creating SMTP client...")
 
         with get_burrito_email() as smtp_client:
-            get_logger().info("Connecting to SMTP server...")
-            smtp_client.connect(get_config().BURRITO_SMTP_SERVER)
-            smtp_client.noop()
+            get_logger().info("Turning on TLS...")
+            smtp_client.starttls()
 
             get_logger().info("Trying to login...")
             smtp_client.login(
