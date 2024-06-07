@@ -71,20 +71,34 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     msg["Bcc"] = ", ".join(receivers_email)
 
     try:
+        get_logger().info("Creating SMTP client...")
+
         with get_burrito_email() as smtp_client:
+            get_logger().info("Connecting to SMTP server...")
             smtp_client.connect(get_config().BURRITO_SMTP_SERVER)
             smtp_client.noop()
+
+            get_logger().info("Trying to login...")
             smtp_client.login(
                 get_config().BURRITO_EMAIL_LOGIN,
                 get_config().BURRITO_EMAIL_PASSWORD
             )
+
+            get_logger().info("Sending message...")
             smtp_client.send_message(msg)
 
         get_logger().info(f"Email successfully sent to {receivers_email}")
 
     except Exception:
         traceback.print_exc()
-        get_logger().warning(f"Failed to send email to {receivers_email}")
+        get_logger().info(
+            f"""
+                SMTP host: {get_config().BURRITO_SMTP_SERVER}
+                Login: {get_config().BURRITO_EMAIL_LOGIN}
+
+            """
+        )
+        get_logger().critical(f"Failed to send email to {receivers_email}")
 
 
 # TODO: delete this function after public tests
