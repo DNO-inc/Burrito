@@ -74,6 +74,8 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
         get_logger().info("Creating SMTP client...")
 
         with get_burrito_email() as smtp_client:
+            smtp_client.set_debuglevel(1)
+
             get_logger().info("Turning on TLS...")
             smtp_client.starttls()
 
