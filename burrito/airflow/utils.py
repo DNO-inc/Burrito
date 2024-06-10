@@ -31,11 +31,17 @@ MODEL_KEYS = {
 
 DEFAULT_CONFIG = ""
 
-with open("preprocessor_config.json", "r", encoding="utf-8") as file:
+with open(
+    "/opt/burrito_project/burrito/preprocessor_config.json",
+    "r",
+    encoding="utf-8"
+) as file:
     DEFAULT_CONFIG = json.loads(file.read())
 
 
 def preprocessor_task():
+    PluginLoader.load()
+
     get_logger().info("Preprocessor is started")
 
     conn = None

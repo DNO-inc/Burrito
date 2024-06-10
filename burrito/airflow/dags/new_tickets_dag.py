@@ -1,5 +1,8 @@
 import datetime
 
+from airflow import DAG
+from airflow.operators.python import PythonOperator
+
 from burrito.utils.email_util import publish_email
 from burrito.utils.email_templates import TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN
 from burrito.utils.query_util import STATUS_NEW
@@ -44,3 +47,17 @@ def check_for_new_tickets():
             )
         )
         get_logger().info(f"Found {len(tickets_list)} tickets with status NEW")
+
+
+with DAG(
+    dag_id="new_tickets_dag",
+    description="Check if there is tickets with NEW status and send email if any",
+    start_date=datetime.datetime.now() - datetime.timedelta(days=1),
+    schedule_interval=datetime.timedelta(hours=3),
+    catchup=False,
+    is_paused_upon_creation=False
+) as dag:
+    PythonOperator(
+        task_id="check_for_new_tickets",
+        python_callable=check_for_new_tickets
+    )

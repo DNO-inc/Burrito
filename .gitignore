@@ -13,3 +13,5 @@ shadow
 .poetry.lock
 
 *.ipynb
+
+*/airflow/logs/*
