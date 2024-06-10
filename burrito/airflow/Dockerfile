@@ -22,6 +22,11 @@ FROM apache/airflow:2.9.1-python3.10
 ENV PATH="/opt/pysetup/.venv/bin:$PATH"
 ENV PYTHONPATH="${PYTHONPATH}:/opt/burrito_project"
 
+RUN mkdir -p /opt/airflow/{config,dags,logs,plugins} \
+    && chmod 777 /opt/airflow/{config,dags,logs,plugins}
+
+COPY ./burrito/airflow/ /opt/airflow/
+
 COPY --from=build-base /opt/pysetup/ /opt/pysetup/
 COPY ./preprocessor_config.json /opt/burrito_project/burrito/preprocessor_config.json
 COPY ./CONTRIBUTORS.md /opt/burrito_project/burrito/CONTRIBUTORS.md
