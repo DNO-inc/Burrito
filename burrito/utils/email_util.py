@@ -11,7 +11,7 @@ from burrito.utils.logger import get_logger
 from burrito.models.user_model import Users
 
 
-class BurritoEmail(smtplib.SMTP_SSL):
+class BurritoEmail(smtplib.SMTP):
     def __init__(self, host: str):
         """
         Initialize the connection to SMTP server.
@@ -71,20 +71,35 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
     msg["Bcc"] = ", ".join(receivers_email)
 
     try:
+        get_logger().info("Creating SMTP client...")
+
         with get_burrito_email() as smtp_client:
-            smtp_client.connect(get_config().BURRITO_SMTP_SERVER)
-            smtp_client.noop()
+            smtp_client.set_debuglevel(1)
+
+            get_logger().info("Turning on TLS...")
+            smtp_client.starttls()
+
+            get_logger().info("Trying to login...")
             smtp_client.login(
                 get_config().BURRITO_EMAIL_LOGIN,
                 get_config().BURRITO_EMAIL_PASSWORD
             )
+
+            get_logger().info("Sending message...")
             smtp_client.send_message(msg)
 
         get_logger().info(f"Email successfully sent to {receivers_email}")
 
     except Exception:
         traceback.print_exc()
-        get_logger().warning(f"Failed to send email to {receivers_email}")
+        get_logger().info(
+            f"""
+                SMTP host: {get_config().BURRITO_SMTP_SERVER}
+                Login: {get_config().BURRITO_EMAIL_LOGIN}
+
+            """
+        )
+        get_logger().critical(f"Failed to send email to {receivers_email}")
 
 
 # TODO: delete this function after public tests
