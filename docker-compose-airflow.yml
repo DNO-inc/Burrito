@@ -52,6 +52,8 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKEND: 'airflow.api.auth.backend.basic_auth'
+    AIRFLOW__WEBSERVER__WORKERS: 1
+    AIRFLOW__CELERY__WORKER_CONCURRENCY: 2
   env_file:
     - .env
   volumes:
