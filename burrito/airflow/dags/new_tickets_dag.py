@@ -53,7 +53,7 @@ with DAG(
     dag_id="new_tickets_dag",
     description="Check if there is tickets with NEW status and send email if any",
     start_date=datetime.datetime.now() - datetime.timedelta(days=1),
-    schedule_interval=datetime.timedelta(hours=3),
+    schedule_interval="0 6 * * *",
     catchup=False,
     is_paused_upon_creation=False
 ) as dag:

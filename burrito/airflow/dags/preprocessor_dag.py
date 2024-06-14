@@ -38,7 +38,7 @@ with DAG(
     dag_id="preprocessor_dag",
     description="Synchronize DB with data get from API",
     start_date=datetime.datetime.now() - datetime.timedelta(days=1),
-    schedule_interval=datetime.timedelta(minutes=30),
+    schedule_interval="30 0 * * *",
     catchup=False,
     is_paused_upon_creation=False
 ) as dag:
