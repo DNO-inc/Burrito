@@ -36,7 +36,7 @@ funcy = "^2.0"
 deptry = "^0.16.1"
 pyjwt = "^2.8.0"
 httpx = "^0.27.0"
-apache-airflow = {version = "2.9.1", extras = ["celery"]}
+apache-airflow = {version = "2.9.2", extras = ["celery"]}
 psycopg2-binary = "^2.9.9"
 
 
