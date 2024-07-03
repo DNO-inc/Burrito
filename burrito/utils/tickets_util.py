@@ -491,19 +491,19 @@ def _assemble_action(history_item: dict, ticket: Tickets, current_user_id: int) 
         old_value = old_assignee.login if old_assignee else history_item["old_value"]
         new_value = new_assignee.login if new_assignee else history_item["new_value"]
 
-        return ActionSchema(
-            ticket_id=history_item["ticket_id"],
-            author=make_short_user_data(
-                history_item["user_id"],
-                hide_user_id=False if is_ticket_owner else (
-                    ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
-                )
-            ),
-            creation_date=history_item["creation_date"],
-            field_name=history_item["field_name"],
-            old_value=old_value,
-            new_value=new_value
-        )
+    return ActionSchema(
+        ticket_id=history_item["ticket_id"],
+        author=make_short_user_data(
+            history_item["user_id"],
+            hide_user_id=False if is_ticket_owner else (
+                ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
+            )
+        ),
+        creation_date=history_item["creation_date"],
+        field_name=history_item["field_name"],
+        old_value=old_value,
+        new_value=new_value
+    )
 
 
 def _assemble_comment(history_item: dict, ticket: Tickets, current_user_id: int) -> CommentDetailInfoScheme:
