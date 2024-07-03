@@ -26,7 +26,7 @@ from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 
-from burrito.models.m_actions_model import Actions, FileActions
+from burrito.models.m_actions_model import Actions, FileActions, BaseAction
 from burrito.models.m_notifications_model import Notifications, NotificationMetaData
 
 from burrito.schemas.action_schema import ActionSchema, FileActionSchema
@@ -452,6 +452,103 @@ def create_ticket_file_action(
         )
 
 
+def _assemble_action(history_item: dict, ticket: Tickets, current_user_id: int) -> BaseAction:
+    """
+    Represent action from the mongodb as action's class
+
+    Args:
+        history_item: The dict representing the action
+        ticket: The ticket object
+        current_user_id: user ID for which we are trying to extract history
+
+    Returns:
+        FileActionSchema or ActionSchema depending on the type of action
+    """
+    is_ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, current_user_id)
+
+    if history_item["field_name"] == "file":
+        return FileActionSchema(
+                ticket_id=history_item["ticket_id"],
+                author=make_short_user_data(
+                    history_item["user_id"],
+                    hide_user_id=False if is_ticket_owner else (
+                        ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
+                    )
+                ),
+                creation_date=history_item["creation_date"],
+                field_name=history_item["field_name"],
+                value=history_item["value"],
+                file_meta_action=history_item["file_meta_action"]
+            )
+
+    old_value = history_item["old_value"]
+    new_value = history_item["new_value"]
+
+    if history_item["field_name"] == "assignee":
+        old_assignee = get_user_by_id_or_none(history_item["old_value"])
+        new_assignee = get_user_by_id_or_none(history_item["new_value"])
+
+        old_value = old_assignee.login if old_assignee else history_item["old_value"]
+        new_value = new_assignee.login if new_assignee else history_item["new_value"]
+
+        return ActionSchema(
+            ticket_id=history_item["ticket_id"],
+            author=make_short_user_data(
+                history_item["user_id"],
+                hide_user_id=False if is_ticket_owner else (
+                    ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
+                )
+            ),
+            creation_date=history_item["creation_date"],
+            field_name=history_item["field_name"],
+            old_value=old_value,
+            new_value=new_value
+        )
+
+
+def _assemble_comment(history_item: dict, ticket: Tickets, current_user_id: int) -> CommentDetailInfoScheme:
+    """
+    Represent comment from mongodb as object.
+
+    Args:
+        history_item: The dict representing the action (with action type 'comment')
+        ticket: The ticket object
+        current_user_id: user ID for which we are trying to extract history
+
+    Returns:
+        An object representing a comment
+    """
+    additional_data = mongo_select(Actions, _id=history_item["reply_to"]) if history_item["reply_to"] else None
+    # If additional_data is set to true the data is added to the list of additional data.
+    if additional_data:
+        additional_data = additional_data[0]
+
+    is_ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, current_user_id)
+
+    return CommentDetailInfoScheme(
+        reply_to=CommentBaseDetailInfoSchema(
+            comment_id=str(additional_data["_id"]),
+            author=make_short_user_data(
+                additional_data["author_id"],
+                hide_user_id=False if is_ticket_owner else (
+                    ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id)
+                )
+            ),
+            body=additional_data["body"],
+            creation_date=additional_data["creation_date"]
+        ) if additional_data else None,
+        comment_id=str(history_item["_id"]),
+        author=make_short_user_data(
+            history_item["author_id"],
+            hide_user_id=False if is_ticket_owner else (
+                ticket.anonymous and (history_item["author_id"] == ticket.creator.user_id)
+            )
+        ),
+        body=history_item["body"],
+        creation_date=history_item["creation_date"]
+    )
+
+
 def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1, items_count: int = 10) -> list[object]:
     """
     Get ticket history. This function is used to get a list of actions that have been created by user.
@@ -468,77 +565,14 @@ def get_ticket_history(ticket: Tickets | int, user_id: int, start_page: int = 1,
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
-    ticket_owner = am_i_own_this_ticket(ticket.creator.user_id, user_id)
-
-    result = []
+    result: list[BaseAction | CommentDetailInfoScheme] = []
 
     for item in mongo_select(Actions, start_page, items_count, "creation_date", True, ticket_id=ticket.ticket_id):
         if item["type_"] == "action":
-            if item["field_name"] == "file":
-                result.append(
-                    FileActionSchema(
-                        ticket_id=item["ticket_id"],
-                        author=make_short_user_data(
-                            item["user_id"],
-                            hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
-                        ),
-                        creation_date=item["creation_date"],
-                        field_name=item["field_name"],
-                        value=item["value"],
-                        file_meta_action=item["file_meta_action"]
-                    )
-                )
-
-            else:
-                old_value = item["old_value"]
-                new_value = item["new_value"]
-
-                if item["field_name"] == "assignee":
-                    old_assignee = get_user_by_id_or_none(item["old_value"])
-                    new_assignee = get_user_by_id_or_none(item["new_value"])
-
-                    old_value = old_assignee.login if old_assignee else item["old_value"]
-                    new_value = new_assignee.login if new_assignee else item["new_value"]
-
-                result.append(
-                    ActionSchema(
-                        ticket_id=item["ticket_id"],
-                        author=make_short_user_data(
-                            item["user_id"],
-                            hide_user_id=False if ticket_owner else (ticket.anonymous and (item["user_id"] == ticket.creator.user_id))
-                        ),
-                        creation_date=item["creation_date"],
-                        field_name=item["field_name"],
-                        old_value=old_value,
-                        new_value=new_value
-                    )
-                )
+            result.append(_assemble_action(item, ticket, user_id))
 
         elif item["type_"] == "comment":
-            additional_data = mongo_select(Actions, _id=item["reply_to"]) if item["reply_to"] else None
-            if additional_data:
-                additional_data = additional_data[0]
-
-            result.append(
-                CommentDetailInfoScheme(
-                    reply_to=CommentBaseDetailInfoSchema(
-                        comment_id=str(additional_data["_id"]),
-                        author=make_short_user_data(
-                            additional_data["author_id"],
-                            hide_user_id=False if ticket_owner else (ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id))
-                        ),
-                        body=additional_data["body"],
-                        creation_date=additional_data["creation_date"]
-                    ) if additional_data else None,
-                    comment_id=str(item["_id"]),
-                    author=make_short_user_data(
-                        item["author_id"],
-                        hide_user_id=False if ticket_owner else (ticket.anonymous and (item["author_id"] == ticket.creator.user_id))
-                    ),
-                    body=item["body"],
-                    creation_date=item["creation_date"]
-                )
-            )
+            result.append(_assemble_comment(item, ticket, user_id))
 
     return result
 
@@ -583,22 +617,14 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
         ticket = is_ticket_exist(ticket)
 
     # Set the queue if not already set.
-    if ticket.queue is None:
+    if ticket.queue is None or ticket.queue.queue_id != new_queue.queue_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
             user_id=user_id,
             field_name="queue",
-            old_value="None",
-            new_value=f"{new_queue.faculty.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
-        )
-        ticket.queue = new_queue
-
-    elif ticket.queue.queue_id != new_queue.queue_id:
-        create_ticket_action(
-            ticket_id=ticket.ticket_id,
-            user_id=user_id,
-            field_name="queue",
-            old_value=f"{ticket.queue.faculty.name}{__Q_SEP}{ticket.queue.scope}{__Q_SEP}{ticket.queue.name}",
+            old_value="None" if ticket.queue is None else (
+                f"{ticket.queue.faculty.name}{__Q_SEP}{ticket.queue.scope}{__Q_SEP}{ticket.queue.name}"
+            ),
             new_value=f"{new_queue.faculty.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
         )
         ticket.queue = new_queue
@@ -628,6 +654,93 @@ def change_ticket_faculty(ticket: Tickets | int, user_id: int, new_faculty: Facu
         ticket.faculty = new_faculty
 
 
+def _assign_new_people(ticket: Tickets, initiator_id: int, new_assignee: Users, email_template_data: dict):
+    """
+    Assign a new assignee to a ticket and sends email.
+    This is a helper function for : meth : ` change_ticket_assignee `.
+
+    Args:
+        ticket: The ticket to be updated.
+        initiator_id: The ID of the user who initiates
+        new_assignee: The new assignee to assign
+        email_template_data: Data to be passed to the email
+    """
+    create_ticket_action(
+        ticket_id=ticket.ticket_id,
+        user_id=initiator_id,
+        field_name="assignee",
+        old_value="None",
+        new_value=new_assignee.user_id
+    )
+    ticket.assignee = new_assignee
+
+    change_ticket_status(ticket, initiator_id, STATUS_ACCEPTED)
+
+    publish_email(
+        (new_assignee.user_id,),
+        TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+        TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+    )
+
+
+def _reassign_people(ticket: Tickets, initiator_id: int, new_assignee: Users, email_template_data: dict):
+    """
+    Reassign new people to a ticket and sends email.
+    This is a helper function for : meth : ` change_ticket_assignee `.
+
+    Args:
+        ticket: The ticket to reassign people to.
+        initiator_id: The ID of the user who initiates the ticket.
+        new_assignee: The new assignee of the ticket.
+        email_template_data: Data to be used in the email
+    """
+    create_ticket_action(
+        ticket_id=ticket.ticket_id,
+        user_id=initiator_id,
+        field_name="assignee",
+        old_value=ticket.assignee.user_id,
+        new_value=new_assignee.user_id
+    )
+    publish_email(
+        (ticket.assignee.user_id,),
+        TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+        TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+    )
+    publish_email(
+        (new_assignee.user_id,),
+        TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+        TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
+    )
+
+    ticket.assignee = new_assignee
+
+
+def _remove_assignee(ticket: Tickets, initiator_id: int, email_template_data: dict):
+    """
+    Removes assignee from ticket and sends email to unassigned user.
+
+    Args:
+        ticket: Ticket to remove assignee from
+        initiator_id: ID of user who is trying to unassign assignee
+        email_template_data: Data to be used in the email
+    """
+    create_ticket_action(
+        ticket_id=ticket.ticket_id,
+        user_id=initiator_id,
+        field_name="assignee",
+        old_value=ticket.assignee.user_id,
+        new_value="None"
+    )
+
+    publish_email(
+        (ticket.assignee.user_id,),
+        TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
+        TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
+    )
+
+    ticket.assignee = None
+
+
 def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Users | None) -> None:
     """
     Change assignee of ticket.
@@ -652,60 +765,13 @@ def change_ticket_assignee(ticket: Tickets | int, user_id: int, new_assignee: Us
     }
 
     if new_assignee and (not ticket.assignee):
-        create_ticket_action(
-            ticket_id=ticket.ticket_id,
-            user_id=user_id,
-            field_name="assignee",
-            old_value="None",
-            new_value=new_assignee.user_id
-        )
-        ticket.assignee = new_assignee
-
-        change_ticket_status(ticket, user_id, STATUS_ACCEPTED)
-
-        publish_email(
-            (new_assignee.user_id,),
-            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
-            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
-        )
+        _assign_new_people(ticket, user_id, new_assignee, email_template_data)
 
     elif new_assignee and ticket.assignee and ticket.assignee.user_id != new_assignee.user_id:
-        create_ticket_action(
-            ticket_id=ticket.ticket_id,
-            user_id=user_id,
-            field_name="assignee",
-            old_value=ticket.assignee.user_id,
-            new_value=new_assignee.user_id
-        )
-        publish_email(
-            (ticket.assignee.user_id,),
-            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
-            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
-        )
-        publish_email(
-            (new_assignee.user_id,),
-            TEMPLATE__ASSIGNED_TO_TICKET["subject"].format(**email_template_data),
-            TEMPLATE__ASSIGNED_TO_TICKET["content"].format(**email_template_data)
-        )
-
-        ticket.assignee = new_assignee
+        _reassign_people(ticket, user_id, new_assignee, email_template_data)
 
     elif new_assignee is None and ticket.assignee and ticket.assignee.user_id == user_id:
-        create_ticket_action(
-            ticket_id=ticket.ticket_id,
-            user_id=user_id,
-            field_name="assignee",
-            old_value=ticket.assignee.user_id,
-            new_value="None"
-        )
-
-        publish_email(
-            (ticket.assignee.user_id,),
-            TEMPLATE__UNASSIGNED_TO_TICKET["subject"].format(**email_template_data),
-            TEMPLATE__UNASSIGNED_TO_TICKET["content"].format(**email_template_data)
-        )
-
-        ticket.assignee = None
+        _remove_assignee(ticket, user_id, email_template_data)
 
 
 def get_notification_receivers(ticket: Tickets | int, exclude_id: int | None = None) -> set[int]:
