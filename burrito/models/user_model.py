@@ -1,7 +1,7 @@
 from peewee import (
     CharField, TextField, AutoField,
     DateTimeField, ForeignKeyField,
-    IntegerField, UUIDField
+    IntegerField
 )
 
 from burrito.utils.date import get_datetime_now
@@ -15,7 +15,13 @@ from burrito.models.basic_model import BurritoBasicModel
 class Users(BurritoBasicModel):
     user_id = AutoField()
     cabinet_id = IntegerField(null=True, unique=True, default=None)
-    cabinet_id_new = UUIDField(null=True, unique=True, default=None, index=True)
+    cabinet_id_new = CharField(
+        max_length=36,
+        null=True,
+        unique=True,
+        default=None,
+        index=True
+    )
 
     firstname = CharField(60)
     lastname = CharField(60)
