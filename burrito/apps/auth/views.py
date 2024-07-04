@@ -91,7 +91,9 @@ async def auth__key_login(
             key=user_login_data.key,
             token=user_login_data.token
         )
-    except (KeyError, ValueError):
+    except (KeyError, ValueError) as exc:
+        get_logger().error(exc)
+
         return JSONResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
             content={"detail": "Failed to get user data from SSU Cabinet"}
@@ -101,6 +103,20 @@ async def auth__key_login(
 
     if user:
         # if user login exist we just return auth schema
+
+        # TODO: it will be deleted after migration to UUID cabinet_id
+        # as i do not know if it static and unchangeable, i do not have documentation to that service...
+        if not user.cabinet_id_new:
+            get_logger().info(
+                f"cabinet_id_new is empty: setting new value '{cabinet_profile['new_user_id']}'"
+            )
+            user.cabinet_id_new = cabinet_profile["new_user_id"]
+            user.save()
+
+        elif user.cabinet_id_new != cabinet_profile["new_user_id"]:
+            get_logger().critical(
+                f"WTF bro... Why is it different... '{user.cabinet_id_new}' > '{cabinet_profile['new_user_id']}'"
+            )
 
         tokens = create_token_pare(
             AuthTokenPayload(
@@ -129,6 +145,7 @@ async def auth__key_login(
 
     new_user: Users | None = create_user_with_cabinet(
         cabinet_id=cabinet_profile["user_id"],
+        cabinet_id_new=cabinet_profile["new_user_id"],
         firstname=cabinet_profile["firstname"],
         lastname=cabinet_profile["lastname"],
         faculty=cabinet_profile["faculty"],

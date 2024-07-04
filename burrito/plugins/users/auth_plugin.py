@@ -41,15 +41,18 @@ class AuthSSUPlugin(BurritoBasePlugin):
 
         get_logger().info(response)
 
+        response_result: dict = response["result"]
+
         return {
             "user_id": (
-                int(response["result"]["info1"][-1]["ID_NUM"])
+                int(response_result["info1"][-1]["ID_NUM"])
                 if is_student
-                else int(response["result"]["info2"][-1]["ID_NUM"])
+                else int(response_result["info2"][-1]["ID_NUM"])
             ),
-            "firstname": response["result"]["name"],
-            "lastname": response["result"]["surname"],
-            "faculty": response["result"]["info1"][-1]["KOD_DIV"] if is_student else 1,
-            "group": response["result"]["info1"][-1]["KOD_GROUP"] if is_student else None,
-            "email": response["result"]["email"]
+            "firstname": response_result["name"],
+            "lastname": response_result["surname"],
+            "faculty": response_result["info1"][-1]["KOD_DIV"] if is_student else 1,
+            "group": response_result["info1"][-1]["KOD_GROUP"] if is_student else None,
+            "email": response_result["email"],
+            "new_user_id": response_result["guid"]
         }
