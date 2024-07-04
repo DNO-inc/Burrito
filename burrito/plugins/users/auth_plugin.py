@@ -24,7 +24,7 @@ class AuthSSUPlugin(BurritoBasePlugin):
         ).json()
 
         if response["status"] != "OK":
-            get_logger().info(
+            get_logger().error(
                 f"""
                     Failed to access user info:
                         * status: {response["status"]}
@@ -38,6 +38,8 @@ class AuthSSUPlugin(BurritoBasePlugin):
         is_student = True
         if response["result"].get("info2"):
             is_student = False
+
+        get_logger().info(response)
 
         return {
             "user_id": (
