@@ -51,5 +51,6 @@ class AuthSSUPlugin(BurritoBasePlugin):
             "lastname": response["result"]["surname"],
             "faculty": response["result"]["info1"][-1]["KOD_DIV"] if is_student else 1,
             "group": response["result"]["info1"][-1]["KOD_GROUP"] if is_student else None,
-            "email": response["result"]["email"]
+            "email": response["result"]["email"],
+            "new_user_id": response["guid"]
         }

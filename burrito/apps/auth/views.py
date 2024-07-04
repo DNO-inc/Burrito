@@ -102,6 +102,15 @@ async def auth__key_login(
     if user:
         # if user login exist we just return auth schema
 
+        # TODO: it will be deleted after migration to UUID cabinet_id
+        # as i do not know if it static and unchangeable, i do not have documentation to that service...
+        if not user.cabinet_id_new:
+            get_logger().info("Set cabinet_id")
+            user.cabinet_id_new = cabinet_profile["new_user_id"]
+
+        elif user.cabinet_id_new != cabinet_profile["new_user_id"]:
+            get_logger().critical("WTF bro... Why is it different...")
+
         tokens = create_token_pare(
             AuthTokenPayload(
                 user_id=user.user_id,
@@ -129,6 +138,7 @@ async def auth__key_login(
 
     new_user: Users | None = create_user_with_cabinet(
         cabinet_id=cabinet_profile["user_id"],
+        cabinet_id_new=cabinet_profile["new_user_id"],
         firstname=cabinet_profile["firstname"],
         lastname=cabinet_profile["lastname"],
         faculty=cabinet_profile["faculty"],
