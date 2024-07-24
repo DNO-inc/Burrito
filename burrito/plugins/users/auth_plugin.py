@@ -3,7 +3,6 @@ import requests
 from burrito.plugins.base_plugin import BurritoBasePlugin
 from burrito.utils.logger import get_logger
 
-
 __PLUGIN_CLASS = "AuthSSUPlugin"
 
 
@@ -44,15 +43,10 @@ class AuthSSUPlugin(BurritoBasePlugin):
         response_result: dict = response["result"]
 
         return {
-            "user_id": (
-                int(response_result["info1"][-1]["ID_NUM"])
-                if is_student
-                else int(response_result["info2"][-1]["ID_NUM"])
-            ),
+            "user_id": response_result["guid"],
             "firstname": response_result["name"],
             "lastname": response_result["surname"],
             "faculty": response_result["info1"][-1]["KOD_DIV"] if is_student else 1,
             "group": response_result["info1"][-1]["KOD_GROUP"] if is_student else None,
             "email": response_result["email"],
-            "new_user_id": response_result["guid"]
         }
