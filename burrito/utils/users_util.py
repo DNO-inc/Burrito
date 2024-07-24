@@ -1,14 +1,15 @@
+import secrets
+import string
+
 from fastapi import HTTPException, status
-
-from burrito.utils.logger import get_logger
-from burrito.utils.transliteration import transliterate
-from burrito.utils.converter import GroupConverter, FacultyConverter
-from burrito.utils.query_util import MIN_ADMIN_PRIORITY, MIN_CHIEF_ADMIN_PRIORITY
-
-from burrito.schemas.registration_schema import RegistrationSchema
 
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
+from burrito.schemas.registration_schema import RegistrationSchema
+from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.logger import get_logger
+from burrito.utils.query_util import MIN_ADMIN_PRIORITY, MIN_CHIEF_ADMIN_PRIORITY
+from burrito.utils.transliteration import transliterate
 
 
 def create_user(
@@ -61,8 +62,7 @@ def create_user(
 
 
 def create_user_with_cabinet(
-    cabinet_id: int,
-    cabinet_id_new: str,
+    cabinet_id: str,
     firstname: str,
     lastname: str,
     faculty: int,
@@ -72,7 +72,8 @@ def create_user_with_cabinet(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
-    tmp_user_login = transliterate(f"{firstname} {cabinet_id}")
+    salt = "".join([secrets.choice(string.digits) for i in range(6)])
+    tmp_user_login = transliterate(f"{firstname} {salt}")
 
     try:
         FacultyConverter.convert(faculty)
@@ -91,7 +92,6 @@ def create_user_with_cabinet(
     try:
         user: Users = Users.create(
             cabinet_id=cabinet_id,
-            cabinet_id_new=cabinet_id_new,
             firstname=firstname,
             lastname=lastname,
             login=tmp_user_login,

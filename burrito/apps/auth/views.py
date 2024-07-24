@@ -2,37 +2,31 @@ import httpx
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
+from burrito.models.user_model import Users
+from burrito.plugins.loader import PluginLoader
 from burrito.schemas.auth_schema import (
     AuthResponseSchema,
-    UserPasswordLoginSchema,
+    KeyAuthResponseSchema,
     UserKeyLoginSchema,
-    KeyAuthResponseSchema
+    UserPasswordLoginSchema,
 )
-
-from burrito.models.user_model import Users
-
-from burrito.utils.logger import get_logger
 from burrito.utils.auth import (
     AuthTokenPayload,
     create_access_token,
     create_token_pare,
-    rotate_refresh_token,
     delete_refresh_token,
-    get_current_user
+    get_current_user,
+    rotate_refresh_token,
 )
-from burrito.utils.users_util import (
-    get_user_by_cabinet_id,
-    create_user_with_cabinet
-)
-
-from burrito.plugins.loader import PluginLoader
+from burrito.utils.logger import get_logger
+from burrito.utils.users_util import create_user_with_cabinet, get_user_by_cabinet_id
 
 from .utils import (
-    get_user_by_login,
     compare_password,
-    put_cabinet_key,
     get_cabinet_key,
-    remove_cabinet_key
+    get_user_by_login,
+    put_cabinet_key,
+    remove_cabinet_key,
 )
 
 
@@ -104,20 +98,6 @@ async def auth__key_login(
     if user:
         # if user login exist we just return auth schema
 
-        # TODO: it will be deleted after migration to UUID cabinet_id
-        # as i do not know if it static and unchangeable, i do not have documentation to that service...
-        if not user.cabinet_id_new:
-            get_logger().info(
-                f"cabinet_id_new is empty: setting new value '{cabinet_profile['new_user_id']}'"
-            )
-            user.cabinet_id_new = cabinet_profile["new_user_id"]
-            user.save()
-
-        elif user.cabinet_id_new != cabinet_profile["new_user_id"]:
-            get_logger().critical(
-                f"WTF bro... Why is it different... '{user.cabinet_id_new}' > '{cabinet_profile['new_user_id']}'"
-            )
-
         tokens = create_token_pare(
             AuthTokenPayload(
                 user_id=user.user_id,
@@ -145,7 +125,6 @@ async def auth__key_login(
 
     new_user: Users | None = create_user_with_cabinet(
         cabinet_id=cabinet_profile["user_id"],
-        cabinet_id_new=cabinet_profile["new_user_id"],
         firstname=cabinet_profile["firstname"],
         lastname=cabinet_profile["lastname"],
         faculty=cabinet_profile["faculty"],
