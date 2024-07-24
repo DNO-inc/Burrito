@@ -1,3 +1,6 @@
+import secrets
+import string
+
 from fastapi import HTTPException, status
 
 from burrito.models.roles_model import Roles
@@ -59,7 +62,7 @@ def create_user(
 
 
 def create_user_with_cabinet(
-    cabinet_id: int,
+    cabinet_id: str,
     firstname: str,
     lastname: str,
     faculty: int,
@@ -69,7 +72,8 @@ def create_user_with_cabinet(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
-    tmp_user_login = transliterate(f"{firstname} {cabinet_id}")
+    salt = "".join([secrets.choice(string.digits) for i in range(6)])
+    tmp_user_login = transliterate(f"{firstname} {salt}")
 
     try:
         FacultyConverter.convert(faculty)
