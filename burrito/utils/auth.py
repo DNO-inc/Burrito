@@ -1,19 +1,18 @@
-from typing import Any, Literal, Dict, Annotated
 import uuid
+from typing import Annotated, Dict, Literal
 
 import jwt
+from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from fastapi import HTTPException, status, Depends
 from pydantic import BaseModel
 
+from burrito.models.user_model import Users
+from burrito.utils.config_reader import get_config
 from burrito.utils.date import get_timestamp_now
 from burrito.utils.logger import get_logger
-from burrito.utils.config_reader import get_config
+from burrito.utils.permissions_checker import check_permission
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.users_util import get_user_by_id
-from burrito.utils.permissions_checker import check_permission
-
-from burrito.models.user_model import Users
 
 _JWT_SECRET = get_config().BURRITO_JWT_SECRET
 JWT_ACCESS_TTL = int(get_config().BURRITO_JWT_ACCESS_TTL)

@@ -1,12 +1,11 @@
 from peewee import MySQLDatabase
 from playhouse.shortcuts import ReconnectMixin
-
 from pymysql import connect as pymysql_conn
 from pymysql.err import OperationalError
 
-from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
-from burrito.utils.exceptions import MySQLConnectionError, DBConnectionError
+from burrito.utils.exceptions import DBConnectionError, MySQLConnectionError
+from burrito.utils.singleton_pattern import singleton
 
 
 @singleton

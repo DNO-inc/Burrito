@@ -2,7 +2,6 @@ from fastapi import APIRouter
 
 from .views import registration__user_registration, registration__verify_email
 
-
 registration_router = APIRouter()
 
 registration_router.add_api_route(

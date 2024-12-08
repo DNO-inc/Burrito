@@ -1,38 +1,31 @@
 from fastapi import HTTPException
 
-from burrito.utils.permissions_checker import check_permission
-
-from burrito.models.tickets_model import Tickets
-from burrito.models.queues_model import Queues
 from burrito.models.liked_model import Liked
-from burrito.models.user_model import Users
+from burrito.models.queues_model import Queues
 from burrito.models.roles_model import Roles
-
-from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.queue_schema import QueueResponseSchema
+from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
 from burrito.schemas.admin_schema import AdminTicketDetailInfo
+from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
-
-from burrito.utils.converter import (
-    FacultyConverter,
-    GroupConverter
+from burrito.schemas.queue_schema import QueueResponseSchema
+from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.permissions_checker import check_permission
+from burrito.utils.tickets_util import (
+    hide_ticket_body,
+    is_ticket_bookmarked,
+    is_ticket_exist,
+    is_ticket_followed,
+    is_ticket_liked,
 )
 from burrito.utils.users_util import get_user_by_id, get_user_by_login
 from burrito.utils.validators import (
     is_valid_firstname,
     is_valid_lastname,
     is_valid_login,
-    is_valid_phone
+    is_valid_phone,
 )
-from burrito.utils.tickets_util import (
-    is_ticket_exist,
-    is_ticket_followed,
-    is_ticket_bookmarked,
-    is_ticket_liked,
-    hide_ticket_body
-)
-
 
 __all__ = [
     "is_ticket_exist",

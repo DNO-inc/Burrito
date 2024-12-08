@@ -1,11 +1,12 @@
 import time
+
 import orjson
 from redis.client import PubSub
 
-from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.email_util import send_email
-from burrito.utils.task_manager import get_task_manager
 from burrito.utils.logger import get_logger
+from burrito.utils.redis_utils import get_redis_connector
+from burrito.utils.task_manager import get_task_manager
 
 
 def email_loop():

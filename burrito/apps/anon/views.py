@@ -5,30 +5,28 @@ from playhouse.shortcuts import model_to_dict
 from burrito.models.liked_model import Liked
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
-
+from burrito.schemas.anon_schema import (
+    AnonTicketDetailInfoSchema,
+    AnonTicketListRequestSchema,
+    AnonTicketListResponseSchema,
+)
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.schemas.anon_schema import (
-    AnonTicketListRequestSchema,
-    AnonTicketDetailInfoSchema,
-    AnonTicketListResponseSchema
-)
-
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
-    q_scope_is,
     q_is_valid_status_list,
     q_not_hidden,
-    q_protected_statuses
+    q_protected_statuses,
+    q_scope_is,
 )
 from burrito.utils.tickets_util import (
+    get_filtered_tickets,
     hide_ticket_body,
     make_short_user_data,
-    get_filtered_tickets,
-    select_filters
+    select_filters,
 )
 
 

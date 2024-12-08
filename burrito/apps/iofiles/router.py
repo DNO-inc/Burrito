@@ -1,12 +1,11 @@
 from fastapi import APIRouter
 
 from .views import (
-    iofiles__upload_file_for_ticket,
+    iofiles__delete_file,
     iofiles__get_file,
     iofiles__get_file_ids,
-    iofiles__delete_file
+    iofiles__upload_file_for_ticket,
 )
-
 
 iofiles_router = APIRouter()
 

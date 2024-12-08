@@ -1,18 +1,16 @@
-import time
 import threading
+import time
 
 from fastapi import HTTPException
 from redis.client import PubSub
-from websockets.sync.server import serve
 from websockets.legacy.server import WebSocketServerProtocol
+from websockets.sync.server import serve
 
 from burrito.models.tickets_model import Tickets
-
+from burrito.utils.auth import AuthTokenPayload, read_token_payload
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
-from burrito.utils.auth import read_token_payload
 from burrito.utils.redis_utils import get_redis_connector
-from burrito.utils.auth import AuthTokenPayload
 from burrito.utils.tickets_util import is_ticket_exist
 from burrito.utils.users_util import is_admin
 

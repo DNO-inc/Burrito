@@ -1,10 +1,4 @@
-from peewee import (
-    AutoField,
-    CharField,
-    DateTimeField,
-    ForeignKeyField,
-    TextField,
-)
+from peewee import AutoField, CharField, DateTimeField, ForeignKeyField, TextField
 
 from burrito.models.basic_model import BurritoBasicModel
 from burrito.models.faculty_model import Faculties

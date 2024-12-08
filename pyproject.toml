@@ -43,6 +43,11 @@ psycopg2-binary = "^2.9.9"
 [tool.poetry.group.dev.dependencies]
 prospector = "^1.10.2"
 
+[tool.isort]
+profile = "black"
+known_local_folder = "burrito"
+sections = "FUTURE,STDLIB,THIRDPARTY,LOCALFOLDER"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

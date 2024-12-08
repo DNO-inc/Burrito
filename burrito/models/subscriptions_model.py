@@ -1,8 +1,8 @@
-from peewee import ForeignKeyField, CompositeKey
+from peewee import CompositeKey, ForeignKeyField
 
-from burrito.models.user_model import Users
-from burrito.models.tickets_model import Tickets
 from burrito.models.basic_model import BurritoBasicModel
+from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
 
 
 class Subscriptions(BurritoBasicModel):

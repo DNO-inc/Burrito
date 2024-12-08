@@ -2,11 +2,10 @@ from fastapi import APIRouter
 
 from .views import (
     comments__create,
-    comments__edit,
     comments__delete,
-    comments__get_comment_by_id
+    comments__edit,
+    comments__get_comment_by_id,
 )
-
 
 comments_router = APIRouter()
 

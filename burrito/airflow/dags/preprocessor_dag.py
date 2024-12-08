@@ -1,18 +1,17 @@
 import datetime
-import orjson as json
 
+import orjson as json
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
-from burrito.models.group_model import Groups
-from burrito.models.statuses_model import Statuses
-from burrito.models.faculty_model import Faculties
-from burrito.models.queues_model import Queues
-from burrito.models.permissions_model import Permissions
-from burrito.models.roles_model import Roles
-from burrito.models.role_permissions_model import RolePermissions
 from burrito.airflow.utils import preprocessor_task
-
+from burrito.models.faculty_model import Faculties
+from burrito.models.group_model import Groups
+from burrito.models.permissions_model import Permissions
+from burrito.models.queues_model import Queues
+from burrito.models.role_permissions_model import RolePermissions
+from burrito.models.roles_model import Roles
+from burrito.models.statuses_model import Statuses
 
 MODEL_KEYS = {
     "groups": Groups,

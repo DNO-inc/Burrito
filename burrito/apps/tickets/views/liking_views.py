@@ -3,41 +3,34 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
-    TicketDetailInfoSchema,
-    TicketListResponseSchema,
-    TicketsBasicFilterSchema
-)
-
-from burrito.models.tickets_model import Tickets
+from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 from burrito.models.liked_model import Liked
+from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
-from burrito.utils.users_util import get_user_by_id
+from burrito.schemas.tickets_schema import (
+    TicketDetailInfoSchema,
+    TicketIDValueSchema,
+    TicketListResponseSchema,
+    TicketsBasicFilterSchema,
+)
 from burrito.utils.auth import get_current_user
+from burrito.utils.logger import get_logger
 from burrito.utils.query_util import (
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
-    q_scope_is,
     q_is_valid_status_list,
+    q_liked,
     q_owned_or_not_hidden,
-    q_liked
+    q_scope_is,
 )
 from burrito.utils.tickets_util import (
-    make_short_user_data,
+    can_i_interact_with_ticket,
     get_filtered_tickets,
+    make_short_user_data,
     select_filters,
-    can_i_interact_with_ticket
 )
-from burrito.utils.logger import get_logger
-
-from ..utils import (
-    is_ticket_exist,
-    am_i_own_this_ticket,
-    make_ticket_detail_info
-)
+from burrito.utils.users_util import get_user_by_id
 
 
 async def tickets__like_ticket(

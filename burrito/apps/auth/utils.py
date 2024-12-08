@@ -1,11 +1,9 @@
-from burrito.utils.users_util import get_user_by_login
-from burrito.utils.users_util import get_user_by_id
-from burrito.utils.hash_util import compare_password
-from burrito.utils.redis_utils import get_redis_connector
-from burrito.utils.config_reader import get_config
-from burrito.utils.logger import get_logger
-
 from burrito.models.user_model import Users
+from burrito.utils.config_reader import get_config
+from burrito.utils.hash_util import compare_password
+from burrito.utils.logger import get_logger
+from burrito.utils.redis_utils import get_redis_connector
+from burrito.utils.users_util import get_user_by_id, get_user_by_login
 
 __all__ = (
     "get_user_by_login",

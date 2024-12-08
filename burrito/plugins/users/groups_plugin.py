@@ -4,7 +4,6 @@ from burrito.plugins.base_plugin import BurritoBasePlugin
 from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 
-
 SSU_GROUPS_URL = "https://iis.sumdu.edu.ua/api/getGroups"
 
 __PLUGIN_CLASS = "GroupsPlugin"

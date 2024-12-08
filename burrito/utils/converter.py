@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 
-from burrito.models.group_model import Groups
 from burrito.models.faculty_model import Faculties
+from burrito.models.group_model import Groups
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 

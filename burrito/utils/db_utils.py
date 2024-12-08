@@ -1,21 +1,17 @@
-from burrito.models.tickets_model import Tickets
-from burrito.models.roles_model import Roles
-from burrito.models.statuses_model import Statuses
-from burrito.models.user_model import Users
+from burrito.models.bookmarks_model import Bookmarks
+from burrito.models.deleted_model import Deleted
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
-from burrito.models.deleted_model import Deleted
 from burrito.models.liked_model import Liked
-
 from burrito.models.participants_model import Participants
-from burrito.models.queues_model import Queues
-from burrito.models.subscriptions_model import Subscriptions
-
-from burrito.models.bookmarks_model import Bookmarks
-
 from burrito.models.permissions_model import Permissions
+from burrito.models.queues_model import Queues
 from burrito.models.role_permissions_model import RolePermissions
-
+from burrito.models.roles_model import Roles
+from burrito.models.statuses_model import Statuses
+from burrito.models.subscriptions_model import Subscriptions
+from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
 from burrito.utils.db_cursor_object import get_database_cursor
 from burrito.utils.logger import get_logger
 

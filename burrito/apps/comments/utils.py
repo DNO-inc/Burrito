@@ -1,5 +1,5 @@
-from fastapi import HTTPException
 from bson.objectid import ObjectId
+from fastapi import HTTPException
 
 from burrito.models.m_comments_model import Comments
 from burrito.utils.mongo_util import mongo_select

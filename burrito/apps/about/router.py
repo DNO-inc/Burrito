@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 
 from .views import (
-    about__get_current_version,
     about__get_changelog_info,
-    about__get_info_about_team
+    about__get_current_version,
+    about__get_info_about_team,
 )
 
 about_router = APIRouter()

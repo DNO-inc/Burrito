@@ -1,8 +1,7 @@
-from peewee import AutoField, ForeignKeyField, CharField
-
-from burrito.models.faculty_model import Faculties
+from peewee import AutoField, CharField, ForeignKeyField
 
 from burrito.models.basic_model import BurritoBasicModel
+from burrito.models.faculty_model import Faculties
 
 
 class Queues(BurritoBasicModel):

@@ -4,8 +4,8 @@ from collections import OrderedDict
 
 from dotenv import dotenv_values, find_dotenv
 
-from burrito.utils.singleton_pattern import singleton
 from burrito.utils.logger import get_logger
+from burrito.utils.singleton_pattern import singleton
 
 
 @singleton

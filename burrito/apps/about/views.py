@@ -1,6 +1,5 @@
-from burrito import __version__
-
 from .utils import get_changelog, get_contributors
+from burrito import __version__
 
 
 async def about__get_current_version():

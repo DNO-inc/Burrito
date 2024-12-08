@@ -5,10 +5,9 @@ needed for Burrito functionality.
 
 """
 
+from burrito.plugins.loader import PluginLoader
 from burrito.utils.db_utils import create_tables
 from burrito.utils.tasks.preprocessor import preprocessor_task
-from burrito.plugins.loader import PluginLoader
-
 
 PluginLoader.load()
 create_tables()
@@ -17,40 +16,30 @@ preprocessor_task()
 
 if __name__ == "__main__":
     import uvicorn
+    from fastapi import FastAPI
     from uvicorn.config import LOGGING_CONFIG
 
-    from fastapi import FastAPI
-
-    from burrito.apps.registration.router import registration_router
     from burrito.apps.about.router import about_router
-
-    from burrito.apps.auth.router import auth_router
-    from burrito.apps.profile.router import profile_router
-
-    from burrito.apps.tickets.router import tickets_router
     from burrito.apps.admin.router import admin_router
-
     from burrito.apps.anon.router import anon_router
-    from burrito.apps.meta.router import meta_router
-
-    from burrito.apps.iofiles.router import iofiles_router
+    from burrito.apps.auth.router import auth_router
     from burrito.apps.comments.router import comments_router
-
-    from burrito.apps.scheduler.core import start_scheduler
+    from burrito.apps.iofiles.router import iofiles_router
+    from burrito.apps.meta.router import meta_router
     from burrito.apps.notifications.router import notifications_router
-
+    from burrito.apps.notifications.utils import email_loop
+    from burrito.apps.profile.router import profile_router
+    from burrito.apps.registration.router import registration_router
+    from burrito.apps.scheduler.core import start_scheduler
+    from burrito.apps.statistic.router import statistic_router
+    from burrito.apps.tickets.router import tickets_router
+    from burrito.apps.ws.utils import run_websocket_server
+    from burrito.models.m_email_code import EmailVerificationCode
+    from burrito.models.m_password_rest_model import AccessRenewMetaData
     from burrito.utils.app_util import connect_app, get_current_app
     from burrito.utils.config_reader import get_config
-
-    from burrito.utils.task_manager import get_task_manager
-    from burrito.apps.ws.utils import run_websocket_server
-
-    from burrito.apps.notifications.utils import email_loop
-    from burrito.apps.statistic.router import statistic_router
-
-    from burrito.models.m_password_rest_model import AccessRenewMetaData
-    from burrito.models.m_email_code import EmailVerificationCode
     from burrito.utils.mongo_util import mongo_init_ttl_indexes
+    from burrito.utils.task_manager import get_task_manager
 
     mongo_init_ttl_indexes([EmailVerificationCode, AccessRenewMetaData])
 

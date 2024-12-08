@@ -1,35 +1,26 @@
 from functools import cache
 
-from burrito.utils.users_util import get_user_by_id
-
-from burrito.utils.permissions_checker import check_permission
-
-from burrito.utils.logger import get_logger
-
+from burrito.models.liked_model import Liked
+from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
-from burrito.models.queues_model import Queues
-from burrito.models.liked_model import Liked
 from burrito.models.user_model import Users
-
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
-from burrito.schemas.tickets_schema import (
-    UpdateTicketSchema,
-    TicketDetailInfoSchema
-)
-
+from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.tickets_schema import TicketDetailInfoSchema, UpdateTicketSchema
+from burrito.utils.logger import get_logger
+from burrito.utils.permissions_checker import check_permission
 from burrito.utils.tickets_util import (
-    is_ticket_exist,
     am_i_own_this_ticket,
     am_i_own_this_ticket_with_error,
-    is_ticket_followed,
+    hide_ticket_body,
     is_ticket_bookmarked,
+    is_ticket_exist,
+    is_ticket_followed,
     is_ticket_liked,
-    hide_ticket_body
 )
-
+from burrito.utils.users_util import get_user_by_id
 
 __all__ = (
     "get_user_by_id",

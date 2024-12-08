@@ -1,39 +1,43 @@
 from typing import Any, Literal
-import orjson
 
-from redis import Redis
+import orjson
 from fastapi import HTTPException, status
 from playhouse.shortcuts import model_to_dict
+from redis import Redis
 
-from burrito.utils.logger import get_logger
-from burrito.utils.query_util import STATUS_ACCEPTED
-from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none, is_admin
-from burrito.utils.mongo_util import mongo_insert, mongo_select, mongo_delete, mongo_items_count
-from burrito.utils.redis_utils import get_redis_connector
-from burrito.utils.websockets import make_websocket_message
-from burrito.utils.email_util import publish_email
-from burrito.utils.email_templates import (
-    TEMPLATE__ASSIGNED_TO_TICKET,
-    TEMPLATE__UNASSIGNED_TO_TICKET,
-    TEMPLATE__EMAIL_NOTIFICATION
-)
-
-from burrito.models.statuses_model import Statuses
-from burrito.models.queues_model import Queues
-from burrito.models.faculty_model import Faculties
 from burrito.models.bookmarks_model import Bookmarks
+from burrito.models.faculty_model import Faculties
 from burrito.models.liked_model import Liked
+from burrito.models.m_actions_model import Actions, BaseAction, FileActions
+from burrito.models.m_notifications_model import NotificationMetaData, Notifications
+from burrito.models.queues_model import Queues
+from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
-from burrito.models.m_actions_model import Actions, FileActions, BaseAction
-from burrito.models.m_notifications_model import Notifications, NotificationMetaData
-
 from burrito.schemas.action_schema import ActionSchema, FileActionSchema
-from burrito.schemas.tickets_schema import TicketUsersInfoSchema
+from burrito.schemas.comment_schema import (
+    CommentBaseDetailInfoSchema,
+    CommentDetailInfoScheme,
+)
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.comment_schema import CommentDetailInfoScheme, CommentBaseDetailInfoSchema
-
+from burrito.schemas.tickets_schema import TicketUsersInfoSchema
+from burrito.utils.email_templates import (
+    TEMPLATE__ASSIGNED_TO_TICKET,
+    TEMPLATE__EMAIL_NOTIFICATION,
+    TEMPLATE__UNASSIGNED_TO_TICKET,
+)
+from burrito.utils.email_util import publish_email
+from burrito.utils.logger import get_logger
+from burrito.utils.mongo_util import (
+    mongo_delete,
+    mongo_insert,
+    mongo_items_count,
+    mongo_select,
+)
+from burrito.utils.query_util import STATUS_ACCEPTED
+from burrito.utils.redis_utils import get_redis_connector
+from burrito.utils.users_util import get_user_by_id, get_user_by_id_or_none, is_admin
+from burrito.utils.websockets import make_websocket_message
 
 __FILE_NOTIFICATION_LIST = {
     "upload": {

@@ -2,7 +2,6 @@ from random import SystemRandom
 
 from argon2 import PasswordHasher
 
-
 _hasher = PasswordHasher()
 
 

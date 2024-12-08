@@ -3,63 +3,47 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from burrito.models.tickets_model import Tickets
-
-from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
-from burrito.schemas.admin_schema import (
-    AdminTicketIdSchema,
-    AdminUpdateTicketSchema,
-    AdminGetTicketListSchema,
-    AdminTicketDetailInfo,
-    AdminTicketListResponse
-)
-
+from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_ticket_files import TicketFiles
+from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
+from burrito.schemas.admin_schema import (
+    AdminGetTicketListSchema,
+    AdminTicketDetailInfo,
+    AdminTicketIdSchema,
+    AdminTicketListResponse,
+    AdminUpdateTicketSchema,
+)
+from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
+from burrito.utils.auth import get_current_user
+from burrito.utils.converter import FacultyConverter, QueueConverter, StatusConverter
+from burrito.utils.logger import get_logger
+from burrito.utils.mongo_util import mongo_delete, mongo_delete_file, mongo_select
 from burrito.utils.query_util import (
+    q_assignee_is,
+    q_creator_is,
+    q_followed,
     q_is_anonymous,
+    q_is_hidden,
     q_is_valid_faculty,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_scope_is,
-    q_creator_is,
-    q_assignee_is,
-    q_is_hidden,
-    q_followed
-)
-from burrito.utils.users_util import get_user_by_id
-from burrito.utils.mongo_util import (
-    mongo_delete,
-    mongo_select,
-    mongo_delete_file
 )
 from burrito.utils.tickets_util import (
-    make_short_user_data,
-    get_filtered_tickets,
-    select_filters,
-    change_ticket_status,
+    am_i_own_this_ticket,
+    change_ticket_assignee,
     change_ticket_faculty,
     change_ticket_queue,
-    change_ticket_assignee,
-    am_i_own_this_ticket,
+    change_ticket_status,
     get_filtered_bookmarks,
-    get_filtered_bookmarks_count
+    get_filtered_bookmarks_count,
+    get_filtered_tickets,
+    make_short_user_data,
+    select_filters,
 )
-from burrito.utils.logger import get_logger
-from burrito.utils.auth import get_current_user
-from burrito.utils.converter import (
-    StatusConverter,
-    FacultyConverter,
-    QueueConverter
-)
-
-from .utils import (
-    is_ticket_exist,
-    make_ticket_detail_info,
-    update_profile_as_admin
-)
+from burrito.utils.users_util import get_user_by_id
 
 
 async def admin__update_ticket_data(

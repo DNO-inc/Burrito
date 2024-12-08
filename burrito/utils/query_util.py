@@ -1,17 +1,12 @@
 from peewee import Expression
 
 from burrito.models.bookmarks_model import Bookmarks
+from burrito.models.deleted_model import Deleted
+from burrito.models.liked_model import Liked
+from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
-from burrito.models.deleted_model import Deleted
-from burrito.models.queues_model import Queues
-from burrito.models.liked_model import Liked
-
-from burrito.utils.converter import (
-    StatusConverter,
-    FacultyConverter,
-)
-
+from burrito.utils.converter import FacultyConverter, StatusConverter
 
 _PROTECTED_STATUSES: tuple[int] = (1,)
 

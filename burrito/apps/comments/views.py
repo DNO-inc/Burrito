@@ -1,34 +1,29 @@
-from fastapi.responses import JSONResponse
 from fastapi import Depends
+from fastapi.responses import JSONResponse
 
-from burrito.schemas.comment_schema import (
-    CommentCreationSchema,
-    CommentEditSchema,
-    CommentIDSchema,
-    CommentBaseDetailInfoSchema,
-    CommentDetailInfoScheme
-)
-
-from burrito.models.m_notifications_model import Notifications
+from .utils import is_allowed_to_interact, is_comment_exist_with_error
 from burrito.models.m_comments_model import Comments
+from burrito.models.m_notifications_model import Notifications
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
-from burrito.utils.mongo_util import mongo_insert, mongo_update, mongo_delete
-from burrito.utils.tickets_util import (
-    is_ticket_exist,
-    am_i_own_this_ticket,
-    send_notification,
-    make_short_user_data,
-    send_comment_update
+from burrito.schemas.comment_schema import (
+    CommentBaseDetailInfoSchema,
+    CommentCreationSchema,
+    CommentDetailInfoScheme,
+    CommentEditSchema,
+    CommentIDSchema,
 )
 from burrito.utils.auth import get_current_user
+from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_update
 from burrito.utils.query_util import STATUS_OPEN
-from burrito.utils.tickets_util import create_ticket_action, can_i_interact_with_ticket
-
-from .utils import (
-    is_comment_exist_with_error,
-    is_allowed_to_interact
+from burrito.utils.tickets_util import (
+    am_i_own_this_ticket,
+    can_i_interact_with_ticket,
+    create_ticket_action,
+    is_ticket_exist,
+    make_short_user_data,
+    send_comment_update,
+    send_notification,
 )
 
 

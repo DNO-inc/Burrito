@@ -1,17 +1,19 @@
 from peewee import (
     AutoField,
-    IntegerField, TextField,
-    DateTimeField, BooleanField,
-    CharField, ForeignKeyField
+    BooleanField,
+    CharField,
+    DateTimeField,
+    ForeignKeyField,
+    IntegerField,
+    TextField,
 )
 
-from burrito.utils.date import get_datetime_now
-
+from burrito.models.basic_model import BurritoBasicModel
+from burrito.models.faculty_model import Faculties
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
-from burrito.models.faculty_model import Faculties
 from burrito.models.user_model import Users
-from burrito.models.basic_model import BurritoBasicModel
+from burrito.utils.date import get_datetime_now
 
 
 class Tickets(BurritoBasicModel):

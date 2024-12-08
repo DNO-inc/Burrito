@@ -1,8 +1,9 @@
 import redis
 
-from burrito.utils.singleton_pattern import singleton
 from burrito.utils.config_reader import get_config
-from burrito.utils.exceptions import RedisConnectionError, DBConnectionError
+from burrito.utils.exceptions import DBConnectionError, RedisConnectionError
+from burrito.utils.singleton_pattern import singleton
+
 
 @singleton
 class RedisConnector(redis.Redis):
