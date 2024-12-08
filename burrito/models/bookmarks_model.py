@@ -1,9 +1,9 @@
-from peewee import ForeignKeyField, DateTimeField, CompositeKey
+from peewee import CompositeKey, DateTimeField, ForeignKeyField
 
-from burrito.utils.date import get_datetime_now
-from burrito.models.user_model import Users
-from burrito.models.tickets_model import Tickets
 from burrito.models.basic_model import BurritoBasicModel
+from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
+from burrito.utils.date import get_datetime_now
 
 
 class Bookmarks(BurritoBasicModel):

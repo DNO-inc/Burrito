@@ -3,43 +3,37 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
+from ..utils import is_ticket_exist, make_ticket_detail_info
+from burrito.models.bookmarks_model import Bookmarks
+from burrito.models.tickets_model import Tickets
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
+    BaseFilterSchema,
     TicketDetailInfoSchema,
+    TicketIDValueSchema,
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
-    BaseFilterSchema,
 )
-
-from burrito.models.tickets_model import Tickets
-from burrito.models.bookmarks_model import Bookmarks
-
-from burrito.utils.users_util import get_user_by_id
 from burrito.utils.auth import get_current_user
+from burrito.utils.logger import get_logger
 from burrito.utils.query_util import (
+    q_bookmarked,
+    q_followed,
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
-    q_scope_is,
     q_is_valid_status_list,
     q_not_hidden,
     q_protected_statuses,
-    q_bookmarked,
-    q_followed
+    q_scope_is,
 )
 from burrito.utils.tickets_util import (
-    make_short_user_data,
-    select_filters,
     can_i_interact_with_ticket,
     get_filtered_bookmarks,
-    get_filtered_bookmarks_count
+    get_filtered_bookmarks_count,
+    make_short_user_data,
+    select_filters,
 )
-from burrito.utils.logger import get_logger
-
-from ..utils import (
-    is_ticket_exist,
-    make_ticket_detail_info
-)
+from burrito.utils.users_util import get_user_by_id
 
 
 async def tickets__bookmark_ticket(

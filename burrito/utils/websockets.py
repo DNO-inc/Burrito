@@ -1,7 +1,7 @@
 import orjson as json
 
-from burrito.models.ws_message import WebSocketMessage
 from burrito.models.m_notifications_model import Notifications
+from burrito.models.ws_message import WebSocketMessage
 
 
 def make_websocket_message(type_: str, obj: Notifications) -> bytes:

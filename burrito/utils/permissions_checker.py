@@ -1,9 +1,8 @@
 from fastapi import HTTPException
 from pydantic import BaseModel
 
-from burrito.models.user_model import Users
 from burrito.models.role_permissions_model import RolePermissions
-
+from burrito.models.user_model import Users
 from burrito.utils.users_util import get_user_by_id
 
 

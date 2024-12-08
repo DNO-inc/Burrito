@@ -1,49 +1,44 @@
 import math
 
-from fastapi import Depends, status, HTTPException
+from fastapi import Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 
+from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
+from burrito.models.m_actions_model import Actions, BaseAction
+from burrito.models.tickets_model import Tickets
+from burrito.models.user_model import Users
+from burrito.schemas.action_schema import (
+    ActionSchema,
+    FileActionSchema,
+    RequestActionSchema,
+)
 from burrito.schemas.tickets_schema import (
-    TicketIDValueSchema,
+    RequestTicketHistorySchema,
     TicketDetailInfoSchema,
+    TicketIDValueSchema,
     TicketListRequestSchema,
     TicketListResponseSchema,
-    RequestTicketHistorySchema
 )
-from burrito.schemas.action_schema import RequestActionSchema, ActionSchema, FileActionSchema
-
-from burrito.models.tickets_model import Tickets
-from burrito.models.m_actions_model import Actions
-from burrito.models.m_actions_model import BaseAction
-from burrito.models.user_model import Users
-
-from burrito.utils.users_util import get_user_by_id_or_none
 from burrito.utils.auth import get_current_user
-from burrito.utils.mongo_util import mongo_select
+from burrito.utils.mongo_util import mongo_page_count, mongo_select
 from burrito.utils.query_util import (
+    q_assignee_is,
+    q_creator_is,
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
-    q_scope_is,
     q_is_valid_status_list,
     q_owned_or_not_hidden,
-    q_assignee_is,
-    q_creator_is
+    q_scope_is,
 )
 from burrito.utils.tickets_util import (
-    make_short_user_data,
+    can_i_interact_with_ticket,
     get_filtered_tickets,
-    select_filters,
     get_ticket_history,
-    can_i_interact_with_ticket
+    make_short_user_data,
+    select_filters,
 )
-from burrito.utils.mongo_util import mongo_page_count
-
-from ..utils import (
-    is_ticket_exist,
-    am_i_own_this_ticket,
-    make_ticket_detail_info
-)
+from burrito.utils.users_util import get_user_by_id_or_none
 
 
 async def tickets__show_tickets_list_by_filter(

@@ -1,9 +1,6 @@
 from fastapi import APIRouter
 
-from .views import (
-    notifications__get_notifications
-)
-
+from .views import notifications__get_notifications
 
 notifications_router = APIRouter()
 

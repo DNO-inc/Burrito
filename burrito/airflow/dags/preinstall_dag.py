@@ -1,18 +1,17 @@
 import datetime
 
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.models.baseoperator import chain
+from airflow.operators.python import PythonOperator
 from peewee import MySQLDatabase
 
-from burrito.utils.db_utils import create_tables
-from burrito.utils.db_cursor_object import get_database_cursor
-from burrito.utils.mongo_util import mongo_init_ttl_indexes
-from burrito.utils.logger import get_logger
 from burrito.airflow.utils import preprocessor_task
-
 from burrito.models.m_email_code import EmailVerificationCode
 from burrito.models.m_password_rest_model import AccessRenewMetaData
+from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.utils.db_utils import create_tables
+from burrito.utils.logger import get_logger
+from burrito.utils.mongo_util import mongo_init_ttl_indexes
 
 
 def init_db_events():

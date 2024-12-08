@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from .views import (
     statistic__activity_summary,
     statistic__faculties,
-    statistic__periodic
+    statistic__periodic,
 )
 
 statistic_router = APIRouter()

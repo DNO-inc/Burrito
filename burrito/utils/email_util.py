@@ -1,14 +1,14 @@
-import orjson
 import smtplib
-from email.message import EmailMessage
 import traceback
+from email.message import EmailMessage
 
-from burrito.utils.config_reader import get_config
-from burrito.utils.redis_utils import get_redis_connector
-from burrito.utils.users_util import get_user_by_id_or_none
-from burrito.utils.logger import get_logger
+import orjson
 
 from burrito.models.user_model import Users
+from burrito.utils.config_reader import get_config
+from burrito.utils.logger import get_logger
+from burrito.utils.redis_utils import get_redis_connector
+from burrito.utils.users_util import get_user_by_id_or_none
 
 
 class BurritoEmail(smtplib.SMTP):

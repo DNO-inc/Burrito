@@ -1,38 +1,29 @@
 from secrets import token_urlsafe
+
 from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
-from burrito.utils.users_util import (
-    get_user_by_id,
-    get_user_by_login
-)
-
-from burrito.utils.permissions_checker import check_permission
-
-from burrito.models.user_model import Users
 from burrito.models.faculty_model import Faculties
 from burrito.models.group_model import Groups
 from burrito.models.role_permissions_model import RolePermissions
-
-from burrito.schemas.profile_schema import (
-    ResponseProfileSchema,
-    ResponseRoleSchema,
-    RequestUpdateProfileSchema
-)
+from burrito.models.user_model import Users
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
-
-from burrito.utils.converter import (
-    FacultyConverter,
-    GroupConverter
+from burrito.schemas.profile_schema import (
+    RequestUpdateProfileSchema,
+    ResponseProfileSchema,
+    ResponseRoleSchema,
 )
+from burrito.utils.converter import FacultyConverter, GroupConverter
 from burrito.utils.hash_util import get_hash
+from burrito.utils.permissions_checker import check_permission
+from burrito.utils.users_util import get_user_by_id, get_user_by_login
 from burrito.utils.validators import (
     is_valid_firstname,
     is_valid_lastname,
     is_valid_login,
     is_valid_password,
-    is_valid_phone
+    is_valid_phone,
 )
 
 __all__ = (

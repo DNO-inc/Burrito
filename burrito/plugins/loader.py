@@ -1,9 +1,9 @@
-import pathlib
 import importlib.util
 import inspect
+import pathlib
 
-from burrito.utils.logger import get_logger
 from burrito.plugins.base_plugin import BurritoBasePlugin
+from burrito.utils.logger import get_logger
 
 
 class PluginLoader:

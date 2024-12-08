@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 
 from .views import (
-    admin__update_ticket_data,
+    admin__delete_ticket,
+    admin__get_followed_tickets,
     admin__get_ticket_list_by_filter,
     admin__show_detail_ticket_info,
-    admin__delete_ticket,
     admin__update_profile,
-    admin__get_followed_tickets
+    admin__update_ticket_data,
 )
 
 admin_router = APIRouter()

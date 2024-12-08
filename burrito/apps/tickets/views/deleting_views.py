@@ -3,35 +3,30 @@ import math
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
+from ..utils import is_ticket_exist, make_ticket_detail_info
+from burrito.models.deleted_model import Deleted
+from burrito.models.tickets_model import Tickets
 from burrito.schemas.tickets_schema import (
     TicketIDValueSchema,
+    TicketIDValuesListScheme,
     TicketListResponseSchema,
     TicketsBasicFilterSchema,
-    TicketIDValuesListScheme
 )
-from burrito.models.tickets_model import Tickets
-from burrito.models.deleted_model import Deleted
-
 from burrito.utils.auth import get_current_user
-from burrito.utils.tickets_util import (
-    am_i_own_this_ticket_with_error,
-    select_filters,
-    get_filtered_tickets,
-    make_short_user_data
-)
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import (
+    q_deleted,
     q_is_anonymous,
     q_is_valid_faculty,
     q_is_valid_queue,
-    q_scope_is,
     q_is_valid_status_list,
-    q_deleted
+    q_scope_is,
 )
-
-from ..utils import (
-    is_ticket_exist,
-    make_ticket_detail_info
+from burrito.utils.tickets_util import (
+    am_i_own_this_ticket_with_error,
+    get_filtered_tickets,
+    make_short_user_data,
+    select_filters,
 )
 
 

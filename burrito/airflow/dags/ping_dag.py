@@ -1,13 +1,12 @@
-import socket
 import datetime
+import socket
 
 from airflow import DAG
-from airflow.operators.python import PythonOperator
 from airflow.models.baseoperator import chain
+from airflow.operators.python import PythonOperator
 
-from burrito.utils.logger import get_logger
 from burrito.utils.config_reader import get_config
-
+from burrito.utils.logger import get_logger
 
 HOSTS_TO_PING = (
     (get_config().BURRITO_DB_HOST, get_config().BURRITO_DB_PORT),

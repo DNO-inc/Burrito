@@ -1,5 +1,5 @@
-from fastapi.responses import JSONResponse
 from fastapi.exceptions import HTTPException
+from fastapi.responses import JSONResponse
 
 from burrito.utils.logger import get_logger
 

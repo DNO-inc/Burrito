@@ -1,13 +1,11 @@
 import uvicorn
 
-from burrito.containers import get_current_app_name
 from burrito.apps.notifications.router import notifications_router
-from burrito.utils.config_reader import get_config
-from burrito.utils.app_util import get_current_app, connect_app
-from burrito.utils.task_manager import get_task_manager
-
 from burrito.apps.notifications.utils import email_loop
-
+from burrito.containers import get_current_app_name
+from burrito.utils.app_util import connect_app, get_current_app
+from burrito.utils.config_reader import get_config
+from burrito.utils.task_manager import get_task_manager
 
 _APP_NAME = get_current_app_name()
 

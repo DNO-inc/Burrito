@@ -1,19 +1,18 @@
 from fastapi import Depends
 from fastapi.responses import JSONResponse
-
 from peewee import MySQLDatabase
-
 from playhouse.shortcuts import model_to_dict
 
+from burrito.models.statistic_model import (
+    FacultyScopesStatistic,
+    FacultyTicketsStatistic,
+    ScopesStatistic,
+    StatusesStatistic,
+)
+from burrito.models.user_model import Users
 from burrito.utils.auth import get_current_user
 from burrito.utils.db_cursor_object import get_database_cursor
-from burrito.utils.mongo_util import get_mongo_cursor, _MONGO_DB_NAME
-
-from burrito.models.user_model import Users
-from burrito.models.statistic_model import (
-    StatusesStatistic, FacultyScopesStatistic, ScopesStatistic,
-    FacultyTicketsStatistic
-)
+from burrito.utils.mongo_util import _MONGO_DB_NAME, get_mongo_cursor
 
 
 async def statistic__periodic(

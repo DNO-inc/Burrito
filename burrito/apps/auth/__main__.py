@@ -1,12 +1,10 @@
 import uvicorn
 
-from burrito.containers import get_current_app_name
 from burrito.apps.auth.router import auth_router
-from burrito.utils.config_reader import get_config
-from burrito.utils.app_util import get_current_app, connect_app
-
+from burrito.containers import get_current_app_name
 from burrito.plugins.loader import PluginLoader
-
+from burrito.utils.app_util import connect_app, get_current_app
+from burrito.utils.config_reader import get_config
 
 _APP_NAME = get_current_app_name()
 

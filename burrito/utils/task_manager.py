@@ -3,11 +3,11 @@
 
 """
 
-from threading import Thread
-from concurrent.futures import ThreadPoolExecutor
-from typing import Any
 import asyncio
 import inspect
+from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
+from typing import Any
 
 from burrito.utils.logger import get_logger
 from burrito.utils.singleton_pattern import singleton

@@ -1,23 +1,19 @@
-import pymysql.cursors
 import orjson as json
-
+import pymysql.cursors
 from peewee import IntegrityError
 
-from burrito.utils.task_manager import get_task_manager
-from burrito.utils.config_reader import get_config
-from burrito.utils.logger import get_logger
-from burrito.utils.db_cursor_object import get_database_cursor
-
-from burrito.models.group_model import Groups
-from burrito.models.statuses_model import Statuses
 from burrito.models.faculty_model import Faculties
-from burrito.models.queues_model import Queues
+from burrito.models.group_model import Groups
 from burrito.models.permissions_model import Permissions
-from burrito.models.roles_model import Roles
+from burrito.models.queues_model import Queues
 from burrito.models.role_permissions_model import RolePermissions
-
+from burrito.models.roles_model import Roles
+from burrito.models.statuses_model import Statuses
 from burrito.plugins.loader import PluginLoader
-
+from burrito.utils.config_reader import get_config
+from burrito.utils.db_cursor_object import get_database_cursor
+from burrito.utils.logger import get_logger
+from burrito.utils.task_manager import get_task_manager
 
 MODEL_KEYS = {
     "groups": Groups,

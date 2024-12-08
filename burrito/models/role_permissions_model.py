@@ -1,9 +1,8 @@
-from peewee import ForeignKeyField, CompositeKey
-
-from burrito.models.roles_model import Roles
-from burrito.models.permissions_model import Permissions
+from peewee import CompositeKey, ForeignKeyField
 
 from burrito.models.basic_model import BurritoBasicModel
+from burrito.models.permissions_model import Permissions
+from burrito.models.roles_model import Roles
 
 
 class RolePermissions(BurritoBasicModel):

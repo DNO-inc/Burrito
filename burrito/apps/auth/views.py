@@ -2,6 +2,13 @@ import httpx
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
+from .utils import (
+    compare_password,
+    get_cabinet_key,
+    get_user_by_login,
+    put_cabinet_key,
+    remove_cabinet_key,
+)
 from burrito.models.user_model import Users
 from burrito.plugins.loader import PluginLoader
 from burrito.schemas.auth_schema import (
@@ -20,14 +27,6 @@ from burrito.utils.auth import (
 )
 from burrito.utils.logger import get_logger
 from burrito.utils.users_util import create_user_with_cabinet, get_user_by_cabinet_id
-
-from .utils import (
-    compare_password,
-    get_cabinet_key,
-    get_user_by_login,
-    put_cabinet_key,
-    remove_cabinet_key,
-)
 
 
 async def auth__password_login(

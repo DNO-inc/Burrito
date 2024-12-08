@@ -1,32 +1,21 @@
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
-from burrito.schemas.tickets_schema import (
-    CreateTicketSchema,
-    TicketIDValueSchema,
-    UpdateTicketSchema
-)
-
+from ..utils import am_i_own_this_ticket_with_error, is_ticket_exist, update_ticket_info
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
-from burrito.utils.users_util import get_user_by_id
+from burrito.schemas.tickets_schema import (
+    CreateTicketSchema,
+    TicketIDValueSchema,
+    UpdateTicketSchema,
+)
 from burrito.utils.auth import get_current_user
-
-from burrito.utils.tickets_util import create_ticket_action
+from burrito.utils.converter import FacultyConverter, QueueConverter
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import STATUS_CLOSE
-from burrito.utils.converter import (
-    FacultyConverter,
-    QueueConverter
-)
-
-from ..utils import (
-    is_ticket_exist,
-    update_ticket_info,
-    am_i_own_this_ticket_with_error
-)
+from burrito.utils.tickets_util import create_ticket_action
+from burrito.utils.users_util import get_user_by_id
 
 
 async def tickets__create_new_ticket(

@@ -1,7 +1,7 @@
 from pydantic import Field
 
-from burrito.utils.date import get_datetime_now
 from burrito.models.m_basic_model import MongoBaseModel
+from burrito.utils.date import get_datetime_now
 
 
 class Comments(MongoBaseModel):

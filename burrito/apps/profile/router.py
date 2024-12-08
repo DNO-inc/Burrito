@@ -1,13 +1,12 @@
 from fastapi import APIRouter
 
-from burrito.schemas.profile_schema import ResponseProfileSchema
-
 from .views import (
     profile__check_by_id,
-    profile__update_my_profile,
+    profile__get_new_token,
     profile__token_reset_request,
-    profile__get_new_token
+    profile__update_my_profile,
 )
+from burrito.schemas.profile_schema import ResponseProfileSchema
 
 profile_router = APIRouter()
 

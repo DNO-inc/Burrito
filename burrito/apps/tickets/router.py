@@ -1,25 +1,24 @@
 from fastapi import APIRouter
 
 from burrito.apps.tickets.views import (
+    tickets__bookmark_ticket,
+    tickets__close_own_ticket,
     tickets__create_new_ticket,
     tickets__delete_ticket_for_me,
-    tickets__bookmark_ticket,
-    tickets__like_ticket,
-    tickets__unlike_ticket,
-    tickets__unbookmark_ticket,
-    tickets__show_tickets_list_by_filter,
-    tickets__show_detail_ticket_info,
-    tickets__update_own_ticket_data,
-    tickets__close_own_ticket,
-    tickets__get_liked_tickets,
+    tickets__get_action_by_id,
     tickets__get_bookmarked_tickets,
     tickets__get_deleted_tickets,
-    tickets__undelete_ticket,
     tickets__get_followed_tickets,
     tickets__get_full_ticket_history,
-    tickets__get_action_by_id
+    tickets__get_liked_tickets,
+    tickets__like_ticket,
+    tickets__show_detail_ticket_info,
+    tickets__show_tickets_list_by_filter,
+    tickets__unbookmark_ticket,
+    tickets__undelete_ticket,
+    tickets__unlike_ticket,
+    tickets__update_own_ticket_data,
 )
-
 
 tickets_router = APIRouter()
 

@@ -1,13 +1,11 @@
 import datetime
 
-from burrito.utils.email_util import publish_email
-from burrito.utils.email_templates import TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN
-from burrito.utils.query_util import STATUS_NEW
-from burrito.utils.logger import get_logger
-
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
+from burrito.utils.email_templates import TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN
+from burrito.utils.email_util import publish_email
+from burrito.utils.logger import get_logger
+from burrito.utils.query_util import STATUS_NEW
 
 MAX_UNCHANGED_DAYS = 2
 

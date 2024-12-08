@@ -1,13 +1,12 @@
 from fastapi import APIRouter
 
 from .views import (
-    auth__password_login,
     auth__key_login,
+    auth__logout,
+    auth__password_login,
     auth__token_refresh,
     auth_delete_refresh_token,
-    auth__logout
 )
-
 
 auth_router = APIRouter()
 

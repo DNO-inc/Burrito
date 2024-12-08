@@ -1,31 +1,29 @@
 from typing import Annotated
 
+from fastapi import Depends, Form, HTTPException, UploadFile
+from fastapi.responses import StreamingResponse
 from funcy import chunks
 
-from fastapi import Depends, Form, UploadFile, HTTPException
-from fastapi.responses import StreamingResponse
-
-from burrito.models.tickets_model import Tickets
 from burrito.models.m_ticket_files import TicketFiles
+from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-
 from burrito.utils.auth import get_current_user
-from burrito.utils.users_util import get_user_by_id
-from burrito.utils.tickets_util import (
-    is_ticket_exist,
-    create_ticket_file_action,
-    am_i_own_this_ticket,
-    create_ticket_action,
-    can_i_interact_with_ticket
+from burrito.utils.logger import get_logger
+from burrito.utils.mongo_util import (
+    mongo_delete_file,
+    mongo_get_file,
+    mongo_save_file,
+    mongo_select,
 )
 from burrito.utils.query_util import STATUS_OPEN
-from burrito.utils.mongo_util import (
-    mongo_save_file,
-    mongo_get_file,
-    mongo_select,
-    mongo_delete_file
+from burrito.utils.tickets_util import (
+    am_i_own_this_ticket,
+    can_i_interact_with_ticket,
+    create_ticket_action,
+    create_ticket_file_action,
+    is_ticket_exist,
 )
-from burrito.utils.logger import get_logger
+from burrito.utils.users_util import get_user_by_id
 
 
 async def iofiles__upload_file_for_ticket(

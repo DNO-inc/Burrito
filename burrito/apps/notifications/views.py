@@ -1,11 +1,10 @@
-from fastapi import Depends
 from bson.objectid import ObjectId
+from fastapi import Depends
 
 from burrito.models.m_notifications_model import NotificationMetaData, Notifications
 from burrito.models.user_model import Users
-
-from burrito.utils.mongo_util import mongo_select, mongo_delete, mongo_items_count
 from burrito.utils.auth import get_current_user
+from burrito.utils.mongo_util import mongo_delete, mongo_items_count, mongo_select
 
 
 async def notifications__get_notifications(

@@ -1,4 +1,5 @@
 from typing import Literal
+
 from pydantic import BaseModel
 
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema

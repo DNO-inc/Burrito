@@ -1,19 +1,16 @@
 import math
 
-from bson.objectid import ObjectId
-
-from fastapi import HTTPException
-from pymongo import MongoClient, ASCENDING, DESCENDING
-from pymongo.errors import ServerSelectionTimeoutError
 import gridfs
-
-from burrito.utils.exceptions import MongoConnectionError, DBConnectionError
-from burrito.utils.singleton_pattern import singleton
-from burrito.utils.config_reader import get_config
+from bson.objectid import ObjectId
+from fastapi import HTTPException
+from pymongo import ASCENDING, DESCENDING, MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 
 from burrito.models.m_basic_model import MongoBaseModel
 from burrito.models.m_ticket_files import TicketFiles
-
+from burrito.utils.config_reader import get_config
+from burrito.utils.exceptions import DBConnectionError, MongoConnectionError
+from burrito.utils.singleton_pattern import singleton
 
 __AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}'
 

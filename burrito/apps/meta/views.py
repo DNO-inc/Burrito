@@ -1,34 +1,30 @@
+from fastapi import Depends
 from playhouse.shortcuts import model_to_dict
 
-from fastapi import Depends
-
-from burrito.models.statuses_model import Statuses
-from burrito.models.group_model import Groups
+from burrito.apps.meta.utils import RolePermissionResponse, RolesResponse
 from burrito.models.faculty_model import Faculties
+from burrito.models.group_model import Groups
 from burrito.models.queues_model import Queues
-from burrito.models.user_model import Users
-from burrito.models.roles_model import Roles
 from burrito.models.role_permissions_model import RolePermissions
-
-from burrito.schemas.meta_schema import (
-    ResponseStatusesListSchema,
-    ResponseGroupsListSchema,
-    ResponseFacultiesListSchema,
-    RequestQueueListSchema,
-    ResponseQueueListSchema,
-    ResponseAdminListSchema
-)
-from burrito.schemas.group_schema import GroupResponseSchema
+from burrito.models.roles_model import Roles
+from burrito.models.statuses_model import Statuses
+from burrito.models.user_model import Users
 from burrito.schemas.faculty_schema import FacultyResponseSchema
-from burrito.schemas.status_schema import StatusResponseSchema
+from burrito.schemas.group_schema import GroupResponseSchema
+from burrito.schemas.meta_schema import (
+    RequestQueueListSchema,
+    ResponseAdminListSchema,
+    ResponseFacultiesListSchema,
+    ResponseGroupsListSchema,
+    ResponseQueueListSchema,
+    ResponseStatusesListSchema,
+)
 from burrito.schemas.queue_schema import QueueResponseSchema
-
-from burrito.utils.converter import FacultyConverter
-from burrito.utils.tickets_util import make_short_user_data
-from burrito.utils.query_util import MIN_ADMIN_PRIORITY
+from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.utils.auth import get_current_user
-
-from burrito.apps.meta.utils import RolesResponse, RolePermissionResponse
+from burrito.utils.converter import FacultyConverter
+from burrito.utils.query_util import MIN_ADMIN_PRIORITY
+from burrito.utils.tickets_util import make_short_user_data
 
 
 async def meta__get_statuses_list():
