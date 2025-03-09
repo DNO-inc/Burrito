@@ -13,7 +13,7 @@ RUN pip3 install poetry
 
 COPY pyproject.toml ./
 
-RUN poetry install --only main
+RUN poetry install --no-root --only main
 
 RUN apt -y install netcat iputils-ping
 
