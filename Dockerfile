@@ -1,31 +1,17 @@
-FROM python:3.10-slim-buster as burrito-build-base
-
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    PATH="/opt/pysetup/.venv/bin:$PATH"
-
-RUN apt-get update
-RUN apt-get install --no-install-recommends -y build-essential
-
-WORKDIR /opt/pysetup
-
-RUN pip3 install poetry
-
-COPY pyproject.toml ./
-
-RUN poetry install --only main
-
+FROM ghcr.io/dno-inc/burrito-dependencies:main AS burrito-dependencies
 
 FROM python:3.10-slim-buster
 
-ENV PATH="/opt/pysetup/.venv/bin:$PATH"
+ENV PATH="/venv/.venv/bin:$PATH"
 
-COPY --from=burrito-build-base /opt/pysetup/ /opt/pysetup/
-COPY ./preprocessor_config.json /preprocessor_config.json
-COPY ./CONTRIBUTORS.md /CONTRIBUTORS.md
-COPY ./CHANGELOG.md /CHANGELOG.md
-COPY ./burrito /burrito
+WORKDIR /app/burrito
 
-WORKDIR ./
+COPY --from=burrito-dependencies /venv /venv
+COPY ./preprocessor_config.json preprocessor_config.json
+COPY ./CONTRIBUTORS.md CONTRIBUTORS.md
+COPY ./CHANGELOG.md CHANGELOG.md
+COPY ./burrito ./
+
+WORKDIR /app
 
 CMD ["python3", "-m", "burrito"]
