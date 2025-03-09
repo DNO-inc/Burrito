@@ -1,0 +1,15 @@
+FROM python:3.10-slim-buster AS burrito-build-base
+
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=true
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential && \
+    pip3 install poetry && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /venv
+
+COPY pyproject.toml ./
+
+RUN poetry install --no-root --only main
