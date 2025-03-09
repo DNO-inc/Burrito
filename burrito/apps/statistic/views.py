@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 from peewee import MySQLDatabase
@@ -52,22 +54,48 @@ async def statistic__activity_summary(
     db: MySQLDatabase = get_database_cursor()
     mongo_cursor = get_mongo_cursor()
 
+    curr_date = datetime.now()
+    curr_month_start = curr_date.replace(day=1)
+    curr_month_end = (curr_month_start + timedelta(days=32)).replace(day=1)
+
     result = mongo_cursor[_MONGO_DB_NAME]["ticket_history"].aggregate(
         [
             {
                 "$match": {
                     "field_name": "status",
-                    "$or": [
-                        {"new_value": "ACCEPTED"},
-                        {"new_value": "CLOSE"}
-                    ]
+                    "creation_date": {
+                        "$gte": curr_month_start,
+                        "$lt": curr_month_end
+                    }
                 }
             },
             {
                 "$group": {
                     "_id": "$ticket_id",
-                    "minValue": {"$min": "$creation_date"},
-                    "maxValue": {"$max": "$creation_date"},
+                    "minValue": {
+                        "$min": {
+                            "$cond": [
+                                {
+                                    "$eq": [
+                                        "$new_value", "ACCEPTED"
+                                    ]
+                                },
+                                "$creation_date", None
+                            ]
+                        }
+                    },
+                    "maxValue": {
+                        "$max": {
+                            "$cond": [
+                                {
+                                    "$eq": [
+                                        "$new_value", "CLOSED"
+                                    ]
+                                },
+                                "$creation_date", None
+                            ]
+                        }
+                    }
                 }
             },
             {
