@@ -12,7 +12,7 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.exceptions import DBConnectionError, MongoConnectionError
 from burrito.utils.singleton_pattern import singleton
 
-__AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}'
+__AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
 
 
 @singleton
@@ -192,7 +192,7 @@ def mongo_items_count(model: MongoBaseModel, **filters) -> int:
 def mongo_save_file(ticket_id: int, file_owner_id: int, file_name: str, file: bytes, content_type: str | None) -> str:
     """
     Save a file to mongo.
-    
+
     Args:
         ticket_id: ID of the ticket to save the file to.
         file_owner_id: Owner of the file.
