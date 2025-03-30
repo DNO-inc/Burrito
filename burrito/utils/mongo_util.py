@@ -12,7 +12,7 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.exceptions import DBConnectionError, MongoConnectionError
 from burrito.utils.singleton_pattern import singleton
 
-__AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
+__AUTH_STRING = f'mongodb://{get_config().BURRITO_MONGO_USER}:{get_config().BURRITO_MONGO_PASSWORD}@{get_config().BURRITO_MONGO_HOST}:{get_config().BURRITO_MONGO_PORT}/?tls=true&tlsCAFile=/certs/global-bundle.pem&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false'
 
 
 @singleton
