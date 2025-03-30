@@ -1,4 +1,4 @@
-FROM ghcr.io/dno-inc/burrito-dependencies:main AS burrito-dependencies
+FROM ghcr.io/dno-inc/burrito-dependencies:document_db_test AS burrito-dependencies
 
 FROM python:3.10-slim-buster
 
