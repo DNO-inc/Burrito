@@ -21,8 +21,7 @@ def is_valid_login(login: str) -> bool:
 
     pattern = r"^[\w_]*$"
 
-    if re.match(pattern, login):
-        return True
+    return bool(re.match(pattern, login))
 
 
 def is_valid_email(email: str) -> bool:
@@ -42,8 +41,7 @@ def is_valid_email(email: str) -> bool:
 
     pattern = r"^[\w\._]*@\w+\.[a-z]*$"
 
-    if re.match(pattern, email):
-        return True
+    return bool(re.match(pattern, email))
 
 
 def is_valid_password(password: str) -> bool:
@@ -61,14 +59,8 @@ def is_valid_password(password: str) -> bool:
     if not isinstance(password, str):
         return False
 
-    if len(password) < 8:
-        return False
-
-    return True
-#    pattern = ""
-
-#    if re.match(pattern, password):
-#        return password
+    pattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$'
+    return bool(re.match(pattern, password))
 
 
 def is_valid_firstname(value: str) -> bool:
@@ -80,12 +72,14 @@ def is_valid_firstname(value: str) -> bool:
 
     return True
 
+# TODO: use one function instead?
+
 
 def is_valid_lastname(value: str) -> bool:
     if not isinstance(value, str):
         return False
 
-    if len(value) < 5:
+    if len(value) < 2:
         return False
 
     return True
@@ -94,8 +88,5 @@ def is_valid_lastname(value: str) -> bool:
 def is_valid_phone(value: str) -> bool:
     if not isinstance(value, str):
         return False
-
-    if len(value) < 5:
-        return False
-
-    return True
+    pattern = r'^\+?[0-9\s\-\(\)]{5,20}$'
+    return bool(re.match(pattern, value))
