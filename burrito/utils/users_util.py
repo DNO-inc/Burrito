@@ -86,7 +86,7 @@ def create_user_with_cabinet(
         GroupConverter.convert(group)
 
     except Exception:
-        get_logger().critical(f"Group is invalid: {faculty}")
+        get_logger().critical(f"Group is invalid: {group}")
         group = None
 
     try:
