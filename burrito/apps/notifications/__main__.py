@@ -9,7 +9,7 @@ from burrito.utils.task_manager import get_task_manager
 
 _APP_NAME = get_current_app_name()
 
-app = get_current_app(docs_url=f"/{_APP_NAME}/", openapi_url=f"/{_APP_NAME}/openapi.json")
+app = get_current_app()
 connect_app(app, f"/{_APP_NAME}", notifications_router)
 
 
