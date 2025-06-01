@@ -35,8 +35,13 @@ def get_current_app() -> BurritoApi:
 
     docs_url = get_config().BURRITO_DOCS_URL or "/docs"
     openapi_url = get_config().BURRITO_OPENAPI_URL or "/openapi.json"
+    root_path = get_config().BURRITO_ROOT_PATH or ""
 
-    app: FastAPI = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
+    app: FastAPI = BurritoApi(
+        docs_url=docs_url,
+        openapi_url=openapi_url,
+        root_path=root_path
+    )
 
     app.add_exception_handler(
         DBConnectionError,
