@@ -4,6 +4,7 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo.errors import ServerSelectionTimeoutError
 
+from burrito.utils.config_reader import get_config
 from burrito.utils.exceptions import DBConnectionError, db_connection_error_handler
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.task_manager import get_task_manager
@@ -19,7 +20,7 @@ class BurritoApi(FastAPI):
         super().__init__(*args, **kwargs)
 
 
-def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> BurritoApi:
+def get_current_app(*, docs_url: str = "/docs", openapi_url: str = "/openapi.json") -> BurritoApi:
     """
     Return current application object
 
@@ -27,7 +28,13 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
         BurritoApi: current application object
     """
 
-    app: FastAPI = BurritoApi(docs_url=docs_url, openapi_url=openapi_url)
+    root_path = get_config().BURRITO_ROOT_PATH or ""
+
+    app: FastAPI = BurritoApi(
+        docs_url=docs_url,
+        openapi_url=openapi_url,
+        root_path=root_path
+    )
 
     app.add_exception_handler(
         DBConnectionError,
