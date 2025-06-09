@@ -1,7 +1,6 @@
 from fastapi import HTTPException, status
 from fastapi.responses import JSONResponse
 
-from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
 from burrito.models.m_email_code import EmailVerificationCode
 from burrito.models.user_model import Users
 from burrito.schemas.email_code import EmailVerificationCodeSchema
@@ -12,6 +11,8 @@ from burrito.utils.email_util import tmp_send_email
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.users_util import get_user_by_email_or_none
+
+from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
 
 EMAIL_VERIFICATIONS_TEMPLATE = """Добрий день,
 

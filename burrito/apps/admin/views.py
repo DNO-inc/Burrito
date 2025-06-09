@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_ticket_files import TicketFiles
 from burrito.models.tickets_model import Tickets
@@ -18,8 +17,9 @@ from burrito.schemas.admin_schema import (
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 from burrito.utils.auth import get_current_user
 from burrito.utils.converter import FacultyConverter, QueueConverter, StatusConverter
+from burrito.utils.files_util import delete_file
 from burrito.utils.logger import get_logger
-from burrito.utils.mongo_util import mongo_delete, mongo_delete_file, mongo_select
+from burrito.utils.mongo_util import mongo_delete, mongo_select
 from burrito.utils.query_util import (
     q_assignee_is,
     q_creator_is,
@@ -44,6 +44,8 @@ from burrito.utils.tickets_util import (
     select_filters,
 )
 from burrito.utils.users_util import get_user_by_id
+
+from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
 
 
 async def admin__update_ticket_data(
@@ -203,7 +205,7 @@ async def admin__delete_ticket(
         ticket_id=deletion_ticket_data.ticket_id
     )
     for file_metadata in file_objects:
-        mongo_delete_file(file_metadata.get("file_id"))
+        delete_file(file_metadata.get("file_id"))
 
     # delete files metadata
     mongo_delete(
