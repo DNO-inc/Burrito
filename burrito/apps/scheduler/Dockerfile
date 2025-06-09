@@ -1,4 +1,4 @@
-FROM ghcr.io/dno-inc/burrito:main
+FROM ghcr.io/dno-inc/burrito:document_db_test
 
 COPY ./event_init.sql event_init.sql
 
