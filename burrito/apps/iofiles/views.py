@@ -46,7 +46,7 @@ async def iofiles__upload_file_for_ticket(
             file_item.content_type
         )
         get_logger().info(
-            f"User {_curr_user.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
+            f"User {_curr_user.user_id} have uploaded file {urlsafe_b64decode(current_file_id).decode()} ({file_item.size} bytes)"
         )
         file_ids.append(current_file_id)
         create_ticket_file_action(
