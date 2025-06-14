@@ -1,12 +1,12 @@
 import unittest
-import requests
+
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
 from tests.utils import get_access_token
 
 from .schemas import *
-
 
 TIMEOUT = 5
 
@@ -14,9 +14,9 @@ TIMEOUT = 5
 class MetaTestCase(unittest.TestCase):
     def test_001_roles(self):
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_roles",
+            f"{get_config().BURRITO_API_URL}/meta/get_roles",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
@@ -25,9 +25,9 @@ class MetaTestCase(unittest.TestCase):
 
     def test_002_role_permissions(self):
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_role_permissions",
+            f"{get_config().BURRITO_API_URL}/meta/get_role_permissions",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
@@ -36,7 +36,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_get_statuses_list(self):
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_statuses",
+            f"{get_config().BURRITO_API_URL}/meta/get_statuses",
             timeout=TIMEOUT
         )
 
@@ -44,9 +44,9 @@ class MetaTestCase(unittest.TestCase):
 
     def test_groups_list(self):
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_groups",
+            f"{get_config().BURRITO_API_URL}/meta/get_groups",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
@@ -55,7 +55,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_faculties_list(self):
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_faculties",
+            f"{get_config().BURRITO_API_URL}/meta/get_faculties",
             timeout=TIMEOUT
         )
 
@@ -63,7 +63,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_queues_list(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
+            f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
                 "faculty": 414
             },
@@ -74,7 +74,7 @@ class MetaTestCase(unittest.TestCase):
 
     def test_queues_list_with_wrong_faculty(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_queues",
+            f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
                 "faculty": 999999999
             },
@@ -85,9 +85,9 @@ class MetaTestCase(unittest.TestCase):
 
     def test_get_admin_list(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/meta/get_admins",
+            f"{get_config().BURRITO_API_URL}/meta/get_admins",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )

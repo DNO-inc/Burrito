@@ -1,9 +1,9 @@
 import unittest
-import requests
+
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
-
 from tests.utils import get_token_pare
 
 from .schemas import *
@@ -34,9 +34,9 @@ class AuthTestCase(unittest.TestCase):
 #    @unittest.skip
     def test_002_refresh_access_token(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/refresh",
+            f"{get_config().BURRITO_API_URL}/auth/token/refresh",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.refresh_token}"
+                "Authorization": f"Bearer {AuthTestCase.refresh_token}"
             },
             timeout=5
         )
@@ -52,9 +52,9 @@ class AuthTestCase(unittest.TestCase):
         refresh_token = result["refresh_token"]
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/token/delete",
+            f"{get_config().BURRITO_API_URL}/auth/token/delete",
             headers={
-               "Authorization": f"Bearer {refresh_token}"
+                "Authorization": f"Bearer {refresh_token}"
             },
             timeout=5
         )

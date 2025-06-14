@@ -1,14 +1,12 @@
 import random
-
 import unittest
+
 import requests
-
-from tests.auth.auth_test import AuthTestCase
-from tests.tickets.tickets_test import TicketsTestCase
-
-from burrito.utils.config_reader import get_config
 from utils.exceptions_tool import check_error
 
+from burrito.utils.config_reader import get_config
+from tests.auth.auth_test import AuthTestCase
+from tests.tickets.tickets_test import TicketsTestCase
 
 TIMEOUT = 10
 
@@ -16,9 +14,9 @@ TIMEOUT = 10
 class AdminTestCase(unittest.TestCase):
     def test_001_admin_update_ticket(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/update",
+            f"{get_config().BURRITO_API_URL}/admin/tickets/update",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
@@ -39,9 +37,9 @@ class AdminTestCase(unittest.TestCase):
 
     def test_002_admin_ticket_list_view(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/ticket_list",
+            f"{get_config().BURRITO_API_URL}/admin/tickets/ticket_list",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
                 "scope": 'Reports',
@@ -64,9 +62,9 @@ class AdminTestCase(unittest.TestCase):
 
     def test_003_admin_ticket_detail_view(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/show",
+            f"{get_config().BURRITO_API_URL}/admin/tickets/show",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket
@@ -86,9 +84,9 @@ class AdminTestCase(unittest.TestCase):
     @unittest.skip
     def test_004_admin_delete_ticket(self):
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/admin/tickets/delete",
+            f"{get_config().BURRITO_API_URL}/admin/tickets/delete",
             headers={
-               "Authorization": f"Bearer {AuthTestCase.access_token}"
+                "Authorization": f"Bearer {AuthTestCase.access_token}"
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket - 1

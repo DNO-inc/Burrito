@@ -1,12 +1,11 @@
-import string
 import random
+import string
 import unittest
 
-import requests
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
-
 from tests.utils import get_access_token, setup_test_user
 
 from .schemas import *
@@ -17,9 +16,9 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/1000000",
+            f"{get_config().BURRITO_API_URL}/profile/1000000",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )
@@ -39,9 +38,9 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/{setup_test_user()}",
+            f"{get_config().BURRITO_API_URL}/profile/{setup_test_user()}",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )
@@ -54,9 +53,9 @@ class ProfileTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/{setup_test_user()}",
+            f"{get_config().BURRITO_API_URL}/profile/{setup_test_user()}",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )
@@ -69,7 +68,7 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
+            f"{get_config().BURRITO_API_URL}/profile/update",
             timeout=0.5
         )
 
@@ -88,9 +87,9 @@ class ProfileTestCase(unittest.TestCase):
         """Update profile data"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/profile/update",
+            f"{get_config().BURRITO_API_URL}/profile/update",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "firstname": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
