@@ -1,6 +1,7 @@
 import unittest
-import requests
+
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
 
@@ -12,9 +13,9 @@ TIMEOUT = 5
 class AnonTestCase(unittest.TestCase):
     def test_anon_tickets_list_filter(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/anon/ticket_list",
+            f"{get_config().BURRITO_API_URL}/anon/ticket_list",
             json={
-#                "status": [1, 2, 3],
+                #                "status": [1, 2, 3],
                 "anonymous": False
             },
             timeout=TIMEOUT

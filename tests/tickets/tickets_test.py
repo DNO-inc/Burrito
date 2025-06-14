@@ -1,23 +1,21 @@
-import unittest
-import string
 import random
+import string
+import unittest
 
-import requests
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
-
 from tests.utils import get_access_token
 
 from .schemas import *
-
 
 TIMEOUT = 10
 
 
 def create_ticket_get_id(subject: str) -> int:
     response = requests.post(
-        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/create",
+        f"{get_config().BURRITO_API_URL}/tickets/create",
         headers={
             "Authorization": f"Bearer {get_access_token()}"
         },
@@ -64,9 +62,9 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("for black list")
 
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+            f"{get_config().BURRITO_API_URL}/tickets/delete",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id_list": [ticket_id]
@@ -78,14 +76,13 @@ class TicketsTestCase(unittest.TestCase):
 
         jsonschema.validate(response.json(), detail_response_schema_template)
 
-
     def test_003_delete_ticket_noexist(self):
         """Delete ticket"""
 
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+            f"{get_config().BURRITO_API_URL}/tickets/delete",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id_list": [TicketsTestCase.first_ticket + 123456]
@@ -101,7 +98,7 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            f"{get_config().BURRITO_API_URL}/tickets/like",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -119,7 +116,7 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/like",
+            f"{get_config().BURRITO_API_URL}/tickets/like",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -137,9 +134,9 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+            f"{get_config().BURRITO_API_URL}/tickets/bookmark",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": create_ticket_get_id("to bookmark")
@@ -155,9 +152,9 @@ class TicketsTestCase(unittest.TestCase):
         """Bookmark ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmark",
+            f"{get_config().BURRITO_API_URL}/tickets/bookmark",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket + 123456
@@ -171,9 +168,9 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_008_tickets_filter(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/ticket_list",
+            f"{get_config().BURRITO_API_URL}/tickets/ticket_list",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "anonymous": True,
@@ -187,9 +184,9 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_009_ticket_detail_view(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/show",
+            f"{get_config().BURRITO_API_URL}/tickets/show",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": create_ticket_get_id("show info about ticket")
@@ -207,9 +204,9 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("to update")
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/update",
+            f"{get_config().BURRITO_API_URL}/tickets/update",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": ticket_id,
@@ -228,9 +225,9 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("close me")
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/close",
+            f"{get_config().BURRITO_API_URL}/tickets/close",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": ticket_id
@@ -244,9 +241,9 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_012_get_liked_ticket(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/liked",
+            f"{get_config().BURRITO_API_URL}/tickets/liked",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
@@ -257,9 +254,9 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_013_get_bookmarked_ticket(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/bookmarked",
+            f"{get_config().BURRITO_API_URL}/tickets/bookmarked",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "bookmarks_type": "strangers"
@@ -273,9 +270,9 @@ class TicketsTestCase(unittest.TestCase):
 
     def test_014_get_deleted_ticket(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/deleted",
+            f"{get_config().BURRITO_API_URL}/tickets/deleted",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=TIMEOUT
         )
@@ -290,9 +287,9 @@ class TicketsTestCase(unittest.TestCase):
         ticket_id = create_ticket_get_id("for black list to undelete")
 
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/delete",
+            f"{get_config().BURRITO_API_URL}/tickets/delete",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id_list": [ticket_id]
@@ -305,9 +302,9 @@ class TicketsTestCase(unittest.TestCase):
         jsonschema.validate(response.json(), detail_response_schema_template)
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/undelete",
+            f"{get_config().BURRITO_API_URL}/tickets/undelete",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             json={
                 "ticket_id": ticket_id
@@ -323,7 +320,7 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/full_history",
+            f"{get_config().BURRITO_API_URL}/tickets/full_history",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -342,7 +339,7 @@ class TicketsTestCase(unittest.TestCase):
         """Delete ticket"""
 
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/tickets/get_action",
+            f"{get_config().BURRITO_API_URL}/tickets/get_action",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },

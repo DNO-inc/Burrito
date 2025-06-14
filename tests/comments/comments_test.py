@@ -1,9 +1,9 @@
 import unittest
-import requests
+
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
-
 from tests.tickets.tickets_test import create_ticket_get_id
 from tests.utils import get_access_token
 
@@ -15,7 +15,7 @@ TIMEOUT = 5
 class CommentsTestCase(unittest.TestCase):
     def test_001_comments_create(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/create",
+            f"{get_config().BURRITO_API_URL}/comments/create",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -43,7 +43,7 @@ class CommentsTestCase(unittest.TestCase):
 
     def test_002_comments_edit(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/edit",
+            f"{get_config().BURRITO_API_URL}/comments/edit",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -68,7 +68,7 @@ class CommentsTestCase(unittest.TestCase):
 
     def test_003_comments_delete(self):
         response = requests.delete(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/delete",
+            f"{get_config().BURRITO_API_URL}/comments/delete",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -95,7 +95,7 @@ class CommentsTestCase(unittest.TestCase):
 
         for _ in range(10):
             response = requests.post(
-                f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/create",
+                f"{get_config().BURRITO_API_URL}/comments/create",
                 headers={
                     "Authorization": f"Bearer {get_access_token()}"
                 },
@@ -120,7 +120,7 @@ class CommentsTestCase(unittest.TestCase):
 
     def test_005_comments_get_comment(self):
         response = requests.post(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/comments/get_comment_by_id",
+            f"{get_config().BURRITO_API_URL}/comments/get_comment_by_id",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },

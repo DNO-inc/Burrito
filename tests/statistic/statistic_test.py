@@ -1,10 +1,9 @@
 import unittest
 
-import requests
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
-
 from tests.utils import get_access_token
 
 from .schemas import *
@@ -15,9 +14,9 @@ class StatisticTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/statistic/activity_summary",
+            f"{get_config().BURRITO_API_URL}/statistic/activity_summary",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )
@@ -30,9 +29,9 @@ class StatisticTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/statistic/faculties",
+            f"{get_config().BURRITO_API_URL}/statistic/faculties",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )
@@ -45,9 +44,9 @@ class StatisticTestCase(unittest.TestCase):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/statistic/period",
+            f"{get_config().BURRITO_API_URL}/statistic/period",
             headers={
-               "Authorization": f"Bearer {get_access_token()}"
+                "Authorization": f"Bearer {get_access_token()}"
             },
             timeout=0.5
         )

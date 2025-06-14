@@ -1,9 +1,9 @@
-import string
 import random
+import string
 import unittest
-import requests
 
 import jsonschema
+import requests
 
 from burrito.utils.config_reader import get_config
 
@@ -17,7 +17,7 @@ def make_user_registration(
     faculty: int = 414
 ):
     response = requests.post(
-        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/registration/",
+        f"{get_config().BURRITO_API_URL}/registration/",
         json={
             "firstname": "firstname",
             "lastname": "lastname",
@@ -35,7 +35,7 @@ def make_user_registration(
     _response_schema = {
         "type": "object",
         "properties": {
-            "status": {"type": "string"}            
+            "status": {"type": "string"}
         }
     }
 
@@ -64,7 +64,6 @@ class RegistrationTestCase(unittest.TestCase):
             login=RegistrationTestCase.random_login,
             password=RegistrationTestCase.random_password,
         )
-
 
     @unittest.skip
     def test_do_registration_with_invalid_login(self):

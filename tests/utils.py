@@ -1,15 +1,15 @@
 from typing import Any
 
-import requests
 import jsonschema
+import requests
 
-from burrito.utils.users_util import (
-    get_user_by_email_or_none,
-    create_user,
-    RegistrationSchema
-)
-from burrito.utils.hash_util import get_hash
 from burrito.utils.config_reader import get_config
+from burrito.utils.hash_util import get_hash
+from burrito.utils.users_util import (
+    RegistrationSchema,
+    create_user,
+    get_user_by_email_or_none,
+)
 
 
 def setup_test_user() -> int:
@@ -31,7 +31,7 @@ def setup_test_user() -> int:
 
 def get_token_pare() -> dict[str, Any]:
     response = requests.post(
-        f"http://{get_config().BURRITO_HOST}:{get_config().BURRITO_PORT}/auth/password/login",
+        f"{get_config().BURRITO_API_URL}/auth/password/login",
         json={
             "login": "test",
             "password": "qwertyuiop"
