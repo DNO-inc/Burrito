@@ -14,8 +14,7 @@ from burrito.utils.task_manager import get_task_manager
 
 @singleton
 class BurritoApi(FastAPI):
-    """_summary_
-
+    """
     Main application object
     """
 
@@ -24,8 +23,7 @@ class BurritoApi(FastAPI):
 
 
 def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> BurritoApi:
-    """_summary_
-
+    """
     Return current application object
 
     Returns:
@@ -62,8 +60,7 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
 
 
 async def startup_event():
-    """_summary_
-
+    """
     Setup task when when server is started
     """
 
@@ -71,8 +68,7 @@ async def startup_event():
 
 
 def connect_app(fast_api_object: FastAPI, prefix: str, router: APIRouter):
-    """_summary_
-
+    """
         Args:
         fast_api_object (FastAPI): main FastApi router
         prefix (str): app url

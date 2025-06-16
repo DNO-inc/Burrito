@@ -53,8 +53,7 @@ __Q_SEP = " > "  # separator for queue actions
 
 
 def is_ticket_exist(ticket_id: int) -> Tickets | None:
-    """_summary_
-
+    """
     Args:
         ticket_id (int): ticket ID
 
@@ -116,7 +115,7 @@ def am_i_own_this_ticket_with_error(
 def hide_ticket_body(body: str, result_length: int = 500) -> str:
     """
     Hide ticket body. This is used to cut ticket body.
-    
+
     Args:
         body: The body of the ticket.
         result_length: The length of the ticket body that will be returned for user.
@@ -472,18 +471,18 @@ def _assemble_action(history_item: dict, ticket: Tickets, current_user_id: int) 
 
     if history_item["field_name"] == "file":
         return FileActionSchema(
-                ticket_id=history_item["ticket_id"],
-                author=make_short_user_data(
-                    history_item["user_id"],
-                    hide_user_id=False if is_ticket_owner else (
-                        ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
-                    )
-                ),
-                creation_date=history_item["creation_date"],
-                field_name=history_item["field_name"],
-                value=history_item["value"],
-                file_meta_action=history_item["file_meta_action"]
-            )
+            ticket_id=history_item["ticket_id"],
+            author=make_short_user_data(
+                history_item["user_id"],
+                hide_user_id=False if is_ticket_owner else (
+                    ticket.anonymous and (history_item["user_id"] == ticket.creator.user_id)
+                )
+            ),
+            creation_date=history_item["creation_date"],
+            field_name=history_item["field_name"],
+            value=history_item["value"],
+            file_meta_action=history_item["file_meta_action"]
+        )
 
     old_value = history_item["old_value"]
     new_value = history_item["new_value"]

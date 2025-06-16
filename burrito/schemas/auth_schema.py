@@ -2,8 +2,7 @@ from pydantic import BaseModel
 
 
 class AuthSettingsModel(BaseModel):
-    """_summary_
-
+    """
     Authorization token model
 
     Args:
@@ -15,8 +14,7 @@ class AuthSettingsModel(BaseModel):
 
 
 class UserPasswordLoginSchema(BaseModel):
-    """_summary_
-
+    """
     User need to transfer this data to get access to API
 
     Args:
@@ -29,8 +27,7 @@ class UserPasswordLoginSchema(BaseModel):
 
 
 class UserKeyLoginSchema(BaseModel):
-    """_summary_
-
+    """
     User need to transfer this data to get access to API
 
     Args:

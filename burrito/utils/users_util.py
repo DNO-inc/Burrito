@@ -15,8 +15,7 @@ from burrito.utils.transliteration import transliterate
 def create_user(
     user_data: RegistrationSchema
 ) -> Users:
-    """_summary_
-
+    """
     Create user with default fields: (login, hashed_password)
 
     Args:
@@ -118,8 +117,7 @@ def create_user_with_cabinet(
 
 
 def get_user_by_login(login: str) -> Users | None:
-    """_summary_
-
+    """
     Get user if exist or return None
 
     Args:
@@ -147,8 +145,7 @@ def get_user_by_email_or_none(email: str) -> Users | None:
 
 
 def get_user_by_id(user_id: int) -> Users | None:
-    """_summary_
-
+    """
     Get user if exist or return None
 
     Args:
@@ -170,8 +167,7 @@ def get_user_by_id(user_id: int) -> Users | None:
 
 
 def get_user_by_id_or_none(user_id: int) -> Users | None:
-    """_summary_
-
+    """
     Get user if exist or return None
 
     Args:
@@ -185,8 +181,7 @@ def get_user_by_id_or_none(user_id: int) -> Users | None:
 
 
 def get_user_by_cabinet_id(cabinet_id: int) -> Users | None:
-    """_summary_
-
+    """
     Get user by cabinet ID
 
     Args:

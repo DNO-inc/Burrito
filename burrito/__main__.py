@@ -1,4 +1,4 @@
-"""_summary_
+"""
 
 Main Burrito file, that run REST API service and run all tasks,
 needed for Burrito functionality.

@@ -16,10 +16,8 @@ from burrito.utils.singleton_pattern import singleton
 @singleton
 class _TaskManager:
     def __init__(self) -> None:
-        """_summary_
-
-            Initialization event loop fot current thread
-
+        """
+        Initialization event loop fot current thread
         """
 
         self._thread_pool = ThreadPoolExecutor(max_workers=25)
@@ -31,8 +29,7 @@ class _TaskManager:
         self._thread_pool.shutdown(wait=True)
 
     def _get_running_loop(self) -> asyncio.AbstractEventLoop:
-        """_summary_
-
+        """
         Create or return running event loop
 
         Returns:
@@ -52,8 +49,7 @@ class _TaskManager:
 
     @property
     def loop(self) -> asyncio.AbstractEventLoop:
-        """_summary_
-
+        """
         Return instance of asynchronous event loop
 
         Returns:
@@ -67,8 +63,7 @@ class _TaskManager:
         return self._thread_pool
 
     def add_task(self, task, *args, daemon=False, **kwargs) -> None:
-        """_summary_
-
+        """
         Add task to execute in event loop
 
         Args:
@@ -84,8 +79,7 @@ class _TaskManager:
                 self._thread_pool.submit(task, *args, **kwargs)
 
     def add_multiply_task(self, task_list: tuple[Any]) -> None:
-        """_summary_
-
+        """
         Create few tasks using
 
         Args:
@@ -96,8 +90,7 @@ class _TaskManager:
             self.add_task(task)
 
     def run(self, *, forever: bool = True) -> None:
-        """_summary_
-
+        """
         Run current event loop forever
 
         Args:
@@ -118,8 +111,7 @@ class _TaskManager:
             )
 
     def stop(self):
-        """_summary_
-
+        """
         Stop running event loop
         """
 
@@ -127,8 +119,7 @@ class _TaskManager:
 
 
 def get_task_manager() -> _TaskManager:
-    """_summary_
-
+    """
     Interface to get access to AsyncManager
 
     Returns:

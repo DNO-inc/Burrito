@@ -27,8 +27,7 @@ class Converter:
 class GroupConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Groups | None:
-        """_summary_
-
+        """
         Args:
             int_value (int): group id
 
@@ -47,8 +46,7 @@ class GroupConverter(Converter):
 class FacultyConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Faculties | None:
-        """_summary_
-
+        """
         Args:
             int_value (int): faculty id
 
@@ -67,8 +65,7 @@ class FacultyConverter(Converter):
 class QueueConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Queues | None:
-        """_summary_
-
+        """
         Args:
             int_value (int): queue id
 
@@ -92,8 +89,7 @@ class QueueConverter(Converter):
 class StatusConverter(Converter):
     @staticmethod
     def convert(int_value: int | None) -> Statuses | None:
-        """_summary_
-
+        """
         Args:
             int_value (int): 'status' id
 

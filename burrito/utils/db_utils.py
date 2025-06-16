@@ -17,8 +17,7 @@ from burrito.utils.logger import get_logger
 
 
 def create_tables():
-    """_summary_
-
+    """
     Create all tables using models in burrito/models
     """
 
@@ -41,8 +40,7 @@ def create_tables():
 
 
 def drop_tables(use: bool = False):
-    """_summary_
-
+    """
     Drop all tables in database
 
     Args:

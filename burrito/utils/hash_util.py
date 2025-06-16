@@ -6,8 +6,7 @@ _hasher = PasswordHasher()
 
 
 def get_hash(data: str, salt: bytes | None = None) -> str:
-    """_summary_
-
+    """
     Return hash of the password
 
     Args:
@@ -21,8 +20,7 @@ def get_hash(data: str, salt: bytes | None = None) -> str:
 
 
 def compare_password(password: str, hashed_password: str) -> bool:
-    """_summary_
-
+    """
     Return True if password is equal to hashed password
 
     Args:

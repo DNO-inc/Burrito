@@ -20,8 +20,7 @@ class BurritoDatabaseCursor(ReconnectMixin, MySQLDatabase):
 
 
 def get_database_cursor() -> BurritoDatabaseCursor:
-    """_summary_
-
+    """
     Create data base cursor
 
     Returns:

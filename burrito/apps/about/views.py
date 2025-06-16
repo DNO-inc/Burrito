@@ -1,10 +1,10 @@
-from .utils import get_changelog, get_contributors
 from burrito import __version__
+
+from .utils import get_changelog, get_contributors
 
 
 async def about__get_current_version():
-    """_summary_
-
+    """
     Returns Burrito version
     """
 
@@ -12,8 +12,7 @@ async def about__get_current_version():
 
 
 async def about__get_changelog_info():
-    """_summary_
-
+    """
     Return project changelog
     """
 
@@ -23,8 +22,7 @@ async def about__get_changelog_info():
 
 
 async def about__get_info_about_team():
-    """_summary_
-
+    """
     Return information about contributors
     """
 

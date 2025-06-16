@@ -3,8 +3,7 @@ from typing import Any
 
 
 def singleton(class_) -> Any:
-    """_summary_
-
+    """
     Singleton decorator
 
     Args:

@@ -2,8 +2,7 @@ import re
 
 
 def is_valid_login(login: str) -> bool:
-    """_summary_
-
+    """
     Return user's login if login is valid or return nothing
 
     Args:
@@ -25,8 +24,7 @@ def is_valid_login(login: str) -> bool:
 
 
 def is_valid_email(email: str) -> bool:
-    """_summary_
-
+    """
     Return user's email if email is valid or return nothing
 
     Args:
@@ -45,8 +43,7 @@ def is_valid_email(email: str) -> bool:
 
 
 def is_valid_password(password: str) -> bool:
-    """_summary_
-
+    """
     Validate password by rules
 
     Args:

@@ -4,8 +4,7 @@ from burrito.utils.logger import get_logger
 
 
 def read_file(path_to_file: str) -> str:
-    """_summary_
-
+    """
     Return file content if file exist else return empty string
 
     Args:
@@ -34,8 +33,7 @@ def read_file(path_to_file: str) -> str:
 
 
 def get_changelog() -> str:
-    """_summary_
-
+    """
     Returns:
         str: changelog data in Markdown format
     """
@@ -44,8 +42,7 @@ def get_changelog() -> str:
 
 
 def get_contributors() -> str:
-    """_summary_
-
+    """
     Returns:
         str: contributors information in Markdown format
     """

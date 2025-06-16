@@ -24,8 +24,7 @@ class BurritoFormatter(logging.Formatter):
     }
 
     def format(self, record):
-        """_summary_
-
+        """
         Setup logger format
 
         Args:
@@ -43,8 +42,7 @@ class BurritoFormatter(logging.Formatter):
 @singleton
 class BurritoLogger(logging.Logger):
     def __init__(self, name: str, level: int) -> None:
-        """_summary_
-
+        """
         Args:
             name (str): logger name
             level (int): logging level
@@ -62,8 +60,7 @@ class BurritoLogger(logging.Logger):
 
 
 def get_logger(level: int = logging.DEBUG) -> logging.Logger:
-    """_summary_
-
+    """
     Args:
         level (int, optional): logging level. Defaults to logging.DEBUG.
 

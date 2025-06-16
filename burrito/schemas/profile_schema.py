@@ -15,8 +15,7 @@ class CheckProfileSchema(BaseModel):
 
 
 class BaseProfile(BaseModel):
-    """_summary_
-
+    """
     This data must be transferred by user to update profile
 
     Args:
@@ -45,8 +44,7 @@ class BaseProfile(BaseModel):
 
 
 class ResponseProfileSchema(BaseProfile):
-    """_summary_
-
+    """
     This data must be transferred by user to update profile
 
     Args:
