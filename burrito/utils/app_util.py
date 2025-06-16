@@ -24,7 +24,7 @@ class BurritoApi(FastAPI):
         super().__init__(*args, **kwargs)
 
 
-def get_current_app() -> BurritoApi:
+def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> BurritoApi:
     """_summary_
 
     Return current application object
@@ -33,8 +33,6 @@ def get_current_app() -> BurritoApi:
         BurritoApi: current application object
     """
 
-    docs_url = get_config().BURRITO_DOCS_URL or "/docs"
-    openapi_url = get_config().BURRITO_OPENAPI_URL or "/openapi.json"
     root_path = get_config().BURRITO_ROOT_PATH or ""
 
     app: FastAPI = BurritoApi(
