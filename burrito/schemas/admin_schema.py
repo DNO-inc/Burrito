@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.filters_schema import BaseFilterSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
@@ -10,7 +10,7 @@ from burrito.schemas.status_schema import StatusResponseSchema
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
     assignee_id: int | None
-    faculty: int | None
+    division: int | None
     queue: int | None
     status: int | None
 
@@ -26,7 +26,7 @@ class AdminTicketAuthorInfo(BaseModel):
     firstname: str | None
     lastname: str | None
     login: str
-    faculty: FacultyResponseSchema
+    division: DivisionResponseSchema
     group: GroupResponseSchema | None
 
 
@@ -39,7 +39,7 @@ class AdminTicketDetailInfo(BaseModel):
     body: str
     hidden: bool
     anonymous: bool
-    faculty: FacultyResponseSchema
+    division: DivisionResponseSchema
     queue: QueueResponseSchema | None
     status: StatusResponseSchema
     upvotes: int

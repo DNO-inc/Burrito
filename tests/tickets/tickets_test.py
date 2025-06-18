@@ -25,7 +25,7 @@ def create_ticket_get_id(subject: str) -> int:
             "hidden": True if random.randint(0, 9) % 2 == 0 else False,
             "anonymous": True if random.randint(0, 9) % 2 == 0 else False,
             "queue": 1,
-            "faculty": 414,
+            "division": 414,
         },
         timeout=TIMEOUT
     )

@@ -6,31 +6,31 @@ from burrito.utils.logger import get_logger
 
 SSU_FACULTIES_URL = "https://iis.sumdu.edu.ua/api/getDivisions"
 
-__PLUGIN_CLASS = "FacultyPlugin"
+__PLUGIN_CLASS = "DivisionPlugin"
 
 
-class FacultyPlugin(BurritoBasePlugin):
-    plugin_name: str = "faculty_updates"
+class DivisionPlugin(BurritoBasePlugin):
+    plugin_name: str = "division_updates"
 
     @staticmethod
     def execute(*args, **kwargs):
         try:
-            raw_faculties_data = requests.get(
+            raw_divisions_data = requests.get(
                 f"{SSU_FACULTIES_URL}?key={get_config().BURRITO_SSU_KEY}",
                 timeout=30
             )
-            if raw_faculties_data.status_code != 200:
+            if raw_divisions_data.status_code != 200:
                 get_logger().warning(
-                    f"{SSU_FACULTIES_URL}  status code is {raw_faculties_data.status_code}"
+                    f"{SSU_FACULTIES_URL}  status code is {raw_divisions_data.status_code}"
                 )
-            raw_faculties_data = raw_faculties_data.json()["result"]
+            raw_divisions_data = raw_divisions_data.json()["result"]
 
             return [
                 {
-                    "faculty_id": raw_group["ID_DIV"],
+                    "division_id": raw_group["ID_DIV"],
                     "name": raw_group["ABBR_DIV"]
-                } for raw_group in raw_faculties_data if (
-                    raw_group["ID_DIV"] and raw_group["ABBR_DIV"] and raw_group["KOD_TYPE"] in (7, 9)
+                } for raw_group in raw_divisions_data if (
+                    raw_group["ID_DIV"] and raw_group["ABBR_DIV"] and raw_group["KOD_TYPE"]
                 )
             ]
         except Exception as e:

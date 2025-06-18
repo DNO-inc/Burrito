@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_ticket_files import TicketFiles
 from burrito.models.tickets_model import Tickets
@@ -17,7 +16,7 @@ from burrito.schemas.admin_schema import (
 )
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 from burrito.utils.auth import get_current_user
-from burrito.utils.converter import FacultyConverter, QueueConverter, StatusConverter
+from burrito.utils.converter import DivisionConverter, QueueConverter, StatusConverter
 from burrito.utils.logger import get_logger
 from burrito.utils.mongo_util import mongo_delete, mongo_delete_file, mongo_select
 from burrito.utils.query_util import (
@@ -26,7 +25,7 @@ from burrito.utils.query_util import (
     q_followed,
     q_is_anonymous,
     q_is_hidden,
-    q_is_valid_faculty,
+    q_is_valid_division,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_scope_is,
@@ -34,7 +33,7 @@ from burrito.utils.query_util import (
 from burrito.utils.tickets_util import (
     am_i_own_this_ticket,
     change_ticket_assignee,
-    change_ticket_faculty,
+    change_ticket_division,
     change_ticket_queue,
     change_ticket_status,
     get_filtered_bookmarks,
@@ -45,6 +44,8 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.users_util import get_user_by_id
 
+from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
+
 
 async def admin__update_ticket_data(
     admin_updates: AdminUpdateTicketSchema,
@@ -54,9 +55,9 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    faculty_object = FacultyConverter.convert(admin_updates.faculty) if admin_updates.faculty else None
-    if faculty_object:
-        change_ticket_faculty(ticket, _curr_user.user_id, faculty_object)
+    division_object = DivisionConverter.convert(admin_updates.division) if admin_updates.division else None
+    if division_object:
+        change_ticket_division(ticket, _curr_user.user_id, division_object)
 
     queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
     if queue_object:
@@ -75,7 +76,7 @@ async def admin__update_ticket_data(
             get_user_by_id(admin_updates.assignee_id) if admin_updates.assignee_id >= 0 else None
         )
 
-    if any((faculty_object, queue_object, status_object, admin_updates.assignee_id)):
+    if any((division_object, queue_object, status_object, admin_updates.assignee_id)):
         ticket.save()
 
     return JSONResponse(
@@ -93,7 +94,7 @@ async def admin__get_ticket_list_by_filter(
         q_assignee_is(filters.assignee),
         q_is_hidden(filters.hidden),
         q_is_anonymous(filters.anonymous),
-        q_is_valid_faculty(filters.faculty),
+        q_is_valid_division(filters.division),
         q_is_valid_status_list(filters.status),
         q_scope_is(filters.scope),
         q_is_valid_queue(filters.queue)
@@ -265,7 +266,7 @@ async def admin__get_followed_tickets(
     admin_filters = [
         q_is_hidden(_filters.hidden),
         q_is_anonymous(_filters.anonymous),
-        q_is_valid_faculty(_filters.faculty),
+        q_is_valid_division(_filters.division),
         q_is_valid_status_list(_filters.status),
         q_scope_is(_filters.scope),
         q_is_valid_queue(_filters.queue),

@@ -13,15 +13,15 @@ statistic_activity_schema = {
     }
 }
 
-statistic_faculty_schema = {
+statistic_division_schema = {
     "type": "object",
     "properties": {
-        "faculties_data": {
+        "divisions_data": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "faculty_id": {
+                    "division_id": {
                         "type": "integer"
                     },
                     "name": {
@@ -54,12 +54,12 @@ statistic_period_schema = {
                 }
             }
         },
-        "faculty_scopes": {
+        "division_scopes": {
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
-                    "faculty_id": {
+                    "division_id": {
                         "type": "integer"
                     },
                     "name": {

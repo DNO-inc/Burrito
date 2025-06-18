@@ -6,7 +6,7 @@ from playhouse.shortcuts import model_to_dict
 from redis import Redis
 
 from burrito.models.bookmarks_model import Bookmarks
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.liked_model import Liked
 from burrito.models.m_actions_model import Actions, BaseAction, FileActions
 from burrito.models.m_notifications_model import NotificationMetaData, Notifications
@@ -19,7 +19,7 @@ from burrito.schemas.comment_schema import (
     CommentBaseDetailInfoSchema,
     CommentDetailInfoScheme,
 )
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 from burrito.utils.email_templates import (
     TEMPLATE__ASSIGNED_TO_TICKET,
@@ -146,8 +146,8 @@ def make_short_user_data(
         user = get_user_by_id(user)
 
     user_dict_data = model_to_dict(user)
-    user_dict_data["faculty"] = FacultyResponseSchema(
-        **model_to_dict(user.faculty)
+    user_dict_data["division"] = DivisionResponseSchema(
+        **model_to_dict(user.division)
     )
 
     if hide_user_id:
@@ -626,35 +626,35 @@ def change_ticket_queue(ticket: Tickets | int, user_id: int, new_queue: Queues) 
             user_id=user_id,
             field_name="queue",
             old_value="None" if ticket.queue is None else (
-                f"{ticket.queue.faculty.name}{__Q_SEP}{ticket.queue.scope}{__Q_SEP}{ticket.queue.name}"
+                f"{ticket.queue.division.name}{__Q_SEP}{ticket.queue.scope}{__Q_SEP}{ticket.queue.name}"
             ),
-            new_value=f"{new_queue.faculty.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
+            new_value=f"{new_queue.division.name}{__Q_SEP}{new_queue.scope}{__Q_SEP}{new_queue.name}"
         )
         ticket.queue = new_queue
 
 
-def change_ticket_faculty(ticket: Tickets | int, user_id: int, new_faculty: Faculties) -> None:
+def change_ticket_division(ticket: Tickets | int, user_id: int, new_division: Divisions) -> None:
     """
-    Change the faculty of a ticket.
+    Change the division of a ticket.
 
     Args:
-        ticket: Ticket to change the faculty of.
+        ticket: Ticket to change the division of.
         user_id: User who made the change.
-        new_faculty: New faculty to set.
+        new_division: New division to set.
     """
     if isinstance(ticket, int):
         ticket = is_ticket_exist(ticket)
 
-    # creates a ticket action if the ticket's faculty is different than the new one.
-    if ticket.faculty.faculty_id != new_faculty.faculty_id:
+    # creates a ticket action if the ticket's division is different than the new one.
+    if ticket.division.division_id != new_division.division_id:
         create_ticket_action(
             ticket_id=ticket.ticket_id,
             user_id=user_id,
-            field_name="faculty",
-            old_value=ticket.faculty.name,
-            new_value=new_faculty.name
+            field_name="division",
+            old_value=ticket.division.name,
+            new_value=new_division.name
         )
-        ticket.faculty = new_faculty
+        ticket.division = new_division
 
 
 def _assign_new_people(ticket: Tickets, initiator_id: int, new_assignee: Users, email_template_data: dict):

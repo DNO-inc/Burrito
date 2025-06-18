@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 
 
@@ -24,7 +24,7 @@ class BaseProfile(BaseModel):
 
         login (str): users login
 
-        faculty (str): faculty name
+        division (str): division name
         group (str): group name
 
         phone (str | None): phone
@@ -36,7 +36,7 @@ class BaseProfile(BaseModel):
 
     login: str
 
-    faculty: int | None
+    division: int | None
     group: int | None
 
     phone: str | None
@@ -51,7 +51,7 @@ class ResponseProfileSchema(BaseProfile):
         registration_date (str): date when user registered account
     """
 
-    faculty: FacultyResponseSchema | None
+    division: DivisionResponseSchema | None
     group: GroupResponseSchema | None
 
     role: ResponseRoleSchema
@@ -62,7 +62,7 @@ class ResponseProfileSchema(BaseProfile):
 class RequestUpdateProfileSchema(BaseModel):
     firstname: str | None
     lastname: str | None
-    faculty: int | None
+    division: int | None
     group: int | None
     phone: str | None
     login: str | None
@@ -72,7 +72,7 @@ class RequestUpdateProfileSchema(BaseModel):
 class AdminRequestUpdateProfileSchema(BaseModel):
     firstname: str | None
     lastname: str | None
-    faculty: int | None
+    division: int | None
     group: int | None
     phone: str | None
     user_id: int | None

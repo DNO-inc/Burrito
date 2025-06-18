@@ -59,13 +59,13 @@ test_groups_list_schema = {
     }
 }
 
-test_faculties_list_schema = {
+test_divisions_list_schema = {
     "type": "object",
     "properties": {
-        "faculties_list": {
+        "divisions_list": {
             "type": "array",
             "items": {
-                "faculty_id": {"type": "number"},
+                "division_id": {"type": "number"},
                 "name": {"type": "string"}
             }
         }
@@ -79,7 +79,7 @@ test_queues_list_schema = {
             "type": "array",
             "items": {
                 "queue_id": {"type": "number"},
-                "faculty": {"type": "number"},
+                "division": {"type": "number"},
                 "name": {"type": "string"},
                 "scope": {"type": "string"}
             }
@@ -87,7 +87,7 @@ test_queues_list_schema = {
     }
 }
 
-test_queues_list_with_wrong_faculty_schema = {
+test_queues_list_with_wrong_division_schema = {
     "type": "object",
     "properties": {
         "detail": {"type": "string"}
@@ -106,28 +106,28 @@ test_get_admin_list_schema = {
                     "firstname": {"type": "string"},
                     "lastname": {"type": "string"},
                     "login": {"type": "string"},
-                    "faculty": {
+                    "division": {
                         "type": "object",
                         "properties": {
-                            "faculty_id": {"type": "number"},
+                            "division_id": {"type": "number"},
                             "name": {"type": "string"}
                         },
-                        "required": ["faculty_id", "name"]
+                        "required": ["division_id", "name"]
                     },
                     "group": {
                         "oneOf": [
-                            { "type": "null" },
+                            {"type": "null"},
                             {
                                 "type": "object",
                                 "properties": {
-                                    "group_id": { "type": "number" },
-                                    "name": { "type": "string" }
+                                    "group_id": {"type": "number"},
+                                    "name": {"type": "string"}
                                 }
                             }
                         ]
                     }
                 },
-                "required": ["user_id", "firstname", "lastname", "login", "faculty", "group"]
+                "required": ["user_id", "firstname", "lastname", "login", "division", "group"]
             }
         }
     },

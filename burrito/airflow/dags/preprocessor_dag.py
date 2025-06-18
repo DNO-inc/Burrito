@@ -5,7 +5,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 from burrito.airflow.utils import preprocessor_task
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.permissions_model import Permissions
 from burrito.models.queues_model import Queues
@@ -15,7 +15,7 @@ from burrito.models.statuses_model import Statuses
 
 MODEL_KEYS = {
     "groups": Groups,
-    "faculties": Faculties,
+    "divisions": Divisions,
     "statuses": Statuses,
     "queues": Queues,
     "permissions": Permissions,

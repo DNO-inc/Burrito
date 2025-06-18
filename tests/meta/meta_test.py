@@ -53,35 +53,35 @@ class MetaTestCase(unittest.TestCase):
 
         jsonschema.validate(response.json(), test_groups_list_schema)
 
-    def test_faculties_list(self):
+    def test_divisions_list(self):
         response = requests.get(
-            f"{get_config().BURRITO_API_URL}/meta/get_faculties",
+            f"{get_config().BURRITO_API_URL}/meta/get_divisions",
             timeout=TIMEOUT
         )
 
-        jsonschema.validate(response.json(), test_faculties_list_schema)
+        jsonschema.validate(response.json(), test_divisions_list_schema)
 
     def test_queues_list(self):
         response = requests.post(
             f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
-                "faculty": 414
+                "division": 414
             },
             timeout=TIMEOUT
         )
 
         jsonschema.validate(response.json(), test_queues_list_schema)
 
-    def test_queues_list_with_wrong_faculty(self):
+    def test_queues_list_with_wrong_division(self):
         response = requests.post(
             f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
-                "faculty": 999999999
+                "division": 999999999
             },
             timeout=TIMEOUT
         )
 
-        jsonschema.validate(response.json(), test_queues_list_with_wrong_faculty_schema)
+        jsonschema.validate(response.json(), test_queues_list_with_wrong_division_schema)
 
     def test_get_admin_list(self):
         response = requests.post(

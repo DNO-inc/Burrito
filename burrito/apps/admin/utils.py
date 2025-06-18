@@ -6,11 +6,11 @@ from burrito.models.roles_model import Roles
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
 from burrito.schemas.admin_schema import AdminTicketDetailInfo
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.profile_schema import AdminRequestUpdateProfileSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
-from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.converter import DivisionConverter, GroupConverter
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.tickets_util import (
     hide_ticket_body,
@@ -54,13 +54,13 @@ def make_ticket_detail_info(
         body=hide_ticket_body(ticket.body, 500) if crop_body else ticket.body,
         hidden=ticket.hidden,
         anonymous=ticket.anonymous,
-        faculty=FacultyResponseSchema(
-            faculty_id=ticket.faculty.faculty_id,
-            name=ticket.faculty.name
+        division=DivisionResponseSchema(
+            division_id=ticket.division.division_id,
+            name=ticket.division.name
         ),
         queue=QueueResponseSchema(
             queue_id=queue.queue_id,
-            faculty=queue.faculty.faculty_id,
+            division=queue.division.division_id,
             name=queue.name,
             scope=queue.scope
         ) if queue else None,
@@ -104,11 +104,11 @@ async def update_profile_as_admin(
     if is_valid_phone(profile_updated_data.phone):
         current_user.phone = profile_updated_data.phone
 
-    # check faculty
-    if profile_updated_data.faculty:
-        faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
-        if faculty_id:
-            current_user.faculty = faculty_id
+    # check division
+    if profile_updated_data.division:
+        division_id = DivisionConverter.convert(profile_updated_data.division)
+        if division_id:
+            current_user.division = division_id
 
     # check group
     if profile_updated_data.group:

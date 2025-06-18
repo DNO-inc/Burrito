@@ -1,17 +1,18 @@
 from fastapi import HTTPException, status
 from fastapi.responses import JSONResponse
 
-from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
 from burrito.models.m_email_code import EmailVerificationCode
 from burrito.models.user_model import Users
 from burrito.schemas.email_code import EmailVerificationCodeSchema
 from burrito.schemas.registration_schema import RegistrationSchema
 from burrito.utils.auth import AuthTokenPayload, create_token_pare
-from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.converter import DivisionConverter, GroupConverter
 from burrito.utils.email_util import tmp_send_email
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.users_util import get_user_by_email_or_none
+
+from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
 
 EMAIL_VERIFICATIONS_TEMPLATE = """Добрий день,
 
@@ -71,7 +72,7 @@ async def registration__user_registration(
 
     if user_data.group is not None:
         GroupConverter.convert(user_data.group)
-    FacultyConverter.convert(user_data.faculty)
+    DivisionConverter.convert(user_data.division)
 
     verification_code = generate_email_code()
     mongo_insert(
@@ -85,7 +86,7 @@ async def registration__user_registration(
             login=user_data.login,
             password=get_hash(user_data.password),
             group=user_data.group,
-            faculty=user_data.faculty,
+            division=user_data.division,
             phone=user_data.phone,
             email=user_data.email
         )

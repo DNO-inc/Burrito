@@ -2,7 +2,7 @@ import orjson as json
 import pymysql.cursors
 from peewee import IntegrityError
 
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.permissions_model import Permissions
 from burrito.models.queues_model import Queues
@@ -17,7 +17,7 @@ from burrito.utils.task_manager import get_task_manager
 
 MODEL_KEYS = {
     "groups": Groups,
-    "faculties": Faculties,
+    "divisions": Divisions,
     "statuses": Statuses,
     "queues": Queues,
     "permissions": Permissions,
@@ -55,7 +55,7 @@ def preprocessor_task():
 
         data: dict = DEFAULT_CONFIG
         data["groups"] = PluginLoader.execute_plugin("group_updates")
-        data["faculties"] += PluginLoader.execute_plugin("faculty_updates")
+        data["divisions"] += PluginLoader.execute_plugin("division_updates")
 
         for key, value in data.items():
             if not key.startswith("__"):
@@ -76,7 +76,7 @@ def preprocessor_task():
             if config_filtered_values.difference(db_filtered_values):
                 for value in config_values:
                     try:
-                        if table in ("groups", "faculties"):
+                        if table in ("groups", "divisions"):
                             get_task_manager().add_task(MODEL_KEYS[table].create, **value)
                         else:
                             if table == "queues":

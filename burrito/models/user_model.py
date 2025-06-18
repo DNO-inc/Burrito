@@ -1,7 +1,7 @@
 from peewee import AutoField, CharField, DateTimeField, ForeignKeyField, TextField
 
 from burrito.models.basic_model import BurritoBasicModel
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.roles_model import Roles
 from burrito.utils.date import get_datetime_now
@@ -22,9 +22,9 @@ class Users(BurritoBasicModel):
 
     login = CharField(50, unique=True)
 
-    faculty = ForeignKeyField(
-        Faculties,
-        field="faculty_id",
+    division = ForeignKeyField(
+        Divisions,
+        field="division_id",
         on_delete="NO ACTION"
     )
 
@@ -49,4 +49,4 @@ class Users(BurritoBasicModel):
     )
 
     class Meta:
-        depends_on = [Roles, Groups, Faculties]
+        depends_on = [Roles, Groups, Divisions]

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from .views import (
-    meta__faculties_list,
+    meta__divisions_list,
     meta__get_admins,
     meta__get_groups_list,
     meta__get_queues_list,
@@ -25,8 +25,8 @@ meta_router.add_api_route(
 )
 
 meta_router.add_api_route(
-    "/get_faculties",
-    meta__faculties_list,
+    "/get_divisions",
+    meta__divisions_list,
     methods=["GET"]
 )
 
