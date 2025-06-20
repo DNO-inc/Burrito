@@ -97,7 +97,7 @@ class ProfileTestCase(unittest.TestCase):
                 "email": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "phone": "".join(random.sample(string.ascii_letters, 5)) if random.randint(0, 10) % 2 == 0 else None,
                 "division": random.choice([414, 1675]),
-                "group": random.choice([1003254, 1003565]),
+                "group_id": random.choice([1003254, 1003565]),
             },
             timeout=0.5
         )

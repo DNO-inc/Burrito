@@ -70,8 +70,8 @@ async def registration__user_registration(
             detail="User with the same login is in registration process"
         )
 
-    if user_data.group is not None:
-        GroupConverter.convert(user_data.group)
+    if user_data.group_id is not None:
+        GroupConverter.convert(user_data.group_id)
     DivisionConverter.convert(user_data.division_id)
 
     verification_code = generate_email_code()
@@ -85,7 +85,7 @@ async def registration__user_registration(
             lastname=user_data.lastname,
             login=user_data.login,
             password=get_hash(user_data.password),
-            group=user_data.group,
+            group_id=user_data.group_id,
             division_id=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email

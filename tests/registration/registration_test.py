@@ -13,7 +13,7 @@ TIMEOUT = 5
 def make_user_registration(
     login: str = "".join(random.sample(string.ascii_letters, 5)),
     password: str = "".join(random.sample(string.ascii_letters, 8)),
-    group: int = 1003254,
+    group_id: int = 1003254,
     division_id: int = 414
 ):
     response = requests.post(
@@ -24,7 +24,7 @@ def make_user_registration(
             "login": login,
             "password": password,
             "email": "".join(random.sample(string.ascii_letters, 5)),
-            "group": group,
+            "group_id": group_id,
             "division": division_id
         },
         timeout=TIMEOUT
@@ -88,7 +88,7 @@ class RegistrationTestCase(unittest.TestCase):
         """make registration with invalid datas"""
 
         make_user_registration(
-            group="hello_man_11"
+            group_id="hello_man_11"
         )
 
     @unittest.skip

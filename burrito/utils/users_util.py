@@ -29,8 +29,8 @@ def create_user(
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
     # check if provided group/division is exist
-    if user_data.group is not None:
-        GroupConverter.convert(user_data.group)
+    if user_data.group_id is not None:
+        GroupConverter.convert(user_data.group_id)
     DivisionConverter.convert(user_data.division_id)
 
     try:
@@ -39,7 +39,7 @@ def create_user(
             lastname=user_data.lastname,
             login=user_data.login,
             password=user_data.password,  # password already hashed by argon2
-            group=user_data.group,
+            group=user_data.group_id,
             division=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email,
@@ -51,7 +51,7 @@ def create_user(
         get_logger().info(
             f"""
                 login: {user_data.login}
-                group: {user_data.group}
+                group: {user_data.group_id}
                 division: {user_data.division_id}
                 role: {role_object.name}
 
@@ -65,7 +65,7 @@ def create_user_with_cabinet(
     firstname: str,
     lastname: str,
     division_id: int,
-    group: int,
+    group_id: int,
     email: int,
 ) -> Users | None:
 
@@ -75,18 +75,18 @@ def create_user_with_cabinet(
     tmp_user_login = transliterate(f"{firstname} {salt}")
 
     try:
-        DivisionConverter.convert(division)
+        DivisionConverter.convert(division_id)
 
     except Exception:
-        get_logger().critical(f"Division is invalid: {division}")
-        division = 1
+        get_logger().critical(f"Division is invalid: {division_id}")
+        division_id = 1
 
     try:
-        GroupConverter.convert(group)
+        GroupConverter.convert(group_id)
 
     except Exception:
-        get_logger().critical(f"Group is invalid: {group}")
-        group = None
+        get_logger().critical(f"Group is invalid: {group_id}")
+        group_id = None
 
     try:
         user: Users = Users.create(
@@ -94,8 +94,8 @@ def create_user_with_cabinet(
             firstname=firstname,
             lastname=lastname,
             login=tmp_user_login,
-            division=division,
-            group=group,
+            division=division_id,
+            group=group_id,
             email=email,
             role=role_object
         )

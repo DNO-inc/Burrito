@@ -7,7 +7,7 @@ class RegistrationSchema(BaseModel):
 
     login: str
     password: str
-    group: int | None = None
+    group_id: int | None = None
     division_id: int
 
     phone: str | None

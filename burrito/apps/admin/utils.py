@@ -111,8 +111,8 @@ async def update_profile_as_admin(
             current_user.division = division_id
 
     # check group
-    if profile_updated_data.group:
-        group_id = GroupConverter.convert(profile_updated_data.group)
+    if profile_updated_data.group_id:
+        group_id = GroupConverter.convert(profile_updated_data.group_id)
         if group_id:
             current_user.group = group_id
 
