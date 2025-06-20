@@ -90,8 +90,8 @@ async def admin__get_ticket_list_by_filter(
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
     admin_filters = [
-        q_creator_is(filters.creator),
-        q_assignee_is(filters.assignee),
+        q_creator_is(filters.creator_id),
+        q_assignee_is(filters.assignee_id),
         q_is_hidden(filters.hidden),
         q_is_anonymous(filters.anonymous),
         q_is_valid_division(filters.division_id),

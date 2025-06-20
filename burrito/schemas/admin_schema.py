@@ -16,8 +16,8 @@ class AdminUpdateTicketSchema(BaseModel):
 
 
 class AdminGetTicketListSchema(BaseFilterSchema):
-    creator: int | None
-    assignee: int | None
+    creator_id: int | None
+    assignee_id: int | None
     hidden: bool | None
 
 

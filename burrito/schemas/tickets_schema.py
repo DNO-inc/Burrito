@@ -26,8 +26,8 @@ class UpdateTicketSchema(BaseModel):
 
 
 class TicketListRequestSchema(BaseFilterSchema):
-    creator: int | None
-    assignee: int | None
+    creator_id: int | None
+    assignee_id: int | None
     hidden: bool | None
 
 

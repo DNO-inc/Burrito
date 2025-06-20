@@ -50,8 +50,8 @@ async def tickets__show_tickets_list_by_filter(
 
     available_filters = {
         "default": [
-            q_creator_is(filters.creator) if filters.creator else None,
-            q_assignee_is(filters.assignee),
+            q_creator_is(filters.creator_id) if filters.creator_id else None,
+            q_assignee_is(filters.assignee_id),
             q_is_anonymous(filters.anonymous),
             q_is_valid_division(filters.division_id),
             q_is_valid_status_list(filters.status),
