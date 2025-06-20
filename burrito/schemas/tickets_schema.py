@@ -13,7 +13,7 @@ class CreateTicketSchema(BaseModel):
     body: str
     hidden: bool
     anonymous: bool
-    queue: int
+    queue_id: int
     division_id: int
 
 

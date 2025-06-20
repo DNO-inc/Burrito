@@ -59,7 +59,7 @@ async def admin__update_ticket_data(
     if division_object:
         change_ticket_division(ticket, _curr_user.user_id, division_object)
 
-    queue_object = QueueConverter.convert(admin_updates.queue) if admin_updates.queue else None
+    queue_object = QueueConverter.convert(admin_updates.queue_id) if admin_updates.queue_id else None
     if queue_object:
         change_ticket_queue(ticket, _curr_user.user_id, queue_object)
 

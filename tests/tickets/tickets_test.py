@@ -24,7 +24,7 @@ def create_ticket_get_id(subject: str) -> int:
             "body": "".join([random.choice(string.ascii_letters) for i in range(700)]),
             "hidden": random.randint(0, 9) % 2 == 0,
             "anonymous": random.randint(0, 9) % 2 == 0,
-            "queue": 1,
+            "queue_id": 1,
             "division_id": 414,
         },
         timeout=TIMEOUT

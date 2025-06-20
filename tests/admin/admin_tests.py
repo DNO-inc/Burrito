@@ -43,7 +43,7 @@ class AdminTestCase(unittest.TestCase):
             },
             json={
                 "scope": 'Reports',
-                "queue": [2],
+                "queue_id": [2],
                 "status": [6],
                 "hidden": True,
                 "anonymous": True

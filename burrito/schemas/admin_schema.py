@@ -11,7 +11,7 @@ class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
     assignee_id: int | None
     division_id: int | None
-    queue: int | None
+    queue_id: int | None
     status: int | None
 
 
