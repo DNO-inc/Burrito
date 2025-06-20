@@ -20,7 +20,7 @@ class AdminTestCase(unittest.TestCase):
             },
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
-                "status": random.choice([1, 2, 3, 4, 5]),
+                "status_id": random.choice([1, 2, 3, 4, 5]),
                 "division_id": 1
             },
             timeout=TIMEOUT
@@ -44,7 +44,7 @@ class AdminTestCase(unittest.TestCase):
             json={
                 "scope": 'Reports',
                 "queue_id": [2],
-                "status": [6],
+                "status_id": [6],
                 "hidden": True,
                 "anonymous": True
             },

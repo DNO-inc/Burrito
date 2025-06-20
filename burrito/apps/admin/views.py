@@ -65,7 +65,7 @@ async def admin__update_ticket_data(
 
     status_object = None
     if ticket.assignee and ticket.assignee.user_id == _curr_user.user_id:
-        status_object = StatusConverter.convert(admin_updates.status) if admin_updates.status else None
+        status_object = StatusConverter.convert(admin_updates.status_id) if admin_updates.status_id else None
         if status_object and ticket.queue:
             change_ticket_status(ticket, _curr_user.user_id, status_object)
 

@@ -15,7 +15,7 @@ class AnonTestCase(unittest.TestCase):
         response = requests.post(
             f"{get_config().BURRITO_API_URL}/anon/ticket_list",
             json={
-                #                "status": [1, 2, 3],
+                #                "status_id": [1, 2, 3],
                 "anonymous": False
             },
             timeout=TIMEOUT

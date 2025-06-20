@@ -35,7 +35,7 @@ def make_user_registration(
     _response_schema = {
         "type": "object",
         "properties": {
-            "status": {"type": "string"}
+            "status_id": {"type": "string"}
         }
     }
 

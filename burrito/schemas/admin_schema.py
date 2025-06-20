@@ -12,7 +12,7 @@ class AdminUpdateTicketSchema(BaseModel):
     assignee_id: int | None
     division_id: int | None
     queue_id: int | None
-    status: int | None
+    status_id: int | None
 
 
 class AdminGetTicketListSchema(BaseFilterSchema):
