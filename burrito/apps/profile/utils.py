@@ -89,8 +89,8 @@ async def update_profile_data(
         current_user.phone = profile_updated_data.phone
 
     # check division
-    if profile_updated_data.division:
-        division_id = DivisionConverter.convert(profile_updated_data.division)
+    if profile_updated_data.division_id:
+        division_id = DivisionConverter.convert(profile_updated_data.division_id)
         if division_id:
             current_user.division = division_id
 

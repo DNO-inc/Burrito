@@ -14,7 +14,7 @@ class CreateTicketSchema(BaseModel):
     hidden: bool
     anonymous: bool
     queue: int
-    division: int
+    division_id: int
 
 
 class UpdateTicketSchema(BaseModel):

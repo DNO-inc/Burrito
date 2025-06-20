@@ -121,7 +121,7 @@ async def tickets__get_liked_tickets(
         "default": [
             q_owned_or_not_hidden(_curr_user.user_id, _filters.hidden),
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_division(_filters.division),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),

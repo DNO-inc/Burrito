@@ -21,7 +21,7 @@ class AdminTestCase(unittest.TestCase):
             json={
                 "ticket_id": TicketsTestCase.first_ticket,
                 "status": random.choice([1, 2, 3, 4, 5]),
-                "division": 1
+                "division_id": 1
             },
             timeout=TIMEOUT
         )

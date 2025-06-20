@@ -21,7 +21,7 @@ def setup_test_user() -> int:
                 lastname="test",
                 login="test",
                 password=get_hash("qwertyuiop"),
-                division=414,
+                division_id=414,
                 email=""
             )
         )

@@ -34,7 +34,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
         "default": [
             q_is_anonymous(filters.anonymous),
-            q_is_valid_division(filters.division),
+            q_is_valid_division(filters.division_id),
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
@@ -85,7 +85,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 ),
                 queue=QueueResponseSchema(
                     queue_id=queue.queue_id,
-                    division=queue.division.division_id,
+                    division_id=queue.division.division_id,
                     name=queue.name,
                     scope=queue.scope
                 ) if queue else None,

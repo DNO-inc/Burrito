@@ -38,11 +38,11 @@ scheme_test_anon_tickets_list_filter = {
                         "type": "object",
                         "properties": {
                             "queue_id": {"type": "number"},
-                            "division": {"type": "number"},
+                            "division_id": {"type": "number"},
                             "name": {"type": "string"},
                             "scope": {"type": "string"}
                         },
-                        "required": ["queue_id", "division", "name", "scope"]
+                        "required": ["queue_id", "division_id", "name", "scope"]
                     },
                     "status": {
                         "type": "object",

@@ -14,7 +14,7 @@ def make_user_registration(
     login: str = "".join(random.sample(string.ascii_letters, 5)),
     password: str = "".join(random.sample(string.ascii_letters, 8)),
     group: int = 1003254,
-    division: int = 414
+    division_id: int = 414
 ):
     response = requests.post(
         f"{get_config().BURRITO_API_URL}/registration/",
@@ -25,7 +25,7 @@ def make_user_registration(
             "password": password,
             "email": "".join(random.sample(string.ascii_letters, 5)),
             "group": group,
-            "division": division
+            "division": division_id
         },
         timeout=TIMEOUT
     )
@@ -96,7 +96,7 @@ class RegistrationTestCase(unittest.TestCase):
         """make registration with invalid datas"""
 
         make_user_registration(
-            division="hello_man_11"
+            division_id="hello_man_11"
         )
 
     @unittest.skip

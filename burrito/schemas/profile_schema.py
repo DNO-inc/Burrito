@@ -36,7 +36,7 @@ class BaseProfile(BaseModel):
 
     login: str
 
-    division: int | None
+    division_id: int | None
     group: int | None
 
     phone: str | None
@@ -62,7 +62,7 @@ class ResponseProfileSchema(BaseProfile):
 class RequestUpdateProfileSchema(BaseModel):
     firstname: str | None
     lastname: str | None
-    division: int | None
+    division_id: int | None
     group: int | None
     phone: str | None
     login: str | None
@@ -72,7 +72,7 @@ class RequestUpdateProfileSchema(BaseModel):
 class AdminRequestUpdateProfileSchema(BaseModel):
     firstname: str | None
     lastname: str | None
-    division: int | None
+    division_id: int | None
     group: int | None
     phone: str | None
     user_id: int | None

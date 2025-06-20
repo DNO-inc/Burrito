@@ -79,7 +79,7 @@ test_queues_list_schema = {
             "type": "array",
             "items": {
                 "queue_id": {"type": "number"},
-                "division": {"type": "number"},
+                "division_id": {"type": "number"},
                 "name": {"type": "string"},
                 "scope": {"type": "string"}
             }

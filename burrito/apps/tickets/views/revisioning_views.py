@@ -53,7 +53,7 @@ async def tickets__show_tickets_list_by_filter(
             q_creator_is(filters.creator) if filters.creator else None,
             q_assignee_is(filters.assignee),
             q_is_anonymous(filters.anonymous),
-            q_is_valid_division(filters.division),
+            q_is_valid_division(filters.division_id),
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),

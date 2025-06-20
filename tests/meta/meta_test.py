@@ -65,7 +65,7 @@ class MetaTestCase(unittest.TestCase):
         response = requests.post(
             f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
-                "division": 414
+                "division_id": 414
             },
             timeout=TIMEOUT
         )
@@ -76,7 +76,7 @@ class MetaTestCase(unittest.TestCase):
         response = requests.post(
             f"{get_config().BURRITO_API_URL}/meta/get_queues",
             json={
-                "division": 999999999
+                "division_id": 9999
             },
             timeout=TIMEOUT
         )

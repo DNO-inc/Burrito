@@ -67,12 +67,12 @@ tickets_list_response_schema_template = {
                     "queue": {
                         "type": "object",
                         "properties": {
-                            "division": {"type": "integer"},
+                            "division_id": {"type": "integer"},
                             "name": {"type": "string"},
                             "queue_id": {"type": "integer"},
                             "scope": {"type": "string"}
                         },
-                        "required": ["division", "name", "queue_id", "scope"]
+                        "required": ["division_id", "name", "queue_id", "scope"]
                     },
                     "status": {
                         "type": "object",
@@ -151,12 +151,12 @@ test_009_ticket_detail_view_schemas = {
         "queue": {
             "type": "object",
             "properties": {
-                "division": {"type": "integer"},
+                "division_id": {"type": "integer"},
                 "name": {"type": "string"},
                 "queue_id": {"type": "integer"},
                 "scope": {"type": "string"}
             },
-            "required": ["division", "name", "queue_id", "scope"]
+            "required": ["division_id", "name", "queue_id", "scope"]
         },
         "status": {
             "type": "object",

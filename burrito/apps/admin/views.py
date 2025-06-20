@@ -55,7 +55,7 @@ async def admin__update_ticket_data(
         admin_updates.ticket_id
     )
 
-    division_object = DivisionConverter.convert(admin_updates.division) if admin_updates.division else None
+    division_object = DivisionConverter.convert(admin_updates.division_id) if admin_updates.division_id else None
     if division_object:
         change_ticket_division(ticket, _curr_user.user_id, division_object)
 
@@ -94,7 +94,7 @@ async def admin__get_ticket_list_by_filter(
         q_assignee_is(filters.assignee),
         q_is_hidden(filters.hidden),
         q_is_anonymous(filters.anonymous),
-        q_is_valid_division(filters.division),
+        q_is_valid_division(filters.division_id),
         q_is_valid_status_list(filters.status),
         q_scope_is(filters.scope),
         q_is_valid_queue(filters.queue)
@@ -266,7 +266,7 @@ async def admin__get_followed_tickets(
     admin_filters = [
         q_is_hidden(_filters.hidden),
         q_is_anonymous(_filters.anonymous),
-        q_is_valid_division(_filters.division),
+        q_is_valid_division(_filters.division_id),
         q_is_valid_status_list(_filters.status),
         q_scope_is(_filters.scope),
         q_is_valid_queue(_filters.queue),

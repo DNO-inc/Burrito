@@ -31,7 +31,7 @@ def create_user(
     # check if provided group/division is exist
     if user_data.group is not None:
         GroupConverter.convert(user_data.group)
-    DivisionConverter.convert(user_data.division)
+    DivisionConverter.convert(user_data.division_id)
 
     try:
         user: Users = Users.create(
@@ -40,7 +40,7 @@ def create_user(
             login=user_data.login,
             password=user_data.password,  # password already hashed by argon2
             group=user_data.group,
-            division=user_data.division,
+            division=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email,
             role=role_object
@@ -52,7 +52,7 @@ def create_user(
             f"""
                 login: {user_data.login}
                 group: {user_data.group}
-                division: {user_data.division}
+                division: {user_data.division_id}
                 role: {role_object.name}
 
             """
@@ -64,7 +64,7 @@ def create_user_with_cabinet(
     cabinet_id: str,
     firstname: str,
     lastname: str,
-    division: int,
+    division_id: int,
     group: int,
     email: int,
 ) -> Users | None:

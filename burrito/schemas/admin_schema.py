@@ -10,7 +10,7 @@ from burrito.schemas.status_schema import StatusResponseSchema
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
     assignee_id: int | None
-    division: int | None
+    division_id: int | None
     queue: int | None
     status: int | None
 

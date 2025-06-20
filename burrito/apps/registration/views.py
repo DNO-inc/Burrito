@@ -72,7 +72,7 @@ async def registration__user_registration(
 
     if user_data.group is not None:
         GroupConverter.convert(user_data.group)
-    DivisionConverter.convert(user_data.division)
+    DivisionConverter.convert(user_data.division_id)
 
     verification_code = generate_email_code()
     mongo_insert(
@@ -86,7 +86,7 @@ async def registration__user_registration(
             login=user_data.login,
             password=get_hash(user_data.password),
             group=user_data.group,
-            division=user_data.division,
+            division_id=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email
         )

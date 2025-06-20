@@ -56,14 +56,14 @@ async def meta__divisions_list():
 
 
 async def meta__get_queues_list(division_data: RequestQueueListSchema):
-    division_object = DivisionConverter.convert(division_data.division)
+    division_object = DivisionConverter.convert(division_data.division_id)
 
     response_list: list[QueueResponseSchema] = []
     for queue in Queues.select().where(
         Queues.division == division_object
     ):
         queue = model_to_dict(queue)
-        queue["division"] = division_object.division_id
+        queue["division_id"] = division_object.division_id
 
         response_list.append(
             QueueResponseSchema(

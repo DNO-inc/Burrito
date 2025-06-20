@@ -121,7 +121,7 @@ async def tickets__get_bookmarked_tickets(
     available_filters = {
         "default": [
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_division(_filters.division),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
@@ -176,7 +176,7 @@ async def tickets__get_followed_tickets(
         "default": [
             q_not_hidden(),
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_division(_filters.division),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),

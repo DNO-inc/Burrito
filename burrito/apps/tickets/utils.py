@@ -88,7 +88,7 @@ def make_ticket_detail_info(
         ),
         queue=QueueResponseSchema(
             queue_id=queue.queue_id,
-            division=queue.division.division_id,
+            division_id=queue.division.division_id,
             name=queue.name,
             scope=queue.scope
         ) if queue else None,

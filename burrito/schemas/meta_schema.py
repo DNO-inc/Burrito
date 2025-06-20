@@ -19,7 +19,7 @@ class ResponseFacultiesListSchema(BaseModel):
 
 
 class RequestQueueListSchema(BaseModel):
-    division: int
+    division_id: int
 
 
 class ResponseQueueListSchema(BaseModel):

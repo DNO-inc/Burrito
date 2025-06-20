@@ -25,7 +25,7 @@ async def tickets__create_new_ticket(
 ):
     """Create ticket"""
 
-    division_id = DivisionConverter.convert(ticket_creation_data.division)
+    division_id = DivisionConverter.convert(ticket_creation_data.division_id)
     queue: Queues = QueueConverter.convert(ticket_creation_data.queue)
 
     # TODO: use _curr_user.division instead
