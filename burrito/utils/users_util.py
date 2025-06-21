@@ -109,8 +109,8 @@ def create_user_with_cabinet(
             Lastname {lastname}
             Email {email}
             Login {tmp_user_login}
-            Division {division}
-            Group {group}
+            Division {division_id}
+            Group {group_id}
 
             """
         )
