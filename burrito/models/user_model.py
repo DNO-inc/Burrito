@@ -2,7 +2,6 @@ from peewee import AutoField, CharField, DateTimeField, ForeignKeyField, TextFie
 
 from burrito.models.basic_model import BurritoBasicModel
 from burrito.models.division_model import Divisions
-from burrito.models.group_model import Groups
 from burrito.models.roles_model import Roles
 from burrito.utils.date import get_datetime_now
 
@@ -28,13 +27,6 @@ class Users(BurritoBasicModel):
         on_delete="NO ACTION"
     )
 
-    group = ForeignKeyField(
-        Groups,
-        field="group_id",
-        on_delete="SET NULL",
-        null=True
-    )
-
     password = TextField()
 
     email = CharField(255, null=False, unique=True)
@@ -49,4 +41,4 @@ class Users(BurritoBasicModel):
     )
 
     class Meta:
-        depends_on = [Roles, Groups, Divisions]
+        depends_on = [Roles, Divisions]

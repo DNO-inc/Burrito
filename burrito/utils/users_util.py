@@ -3,7 +3,9 @@ import string
 
 from fastapi import HTTPException, status
 
+from burrito.models.group_model import Groups
 from burrito.models.roles_model import Roles
+from burrito.models.user_groups_model import UserGroups
 from burrito.models.user_model import Users
 from burrito.schemas.registration_schema import RegistrationSchema
 from burrito.utils.converter import DivisionConverter, GroupConverter
@@ -29,8 +31,9 @@ def create_user(
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
     # check if provided group/division is exist
-    if user_data.group_id is not None:
-        GroupConverter.convert(user_data.group_id)
+    valid_groups: list[Groups] = []
+    for group_id in user_data.group_ids:
+        valid_groups.append(GroupConverter.convert(group_id))
     DivisionConverter.convert(user_data.division_id)
 
     try:
@@ -39,19 +42,23 @@ def create_user(
             lastname=user_data.lastname,
             login=user_data.login,
             password=user_data.password,  # password already hashed by argon2
-            group=user_data.group_id,
             division=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email,
             role=role_object
         )
+        for group in valid_groups:
+            UserGroups.create(
+                user=user,
+                group=group
+            )
         return user
 
     except Exception as e:  # pylint: disable=broad-except, invalid-name
         get_logger().info(
             f"""
                 login: {user_data.login}
-                group: {user_data.group_id}
+                groups: {user_data.group_ids}
                 division: {user_data.division_id}
                 role: {role_object.name}
 
@@ -65,7 +72,7 @@ def create_user_with_cabinet(
     firstname: str,
     lastname: str,
     division_id: int,
-    group_id: int,
+    group_ids: list[int],
     email: int,
 ) -> Users | None:
 
@@ -81,12 +88,14 @@ def create_user_with_cabinet(
         get_logger().critical(f"Division is invalid: {division_id}")
         division_id = 1
 
+    valid_groups: list[Groups] = []
     try:
-        GroupConverter.convert(group_id)
+        for group_id in group_ids:
+            valid_groups.append(GroupConverter.convert(group_id))
 
     except Exception:
-        get_logger().critical(f"Group is invalid: {group_id}")
-        group_id = None
+        get_logger().critical(f"Group is invalid: {group_ids}")
+        group_ids = None
 
     try:
         user: Users = Users.create(
@@ -95,10 +104,14 @@ def create_user_with_cabinet(
             lastname=lastname,
             login=tmp_user_login,
             division=division_id,
-            group=group_id,
             email=email,
             role=role_object
         )
+        for group in valid_groups:
+            UserGroups.create(
+                user=user,
+                group=group
+            )
         return user
 
     except Exception as e:

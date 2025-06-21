@@ -52,7 +52,7 @@ class ResponseProfileSchema(BaseProfile):
     """
 
     division: DivisionResponseSchema | None
-    group: GroupResponseSchema | None
+    groups: list[GroupResponseSchema]
 
     role: ResponseRoleSchema
 

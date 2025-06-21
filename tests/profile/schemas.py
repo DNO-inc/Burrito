@@ -22,24 +22,20 @@ profile_view_schema_template = {
                 }
             }
         },
-        "group": {
-            "anyOf": [
-                {
-                    "type": "object",
-                    "properties": {
-                        "group_id": {
-                            "type": "number"
-                        },
-                        "name": {
-                            "type": "string"
-                        }
+        "groups": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "group_id": {
+                        "type": "number"
                     },
-                    "required": ["group_id", "name"]
+                    "name": {
+                        "type": "string"
+                    }
                 },
-                {
-                    "type": "null"
-                }
-            ]
+                "required": ["group_id", "name"]
+            }
         },
         "phone": {
             "anyOf": [
@@ -73,5 +69,5 @@ profile_view_schema_template = {
             "format": "date-time"
         }
     },
-    "required": ["firstname", "lastname", "login", "division", "role", "registration_date"]
+    "required": ["firstname", "lastname", "login", "division", "groups", "role", "registration_date"]
 }

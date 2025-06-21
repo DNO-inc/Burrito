@@ -6,6 +6,7 @@ from playhouse.shortcuts import model_to_dict
 from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.role_permissions_model import RolePermissions
+from burrito.models.user_groups_model import UserGroups
 from burrito.models.user_model import Users
 from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
@@ -37,14 +38,22 @@ async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
     current_user: Users | None = get_user_by_id(user_id)
 
     division_object: Divisions | None = current_user.division
-    group_object: Groups | None = current_user.group
+    group_objects: list[Groups] = Groups.select().where(
+        Groups.group_id.in_(
+            UserGroups.select(UserGroups.group).where(
+                UserGroups.user == current_user.user_id
+            )
+        )
+    )
 
     return ResponseProfileSchema(
         firstname=current_user.firstname,
         lastname=current_user.lastname,
         login=current_user.login,
         division=DivisionResponseSchema(**model_to_dict(division_object)) if division_object else None,
-        group=GroupResponseSchema(**model_to_dict(group_object)) if group_object else None,
+        groups=[
+            GroupResponseSchema(**model_to_dict(group_object)) for group_object in group_objects
+        ],
         phone=current_user.phone,
         email=current_user.email,
         role=ResponseRoleSchema(

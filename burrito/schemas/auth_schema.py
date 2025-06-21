@@ -1,18 +1,6 @@
 from pydantic import BaseModel
 
 
-class AuthSettingsModel(BaseModel):
-    """
-    Authorization token model
-
-    Args:
-        authjwt_secret_key (str): token data
-    """
-
-    authjwt_secret_key: str = "secret"
-#    authjwt_denylist_enabled = True
-
-
 class UserPasswordLoginSchema(BaseModel):
     """
     User need to transfer this data to get access to API

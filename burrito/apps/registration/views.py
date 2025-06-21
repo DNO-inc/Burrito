@@ -6,6 +6,7 @@ from burrito.models.user_model import Users
 from burrito.schemas.email_code import EmailVerificationCodeSchema
 from burrito.schemas.registration_schema import RegistrationSchema
 from burrito.utils.auth import AuthTokenPayload, create_token_pare
+from burrito.utils.config_reader import get_config
 from burrito.utils.converter import DivisionConverter, GroupConverter
 from burrito.utils.email_util import tmp_send_email
 from burrito.utils.hash_util import generate_email_code, get_hash
@@ -70,8 +71,8 @@ async def registration__user_registration(
             detail="User with the same login is in registration process"
         )
 
-    if user_data.group_id is not None:
-        GroupConverter.convert(user_data.group_id)
+    for group_id in user_data.group_ids:
+        GroupConverter.convert(group_id)
     DivisionConverter.convert(user_data.division_id)
 
     verification_code = generate_email_code()
@@ -79,13 +80,13 @@ async def registration__user_registration(
         EmailVerificationCode(
             hashed_code=get_hash(
                 verification_code,
-                b"super_mega_long_salt_(it will be removed in soon)"
+                get_config().BURRITO_JWT_SECRET.encode()
             ),
             firstname=user_data.firstname,
             lastname=user_data.lastname,
             login=user_data.login,
             password=get_hash(user_data.password),
-            group_id=user_data.group_id,
+            group_ids=user_data.group_ids,
             division_id=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email
@@ -110,7 +111,7 @@ async def registration__verify_email(
         EmailVerificationCode,
         hashed_code=get_hash(
             verification_data.email_code,
-            b"super_mega_long_salt_(it will be removed in soon)"
+            get_config().BURRITO_JWT_SECRET.encode()
         ),
         email=verification_data.email
     )
