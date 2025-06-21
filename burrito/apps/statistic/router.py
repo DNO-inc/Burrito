@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from .views import (
     statistic__activity_summary,
-    statistic__faculties,
+    statistic__divisions,
     statistic__periodic,
 )
 
@@ -16,8 +16,8 @@ statistic_router.add_api_route(
 )
 
 statistic_router.add_api_route(
-    "/faculties",
-    statistic__faculties,
+    "/divisions",
+    statistic__divisions,
     methods=["GET"]
 )
 

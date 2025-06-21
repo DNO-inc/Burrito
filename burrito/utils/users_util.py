@@ -6,7 +6,7 @@ from fastapi import HTTPException, status
 from burrito.models.roles_model import Roles
 from burrito.models.user_model import Users
 from burrito.schemas.registration_schema import RegistrationSchema
-from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.converter import DivisionConverter, GroupConverter
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import MIN_ADMIN_PRIORITY, MIN_CHIEF_ADMIN_PRIORITY
 from burrito.utils.transliteration import transliterate
@@ -28,10 +28,10 @@ def create_user(
 
     role_object: Roles = Roles.get(Roles.name == "USER_ALL")
 
-    # check if provided group/faculty is exist
-    if user_data.group is not None:
-        GroupConverter.convert(user_data.group)
-    FacultyConverter.convert(user_data.faculty)
+    # check if provided group/division is exist
+    if user_data.group_id is not None:
+        GroupConverter.convert(user_data.group_id)
+    DivisionConverter.convert(user_data.division_id)
 
     try:
         user: Users = Users.create(
@@ -39,8 +39,8 @@ def create_user(
             lastname=user_data.lastname,
             login=user_data.login,
             password=user_data.password,  # password already hashed by argon2
-            group=user_data.group,
-            faculty=user_data.faculty,
+            group=user_data.group_id,
+            division=user_data.division_id,
             phone=user_data.phone,
             email=user_data.email,
             role=role_object
@@ -51,8 +51,8 @@ def create_user(
         get_logger().info(
             f"""
                 login: {user_data.login}
-                group: {user_data.group}
-                faculty: {user_data.faculty}
+                group: {user_data.group_id}
+                division: {user_data.division_id}
                 role: {role_object.name}
 
             """
@@ -64,8 +64,8 @@ def create_user_with_cabinet(
     cabinet_id: str,
     firstname: str,
     lastname: str,
-    faculty: int,
-    group: int,
+    division_id: int,
+    group_id: int,
     email: int,
 ) -> Users | None:
 
@@ -75,18 +75,18 @@ def create_user_with_cabinet(
     tmp_user_login = transliterate(f"{firstname} {salt}")
 
     try:
-        FacultyConverter.convert(faculty)
+        DivisionConverter.convert(division_id)
 
     except Exception:
-        get_logger().critical(f"Faculty is invalid: {faculty}")
-        faculty = 1
+        get_logger().critical(f"Division is invalid: {division_id}")
+        division_id = 1
 
     try:
-        GroupConverter.convert(group)
+        GroupConverter.convert(group_id)
 
     except Exception:
-        get_logger().critical(f"Group is invalid: {group}")
-        group = None
+        get_logger().critical(f"Group is invalid: {group_id}")
+        group_id = None
 
     try:
         user: Users = Users.create(
@@ -94,8 +94,8 @@ def create_user_with_cabinet(
             firstname=firstname,
             lastname=lastname,
             login=tmp_user_login,
-            faculty=faculty,
-            group=group,
+            division=division_id,
+            group=group_id,
             email=email,
             role=role_object
         )
@@ -109,8 +109,8 @@ def create_user_with_cabinet(
             Lastname {lastname}
             Email {email}
             Login {tmp_user_login}
-            Faculty {faculty}
-            Group {group}
+            Division {division_id}
+            Group {group_id}
 
             """
         )

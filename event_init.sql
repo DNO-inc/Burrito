@@ -1,11 +1,11 @@
-create or replace view tickets_by_faculties_scopes as (
+create or replace view tickets_by_divisions_scopes as (
     select
         f.faculty_id,
         f.name,
         count(q_r.scope) as "Reports",
         count(q_q.scope) as "Q/A",
         count(q_s.scope) as "Suggestion"
-    from faculties f
+    from divisions f
     left join tickets t on (
         t.faculty_id = f.faculty_id
         and t.created > date(now() - interval 1 month)
@@ -52,31 +52,31 @@ create or replace view tickets_by_scopes as (
 );
 
 
-create or replace view faculties_by_tickets as (
+create or replace view divisions_by_tickets as (
     select 
         faculty_id,
         name,
         (select count(*) from tickets where f.faculty_id = faculty_id  group by faculty_id) created_tickets_count
-    from faculties f 
+    from divisions f 
     having created_tickets_count is not null
 );
 
 
 
-create event if not exists `tickets_by_faculties_scopes_stats` on schedule
+create event if not exists `tickets_by_divisions_scopes_stats` on schedule
         every 1 hour
     on completion not preserve
     enable
-    comment 'Calculate statistics for faculties and scopes'
+    comment 'Calculate statistics for divisions and scopes'
     do
-        create or replace view tickets_by_faculties_scopes as (
+        create or replace view tickets_by_divisions_scopes as (
             select
                 f.faculty_id,
                 f.name,
                 count(q_r.scope) as "Reports",
                 count(q_q.scope) as "Q/A",
                 count(q_s.scope) as "Suggestion"
-            from faculties f
+            from divisions f
             left join tickets t on (
                 t.faculty_id = f.faculty_id
                 and t.created > date(now() - interval 1 month)
@@ -136,13 +136,13 @@ create event if not exists `faculty_by_tickets_stats` on schedule
         every 1 hour
     on completion not preserve
     enable
-    comment 'Calculate statistics for tickets created on faculties'
+    comment 'Calculate statistics for tickets created on divisions'
     do
-        create or replace view faculties_by_tickets as (
+        create or replace view divisions_by_tickets as (
             select 
                 faculty_id,
                 name,
                 (select count(*) from tickets where f.faculty_id = faculty_id  group by faculty_id) created_tickets_count
-            from faculties f 
+            from divisions f 
             having created_tickets_count is not null
         );

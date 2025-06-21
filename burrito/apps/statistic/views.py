@@ -6,8 +6,8 @@ from peewee import MySQLDatabase
 from playhouse.shortcuts import model_to_dict
 
 from burrito.models.statistic_model import (
-    FacultyScopesStatistic,
-    FacultyTicketsStatistic,
+    DivisionScopesStatistic,
+    DivisionTicketsStatistic,
     ScopesStatistic,
     StatusesStatistic,
 )
@@ -25,8 +25,8 @@ async def statistic__periodic(
             "statuses": [
                 model_to_dict(i) for i in StatusesStatistic.raw("SELECT * FROM tickets_by_statuses")
             ],
-            "faculty_scopes": [
-                model_to_dict(i) for i in FacultyScopesStatistic.raw("SELECT * FROM tickets_by_faculties_scopes")
+            "division_scopes": [
+                model_to_dict(i) for i in DivisionScopesStatistic.raw("SELECT * FROM tickets_by_divisions_scopes")
             ],
             "scopes": [
                 model_to_dict(i) for i in ScopesStatistic.raw("SELECT * FROM tickets_by_scopes")
@@ -35,14 +35,14 @@ async def statistic__periodic(
     )
 
 
-async def statistic__faculties(
+async def statistic__divisions(
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
 
     return JSONResponse(
         content={
-            "faculties_data": [
-                model_to_dict(i) for i in FacultyTicketsStatistic.raw("SELECT * FROM faculties_by_tickets")
+            "divisions_data": [
+                model_to_dict(i) for i in DivisionTicketsStatistic.raw("SELECT * FROM divisions_by_tickets")
             ]
         }
     )

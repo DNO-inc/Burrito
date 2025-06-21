@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from ..utils import is_ticket_exist, make_ticket_detail_info
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.tickets_model import Tickets
 from burrito.schemas.tickets_schema import (
@@ -19,7 +18,7 @@ from burrito.utils.query_util import (
     q_bookmarked,
     q_followed,
     q_is_anonymous,
-    q_is_valid_faculty,
+    q_is_valid_division,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_not_hidden,
@@ -34,6 +33,8 @@ from burrito.utils.tickets_util import (
     select_filters,
 )
 from burrito.utils.users_util import get_user_by_id
+
+from ..utils import is_ticket_exist, make_ticket_detail_info
 
 
 async def tickets__bookmark_ticket(
@@ -120,7 +121,7 @@ async def tickets__get_bookmarked_tickets(
     available_filters = {
         "default": [
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),
@@ -175,7 +176,7 @@ async def tickets__get_followed_tickets(
         "default": [
             q_not_hidden(),
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),

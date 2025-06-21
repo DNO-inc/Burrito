@@ -6,7 +6,7 @@ from burrito.models.liked_model import Liked
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
-from burrito.utils.converter import FacultyConverter, StatusConverter
+from burrito.utils.converter import DivisionConverter, StatusConverter
 
 _PROTECTED_STATUSES: tuple[int] = (1,)
 
@@ -77,11 +77,11 @@ def q_protected_statuses() -> Expression:
     return Tickets.status.not_in(_PROTECTED_STATUSES)
 
 
-def q_is_valid_faculty(value: int) -> Expression:
+def q_is_valid_division(value: int) -> Expression:
     if value is None:
         return None
 
-    return Tickets.faculty == FacultyConverter.convert(value)
+    return Tickets.division == DivisionConverter.convert(value)
 
 
 def q_scope_is(scope: str) -> Expression:

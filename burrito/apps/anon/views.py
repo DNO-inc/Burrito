@@ -10,12 +10,12 @@ from burrito.schemas.anon_schema import (
     AnonTicketListRequestSchema,
     AnonTicketListResponseSchema,
 )
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.utils.query_util import (
     q_is_anonymous,
-    q_is_valid_faculty,
+    q_is_valid_division,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_not_hidden,
@@ -34,7 +34,7 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
     available_filters = {
         "default": [
             q_is_anonymous(filters.anonymous),
-            q_is_valid_faculty(filters.faculty),
+            q_is_valid_division(filters.division_id),
             q_is_valid_status_list(filters.status),
             q_scope_is(filters.scope),
             q_is_valid_queue(filters.queue),
@@ -80,12 +80,12 @@ async def anon__get_ticket_list_by_filter(filters: AnonTicketListRequestSchema):
                 ticket_id=ticket.ticket_id,
                 subject=ticket.subject,
                 body=hide_ticket_body(ticket.body, 500),
-                faculty=FacultyResponseSchema(
-                    **model_to_dict(ticket.faculty)
+                division=DivisionResponseSchema(
+                    **model_to_dict(ticket.division)
                 ),
                 queue=QueueResponseSchema(
                     queue_id=queue.queue_id,
-                    faculty=queue.faculty.faculty_id,
+                    division_id=queue.division.division_id,
                     name=queue.name,
                     scope=queue.scope
                 ) if queue else None,

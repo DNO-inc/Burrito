@@ -3,18 +3,18 @@ from secrets import token_urlsafe
 from fastapi import HTTPException
 from playhouse.shortcuts import model_to_dict
 
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.role_permissions_model import RolePermissions
 from burrito.models.user_model import Users
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.profile_schema import (
     RequestUpdateProfileSchema,
     ResponseProfileSchema,
     ResponseRoleSchema,
 )
-from burrito.utils.converter import FacultyConverter, GroupConverter
+from burrito.utils.converter import DivisionConverter, GroupConverter
 from burrito.utils.hash_util import get_hash
 from burrito.utils.permissions_checker import check_permission
 from burrito.utils.users_util import get_user_by_id, get_user_by_login
@@ -36,14 +36,14 @@ __all__ = (
 async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
     current_user: Users | None = get_user_by_id(user_id)
 
-    faculty_object: Faculties | None = current_user.faculty
+    division_object: Divisions | None = current_user.division
     group_object: Groups | None = current_user.group
 
     return ResponseProfileSchema(
         firstname=current_user.firstname,
         lastname=current_user.lastname,
         login=current_user.login,
-        faculty=FacultyResponseSchema(**model_to_dict(faculty_object)) if faculty_object else None,
+        division=DivisionResponseSchema(**model_to_dict(division_object)) if division_object else None,
         group=GroupResponseSchema(**model_to_dict(group_object)) if group_object else None,
         phone=current_user.phone,
         email=current_user.email,
@@ -88,15 +88,15 @@ async def update_profile_data(
     if is_valid_phone(profile_updated_data.phone):
         current_user.phone = profile_updated_data.phone
 
-    # check faculty
-    if profile_updated_data.faculty:
-        faculty_id = FacultyConverter.convert(profile_updated_data.faculty)
-        if faculty_id:
-            current_user.faculty = faculty_id
+    # check division
+    if profile_updated_data.division_id:
+        division_id = DivisionConverter.convert(profile_updated_data.division_id)
+        if division_id:
+            current_user.division = division_id
 
     # check group
-    if profile_updated_data.group:
-        group_id = GroupConverter.convert(profile_updated_data.group)
+    if profile_updated_data.group_id:
+        group_id = GroupConverter.convert(profile_updated_data.group_id)
         if group_id:
             current_user.group = group_id
 

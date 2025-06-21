@@ -1,6 +1,6 @@
 from burrito.models.bookmarks_model import Bookmarks
 from burrito.models.deleted_model import Deleted
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.liked_model import Liked
 from burrito.models.participants_model import Participants
@@ -25,7 +25,7 @@ def create_tables():
         Permissions,
         Roles,
         RolePermissions,
-        Users, Faculties, Groups,
+        Users, Divisions, Groups,
         Statuses, Deleted, Liked,
         Tickets, Participants,
         Subscriptions, Queues, Bookmarks
@@ -55,7 +55,7 @@ def drop_tables(use: bool = False):
             Permissions,
             Roles,
             RolePermissions,
-            Users, Faculties, Groups,
+            Users, Divisions, Groups,
             Statuses, Deleted, Liked,
             Tickets, Participants,
             Subscriptions, Queues, Bookmarks

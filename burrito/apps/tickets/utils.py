@@ -5,7 +5,7 @@ from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.schemas.tickets_schema import TicketDetailInfoSchema, UpdateTicketSchema
@@ -82,13 +82,13 @@ def make_ticket_detail_info(
         body=hide_ticket_body(ticket.body, 500) if crop_body else ticket.body,
         hidden=ticket.hidden,
         anonymous=ticket.anonymous,
-        faculty=FacultyResponseSchema(
-            faculty_id=ticket.faculty.faculty_id,
-            name=ticket.faculty.name
+        division=DivisionResponseSchema(
+            division_id=ticket.division.division_id,
+            name=ticket.division.name
         ),
         queue=QueueResponseSchema(
             queue_id=queue.queue_id,
-            faculty=queue.faculty.faculty_id,
+            division_id=queue.division.division_id,
             name=queue.name,
             scope=queue.scope
         ) if queue else None,

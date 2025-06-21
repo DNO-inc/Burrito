@@ -2,14 +2,14 @@ from fastapi import Depends
 from playhouse.shortcuts import model_to_dict
 
 from burrito.apps.meta.utils import RolePermissionResponse, RolesResponse
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.queues_model import Queues
 from burrito.models.role_permissions_model import RolePermissions
 from burrito.models.roles_model import Roles
 from burrito.models.statuses_model import Statuses
 from burrito.models.user_model import Users
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.meta_schema import (
     RequestQueueListSchema,
@@ -22,7 +22,7 @@ from burrito.schemas.meta_schema import (
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
 from burrito.utils.auth import get_current_user
-from burrito.utils.converter import FacultyConverter
+from burrito.utils.converter import DivisionConverter
 from burrito.utils.query_util import MIN_ADMIN_PRIORITY
 from burrito.utils.tickets_util import make_short_user_data
 
@@ -45,25 +45,25 @@ async def meta__get_groups_list(_curr_user: Users = Depends(get_current_user()))
     )
 
 
-async def meta__faculties_list():
+async def meta__divisions_list():
     return ResponseFacultiesListSchema(
-        faculties_list=[
-            FacultyResponseSchema(
-                **model_to_dict(faculty)
-            ) for faculty in Faculties.select()
+        divisions_list=[
+            DivisionResponseSchema(
+                **model_to_dict(division)
+            ) for division in Divisions.select()
         ]
     )
 
 
-async def meta__get_queues_list(faculty_data: RequestQueueListSchema):
-    faculty_object = FacultyConverter.convert(faculty_data.faculty)
+async def meta__get_queues_list(division_data: RequestQueueListSchema):
+    division_object = DivisionConverter.convert(division_data.division_id)
 
     response_list: list[QueueResponseSchema] = []
     for queue in Queues.select().where(
-        Queues.faculty == faculty_object
+        Queues.division == division_object
     ):
         queue = model_to_dict(queue)
-        queue["faculty"] = faculty_object.faculty_id
+        queue["division_id"] = division_object.division_id
 
         response_list.append(
             QueueResponseSchema(

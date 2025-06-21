@@ -9,7 +9,7 @@ from peewee import (
 )
 
 from burrito.models.basic_model import BurritoBasicModel
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
 from burrito.models.user_model import Users
@@ -42,9 +42,9 @@ class Tickets(BurritoBasicModel):
 
     created = DateTimeField(default=get_datetime_now)
 
-    faculty = ForeignKeyField(
-        Faculties,
-        field="faculty_id",
+    division = ForeignKeyField(
+        Divisions,
+        field="division_id",
         on_delete="NO ACTION"
     )
 
@@ -63,4 +63,4 @@ class Tickets(BurritoBasicModel):
     )
 
     class Meta:
-        depends_on = [Users, Queues, Faculties, Statuses]
+        depends_on = [Users, Queues, Divisions, Statuses]

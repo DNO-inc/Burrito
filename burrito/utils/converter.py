@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-from burrito.models.faculty_model import Faculties
+from burrito.models.division_model import Divisions
 from burrito.models.group_model import Groups
 from burrito.models.queues_model import Queues
 from burrito.models.statuses_model import Statuses
@@ -43,23 +43,23 @@ class GroupConverter(Converter):
         return group_object
 
 
-class FacultyConverter(Converter):
+class DivisionConverter(Converter):
     @staticmethod
-    def convert(int_value: int | None) -> Faculties | None:
+    def convert(int_value: int | None) -> Divisions | None:
         """
         Args:
-            int_value (int): faculty id
+            int_value (int): division id
 
         Returns:
-            Faculties | None: faculty object or None value
+            Divisions | None: division object or None value
         """
-        FacultyConverter._is_empty(int_value, f"Faculty {int_value} is invalid")
+        DivisionConverter._is_empty(int_value, f"Division {int_value} is invalid")
 
-        faculty_object = Faculties.get_or_none(Faculties.faculty_id == int_value)
-        if not faculty_object:
-            _raise_converter_error(f"Faculty {int_value} is not found")
+        division_object = Divisions.get_or_none(Divisions.division_id == int_value)
+        if not division_object:
+            _raise_converter_error(f"Division {int_value} is not found")
 
-        return faculty_object
+        return division_object
 
 
 class QueueConverter(Converter):

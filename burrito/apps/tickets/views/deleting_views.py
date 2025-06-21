@@ -3,7 +3,6 @@ import math
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
-from ..utils import is_ticket_exist, make_ticket_detail_info
 from burrito.models.deleted_model import Deleted
 from burrito.models.tickets_model import Tickets
 from burrito.schemas.tickets_schema import (
@@ -17,7 +16,7 @@ from burrito.utils.logger import get_logger
 from burrito.utils.query_util import (
     q_deleted,
     q_is_anonymous,
-    q_is_valid_faculty,
+    q_is_valid_division,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_scope_is,
@@ -29,10 +28,12 @@ from burrito.utils.tickets_util import (
     select_filters,
 )
 
+from ..utils import is_ticket_exist, make_ticket_detail_info
+
 
 async def tickets__delete_ticket_for_me(
         deletion_ticket_data: TicketIDValuesListScheme,
-        _curr_user = Depends(get_current_user())
+        _curr_user=Depends(get_current_user())
 ):
     """Delete ticket"""
 
@@ -65,7 +66,7 @@ async def tickets__delete_ticket_for_me(
 
 async def tickets__undelete_ticket(
         ticket_data: TicketIDValueSchema,
-        _curr_user = Depends(get_current_user())
+        _curr_user=Depends(get_current_user())
 ):
     ticket: Tickets | None = is_ticket_exist(ticket_data.ticket_id)
 
@@ -94,12 +95,12 @@ async def tickets__undelete_ticket(
 
 async def tickets__get_deleted_tickets(
         _filters: TicketsBasicFilterSchema | None = TicketsBasicFilterSchema(),
-        _curr_user = Depends(get_current_user())
+        _curr_user=Depends(get_current_user())
 ):
     available_filters = {
         "default": [
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),

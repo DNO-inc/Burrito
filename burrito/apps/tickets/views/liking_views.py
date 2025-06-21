@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
@@ -17,7 +16,7 @@ from burrito.utils.auth import get_current_user
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import (
     q_is_anonymous,
-    q_is_valid_faculty,
+    q_is_valid_division,
     q_is_valid_queue,
     q_is_valid_status_list,
     q_liked,
@@ -31,6 +30,8 @@ from burrito.utils.tickets_util import (
     select_filters,
 )
 from burrito.utils.users_util import get_user_by_id
+
+from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 
 
 async def tickets__like_ticket(
@@ -120,7 +121,7 @@ async def tickets__get_liked_tickets(
         "default": [
             q_owned_or_not_hidden(_curr_user.user_id, _filters.hidden),
             q_is_anonymous(_filters.anonymous),
-            q_is_valid_faculty(_filters.faculty),
+            q_is_valid_division(_filters.division_id),
             q_is_valid_status_list(_filters.status),
             q_scope_is(_filters.scope),
             q_is_valid_queue(_filters.queue),

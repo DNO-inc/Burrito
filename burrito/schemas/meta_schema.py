@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from burrito.schemas.faculty_schema import FacultyResponseSchema
+from burrito.schemas.division_schema import DivisionResponseSchema
 from burrito.schemas.group_schema import GroupResponseSchema
 from burrito.schemas.queue_schema import QueueResponseSchema
 from burrito.schemas.status_schema import StatusResponseSchema
@@ -15,11 +15,11 @@ class ResponseGroupsListSchema(BaseModel):
 
 
 class ResponseFacultiesListSchema(BaseModel):
-    faculties_list: list[FacultyResponseSchema]
+    divisions_list: list[DivisionResponseSchema]
 
 
 class RequestQueueListSchema(BaseModel):
-    faculty: int
+    division_id: int
 
 
 class ResponseQueueListSchema(BaseModel):
@@ -31,7 +31,7 @@ class ResponseAdminDetailSchema(BaseModel):
     firstname: str | None
     lastname: str | None
     login: str
-    faculty: FacultyResponseSchema
+    division: DivisionResponseSchema
     group: GroupResponseSchema | None
 
 

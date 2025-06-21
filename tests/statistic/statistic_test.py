@@ -25,11 +25,11 @@ class StatisticTestCase(unittest.TestCase):
 
         jsonschema.validate(response.json(), statistic_activity_schema)
 
-    def test_faculty_statistic(self):
+    def test_division_statistic(self):
         """Recv profile data in JSON format"""
 
         response = requests.get(
-            f"{get_config().BURRITO_API_URL}/statistic/faculties",
+            f"{get_config().BURRITO_API_URL}/statistic/divisions",
             headers={
                 "Authorization": f"Bearer {get_access_token()}"
             },
@@ -38,7 +38,7 @@ class StatisticTestCase(unittest.TestCase):
 
         assert response.status_code == 200
 
-        jsonschema.validate(response.json(), statistic_faculty_schema)
+        jsonschema.validate(response.json(), statistic_division_schema)
 
     def test_period_statistic(self):
         """Recv profile data in JSON format"""

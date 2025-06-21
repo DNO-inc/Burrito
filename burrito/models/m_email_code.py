@@ -9,8 +9,8 @@ class EmailVerificationCode(MongoBaseModel, MongoTTLModel):
 
     login: str
     password: str
-    group: int | None = None
-    faculty: int
+    group_id: int | None = None
+    division_id: int
 
     phone: str | None = None
     email: str
