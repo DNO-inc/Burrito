@@ -127,8 +127,8 @@ async def auth__key_login(
         cabinet_id=cabinet_profile["user_id"],
         firstname=cabinet_profile["firstname"],
         lastname=cabinet_profile["lastname"],
-        division=cabinet_profile["division"],
-        group=cabinet_profile["group"],
+        division_id=cabinet_profile["division_id"],
+        group_id=cabinet_profile["group_id"],
         email=cabinet_profile["email"],
     )
 
