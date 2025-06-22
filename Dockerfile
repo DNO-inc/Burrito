@@ -3,7 +3,7 @@ FROM ghcr.io/dno-inc/burrito-dependencies:main AS burrito-dependencies
 FROM python:3.10-slim-buster
 
 ENV PATH="/venv/.venv/bin:$PATH" \
-    PYTHONPATH="/app"
+    PYTHONPATH="/app:/venv/.venv/lib/python3.10/site-packages"
 
 WORKDIR /app/burrito
 
