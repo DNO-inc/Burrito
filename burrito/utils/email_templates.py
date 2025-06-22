@@ -44,7 +44,7 @@ TEMPLATE__EMAIL_NOTIFICATION = {
 """
 }
 
-TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN = {
+TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN = {
     "subject": "Тікети в статусі NEW вже {days_count} дні",
     "content": """
 Шановна адміністраціє,
@@ -54,6 +54,21 @@ TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN = {
 {data}
 
 Будь ласка, призначте відповідного співробітника для обробки цих тікетів негайно.
+
+Дякуємо за увагу!
+"""
+}
+
+TEMPLATE__ACCEPTED_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN = {
+    "subject": "Тікети в статусі ACCEPTED вже {days_count} дні",
+    "content": """
+Шановна адміністраціє,
+
+Цим повідомленням нагадуємо, що наступні тікети перебувають в статусі "ACCEPTED" протягом останніх {days_count} днів:
+
+{data}
+
+Будь ласка, зверніть увагу на вище зазначені тікети, переведіть їх в статус OPEN або CLOSED.
 
 Дякуємо за увагу!
 """
