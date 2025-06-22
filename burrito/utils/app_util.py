@@ -1,12 +1,9 @@
-import os
-import time
 
 import peewee
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo.errors import ServerSelectionTimeoutError
 
-from burrito import CURRENT_TIME_ZONE
 from burrito.utils.exceptions import DBConnectionError, db_connection_error_handler
 from burrito.utils.singleton_pattern import singleton
 from burrito.utils.task_manager import get_task_manager
@@ -52,9 +49,6 @@ def get_current_app(*, docs_url="/docs", openapi_url="/openapi.json") -> Burrito
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-    os.environ['TZ'] = str(CURRENT_TIME_ZONE)
-    time.tzset()
 
     return app
 

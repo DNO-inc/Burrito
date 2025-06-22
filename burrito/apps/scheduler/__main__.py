@@ -1,6 +1,3 @@
-import os
-import time
-
 from peewee import MySQLDatabase
 
 from burrito.models.m_email_code import EmailVerificationCode
@@ -17,16 +14,13 @@ if __name__ == "__main__":
     create_tables()
     preprocessor_task()
 
-    from .core import start_scheduler
-    from burrito import CURRENT_TIME_ZONE
     from burrito.utils.mongo_util import mongo_init_ttl_indexes
     from burrito.utils.tasks.new_tickets import check_for_new_tickets
 
+    from .core import start_scheduler
+
     check_for_new_tickets()
     mongo_init_ttl_indexes([EmailVerificationCode, AccessRenewMetaData])
-
-    os.environ['TZ'] = str(CURRENT_TIME_ZONE)
-    time.tzset()
 
     with open("event_init.sql", "r", encoding="utf-8") as file:
         db: MySQLDatabase = get_database_cursor()
