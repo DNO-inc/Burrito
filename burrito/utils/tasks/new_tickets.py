@@ -2,7 +2,9 @@ import datetime
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-from burrito.utils.email_templates import TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN
+from burrito.utils.email_templates import (
+    TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN,
+)
 from burrito.utils.email_util import publish_email
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import STATUS_NEW
@@ -35,8 +37,8 @@ def check_for_new_tickets():
     if tickets_info:
         publish_email(
             admins_list,
-            TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN["subject"].format(days_count=MAX_UNCHANGED_DAYS),
-            TEMPLATE__EMAIL_NOTIFICATION_FOR_ADMIN["content"].format(
+            TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN["subject"].format(days_count=MAX_UNCHANGED_DAYS),
+            TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN["content"].format(
                 days_count=MAX_UNCHANGED_DAYS,
                 data="".join(tickets_info)
             )
