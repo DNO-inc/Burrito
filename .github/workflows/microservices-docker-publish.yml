@@ -51,6 +51,13 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.app }}
 
+      - name: Get short branch name
+        id: shortref
+        run: |
+          RAW_BRANCH="${GITHUB_REF##*/}"
+          SAFE_BRANCH="${RAW_BRANCH//[^a-zA-Z0-9._-]/-}"
+          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
@@ -59,3 +66,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PROJECT_BRANCH=${{ steps.shortref.outputs.BRANCH_NAME }}
