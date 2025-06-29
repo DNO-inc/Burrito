@@ -78,7 +78,7 @@ jobs:
 
           while IFS= read -r TAG; do
             echo "Building $TAG"
-            docker build ./burrito/apps/$APP -t "$TAG" --build-arg PROJECT_BRANCH=$BRANCH_NAME
+            docker build -f ./burrito/apps/$APP/Dockerfile -t "$TAG" --build-arg PROJECT_BRANCH=$BRANCH_NAME .
           done <<< "$TAGS"
 
           while IFS= read -r TAG; do
