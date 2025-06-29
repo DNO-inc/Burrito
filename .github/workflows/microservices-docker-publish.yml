@@ -53,24 +53,8 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.app }}
 
-      - name: Get short branch name
-        id: shortref
+      - name: Test
         run: |
-          RAW_BRANCH="${GITHUB_REF##*/}"
-          SAFE_BRANCH="${RAW_BRANCH//[^a-zA-Z0-9._-]/-}"
-          echo $RAW_BRANCH
-          echo $SAFE_BRANCH
-          echo "BRANCH_NAME=${SAFE_BRANCH}" >> $GITHUB_OUTPUT
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        with:
-          context: .
-          file: ./burrito/apps/${{ matrix.app }}/Dockerfile
-          push: true
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ github.ref == 'refs/heads/main' && format('{0}/{1}-${2}:latest', env.REGISTRY, env.IMAGE_NAME, matrix.app) || '' }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            PROJECT_BRANCH=${{ steps.shortref.outputs.BRANCH_NAME }}
+          echo "$TAGS"
+        env:
+          TAGS: ${{ steps.meta.outputs.tags }}
