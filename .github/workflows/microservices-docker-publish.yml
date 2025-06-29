@@ -54,17 +54,31 @@ jobs:
             type=sha
             type=raw,value=latest,enable={{is_default_branch}}
 
+      - name: Get safe branch name
+        id: set-safe-branch-name
+        run: |
+          RAW_BRANCH="${GITHUB_REF#refs/heads/}"
+          SAFE_BRANCH="${RAW_BRANCH//\//-}"
+          SAFE_BRANCH="${SAFE_BRANCH//[^a-zA-Z0-9._-]/-}"
+          echo "safe_branch=$SAFE_BRANCH" >> $GITHUB_OUTPUT
+
       - name: Build and push
         env:
-          IMAGE: ${{ env.REGISTRY }}/${{ github.repository }}-${{ matrix.app }}
+          REGISTRY: ${{ env.REGISTRY }}
+          REPOSITORY: ${{ github.repository }}
+          APP: ${{ matrix.app }}
+          BRANCH_NAME: ${{ steps.set-safe-branch-name.outputs.safe_branch }}
           TAGS: ${{ steps.meta.outputs.tags }}
         run: |
+          IMAGE=$REGISTRY/$REPOSITORY-$APP
+          echo "Image name: $IMAGE"
+
           echo "Tags to build/push:"
           echo "$TAGS"
 
           while IFS= read -r TAG; do
             echo "Building $IMAGE:$TAG"
-            docker build ./burrito/apps/${{ matrix.app }} -t "$IMAGE:$TAG"
+            docker build ./burrito/apps/$APP -t "$IMAGE:$TAG" --build-args PROJECT_BRANCH=$BRANCH_NAME
           done <<< "$TAGS"
 
           while IFS= read -r TAG; do
