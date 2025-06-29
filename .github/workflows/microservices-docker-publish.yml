@@ -8,7 +8,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build_containers:    
@@ -45,6 +44,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Preparing env variables
+        run: echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
@@ -56,7 +58,9 @@ jobs:
         run: |
           RAW_BRANCH="${GITHUB_REF##*/}"
           SAFE_BRANCH="${RAW_BRANCH//[^a-zA-Z0-9._-]/-}"
-          echo "BRANCH_NAME=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          echo $RAW_BRANCH
+          echo $SAFE_BRANCH
+          echo "BRANCH_NAME=${SAFE_BRANCH}" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
@@ -64,7 +68,9 @@ jobs:
           context: .
           file: ./burrito/apps/${{ matrix.app }}/Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ github.ref == 'refs/heads/main' && format('{0}/{1}-${2}:latest', env.REGISTRY, env.IMAGE_NAME, matrix.app) || '' }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             PROJECT_BRANCH=${{ steps.shortref.outputs.BRANCH_NAME }}

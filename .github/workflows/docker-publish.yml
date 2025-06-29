@@ -43,5 +43,5 @@ jobs:
           push: true
           tags: |
             ${{ steps.meta.outputs.tags }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ github.ref == 'refs/heads/main' && format('{0}/{1}:latest', env.REGISTRY, env.IMAGE_NAME) || '' }}
           labels: ${{ steps.meta.outputs.labels }}
