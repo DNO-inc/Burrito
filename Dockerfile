@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3.10
 
-FROM python:${PYTHON_VERSION}-slim-buster AS burrito-build-base
+FROM python:${PYTHON_VERSION}-alpine AS burrito-build-base
 
 
 FROM burrito-build-base AS burrito-dependencies
@@ -8,10 +8,8 @@ FROM burrito-build-base AS burrito-dependencies
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=true
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential && \
-    pip3 install poetry && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk add --no-cache --no-interactive poetry cargo
 
 WORKDIR /venv
 
