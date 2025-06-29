@@ -2,7 +2,7 @@ name: Burrito microservices to Docker
 
 on:
   push:
-    branches: 
+    branches:
       - main
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  build_containers:    
+  build_containers:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,33 +44,44 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Preparing env variables
-        run: echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.app }}
-
-      - name: Get short branch name
-        id: shortref
-        run: |
-          RAW_BRANCH="${GITHUB_REF##*/}"
-          SAFE_BRANCH="${RAW_BRANCH//[^a-zA-Z0-9._-]/-}"
-          echo $RAW_BRANCH
-          echo $SAFE_BRANCH
-          echo "BRANCH_NAME=${SAFE_BRANCH}" >> $GITHUB_OUTPUT
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        with:
-          context: .
-          file: ./burrito/apps/${{ matrix.app }}/Dockerfile
-          push: true
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-${{ matrix.app }}
           tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ github.ref == 'refs/heads/main' && format('{0}/{1}-${2}:latest', env.REGISTRY, env.IMAGE_NAME, matrix.app) || '' }}
-          labels: ${{ steps.meta.outputs.labels }}
-          build-args: |
-            PROJECT_BRANCH=${{ steps.shortref.outputs.BRANCH_NAME }}
+            type=ref,event=branch
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Get safe branch name
+        id: set-safe-branch-name
+        run: |
+          RAW_BRANCH="${GITHUB_REF#refs/heads/}"
+          SAFE_BRANCH="${RAW_BRANCH//\//-}"
+          SAFE_BRANCH="${SAFE_BRANCH//[^a-zA-Z0-9._-]/-}"
+          echo "safe_branch=$SAFE_BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Build and push
+        env:
+          REGISTRY: ${{ env.REGISTRY }}
+          REPOSITORY: ${{ github.repository }}
+          APP: ${{ matrix.app }}
+          BRANCH_NAME: ${{ steps.set-safe-branch-name.outputs.safe_branch }}
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          IMAGE=$REGISTRY/$REPOSITORY-$APP
+          echo "Image name: $IMAGE"
+
+          echo "Tags to build/push:"
+          echo "$TAGS"
+
+          while IFS= read -r TAG; do
+            echo "Building $TAG"
+            docker build -f ./burrito/apps/$APP/Dockerfile -t "$TAG" --build-arg PROJECT_BRANCH=$BRANCH_NAME .
+          done <<< "$TAGS"
+
+          while IFS= read -r TAG; do
+            echo "Pushing $TAG"
+            docker push $TAG
+          done <<< "$TAGS"
