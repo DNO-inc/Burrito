@@ -1,9 +1,10 @@
 name: Burrito microservices to Docker
 
 on:
-  push:
-    branches:
-      - main
+  workflow_run:
+    workflows: ["Burrito to Docker"]
+    types:
+      - completed
   workflow_dispatch:
 
 env:
