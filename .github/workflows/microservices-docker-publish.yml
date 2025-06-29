@@ -2,7 +2,7 @@ name: Burrito microservices to Docker
 
 on:
   push:
-    branches: 
+    branches:
       - main
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
-  build_containers:    
+  build_containers:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -44,17 +44,30 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Preparing env variables
-        run: echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-${{ matrix.app }}
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-${{ matrix.app }}
+          tags: |
+            type=ref,event=branch
+            type=sha
+            type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Test
-        run: |
-          echo "$TAGS"
+      - name: Build and push
         env:
+          IMAGE: ${{ env.REGISTRY }}/${{ github.repository }}-${{ matrix.app }}
           TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          echo "Tags to build/push:"
+          echo "$TAGS"
+
+          while IFS= read -r TAG; do
+            echo "Building $IMAGE:$TAG"
+            docker build ./burrito/apps/${{ matrix.app }} -t "$IMAGE:$TAG"
+          done <<< "$TAGS"
+
+          while IFS= read -r TAG; do
+            echo "Pushing $IMAGE:$TAG"
+            docker push "$IMAGE:$TAG"
+          done <<< "$TAGS"
