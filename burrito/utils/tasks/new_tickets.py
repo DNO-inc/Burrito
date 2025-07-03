@@ -2,10 +2,7 @@ import datetime
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-from burrito.utils.email_templates import (
-    TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN,
-)
-from burrito.utils.email_util import publish_email
+from burrito.utils.email_util import load_email_template, publish_email
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import STATUS_NEW
 
@@ -21,26 +18,30 @@ def check_for_new_tickets():
             Users.role.in_((9, 10))
         )
     ]
-    tickets_info: list[str] = []
+    tickets_info: list[dict] = []
 
     for ticket_item in tickets_list:
         ticket_created = datetime.datetime.strptime(str(ticket_item.created), "%Y-%m-%d %H:%M:%S")
 
         if (datetime.datetime.now() - ticket_created).days > MAX_UNCHANGED_DAYS:
             tickets_info.append(
-                f"""
-                #{ticket_item.ticket_id} "{ticket_item.subject}":
-                    Дата створення: {ticket_item.created}
-                """
+                {
+                    "ticket_id": ticket_item.ticket_id,
+                    "subject": ticket_item.subject,
+                    "created": ticket_item.created
+                }
             )
 
     if tickets_info:
         publish_email(
             admins_list,
-            TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN["subject"].format(days_count=MAX_UNCHANGED_DAYS),
-            TEMPLATE__NEW_TICKETS_EMAIL_NOTIFICATION_FOR_ADMIN["content"].format(
-                days_count=MAX_UNCHANGED_DAYS,
-                data="".join(tickets_info)
+            "Тікети в статусі NEW вже кілька днів",
+            load_email_template(
+                "email/new_tickets.html",
+                {
+                    "days_count": MAX_UNCHANGED_DAYS,
+                    "tickets_data": tickets_info
+                }
             )
         )
         get_logger().info(f"Found {len(tickets_list)} tickets with status NEW")

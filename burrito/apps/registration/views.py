@@ -7,30 +7,13 @@ from burrito.schemas.email_code import EmailVerificationCodeSchema
 from burrito.schemas.registration_schema import RegistrationSchema
 from burrito.utils.auth import AuthTokenPayload, create_token_pare
 from burrito.utils.converter import FacultyConverter, GroupConverter
-from burrito.utils.email_util import send_registration_email
+from burrito.utils.email_util import load_email_template, send_registration_email
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.task_manager import get_task_manager
 from burrito.utils.users_util import get_user_by_email_or_none
 
 from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
-
-EMAIL_VERIFICATIONS_TEMPLATE = """Добрий день,
-
-
-Ваш запит на реєстрацію в проекті TreS було успішно оброблено.
-Для завершення реєстрації, будь ласка, введіть нижче наведений код підтвердження:
-
-{}
-
-Будь ласка, уважно перевірте введений код та переконайтеся, що він відповідає наданому вам під час реєстрації.
-Якщо у вас виникли будь-які труднощі чи потребуються додаткові вказівки, будь ласка, зв'яжіться з нашою службою підтримки.
-
-
-З повагою,
-
-Команда TreS
-"""
 
 
 async def registration__user_registration(
@@ -98,7 +81,12 @@ async def registration__user_registration(
         send_registration_email,
         user_data.email,
         "Підтвердження реєстрації в TreS",
-        EMAIL_VERIFICATIONS_TEMPLATE.format(verification_code),
+        load_email_template(
+            "email/email_verification.html",
+            {
+                "verification_code": verification_code
+            }
+        ),
         daemon=True
     )
 

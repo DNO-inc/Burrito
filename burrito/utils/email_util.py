@@ -1,7 +1,9 @@
 import smtplib
 import traceback
-from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
+import jinja2
 import orjson
 
 from burrito.models.user_model import Users
@@ -9,6 +11,11 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.users_util import get_user_by_id_or_none
+
+_jinja2_env = jinja2.Environment(
+    loader=jinja2.PackageLoader("burrito", "templates"),
+    autoescape=jinja2.select_autoescape()
+)
 
 
 class BurritoEmail(smtplib.SMTP_SSL):
@@ -31,7 +38,7 @@ def get_burrito_email() -> BurritoEmail:
     return BurritoEmail(get_config().BURRITO_SMTP_SERVER)
 
 
-def _send_email(email_message: EmailMessage):
+def _send_email(email_message: MIMEMultipart):
     try:
         get_logger().info("Creating SMTP client...")
 
@@ -57,6 +64,26 @@ def _send_email(email_message: EmailMessage):
             """
         )
         get_logger().critical(f"Failed to send email to {email_message['Bcc']}")
+
+
+def load_email_template(template_name: str, template_variables: dict) -> str:
+    template = _jinja2_env.get_template(template_name)
+    return template.render(template_variables)
+
+
+def _create_email_message(
+    subject: str,
+    sender: str,
+    receivers: str,
+    content: str
+) -> MIMEMultipart:
+    msg = MIMEMultipart('alternative')
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = sender
+    msg["Bcc"] = receivers
+    msg.attach(MIMEText(content, 'html'))
+    return msg
 
 
 def send_email(receivers: list[int], subject: str, content: str) -> None:
@@ -90,26 +117,22 @@ def send_email(receivers: list[int], subject: str, content: str) -> None:
         get_logger().info(f"Receivers IDs list: {receivers}")
         return
 
-    sender = get_config().BURRITO_EMAIL_LOGIN
-    msg = EmailMessage()
-    msg.set_content(content)
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = sender
-    msg["Bcc"] = ", ".join(receivers_email)
-
+    msg = _create_email_message(
+        subject,
+        get_config().BURRITO_EMAIL_LOGIN,
+        ", ".join(receivers_email),
+        content
+    )
     _send_email(msg)
 
 
 def send_registration_email(to: str, subject: str, content: str) -> None:
-    sender = get_config().BURRITO_EMAIL_LOGIN
-    msg = EmailMessage()
-    msg.set_content(content)
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = sender
-    msg["Bcc"] = to
-
+    msg = _create_email_message(
+        subject,
+        get_config().BURRITO_EMAIL_LOGIN,
+        to,
+        content
+    )
     _send_email(msg)
 
 
