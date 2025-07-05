@@ -1,0 +1,6 @@
+
+{% macro pluralize_day(count) -%}
+  {{ count }} {{
+    "дня" if count % 10 == 1 and count % 100 != 11 else "днів"
+  }}
+{%- endmacro %}

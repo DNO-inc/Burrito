@@ -1,0 +1,30 @@
+{% extends "common/base" %}
+
+{% import "common/email_func.jinja" as func %}
+
+{% block content %}
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Шановна адміністраціє,
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Цим повідомленням нагадуємо, що наступні тікети перебувають в статусі <strong>"NEW"</strong> протягом останніх <strong>{{ func.pluralize_day(days_count) }}</strong>:
+  </p>
+
+  <ul style="padding-left: 1.2em; font-family: Arial, sans-serif; color: #444; list-style: none;">
+    {% for ticket_item in tickets_data %}
+      <li style="margin-bottom: 0.5em;">
+        <strong>#{{ ticket_item.ticket_id }}</strong> <em>"{{ ticket_item.subject }}"</em><br>
+        <p>Дата створення: {{ ticket_item.created }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Будь ласка, призначте відповідного співробітника для обробки цих тікетів негайно.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Дякуємо за увагу!
+  </p>
+{% endblock %}
