@@ -21,7 +21,7 @@ from burrito.schemas.comment_schema import (
 )
 from burrito.schemas.faculty_schema import FacultyResponseSchema
 from burrito.schemas.tickets_schema import TicketUsersInfoSchema
-from burrito.utils.email_util import load_email_template, publish_email
+from burrito.utils.email_util import publish_email
 from burrito.utils.logger import get_logger
 from burrito.utils.mongo_util import (
     mongo_delete,
@@ -360,15 +360,13 @@ def create_ticket_action(
                 ticket_id=ticket.ticket_id,
                 ticket_subject=ticket.subject
             ),
-            load_email_template(
-                "email/email_notification.html",
-                {
-                    "login": action_author.login,
-                    "field_name": field_name,
-                    "old_value": old_value,
-                    "new_value": new_value
-                }
-            )
+            "email_notification",
+            {
+                "login": action_author.login,
+                "field_name": field_name,
+                "old_value": old_value,
+                "new_value": new_value
+            }
         )
         get_redis_connector().publish(
             f"chat_{ticket_id}",
@@ -683,7 +681,8 @@ def _assign_new_people(ticket: Tickets, initiator_id: int, new_assignee: Users, 
     publish_email(
         (new_assignee.user_id,),
         "Призначення відповідального за тікет #{ticket_id}".format(**email_template_data),
-        load_email_template("email/assigned_to_ticket.html", email_template_data)
+        "assigned_to_ticket",
+        email_template_data
     )
 
 
@@ -708,12 +707,14 @@ def _reassign_people(ticket: Tickets, initiator_id: int, new_assignee: Users, em
     publish_email(
         (ticket.assignee.user_id,),
         "Зняття з відповідальності за тікет #{ticket_id}".format(**email_template_data),
-        load_email_template("email/unassigned_from_ticket.html", email_template_data)
+        "unassigned_from_ticket",
+        email_template_data
     )
     publish_email(
         (new_assignee.user_id,),
         "Призначення відповідального за тікет #{ticket_id}".format(**email_template_data),
-        load_email_template("email/assigned_to_ticket.html", email_template_data)
+        "assigned_to_ticket",
+        email_template_data
     )
 
     ticket.assignee = new_assignee
@@ -739,7 +740,8 @@ def _remove_assignee(ticket: Tickets, initiator_id: int, email_template_data: di
     publish_email(
         (ticket.assignee.user_id,),
         "Зняття з відповідальності за тікет #{ticket_id}".format(**email_template_data),
-        load_email_template("email/unassigned_from_ticket.html", email_template_data)
+        "unassigned_from_ticket",
+        email_template_data
     )
 
     ticket.assignee = None

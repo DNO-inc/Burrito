@@ -7,7 +7,7 @@ from burrito.schemas.email_code import EmailVerificationCodeSchema
 from burrito.schemas.registration_schema import RegistrationSchema
 from burrito.utils.auth import AuthTokenPayload, create_token_pare
 from burrito.utils.converter import FacultyConverter, GroupConverter
-from burrito.utils.email_util import load_email_template, send_registration_email
+from burrito.utils.email_util import send_registration_email
 from burrito.utils.hash_util import generate_email_code, get_hash
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.task_manager import get_task_manager
@@ -81,12 +81,10 @@ async def registration__user_registration(
         send_registration_email,
         user_data.email,
         "Підтвердження реєстрації в TreS",
-        load_email_template(
-            "email/email_verification.html",
-            {
-                "verification_code": verification_code
-            }
-        ),
+        "email_verification",
+        {
+            "verification_code": verification_code
+        },
         daemon=True
     )
 

@@ -13,7 +13,7 @@ from burrito.utils.auth import (
     create_refresh_token,
     get_current_user,
 )
-from burrito.utils.email_util import load_email_template, publish_email
+from burrito.utils.email_util import publish_email
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.users_util import get_user_by_email_or_none, get_user_by_id
 
@@ -68,12 +68,10 @@ async def profile__token_reset_request(
     publish_email(
         [user_data.user_id],
         "Запит на поновлення доступу до TreS",
-        load_email_template(
-            "email/access_renew.html",
-            {
-                "url": __ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
-            }
-        )
+        "access_renew",
+        {
+            "url": __ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
+        }
     )
 
     return {

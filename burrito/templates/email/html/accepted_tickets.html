@@ -1,14 +1,14 @@
-{% extends "email/base.html" %}
+{% extends "common/base" %}
 
-{% import "email/func.jinja" as func %}
+{% import "common/email_func.jinja" as func %}
 
 {% block content %}
   <p style="font-family: Arial, sans-serif; color: #333;">
-    Шановний(а) користувачу(ко),
+    Шановна адміністраціє,
   </p>
 
   <p style="font-family: Arial, sans-serif; color: #333;">
-    Цим повідомленням нагадуємо, що наступні тікети перебувають у статусі <strong>"WAITING"</strong> протягом останніх <strong>{{ func.pluralize_day(days_count) }}</strong>:
+    Цим повідомленням нагадуємо, що наступні тікети перебувають в статусі <strong>"ACCEPTED"</strong> протягом останніх <strong>{{ func.pluralize_day(days_count) }}</strong>:
   </p>
 
   <ul style="padding-left: 1.2em; font-family: Arial, sans-serif; color: #444; list-style: none;">
@@ -21,7 +21,7 @@
   </ul>
 
   <p style="font-family: Arial, sans-serif; color: #333;">
-    Будь ласка, зверніть увагу на зазначені тікети - адміністрація очікує на певні уточнення щодо них.
+    Будь ласка, зверніть увагу на вище зазначені тікети, переведіть їх в статус <strong>OPEN</strong> або <strong>CLOSED</strong>.
   </p>
 
   <p style="font-family: Arial, sans-serif; color: #333;">

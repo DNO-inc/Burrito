@@ -2,7 +2,7 @@ import datetime
 from collections import defaultdict
 
 from burrito.models.tickets_model import Tickets
-from burrito.utils.email_util import load_email_template, publish_email
+from burrito.utils.email_util import publish_email
 from burrito.utils.query_util import STATUS_ACCEPTED
 
 MAX_UNCHANGED_DAYS = 2
@@ -31,11 +31,9 @@ def check_for_accepted_tickets():
         publish_email(
             [assignee],
             "Тікети в статусі ACCEPTED вже кілька днів",
-            load_email_template(
-                "email/accepted_tickets.html",
-                {
-                    "days_count": MAX_UNCHANGED_DAYS,
-                    "tickets_data": desc
-                }
-            )
+            "accepted_tickets",
+            {
+                "days_count": MAX_UNCHANGED_DAYS,
+                "tickets_data": desc
+            }
         )

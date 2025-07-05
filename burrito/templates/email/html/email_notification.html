@@ -1,4 +1,4 @@
-{% extends "email/base.html" %}
+{% extends "common/base" %}
 
 {% block content %}
   <p style="font-family: Arial, sans-serif; color: #333;">
@@ -10,7 +10,7 @@
   </p>
 
   <p style="font-family: Arial, sans-serif; color: #444; font-style: italic; margin-bottom: 1em;">
-    "{{ login }} змінив значення '<strong>{{ field_name }}</strong>' з (<del>{{ old_value }}</del>) на (<strong>{{ new_value }}</strong>)"
+    "{{ login }} змінив значення '<strong>{{ field_name }}</strong>' з ({{ old_value }}) на (<strong>{{ new_value }}</strong>)"
   </p>
 
   <p style="font-family: Arial, sans-serif; color: #333;">

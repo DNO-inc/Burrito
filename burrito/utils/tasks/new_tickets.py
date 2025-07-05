@@ -2,7 +2,7 @@ import datetime
 
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
-from burrito.utils.email_util import load_email_template, publish_email
+from burrito.utils.email_util import publish_email
 from burrito.utils.logger import get_logger
 from burrito.utils.query_util import STATUS_NEW
 
@@ -36,12 +36,10 @@ def check_for_new_tickets():
         publish_email(
             admins_list,
             "Тікети в статусі NEW вже кілька днів",
-            load_email_template(
-                "email/new_tickets.html",
-                {
-                    "days_count": MAX_UNCHANGED_DAYS,
-                    "tickets_data": tickets_info
-                }
-            )
+            "new_tickets",
+            {
+                "days_count": MAX_UNCHANGED_DAYS,
+                "tickets_data": tickets_info
+            }
         )
         get_logger().info(f"Found {len(tickets_list)} tickets with status NEW")
