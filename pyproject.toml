@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
-anyio = "^3.6.2"
+anyio = "^4.9.0"
 distro = "^1.8.0"
 fastapi = "0.115.13"
 h11 = "^0.14.0"
