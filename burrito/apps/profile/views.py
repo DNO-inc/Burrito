@@ -1,7 +1,6 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 
-from .utils import generate_reset_token, update_profile_data, view_profile_by_user_id
 from burrito.models.m_password_rest_model import AccessRenewMetaData
 from burrito.models.user_model import Users
 from burrito.schemas.profile_schema import (
@@ -14,10 +13,11 @@ from burrito.utils.auth import (
     create_refresh_token,
     get_current_user,
 )
-from burrito.utils.email_templates import TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL
 from burrito.utils.email_util import publish_email
 from burrito.utils.mongo_util import mongo_delete, mongo_insert, mongo_select
 from burrito.utils.users_util import get_user_by_email_or_none, get_user_by_id
+
+from .utils import generate_reset_token, update_profile_data, view_profile_by_user_id
 
 # TODO: it should be changed to env variable or we need to come up with another way to receive an actual URI for access renewing
 __ACCESS_RENEW_URL_TEMPLATE = "https://tres.sumdu.edu.ua/general_tickets?reset_token={}"
@@ -67,10 +67,11 @@ async def profile__token_reset_request(
 
     publish_email(
         [user_data.user_id],
-        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["subject"],
-        TEMPLATE__ACCESS_RENEW_REQUEST_EMAIL["content"].format(
-            url=__ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
-        )
+        "Запит на поновлення доступу до TreS",
+        "access_renew",
+        {
+            "url": __ACCESS_RENEW_URL_TEMPLATE.format(reset_token)
+        }
     )
 
     return {

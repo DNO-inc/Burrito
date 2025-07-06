@@ -15,23 +15,6 @@ from burrito.utils.users_util import get_user_by_email_or_none
 
 from .utils import create_user, get_user_by_login, is_valid_login, is_valid_password
 
-EMAIL_VERIFICATIONS_TEMPLATE = """Добрий день,
-
-
-Ваш запит на реєстрацію в проекті TreS було успішно оброблено.
-Для завершення реєстрації, будь ласка, введіть нижче наведений код підтвердження:
-
-{}
-
-Будь ласка, уважно перевірте введений код та переконайтеся, що він відповідає наданому вам під час реєстрації.
-Якщо у вас виникли будь-які труднощі чи потребуються додаткові вказівки, будь ласка, зв'яжіться з нашою службою підтримки.
-
-
-З повагою,
-
-Команда TreS
-"""
-
 
 async def registration__user_registration(
     user_data: RegistrationSchema
@@ -98,7 +81,10 @@ async def registration__user_registration(
         send_registration_email,
         user_data.email,
         "Підтвердження реєстрації в TreS",
-        EMAIL_VERIFICATIONS_TEMPLATE.format(verification_code),
+        "email_verification",
+        {
+            "verification_code": verification_code
+        },
         daemon=True
     )
 
