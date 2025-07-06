@@ -9,7 +9,13 @@ ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=true
 
 RUN apk update && \
-    apk add --no-cache --no-interactive poetry cargo
+    apk add --no-cache --no-interactive \ 
+        abseil-cpp-dev \
+        build-base \
+        cargo \
+        poetry \
+        py3-pybind11-dev \
+        re2-dev
 
 WORKDIR /venv
 

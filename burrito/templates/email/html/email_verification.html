@@ -1,0 +1,26 @@
+{% extends "common/base" %}
+
+{% block content %}
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Добрий день,
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Ваш запит на реєстрацію в проекті <strong>TreS</strong> було успішно оброблено.<br>
+    Для завершення реєстрації, будь ласка, введіть нижче наведений код підтвердження:
+  </p>
+
+  <p style="font-family: Arial, monospace; font-size: 1.2em; color: #000; background-color: #f0f0f0; padding: 10px; border-radius: 5px; display: inline-block;">
+    <strong>{{ verification_code }}</strong>
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Будь ласка, уважно перевірте введений код та переконайтеся, що він відповідає наданому вам під час реєстрації.<br>
+    Якщо у вас виникли будь-які труднощі чи потребуються додаткові вказівки, будь ласка, зв'яжіться з нашою службою підтримки.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    З повагою,<br>
+    Команда <strong>TreS</strong>
+  </p>
+{% endblock %}

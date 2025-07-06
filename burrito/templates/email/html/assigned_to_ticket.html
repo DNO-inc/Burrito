@@ -1,0 +1,22 @@
+{% extends "common/base" %}
+
+{% block content %}
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Шановна адміністраціє,
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Хочемо повідомити, що Ви були призначені відповідальним на платформі <strong>TreS</strong>.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    <strong>Інформація про тікет:</strong><br>
+    Номер тікета: <strong>#{{ ticket_id }}</strong><br>
+    Тема: <em>{{ ticket_subject }}</em>
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    З найкращими побажаннями,<br>
+    Команда <strong>TreS</strong>
+  </p>
+{% endblock %}

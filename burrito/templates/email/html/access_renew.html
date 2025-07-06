@@ -1,0 +1,31 @@
+{% extends "common/base" %}
+
+{% block content %}
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Шановний(а) користувачу(ко),
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Якщо ви отримали це повідомлення, це свідчить про те, що ви виразили бажання відновити доступ до свого облікового запису.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Для відновлення доступу, будь ласка, скористайтеся наступним посиланням:
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    <a href="{{ url }}" style="color: #1a73e8;">{{ url }}</a>
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Майте на увазі, що це посилання буде активним лише протягом обмеженого періоду часу. Таким чином, рекомендуємо вам виконати процедуру відновлення якнайшвидше.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Якщо ви не здійснювали жодних змін у своєму обліковому записі, і це повідомлення вас здивувало, будь ласка, зверніться до нашої служби підтримки через платформу <strong>TreS</strong>.
+  </p>
+
+  <p style="font-family: Arial, sans-serif; color: #333;">
+    Дякуємо за ваше розуміння та співпрацю.
+  </p>
+{% endblock %}
