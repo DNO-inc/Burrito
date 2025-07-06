@@ -18,6 +18,9 @@ class PublishedEmailMeta:
     template_variables: dict
 
 
+EMAIL_LOOP_DELAY = 1
+
+
 def email_loop():
     email_subscriber: PubSub = get_redis_connector().pubsub()
     email_subscriber.subscribe("email")
@@ -26,6 +29,8 @@ def email_loop():
     logger.info("Email loop is started")
 
     while True:
+        time.sleep(EMAIL_LOOP_DELAY)
+
         try:
             email_subscriber.ping()
         except Exception:
@@ -38,8 +43,7 @@ def email_loop():
             continue
 
         raw_data = message.get("data")
-        if not isinstance(raw_data, (str, bytes)):
-            logger.warning("Invalid raw_data type: %s", type(raw_data))
+        if not raw_data or not isinstance(raw_data, (str, bytes)):
             continue
 
         try:
@@ -65,6 +69,4 @@ def email_loop():
         }
 
         get_task_manager().add_task(send_email, **task_args)
-        get_logger().info("New task started...")
-
-        time.sleep(1)
+        logger.info("New task started...")
