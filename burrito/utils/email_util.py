@@ -1,9 +1,7 @@
 import smtplib
 import traceback
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from email.message import EmailMessage
 
-import jinja2
 import orjson
 
 from burrito.models.user_model import Users
@@ -11,31 +9,6 @@ from burrito.utils.config_reader import get_config
 from burrito.utils.logger import get_logger
 from burrito.utils.redis_utils import get_redis_connector
 from burrito.utils.users_util import get_user_by_id_or_none
-
-_jinja2_env = jinja2.Environment(
-    loader=jinja2.PackageLoader("burrito", "templates"),
-    autoescape=jinja2.select_autoescape()
-)
-
-
-class JinjaEmailTemplateData:
-    def __init__(self, template_name: str, template_variables: dict, **kwargs) -> None:
-        self.template_name = template_name
-        self.template_variables = template_variables
-
-    @property
-    def html_template(self) -> str:
-        return f"email/html/{self.template_name}.html"
-
-    @property
-    def text_template(self) -> str:
-        return f"email/text/{self.template_name}.txt"
-
-    def load_template(self, html: bool = True):
-        template = _jinja2_env.get_template(
-            self.html_template if html else self.text_template
-        )
-        return template.render(self.template_variables)
 
 
 class BurritoEmail(smtplib.SMTP_SSL):
@@ -58,7 +31,7 @@ def get_burrito_email() -> BurritoEmail:
     return BurritoEmail(get_config().BURRITO_SMTP_SERVER)
 
 
-def _send_email(email_message: MIMEMultipart):
+def _send_email(email_message: EmailMessage):
     try:
         get_logger().info("Creating SMTP client...")
 
@@ -86,34 +59,14 @@ def _send_email(email_message: MIMEMultipart):
         get_logger().critical(f"Failed to send email to {email_message['Bcc']}")
 
 
-def _create_email_message(
-    subject: str,
-    sender: str,
-    receivers: str,
-    jinja_template_metadata: JinjaEmailTemplateData
-) -> MIMEMultipart:
-    msg = MIMEMultipart('alternative')
-    msg["Subject"] = subject
-    msg["From"] = sender
-    msg["To"] = sender
-    msg["Bcc"] = receivers
-    msg.attach(MIMEText(jinja_template_metadata.load_template(html=False), 'plain'))
-    msg.attach(MIMEText(jinja_template_metadata.load_template(html=True), 'html'))
-    return msg
-
-
-def send_email(
-    receivers: list[int],
-    subject: str,
-    jinja_template_metadata: JinjaEmailTemplateData
-) -> None:
+def send_email(receivers: list[int], subject: str, content: str) -> None:
     """
     Send email to receivers. This will try to resend email if sending fails.
 
     Args:
         receivers: List of receivers to send email to
         subject: Subject of the email to send
-        template_name: The template name of the email to send
+        content: Content of the email to send
     """
     receivers_email: list[str] = []
 
@@ -137,47 +90,37 @@ def send_email(
         get_logger().info(f"Receivers IDs list: {receivers}")
         return
 
-    msg = _create_email_message(
-        subject,
-        get_config().BURRITO_EMAIL_LOGIN,
-        ", ".join(receivers_email),
-        jinja_template_metadata
-    )
+    sender = get_config().BURRITO_EMAIL_LOGIN
+    msg = EmailMessage()
+    msg.set_content(content)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = sender
+    msg["Bcc"] = ", ".join(receivers_email)
+
     _send_email(msg)
 
 
-def send_registration_email(
-    to: str,
-    subject: str,
-    template_name: str,
-    template_variables: dict
-) -> None:
-    msg = _create_email_message(
-        subject,
-        get_config().BURRITO_EMAIL_LOGIN,
-        to,
-        JinjaEmailTemplateData(
-            template_name=template_name,
-            template_variables=template_variables
-        )
-    )
+def send_registration_email(to: str, subject: str, content: str) -> None:
+    sender = get_config().BURRITO_EMAIL_LOGIN
+    msg = EmailMessage()
+    msg.set_content(content)
+    msg["Subject"] = subject
+    msg["From"] = sender
+    msg["To"] = sender
+    msg["Bcc"] = to
+
     _send_email(msg)
 
 
-def publish_email(
-    receivers: set[int] | list[int],
-    subject: str,
-    template_name: str,
-    template_variables: dict
-) -> None:
+def publish_email(receivers: set[int] | list[int], subject: str, content: str) -> None:
     """
     Publish an email to Redis pubsub.
 
     Args:
         receivers: A list of receivers to send email
         subject: The subject of the email
-        template_name: Short name of the jinja template for email
-        template_variables: Parameters for the jinja template
+        content: The content of the email
     """
     clear_receivers = list(set(receivers))
     get_redis_connector().publish(
@@ -186,8 +129,7 @@ def publish_email(
             {
                 "receivers": clear_receivers,
                 "subject": subject,
-                "template_name": template_name,
-                "template_variables": template_variables
+                "content": content
             }
         )
     )
@@ -196,7 +138,6 @@ def publish_email(
             New email was published to chanel (
                 "receivers": {clear_receivers},
                 "subject": {subject},
-                "template_name": {template_name}
             )
 
         """
