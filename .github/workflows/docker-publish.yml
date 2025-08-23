@@ -4,6 +4,11 @@ on:
   push:
     branches: 
       - main
+    paths-ignore:
+      - "docs/**"
+      - "docs.conf"
+      - "docker-compose*"
+      - "*.md"
   workflow_dispatch:
 
 env:
