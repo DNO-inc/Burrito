@@ -46,9 +46,7 @@ async def profile__update_my_profile(
     )
 
 
-async def profile__token_reset_request(
-    email: str
-):
+async def profile__token_reset_request(email: str):
     user_data: Users | None = get_user_by_email_or_none(email)
     if not user_data:
         raise HTTPException(

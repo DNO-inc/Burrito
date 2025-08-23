@@ -31,7 +31,7 @@ async def iofiles__upload_file_for_ticket(
     file_list: list[UploadFile],
     _curr_user: Users = Depends(get_current_user())
 ):
-    ticket: Tickets | None = is_ticket_exist(ticket_id)
+    ticket: Tickets = is_ticket_exist(ticket_id)
 
     if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
@@ -49,7 +49,7 @@ async def iofiles__upload_file_for_ticket(
             file_item.content_type
         )
         get_logger().info(
-           f"User {_curr_user.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
+            f"User {_curr_user.user_id} have uploaded file {current_file_id} ({file_item.size} bytes)"
         )
         file_ids.append(current_file_id)
         create_ticket_file_action(
@@ -87,7 +87,7 @@ async def iofiles__get_file(
         )
     file_data = TicketFiles(**file_data[0])
 
-    ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
+    ticket: Tickets = is_ticket_exist(file_data.ticket_id)
 
     if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
@@ -108,7 +108,7 @@ async def iofiles__get_file_ids(
     ticket_id: Annotated[int, Form(...)],
     _curr_user: Users = Depends(get_current_user())
 ):
-    ticket: Tickets | None = is_ticket_exist(ticket_id)
+    ticket: Tickets = is_ticket_exist(ticket_id)
 
     if not can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         raise HTTPException(
@@ -133,7 +133,7 @@ async def iofiles__delete_file(
         )
     file_data = TicketFiles(**file_data[0])
 
-    ticket: Tickets | None = is_ticket_exist(file_data.ticket_id)
+    ticket: Tickets = is_ticket_exist(file_data.ticket_id)
 
     if can_i_interact_with_ticket(ticket, get_user_by_id(_curr_user.user_id)):
         file_data = mongo_select(

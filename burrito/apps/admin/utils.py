@@ -1,3 +1,5 @@
+from typing import Annotated, Optional
+
 from fastapi import HTTPException
 
 from burrito.models.liked_model import Liked
@@ -80,10 +82,10 @@ def make_ticket_detail_info(
 
 async def update_profile_as_admin(
     user_id: int,
-    profile_updated_data: AdminRequestUpdateProfileSchema | None = AdminRequestUpdateProfileSchema(),
+    profile_updated_data: AdminRequestUpdateProfileSchema,
     allow_extra_fields: bool = False
 ) -> None:
-    current_user: Users | None = get_user_by_id(user_id)
+    current_user: Users = get_user_by_id(user_id)
 
     if is_valid_firstname(profile_updated_data.firstname):
         current_user.firstname = profile_updated_data.firstname
