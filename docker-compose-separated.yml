@@ -47,7 +47,8 @@ services:
     container_name: burrito_scheduler
     build:
       context: .
-      dockerfile: burrito/apps/scheduler/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.scheduler"]
     env_file:
       - .env
     networks:
@@ -64,7 +65,8 @@ services:
     container_name: burrito_about
     build:
       context: .
-      dockerfile: burrito/apps/about/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.about"]
     env_file:
       - .env
     expose:
@@ -83,7 +85,8 @@ services:
     container_name: burrito_admin
     build:
       context: .
-      dockerfile: burrito/apps/admin/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.admin"]
     env_file:
       - .env
     expose:
@@ -102,7 +105,8 @@ services:
     container_name: burrito_anon
     build:
       context: .
-      dockerfile: burrito/apps/anon/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.anon"]
     env_file:
       - .env
     expose:
@@ -121,7 +125,8 @@ services:
     container_name: burrito_auth
     build:
       context: .
-      dockerfile: burrito/apps/auth/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.auth"]
     env_file:
       - .env
     expose:
@@ -140,7 +145,8 @@ services:
     container_name: burrito_comments
     build:
       context: .
-      dockerfile: burrito/apps/comments/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.comments"]
     env_file:
       - .env
     expose:
@@ -159,7 +165,8 @@ services:
     container_name: burrito_iofiles
     build:
       context: .
-      dockerfile: burrito/apps/iofiles/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.iofiles"]
     env_file:
       - .env
     expose:
@@ -178,7 +185,8 @@ services:
     container_name: burrito_meta
     build:
       context: .
-      dockerfile: burrito/apps/meta/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.meta"]
     env_file:
       - .env
     expose:
@@ -197,7 +205,8 @@ services:
     container_name: burrito_notifications
     build:
       context: .
-      dockerfile: burrito/apps/notifications/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.notifications"]
     env_file:
       - .env
     expose:
@@ -216,7 +225,8 @@ services:
     container_name: burrito_profile
     build:
       context: .
-      dockerfile: burrito/apps/profile/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.profile"]
     env_file:
       - .env
     expose:
@@ -235,7 +245,8 @@ services:
     container_name: burrito_registration
     build:
       context: .
-      dockerfile: burrito/apps/registration/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.registration"]
     env_file:
       - .env
     expose:
@@ -254,7 +265,8 @@ services:
     container_name: burrito_tickets
     build:
       context: .
-      dockerfile: burrito/apps/tickets/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.tickets"]
     env_file:
       - .env
     expose:
@@ -273,7 +285,8 @@ services:
     container_name: burrito_ws
     build:
       context: .
-      dockerfile: burrito/apps/ws/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.ws"]
     env_file:
       - .env
     expose:
@@ -291,7 +304,8 @@ services:
     container_name: burrito_statistic
     build:
       context: .
-      dockerfile: burrito/apps/statistic/Dockerfile
+      dockerfile: Dockerfile
+    command: ["python", "-m", "burrito.apps.statistic"]
     env_file:
       - .env
     expose:

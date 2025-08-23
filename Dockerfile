@@ -48,6 +48,7 @@ COPY --from=burrito-dependencies --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ${
 COPY --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ./preprocessor_config.json preprocessor_config.json
 COPY --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ./CONTRIBUTORS.md CONTRIBUTORS.md
 COPY --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ./CHANGELOG.md CHANGELOG.md
+COPY --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ./event_init.sql event_init.sql
 COPY --chown=${CONTAINER_USER}:${CONTAINER_GROUP} ./burrito ./burrito
 
 USER ${CONTAINER_USER}:${CONTAINER_GROUP}
