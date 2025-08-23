@@ -1,7 +1,6 @@
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
-from ..utils import am_i_own_this_ticket_with_error, is_ticket_exist, update_ticket_info
 from burrito.models.queues_model import Queues
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
@@ -16,6 +15,8 @@ from burrito.utils.logger import get_logger
 from burrito.utils.query_util import STATUS_CLOSE
 from burrito.utils.tickets_util import create_ticket_action
 from burrito.utils.users_util import get_user_by_id
+
+from ..utils import am_i_own_this_ticket_with_error, is_ticket_exist, update_ticket_info
 
 
 async def tickets__create_new_ticket(
@@ -71,7 +72,7 @@ async def tickets__update_own_ticket_data(
 ):
     """Update ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         updates.ticket_id
     )
 
@@ -94,7 +95,7 @@ async def tickets__close_own_ticket(
 ):
     """Close ticket"""
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         data_to_close_ticket.ticket_id
     )
 

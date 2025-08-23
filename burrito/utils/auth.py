@@ -214,7 +214,7 @@ class get_current_user:
     Dependency to determine the current user
     """
 
-    def __init__(self, permission_list: set[tuple] | None = None) -> None:
+    def __init__(self, permission_list: set[str] | None = None) -> None:
         self._permission_list = permission_list
 
     def __call__(

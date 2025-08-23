@@ -144,7 +144,7 @@ def get_user_by_email_or_none(email: str) -> Users | None:
     return Users.get_or_none(Users.email == email)
 
 
-def get_user_by_id(user_id: int) -> Users | None:
+def get_user_by_id(user_id: int) -> Users:
     """
     Get user if exist or return None
 
@@ -152,7 +152,7 @@ def get_user_by_id(user_id: int) -> Users | None:
         user_id (int): user id
 
     Returns:
-        Users | None: return None if user is not exist
+        Users: raise an error if user is not exist
     """
 
     _current_user = Users.get_or_none(Users.user_id == user_id)
