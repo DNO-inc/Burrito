@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -11,22 +13,22 @@ class AnonTicketListRequestSchema(BaseFilterSchema):
 
 
 class AnonTicketUsersInfoSchema(BaseModel):
-    user_id: int | None
-    firstname: str | None
-    lastname: str | None
-    login: str | None
+    user_id: Optional[int] = None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+    login: Optional[str] = None
     faculty: FacultyResponseSchema
 
 
 class AnonTicketDetailInfoSchema(BaseModel):
-    creator: AnonTicketUsersInfoSchema | None
-    assignee: AnonTicketUsersInfoSchema | None
+    creator: Optional[AnonTicketUsersInfoSchema] = None
+    assignee: Optional[AnonTicketUsersInfoSchema] = None
 
     ticket_id: int
     subject: str
     body: str
     faculty: FacultyResponseSchema
-    queue: QueueResponseSchema | None
+    queue: Optional[QueueResponseSchema] = None
     status: StatusResponseSchema
     upvotes: int
     date: str

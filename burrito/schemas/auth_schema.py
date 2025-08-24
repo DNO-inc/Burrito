@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -43,10 +45,10 @@ class AuthResponseSchema(BaseModel):
     user_id: int
     login: str
     access_token: str
-    refresh_token: str | None
+    refresh_token: Optional[str] = None
 
 
 class KeyAuthResponseSchema(BaseModel):
     user_id: int
     access_token: str
-    refresh_token: str | None
+    refresh_token: Optional[str] = None

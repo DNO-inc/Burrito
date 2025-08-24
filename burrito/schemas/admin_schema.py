@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -9,30 +11,30 @@ from burrito.schemas.status_schema import StatusResponseSchema
 
 class AdminUpdateTicketSchema(BaseModel):
     ticket_id: int
-    assignee_id: int | None
-    faculty: int | None
-    queue: int | None
-    status: int | None
+    assignee_id: Optional[int] = None
+    faculty: Optional[int] = None
+    queue: Optional[int] = None
+    status: Optional[int] = None
 
 
 class AdminGetTicketListSchema(BaseFilterSchema):
-    creator: int | None
-    assignee: int | None
-    hidden: bool | None
+    creator: Optional[int] = None
+    assignee: Optional[int] = None
+    hidden: Optional[bool] = None
 
 
 class AdminTicketAuthorInfo(BaseModel):
     user_id: int
-    firstname: str | None
-    lastname: str | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
     login: str
     faculty: FacultyResponseSchema
-    group: GroupResponseSchema | None
+    group: Optional[GroupResponseSchema] = None
 
 
 class AdminTicketDetailInfo(BaseModel):
-    creator: AdminTicketAuthorInfo | None
-    assignee: AdminTicketAuthorInfo | None
+    creator: Optional[AdminTicketAuthorInfo] = None
+    assignee: Optional[AdminTicketAuthorInfo] = None
 
     ticket_id: int
     subject: str

@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -14,7 +16,7 @@ class CheckProfileSchema(BaseModel):
     user_id: int | None
 
 
-class BaseProfile(BaseModel):
+class ResponseProfileSchema(BaseModel):
     """
     This data must be transferred by user to update profile
 
@@ -24,35 +26,27 @@ class BaseProfile(BaseModel):
 
         login (str): users login
 
-        faculty (str): faculty name
-        group (str): group name
-
         phone (str | None): phone
         email (str | None): email
-    """
 
-    firstname: str | None
-    lastname: str | None
+        faculty (FacultyResponseSchema): faculty information
+        group (GroupResponseSchema): group information
 
-    login: str
+        role (ResponseRoleSchema): information about users's role
 
-    faculty: int | None
-    group: int | None
-
-    phone: str | None
-    email: str | None
-
-
-class ResponseProfileSchema(BaseProfile):
-    """
-    This data must be transferred by user to update profile
-
-    Args:
         registration_date (str): date when user registered account
     """
 
-    faculty: FacultyResponseSchema | None
-    group: GroupResponseSchema | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+
+    login: str
+
+    phone: Optional[str] = None
+    email: Optional[str] = None
+
+    faculty: Optional[FacultyResponseSchema] = None
+    group: Optional[GroupResponseSchema] = None
 
     role: ResponseRoleSchema
 
@@ -60,21 +54,21 @@ class ResponseProfileSchema(BaseProfile):
 
 
 class RequestUpdateProfileSchema(BaseModel):
-    firstname: str | None
-    lastname: str | None
-    faculty: int | None
-    group: int | None
-    phone: str | None
-    login: str | None
-    password: str | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+    faculty: Optional[int] = None
+    group: Optional[int] = None
+    phone: Optional[str] = None
+    login: Optional[str] = None
+    password: Optional[str] = None
 
 
 class AdminRequestUpdateProfileSchema(BaseModel):
-    firstname: str | None
-    lastname: str | None
-    faculty: int | None
-    group: int | None
-    phone: str | None
-    user_id: int | None
-    role_id: int | None
-    login: str | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+    faculty: Optional[int] = None
+    group: Optional[int] = None
+    phone: Optional[str] = None
+    user_id: Optional[int] = None
+    role_id: Optional[int] = None
+    login: Optional[str] = None

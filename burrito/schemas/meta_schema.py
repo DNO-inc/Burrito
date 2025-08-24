@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -28,11 +30,11 @@ class ResponseQueueListSchema(BaseModel):
 
 class ResponseAdminDetailSchema(BaseModel):
     user_id: int
-    firstname: str | None
-    lastname: str | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
     login: str
     faculty: FacultyResponseSchema
-    group: GroupResponseSchema | None
+    group: Optional[GroupResponseSchema] = None
 
 
 class ResponseAdminListSchema(BaseModel):

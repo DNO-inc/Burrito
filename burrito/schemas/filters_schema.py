@@ -1,9 +1,11 @@
+from typing import Optional
+
 from burrito.schemas.pagination_schema import BurritoPagination
 
 
 class BaseFilterSchema(BurritoPagination):
-    anonymous: bool | None
-    faculty: int | None
-    status: list[int] | None
-    scope: str | None
-    queue: list[int] | None
+    anonymous: Optional[bool] = None
+    faculty: Optional[int] = None
+    status: Optional[list[int]] = None
+    scope: Optional[str] = None
+    queue: Optional[list[int]] = None

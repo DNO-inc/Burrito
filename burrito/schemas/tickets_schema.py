@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.faculty_schema import FacultyResponseSchema
@@ -19,20 +21,20 @@ class CreateTicketSchema(BaseModel):
 
 class UpdateTicketSchema(BaseModel):
     ticket_id: int
-    subject: str | None
-    body: str | None
-    hidden: bool | None
-    anonymous: bool | None
+    subject: Optional[str] = None
+    body: Optional[str] = None
+    hidden: Optional[bool] = None
+    anonymous: Optional[bool] = None
 
 
 class TicketListRequestSchema(BaseFilterSchema):
     creator: int | None
     assignee: int | None
-    hidden: bool | None
+    hidden: Optional[bool] = None
 
 
 class TicketsBasicFilterSchema(BaseFilterSchema):
-    hidden: bool | None
+    hidden: Optional[bool] = None
 
 
 class TicketIDValueSchema(BaseModel):
@@ -45,12 +47,12 @@ class TicketIDValuesListScheme(BaseModel):
 
 class TicketUsersInfoSchema(BaseModel):
     user_id: int | None
-    firstname: str | None
-    lastname: str | None
-    login: str | None
+    firstname: Optional[str] = None
+    lastname: Optional[str] = None
+    login: Optional[str] = None
     faculty: FacultyResponseSchema
-    group: GroupResponseSchema | None
-#    role: str | None
+    group: Optional[GroupResponseSchema] = None
+#    role: Optional[str] = None
 
 
 class TicketDetailInfoSchema(BaseModel):
@@ -63,7 +65,7 @@ class TicketDetailInfoSchema(BaseModel):
     hidden: bool
     anonymous: bool
     faculty: FacultyResponseSchema
-    queue: QueueResponseSchema | None
+    queue: Optional[QueueResponseSchema] = None
     status: StatusResponseSchema
     upvotes: int
     is_liked: bool
