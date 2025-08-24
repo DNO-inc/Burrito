@@ -1,7 +1,6 @@
 from fastapi import Depends
 from fastapi.responses import JSONResponse
 
-from .utils import is_allowed_to_interact, is_comment_exist_with_error
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_notifications_model import Notifications
 from burrito.models.tickets_model import Tickets
@@ -26,12 +25,14 @@ from burrito.utils.tickets_util import (
     send_notification,
 )
 
+from .utils import is_allowed_to_interact, is_comment_exist_with_error
+
 
 async def comments__create(
     creation_comment_data: CommentCreationSchema,
     _curr_user: Users = Depends(get_current_user(permission_list={"SEND_MESSAGE"}))
 ):
-    ticket: Tickets | None = is_ticket_exist(creation_comment_data.ticket_id)
+    ticket: Tickets = is_ticket_exist(creation_comment_data.ticket_id)
 
     if not can_i_interact_with_ticket(ticket, _curr_user.user_id):
         return JSONResponse(
@@ -98,7 +99,7 @@ async def comments__edit(
             _id=comment_id
         )
 
-    ticket: Tickets | None = is_ticket_exist(comment["ticket_id"])
+    ticket: Tickets = is_ticket_exist(comment["ticket_id"])
 
     send_comment_update(ticket.ticket_id, str(comment["_id"]), msg_type="MSG_EDIT")
 
@@ -119,7 +120,7 @@ async def comments__delete(
 
     mongo_delete(Comments, _id=comment["_id"])
 
-    ticket: Tickets | None = is_ticket_exist(comment["ticket_id"])
+    ticket: Tickets = is_ticket_exist(comment["ticket_id"])
 
     send_comment_update(ticket.ticket_id, str(comment["_id"]), msg_type="MSG_DELETE")
 
@@ -156,7 +157,8 @@ async def comments__get_comment_by_id(
             comment_id=str(additional_data["_id"]),
             author=make_short_user_data(
                 additional_data["author_id"],
-                hide_user_id=False if ticket_owner else (ticket.anonymous and (additional_data["author_id"] == ticket.creator.user_id))
+                hide_user_id=False if ticket_owner else (ticket.anonymous and (
+                    additional_data["author_id"] == ticket.creator.user_id))
             ),
             body=additional_data["body"],
             creation_date=additional_data["creation_date"]

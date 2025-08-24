@@ -47,13 +47,13 @@ __FILE_NOTIFICATION_LIST = {
 __Q_SEP = " > "  # separator for queue actions
 
 
-def is_ticket_exist(ticket_id: int) -> Tickets | None:
+def is_ticket_exist(ticket_id: int) -> Tickets:
     """
     Args:
         ticket_id (int): ticket ID
 
     Returns:
-        Tickets | None: return ticket object if exist else raise an error
+        Tickets: return ticket object if exist else raise an error
     """
 
     _ticket = Tickets.get_or_none(

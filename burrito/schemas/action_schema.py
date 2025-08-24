@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel
 
@@ -7,7 +7,7 @@ from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 
 class BaseActionSchems(BaseModel):
     ticket_id: int
-    author: TicketUsersInfoSchema | None
+    author: Optional[TicketUsersInfoSchema] = None
     creation_date: str
     field_name: str
     type_: str = "action"

@@ -33,7 +33,7 @@ __all__ = (
 )
 
 
-async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema | None:
+async def view_profile_by_user_id(user_id: int) -> ResponseProfileSchema:
     current_user: Users | None = get_user_by_id(user_id)
 
     faculty_object: Faculties | None = current_user.faculty

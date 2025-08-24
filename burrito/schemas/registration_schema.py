@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -7,8 +9,8 @@ class RegistrationSchema(BaseModel):
 
     login: str
     password: str
-    group: int | None = None
+    group: Optional[int] = None
     faculty: int
 
-    phone: str | None
+    phone: Optional[str] = None
     email: str

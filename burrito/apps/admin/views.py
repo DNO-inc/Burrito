@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
 from burrito.models.m_comments_model import Comments
 from burrito.models.m_ticket_files import TicketFiles
 from burrito.models.tickets_model import Tickets
@@ -45,12 +44,14 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.users_util import get_user_by_id
 
+from .utils import is_ticket_exist, make_ticket_detail_info, update_profile_as_admin
+
 
 async def admin__update_ticket_data(
     admin_updates: AdminUpdateTicketSchema,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         admin_updates.ticket_id
     )
 
@@ -85,7 +86,7 @@ async def admin__update_ticket_data(
 
 
 async def admin__get_ticket_list_by_filter(
-    filters: AdminGetTicketListSchema | None = AdminGetTicketListSchema(),
+    filters: AdminGetTicketListSchema = AdminGetTicketListSchema(),
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
     admin_filters = [
@@ -150,7 +151,7 @@ async def admin__show_detail_ticket_info(
 ):
     """Show detail ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         ticket_id_info.ticket_id
     )
 
@@ -176,7 +177,7 @@ async def admin__delete_ticket(
     deletion_ticket_data: AdminTicketIdSchema,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         deletion_ticket_data.ticket_id
     )
 
@@ -218,7 +219,7 @@ async def admin__delete_ticket(
 
 
 async def admin__update_profile(
-    profile_updated_data: AdminRequestUpdateProfileSchema = AdminRequestUpdateProfileSchema(),
+    profile_updated_data: AdminRequestUpdateProfileSchema,
     _curr_user: Users = Depends(get_current_user(permission_list={"ADMIN"}))
 ):
     if profile_updated_data.user_id in (None, _curr_user.user_id):

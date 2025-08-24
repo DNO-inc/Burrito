@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 
-from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 from burrito.models.m_actions_model import Actions, BaseAction
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
@@ -39,6 +38,8 @@ from burrito.utils.tickets_util import (
     select_filters,
 )
 from burrito.utils.users_util import get_user_by_id_or_none
+
+from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 
 
 async def tickets__show_tickets_list_by_filter(
@@ -108,7 +109,7 @@ async def tickets__show_detail_ticket_info(
 ):
     """Show detail ticket info"""
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         ticket_id_info.ticket_id
     )
 

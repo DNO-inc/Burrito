@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 from burrito.schemas.pagination_schema import BurritoPagination
@@ -5,7 +7,7 @@ from burrito.schemas.tickets_schema import TicketUsersInfoSchema
 
 
 class CommentCreationSchema(BaseModel):
-    reply_to: str | None = None
+    reply_to: Optional[str] = None
     ticket_id: int
     body: str
 
@@ -21,7 +23,7 @@ class CommentIDSchema(BaseModel):
 
 class CommentBaseDetailInfoSchema(BaseModel):
     comment_id: str
-    author: TicketUsersInfoSchema | None
+    author: Optional[TicketUsersInfoSchema] = None
     body: str
 
     creation_date: str
@@ -29,7 +31,7 @@ class CommentBaseDetailInfoSchema(BaseModel):
 
 
 class CommentDetailInfoScheme(CommentBaseDetailInfoSchema):
-    reply_to: CommentBaseDetailInfoSchema | None
+    reply_to: Optional[CommentBaseDetailInfoSchema] = None
 
 
 class RequestTicketsCommentSchema(BurritoPagination):

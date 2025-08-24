@@ -3,7 +3,6 @@ import math
 from fastapi import Depends, status
 from fastapi.responses import JSONResponse
 
-from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
 from burrito.models.liked_model import Liked
 from burrito.models.tickets_model import Tickets
 from burrito.models.user_model import Users
@@ -32,6 +31,8 @@ from burrito.utils.tickets_util import (
 )
 from burrito.utils.users_util import get_user_by_id
 
+from ..utils import am_i_own_this_ticket, is_ticket_exist, make_ticket_detail_info
+
 
 async def tickets__like_ticket(
     like_ticket_data: TicketIDValueSchema,
@@ -41,7 +42,7 @@ async def tickets__like_ticket(
 
     current_user = get_user_by_id(_curr_user.user_id)
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         like_ticket_data.ticket_id
     )
 
@@ -87,7 +88,7 @@ async def tickets__unlike_ticket(
 ):
     """Unlike ticket"""
 
-    ticket: Tickets | None = is_ticket_exist(
+    ticket: Tickets = is_ticket_exist(
         unlike_ticket_data.ticket_id
     )
 
