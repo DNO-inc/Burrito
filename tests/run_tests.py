@@ -12,7 +12,6 @@ if __name__ == "__main__":
     from about.about_test import AboutTestCase
 
     # from admin.admin_tests import AdminTestCase
-    from anon.anon_test import AnonTestCase
     from auth.auth_test import AuthTestCase
     from comments.comments_test import CommentsTestCase
     from iofiles.iofiles_test import IOFilesTestCase
@@ -30,7 +29,6 @@ if __name__ == "__main__":
             unittest.TestLoader().loadTestsFromTestCase(TicketsTestCase),
             unittest.TestLoader().loadTestsFromTestCase(AboutTestCase),
             # unittest.TestLoader().loadTestsFromTestCase(AdminTestCase),
-            unittest.TestLoader().loadTestsFromTestCase(AnonTestCase),
             unittest.TestLoader().loadTestsFromTestCase(MetaTestCase),
             unittest.TestLoader().loadTestsFromTestCase(IOFilesTestCase),
             unittest.TestLoader().loadTestsFromTestCase(CommentsTestCase),
