@@ -21,7 +21,6 @@ if __name__ == "__main__":
 
     from burrito.apps.about.router import about_router
     from burrito.apps.admin.router import admin_router
-    from burrito.apps.anon.router import anon_router
     from burrito.apps.auth.router import auth_router
     from burrito.apps.comments.router import comments_router
     from burrito.apps.iofiles.router import iofiles_router
@@ -50,7 +49,6 @@ if __name__ == "__main__":
     connect_app(app, "/auth", auth_router)
     connect_app(app, "/tickets", tickets_router)
     connect_app(app, "/admin", admin_router)
-    connect_app(app, "/anon", anon_router)
     connect_app(app, "/meta", meta_router)
     connect_app(app, "/iofiles", iofiles_router)
     connect_app(app, "/comments", comments_router)
